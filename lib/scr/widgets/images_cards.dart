@@ -19,17 +19,18 @@ class _ImageCardsState extends State<ImageCards> {
   ];
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: places.length,
-            itemBuilder: (_, index) {
-              return ImageCard(
-                place: places[index],
-                name: places[index].place,
-                days: places[index].days,
-                picture: places[index].image,
-              );
-            }));
+    // return Container(
+    //     child: ListView.builder(
+    //         scrollDirection: Axis.horizontal,
+    //         itemCount: places.length,
+    //         itemBuilder: (_, index) {
+    //           return ImageCard(
+    //             place: places[index],
+    //             name: places[index].place,
+    //             days: places[index].days,
+    //             picture: places[index].image,
+    //           );
+    //         }));
+    return Container();
   }
 }
