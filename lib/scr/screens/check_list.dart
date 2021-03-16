@@ -85,6 +85,11 @@ class TaskList extends StatelessWidget {
                 title: 'This is a task.',
                 details: '',
                 category: TaskCategory.Home)),
+        TaskTile(
+            task: Task(
+                title: 'This is a task.',
+                details: '',
+                category: TaskCategory.Home)),
       ],
     );
   }
