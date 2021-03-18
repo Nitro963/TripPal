@@ -15,7 +15,6 @@ class _LoginState extends State<Login> {
   var password = '';
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  var _forgotPasswordTextDecoration = TextDecoration.none;
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -177,6 +176,17 @@ class _LoginState extends State<Login> {
                                               color: Colors.white,
                                               fontSize: 17.0)),
                                     ),
+                                    CupertinoButton(
+                                      onPressed: () async {
+                                        // guest mode
+                                      },
+                                      child: Text('Login as Guest?',
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Colors.white,
+                                              fontSize: 17.0)),
+                                    ),
                                     Text('Login With Social Account',
                                         style: TextStyle(
                                             color: Colors.white,
@@ -202,7 +212,7 @@ class _LoginState extends State<Login> {
                                                 size: 30,
                                               ),
                                               padding: EdgeInsets.all(16),
-                                              shape: CircleBorder())
+                                              shape: CircleBorder()),
                                         ],
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly),

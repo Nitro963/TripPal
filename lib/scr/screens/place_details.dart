@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/widgets/image_card.dart';
 import 'package:travel_app/scr/widgets/place_card.dart';
+import 'package:overflow_view/overflow_view.dart';
+import 'package:readmore/readmore.dart';
 
 class PlaceDetails extends StatelessWidget {
-  final data = ['1.jpg', '1.jpg', '1.jpg'];
+  final data = ['5.jpg', '6.jpg', '7.jpg', '8.jpg'];
+  final dataNames = ['Vienna', 'Venice', 'Scotland', 'Berlin'];
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -53,17 +56,70 @@ class PlaceDetails extends StatelessWidget {
                                   .primaryTextTheme
                                   .headline1
                                   .copyWith(color: Colors.black)),
-                          SizedBox(height: 5),
                           Row(
                             children: [
-                              Icon(Icons.star, color: const Color(0xffffaa00)),
-                              Icon(Icons.star, color: const Color(0xffffaa00)),
-                              Icon(Icons.star, color: const Color(0xffffaa00)),
+                              Icon(Icons.star,
+                                  size: 20, color: const Color(0xffffaa00)),
+                              Icon(Icons.star,
+                                  size: 20, color: const Color(0xffffaa00)),
+                              Icon(Icons.star,
+                                  size: 20, color: const Color(0xffffaa00)),
+                              Icon(Icons.star,
+                                  size: 20, color: const Color(0xff8C8C98)),
+                              Icon(Icons.star,
+                                  size: 20, color: const Color(0xff8C8C98)),
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Text(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a'),
+                          SizedBox(height: 18),
+                          SizedBox(
+                            width: SizeConfig.blockSizeHorizontal * 40,
+                            child: OverflowView(
+                              spacing: -5,
+                              children: <Widget>[
+                                CircleAvatar(
+                                  child: InkWell(onTap: () {
+                                    print('Go to 9 user review');
+                                  }),
+                                  backgroundImage: AssetImage('images/9.jpg'),
+                                ),
+                                CircleAvatar(
+                                  backgroundImage: AssetImage('images/10.jpg'),
+                                ),
+                                CircleAvatar(
+                                  backgroundImage: AssetImage('images/11.jpg'),
+                                ),
+                                CircleAvatar(
+                                  backgroundImage: AssetImage('images/12.jpg'),
+                                ),
+                                CircleAvatar(
+                                  backgroundImage: AssetImage('images/12.jpg'),
+                                )
+                              ],
+                              builder: (context, remaining) {
+                                return CircleAvatar(
+                                  backgroundColor: Colors.black45,
+                                  child: InkWell(
+                                    onTap: () {
+                                      print("Go to reviews screen");
+                                    },
+                                    child: Center(
+                                      child: Text('$remaining+',
+                                          style:
+                                              TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SizedBox(height: 18),
+                          ReadMoreText(
+                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a',
+                              colorClickableText:
+                                  Theme.of(context).primaryColor,
+                              trimMode: TrimMode.Length,
+                              trimCollapsedText: '...Read more',
+                              trimExpandedText: ' Less'),
                           SizedBox(height: 3),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -167,7 +223,7 @@ class PlaceDetails extends StatelessWidget {
                                   return PlaceCard(
                                       data[index],
                                       SizeConfig.blockSizeHorizontal * 26,
-                                      'Bali');
+                                      dataNames[index]);
                                 },
                                 separatorBuilder: (context, index) {
                                   return SizedBox(width: 15);

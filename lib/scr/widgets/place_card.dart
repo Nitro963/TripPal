@@ -19,18 +19,20 @@ class PlaceCard extends StatelessWidget {
       width,
       radius: 10,
       child: Positioned(
-        top: SizeConfig.blockSizeHorizontal * 12,
+        top: SizeConfig.blockSizeHorizontal * 14,
         child: Container(
-          width: SizeConfig.blockSizeHorizontal * 14,
           height: SizeConfig.blockSizeHorizontal * 5,
           decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.6),
+              color: const Color(0xff24253D).withOpacity(0.46),
               borderRadius: BorderRadius.only(
                   topRight: Radius.circular(5),
                   bottomRight: Radius.circular(5))),
           child: Center(
-              child: Text(place,
-                  style: TextStyle(color: Colors.white, fontSize: 12))),
+              child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 14.0),
+            child:
+                Text(place, style: TextStyle(color: Colors.white, fontSize: 8)),
+          )),
         ),
       ),
     );
