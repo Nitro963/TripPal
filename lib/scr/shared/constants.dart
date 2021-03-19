@@ -34,7 +34,9 @@ const textInputDecoration = InputDecoration(
   hintStyle: TextStyle(color: Colors.white),
   errorStyle: TextStyle(color: const Color(0xffff6d6f)),
 );
-
+ShapeBorder shapeborder=RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(5.0),
+  );
 var emailRegExp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
