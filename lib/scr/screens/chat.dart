@@ -58,7 +58,7 @@ class _ChatState extends State<Chat> {
                       onChanged: (value) {
                         //Do something with the user input.
                       },
-                      decoration: textInputDecoration.copyWith(
+                      decoration: InputDecoration(
                           border: InputBorder.none,
                           hintStyle: TextStyle(color: Colors.black54),
                           hintText: 'Type your message here...'),

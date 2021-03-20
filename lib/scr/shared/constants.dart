@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
@@ -29,30 +28,41 @@ class SizeConfig {
   }
 }
 
-const textInputDecoration = InputDecoration(
-  contentPadding: EdgeInsets.all(12.0),
-  hintStyle: TextStyle(color: Colors.white),
-  errorStyle: TextStyle(color: const Color(0xffff6d6f)),
-);
-
 var emailRegExp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
 
-ThemeData appTheme = ThemeData(
-  primaryColor: const Color(0xff1367b8),
-  primaryColorLight: const Color(0xffC5CAE9),
-  primaryColorDark: const Color(0xff303F9F),
-  accentColor: Colors.lightBlueAccent,
-  shadowColor: Colors.black,
-  dividerColor: const Color(0xffBDBDBD),
-  scaffoldBackgroundColor: Colors.white,
-  primaryTextTheme: TextTheme(
-    headline1: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-    headline2: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-    headline3: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    headline4: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-    bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
-    bodyText2: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-  ),
-  fontFamily: 'Roboto',
-);
+final starsActivationColor = const Color(0xffffaa00);
+
+final starsDeactivationColor = const Color(0xff8C8C98);
+
+class Themes {
+  static ThemeData get mainTheme {
+    return ThemeData(
+        primaryColor: const Color(0xff3f72af),
+        primaryColorLight: const Color(0xffdbe2ef),
+        primaryColorDark: const Color(0xff112d4e),
+        accentColor: const Color(0xfff9f7f7),
+        shadowColor: Colors.black,
+        dividerColor: const Color(0xffBDBDBD),
+        scaffoldBackgroundColor: Colors.white,
+        primaryTextTheme: TextTheme(
+          headline1: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          headline2: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          headline3: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          headline4: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+          bodyText2: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
+        ),
+        fontFamily: 'Montserrat',
+        inputDecorationTheme: InputDecorationTheme(
+            contentPadding: EdgeInsets.all(12.0),
+            hintStyle: TextStyle(color: Colors.white),
+            errorBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: const Color(0xffff6d6f))),
+            errorStyle: TextStyle(color: const Color(0xffff6d6f))),
+        buttonTheme: ButtonThemeData(
+            buttonColor: const Color(0xff3f72af),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0)))));
+  }
+}

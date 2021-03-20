@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:readmore/readmore.dart';
+import 'package:travel_app/scr/screens/review_writing.dart';
+
 import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/widgets/avatar_overflow.dart';
 import 'package:travel_app/scr/widgets/image_card.dart';
 import 'package:travel_app/scr/widgets/place_card.dart';
-import 'package:overflow_view/overflow_view.dart';
-import 'package:readmore/readmore.dart';
+import 'package:travel_app/scr/widgets/stars.dart';
 
 class PlaceDetails extends StatelessWidget {
   final data = ['5.jpg', '6.jpg', '7.jpg', '8.jpg'];
@@ -56,62 +60,9 @@ class PlaceDetails extends StatelessWidget {
                                   .primaryTextTheme
                                   .headline1
                                   .copyWith(color: Colors.black)),
-                          Row(
-                            children: [
-                              Icon(Icons.star,
-                                  size: 20, color: const Color(0xffffaa00)),
-                              Icon(Icons.star,
-                                  size: 20, color: const Color(0xffffaa00)),
-                              Icon(Icons.star,
-                                  size: 20, color: const Color(0xffffaa00)),
-                              Icon(Icons.star,
-                                  size: 20, color: const Color(0xff8C8C98)),
-                              Icon(Icons.star,
-                                  size: 20, color: const Color(0xff8C8C98)),
-                            ],
-                          ),
+                          StaticStars(active: 3),
                           SizedBox(height: 18),
-                          SizedBox(
-                            width: SizeConfig.blockSizeHorizontal * 40,
-                            child: OverflowView(
-                              spacing: -5,
-                              children: <Widget>[
-                                CircleAvatar(
-                                  child: InkWell(onTap: () {
-                                    print('Go to 9 user review');
-                                  }),
-                                  backgroundImage: AssetImage('images/9.jpg'),
-                                ),
-                                CircleAvatar(
-                                  backgroundImage: AssetImage('images/10.jpg'),
-                                ),
-                                CircleAvatar(
-                                  backgroundImage: AssetImage('images/11.jpg'),
-                                ),
-                                CircleAvatar(
-                                  backgroundImage: AssetImage('images/12.jpg'),
-                                ),
-                                CircleAvatar(
-                                  backgroundImage: AssetImage('images/12.jpg'),
-                                )
-                              ],
-                              builder: (context, remaining) {
-                                return CircleAvatar(
-                                  backgroundColor: Colors.black45,
-                                  child: InkWell(
-                                    onTap: () {
-                                      print("Go to reviews screen");
-                                    },
-                                    child: Center(
-                                      child: Text('$remaining+',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                          AvatarOverFlowView(),
                           SizedBox(height: 18),
                           ReadMoreText(
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a',
@@ -138,77 +89,16 @@ class PlaceDetails extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () {
-                                    print('writing a review');
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ReviewWriting()),
+                                    );
                                   })
                             ],
                           ),
                           SizedBox(height: 10),
-                          // ListView(
-                          //   shrinkWrap: true,
-                          //   children: [
-                          //     Card(
-                          //       elevation: 25,
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.all(8.0),
-                          //         child: Column(
-                          //             crossAxisAlignment:
-                          //                 CrossAxisAlignment.start,
-                          //             children: [
-                          //               Row(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.start,
-                          //                 children: [
-                          //                   CircleAvatar(
-                          //                       child: Icon(Icons.person)),
-                          //                   SizedBox(width: 10),
-                          //                   Expanded(
-                          //                     child: Row(
-                          //                       mainAxisAlignment:
-                          //                           MainAxisAlignment
-                          //                               .spaceBetween,
-                          //                       children: [
-                          //                         Column(
-                          //                           mainAxisAlignment:
-                          //                               MainAxisAlignment.start,
-                          //                           crossAxisAlignment:
-                          //                               CrossAxisAlignment
-                          //                                   .start,
-                          //                           children: [
-                          //                             Text('UserName'),
-                          //                             SizedBox(height: 3),
-                          //                             Text('Review Date'),
-                          //                             SizedBox(height: 3),
-                          //                           ],
-                          //                         ),
-                          //                         Row(
-                          //                           children: [
-                          //                             Icon(Icons.star,
-                          //                                 color: const Color(
-                          //                                     0xffffaa00)),
-                          //                             Icon(Icons.star,
-                          //                                 color: const Color(
-                          //                                     0xffffaa00)),
-                          //                             Icon(Icons.star,
-                          //                                 color: const Color(
-                          //                                     0xffffaa00)),
-                          //                           ],
-                          //                         ),
-                          //                       ],
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //               SizedBox(height: 10),
-                          //               Padding(
-                          //                 padding: const EdgeInsets.all(8.0),
-                          //                 child: Text(
-                          //                     'This is review text.\nThis is review text\nThis is review text'),
-                          //               )
-                          //             ]),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                           Text('Places like Bali',
                               style: Theme.of(context)
                                   .primaryTextTheme
@@ -216,13 +106,13 @@ class PlaceDetails extends StatelessWidget {
                                   .copyWith(color: Colors.black)),
                           SizedBox(height: 20),
                           SizedBox(
-                            height: SizeConfig.blockSizeVertical * 11,
+                            height: SizeConfig.blockSizeVertical * 12,
                             child: ListView.separated(
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return PlaceCard(
                                       data[index],
-                                      SizeConfig.blockSizeHorizontal * 26,
+                                      SizeConfig.blockSizeHorizontal * 28,
                                       dataNames[index]);
                                 },
                                 separatorBuilder: (context, index) {

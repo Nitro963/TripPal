@@ -86,7 +86,7 @@ class _LoginState extends State<Login> {
                                   height: 8 * SizeConfig.blockSizeVertical),
                               TextFormField(
                                 style: TextStyle(color: Colors.white),
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Email Address',
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.at,
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                               TextFormField(
                                 style: TextStyle(color: Colors.white),
                                 obscureText: true,
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Password',
                                     prefixIcon: Icon(
                                       Icons.lock_outlined,
@@ -131,10 +131,6 @@ class _LoginState extends State<Login> {
                                       )
                                     ]),
                                 child: RaisedButton(
-                                    color: const Color(0xff1368b8),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
