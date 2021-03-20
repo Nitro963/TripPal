@@ -12,6 +12,6 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
-    home: Login(),
+    home: PlaceDetails(),
   ));
 }

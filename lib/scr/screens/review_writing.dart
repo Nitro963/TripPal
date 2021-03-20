@@ -31,7 +31,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
         body: Stack(
           children: [
             Image.asset(
-              'images/review-mod.jpg',
+              'images/review-mod-.jpg',
               fit: BoxFit.fill,
               height: double.infinity,
               width: double.infinity,
@@ -99,6 +99,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
                       ),
                     ),
                     child: TextField(
+                        autofocus: true,
                         textCapitalization: TextCapitalization.sentences,
                         keyboardType: TextInputType.multiline,
                         maxLines: 10,
