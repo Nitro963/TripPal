@@ -99,6 +99,11 @@ class _ReviewWritingState extends State<ReviewWriting> {
                       ),
                     ),
                     child: TextField(
+                        onChanged: (val) {
+                          setState(() {
+                            reviewText = val;
+                          });
+                        },
                         autofocus: true,
                         textCapitalization: TextCapitalization.sentences,
                         keyboardType: TextInputType.multiline,
@@ -141,70 +146,3 @@ class _ReviewWritingState extends State<ReviewWriting> {
         ));
   }
 }
-
-// ListView(
-//   shrinkWrap: true,
-//   children: [
-//     Card(
-//       elevation: 25,
-//       child: Padding(
-//         padding: const EdgeInsets.all(8.0),
-//         child: Column(
-//             crossAxisAlignment:
-//                 CrossAxisAlignment.start,
-//             children: [
-//               Row(
-//                 mainAxisAlignment:
-//                     MainAxisAlignment.start,
-//                 children: [
-//                   CircleAvatar(
-//                       child: Icon(Icons.person)),
-//                   SizedBox(width: 10),
-//                   Expanded(
-//                     child: Row(
-//                       mainAxisAlignment:
-//                           MainAxisAlignment
-//                               .spaceBetween,
-//                       children: [
-//                         Column(
-//                           mainAxisAlignment:
-//                               MainAxisAlignment.start,
-//                           crossAxisAlignment:
-//                               CrossAxisAlignment
-//                                   .start,
-//                           children: [
-//                             Text('UserName'),
-//                             SizedBox(height: 3),
-//                             Text('Review Date'),
-//                             SizedBox(height: 3),
-//                           ],
-//                         ),
-//                         Row(
-//                           children: [
-//                             Icon(Icons.star,
-//                                 color: const Color(
-//                                     0xffffaa00)),
-//                             Icon(Icons.star,
-//                                 color: const Color(
-//                                     0xffffaa00)),
-//                             Icon(Icons.star,
-//                                 color: const Color(
-//                                     0xffffaa00)),
-//                           ],
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//               SizedBox(height: 10),
-//               Padding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 child: Text(
-//                     'This is review text.\nThis is review text\nThis is review text'),
-//               )
-//             ]),
-//       ),
-//     ),
-//   ],
-// ),

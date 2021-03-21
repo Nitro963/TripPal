@@ -4,6 +4,7 @@ import 'package:travel_app/scr/screens/check_list.dart';
 import 'package:travel_app/scr/screens/home.dart';
 import 'package:travel_app/scr/screens/place_details.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
+import 'package:travel_app/scr/screens/reviews.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/screens/login.dart';
 
@@ -12,6 +13,6 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
-    home: PlaceDetails(),
+    home: Reviews(),
   ));
 }

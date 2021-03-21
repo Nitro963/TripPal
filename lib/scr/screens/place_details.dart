@@ -16,6 +16,7 @@ class PlaceDetails extends StatelessWidget {
   final data1 = ['13.jpg', '14.jpg'];
 
   final controller = PageController();
+
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -44,18 +45,18 @@ class PlaceDetails extends StatelessWidget {
                                         fit: BoxFit.cover);
                                   }),
                             ),
-                            Positioned(
-                              top: SizeConfig.blockSizeVertical * 10,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 15, vertical: 15),
-                                child: Text('Place details',
-                                    style: Theme.of(context)
-                                        .primaryTextTheme
-                                        .headline2
-                                        .copyWith(color: Colors.white)),
-                              ),
-                            ),
+                            // Positioned(
+                            //   top: SizeConfig.blockSizeVertical * 10,
+                            //   child: Padding(
+                            //     padding: EdgeInsets.symmetric(
+                            //         horizontal: 15, vertical: 15),
+                            //     child: Text('Place details',
+                            //         style: Theme.of(context)
+                            //             .primaryTextTheme
+                            //             .headline2
+                            //             .copyWith(color: Colors.white)),
+                            //   ),
+                            // ),
                             Positioned(
                               top: SizeConfig.blockSizeVertical * 54,
                               left: SizeConfig.blockSizeHorizontal * 40,
@@ -154,7 +155,7 @@ class PlaceDetails extends StatelessWidget {
                       child: BackButton(
                           color: Colors.white,
                           onPressed: () {
-                            Navigator.pop(context);
+                            // Navigator.pop(context);
                           }),
                     ),
                   ],

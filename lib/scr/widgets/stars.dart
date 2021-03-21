@@ -9,7 +9,7 @@ class StarsModel {
 }
 
 class StaticStars extends StatelessWidget {
-  final active;
+  final int active;
   final StarsModel starsModel;
   final MainAxisAlignment mainAxisAlignment;
 
