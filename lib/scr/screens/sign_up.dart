@@ -159,9 +159,6 @@ class _SignUpState extends State<SignUp> {
                                   }
                                   return null;
                                 },
-                                onChanged: (val) {
-                                  setState(() => password = val);
-                                },
                               ),
                               Container(
                                 width: double.infinity,

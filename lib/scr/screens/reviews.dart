@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
 import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/widgets/ReviewsBarChart.dart';
 import 'package:travel_app/scr/widgets/review_card.dart';
-import 'package:travel_app/scr/widgets/stars.dart';
+// import 'package:travel_app/scr/widgets/stars.dart';
 
 class Reviews extends StatelessWidget {
   @override
@@ -61,20 +62,41 @@ class Reviews extends StatelessWidget {
                         ],
                       ),
                     ),
-                    Row(children: [
-                      Column(children: [
-                        Text('4.5',
-                            style: TextStyle(
-                                color: const Color(0xffffaa00), fontSize: 60)),
-                        Text(
-                          'out of 5',
-                          style: TextStyle(
-                              color: const Color(0xff8c8c98), fontSize: 15),
-                        ),
-                      ]),
-                      //bar chart
-                      //total ratings
-                    ]),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(children: [
+                            Text('4.5',
+                                style: TextStyle(
+                                    color: const Color(0xffffaa00),
+                                    fontSize: 60)),
+                            Text(
+                              'out of 5',
+                              style: TextStyle(
+                                  color: const Color(0xff8c8c98), fontSize: 15),
+                            ),
+                          ]),
+                          //bar chart
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Container(
+                                  height: SizeConfig.blockSizeVertical * 15,
+                                  width: SizeConfig.blockSizeHorizontal * 60,
+                                  child: ReviewsBarChart.withSampleData()),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text('Total Rating 25',
+                                    style: TextStyle(
+                                        fontSize: 13,
+                                        color: const Color(0xff024253d))),
+                              ),
+                            ],
+                          ),
+
+                          //total ratings
+                        ]),
                     SizedBox(height: SizeConfig.blockSizeVertical * 6),
                     Expanded(
                       child: Padding(

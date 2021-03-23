@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_app/scr/screens/password_reset.dart';
 import 'package:travel_app/scr/screens/sign_up.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/services/validators.dart';
@@ -162,8 +163,13 @@ class _LoginState extends State<Login> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     CupertinoButton(
-                                      onPressed: () async {
-                                        // go to reset password screen :)
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PasswordReset()),
+                                        );
                                       },
                                       child: Text('Forgot your password?',
                                           style: TextStyle(
