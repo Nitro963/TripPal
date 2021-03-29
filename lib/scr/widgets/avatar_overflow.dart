@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:overflow_view/overflow_view.dart';
+import 'package:travel_app/scr/screens/reviews.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 class AvatarOverFlowView extends StatelessWidget {
@@ -16,6 +17,10 @@ class AvatarOverFlowView extends StatelessWidget {
           for (int i = 0; i < 5; i++)
             CircleAvatar(
               child: InkWell(onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Reviews()),
+                );
                 print('Go to user review');
               }),
               backgroundImage: AssetImage('images/${data[i]}'),
@@ -27,6 +32,10 @@ class AvatarOverFlowView extends StatelessWidget {
             child: InkWell(
               onTap: () {
                 print("Go to reviews screen");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Reviews()),
+                );
               },
               child: Center(
                 child:

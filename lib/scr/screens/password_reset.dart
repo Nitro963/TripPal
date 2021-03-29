@@ -13,11 +13,13 @@ class _PasswordResetState extends State<PasswordReset> {
   var newPassword = '';
   var stage = 0;
   final _formKey = GlobalKey<FormState>();
+  final emailFieldKey = UniqueKey();
+  final verificationFieldKey = UniqueKey();
 
   Widget buildFirstSage(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       TextFormField(
-        key: UniqueKey(),
+        key: emailFieldKey,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 2),
@@ -35,7 +37,7 @@ class _PasswordResetState extends State<PasswordReset> {
             style: TextStyle(color: Colors.white, fontSize: 19),
           ),
           onPressed: () async {
-            FocusScope.of(context).requestFocus(FocusNode());
+            // FocusScope.of(context).requestFocus(FocusNode());
             if (_formKey.currentState.validate()) {
               // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
               // if(result == null) {
@@ -52,7 +54,8 @@ class _PasswordResetState extends State<PasswordReset> {
   Widget buildSecondSage(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       TextFormField(
-        key: UniqueKey(),
+        key: verificationFieldKey,
+        autofocus: true,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 2),
@@ -69,7 +72,7 @@ class _PasswordResetState extends State<PasswordReset> {
             style: TextStyle(color: Colors.white, fontSize: 19),
           ),
           onPressed: () async {
-            FocusScope.of(context).requestFocus(FocusNode());
+            // FocusScope.of(context).requestFocus(FocusNode());
             if (_formKey.currentState.validate()) {
               // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
               // if(result == null) {
@@ -86,6 +89,7 @@ class _PasswordResetState extends State<PasswordReset> {
   Widget buildThirdSage(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       TextFormField(
+        autofocus: true,
         obscureText: true,
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
@@ -121,7 +125,7 @@ class _PasswordResetState extends State<PasswordReset> {
             style: TextStyle(color: Colors.white, fontSize: 19),
           ),
           onPressed: () async {
-            FocusScope.of(context).requestFocus(FocusNode());
+            // FocusScope.of(context).requestFocus(FocusNode());
             if (_formKey.currentState.validate()) {
               // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
               // if(result == null) {
@@ -167,7 +171,7 @@ class _PasswordResetState extends State<PasswordReset> {
               children: [
                 BackButton(
                   onPressed: () {
-                    print('return');
+                    Navigator.pop(context);
                   },
                 ),
                 Expanded(

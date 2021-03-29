@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_app/scr/screens/password_reset.dart';
+import 'package:travel_app/scr/screens/place_details.dart';
 import 'package:travel_app/scr/screens/sign_up.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/services/validators.dart';
@@ -143,17 +144,22 @@ class _LoginState extends State<Login> {
                                       if (_formKey.currentState.validate()) {
                                         // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                         // if(result == null) {
-                                        var error =
-                                            'Could not login with those credentials';
-                                        _scaffoldKey.currentState
-                                            .showSnackBar(SnackBar(
-                                          duration: new Duration(seconds: 2),
-                                          content: new Text(
-                                            error,
-                                            style: TextStyle(color: Colors.red),
-                                          ),
-                                        ));
+                                        // var error =
+                                        //     'Could not login with those credentials';
+                                        // _scaffoldKey.currentState
+                                        //     .showSnackBar(SnackBar(
+                                        //   duration: new Duration(seconds: 2),
+                                        //   content: new Text(
+                                        //     error,
+                                        //     style: TextStyle(color: Colors.red),
+                                        //   ),
+                                        // ));
                                         // }
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PlaceDetails()));
                                       }
                                     }),
                               ),

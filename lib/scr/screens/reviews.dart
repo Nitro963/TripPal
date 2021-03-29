@@ -19,6 +19,7 @@ class Reviews extends StatelessWidget {
             BackButton(
               onPressed: () {
                 print("return");
+                Navigator.pop(context);
               },
             ),
             Expanded(
