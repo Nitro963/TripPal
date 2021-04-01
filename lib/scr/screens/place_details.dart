@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+/*import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/widgets/image_card.dart';
@@ -87,72 +87,72 @@ class PlaceDetails extends StatelessWidget {
                             ],
                           ),
                           SizedBox(height: 10),
-                          // ListView(
-                          //   shrinkWrap: true,
-                          //   children: [
-                          //     Card(
-                          //       elevation: 25,
-                          //       child: Padding(
-                          //         padding: const EdgeInsets.all(8.0),
-                          //         child: Column(
-                          //             crossAxisAlignment:
-                          //                 CrossAxisAlignment.start,
-                          //             children: [
-                          //               Row(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.start,
-                          //                 children: [
-                          //                   CircleAvatar(
-                          //                       child: Icon(Icons.person)),
-                          //                   SizedBox(width: 10),
-                          //                   Expanded(
-                          //                     child: Row(
-                          //                       mainAxisAlignment:
-                          //                           MainAxisAlignment
-                          //                               .spaceBetween,
-                          //                       children: [
-                          //                         Column(
-                          //                           mainAxisAlignment:
-                          //                               MainAxisAlignment.start,
-                          //                           crossAxisAlignment:
-                          //                               CrossAxisAlignment
-                          //                                   .start,
-                          //                           children: [
-                          //                             Text('UserName'),
-                          //                             SizedBox(height: 3),
-                          //                             Text('Review Date'),
-                          //                             SizedBox(height: 3),
-                          //                           ],
-                          //                         ),
-                          //                         Row(
-                          //                           children: [
-                          //                             Icon(Icons.star,
-                          //                                 color: const Color(
-                          //                                     0xffffaa00)),
-                          //                             Icon(Icons.star,
-                          //                                 color: const Color(
-                          //                                     0xffffaa00)),
-                          //                             Icon(Icons.star,
-                          //                                 color: const Color(
-                          //                                     0xffffaa00)),
-                          //                           ],
-                          //                         ),
-                          //                       ],
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //               SizedBox(height: 10),
-                          //               Padding(
-                          //                 padding: const EdgeInsets.all(8.0),
-                          //                 child: Text(
-                          //                     'This is review text.\nThis is review text\nThis is review text'),
-                          //               )
-                          //             ]),
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
+                          ListView(
+                            shrinkWrap: true,
+                            children: [
+                              Card(
+                                elevation: 25,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            CircleAvatar(
+                                                child: Icon(Icons.person)),
+                                            SizedBox(width: 10),
+                                            Expanded(
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text('UserName'),
+                                                      SizedBox(height: 3),
+                                                      Text('Review Date'),
+                                                      SizedBox(height: 3),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Icon(Icons.star,
+                                                          color: const Color(
+                                                              0xffffaa00)),
+                                                      Icon(Icons.star,
+                                                          color: const Color(
+                                                              0xffffaa00)),
+                                                      Icon(Icons.star,
+                                                          color: const Color(
+                                                              0xffffaa00)),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 10),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                              'This is review text.\nThis is review text\nThis is review text'),
+                                        )
+                                      ]),
+                                ),
+                              ),
+                            ],
+                          ),
                           Text('Places like Bali',
                               style: Theme.of(context)
                                   .primaryTextTheme
@@ -185,3 +185,4 @@ class PlaceDetails extends StatelessWidget {
         ));
   }
 }
+*/

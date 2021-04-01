@@ -26,7 +26,7 @@ class _GridCardState extends State<GridCard> {
           children: [
           widget.item.icon,
           SizedBox(height: 15,),
-          Text(widget.item.title,style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
+          Text(getCategoryName(widget.item.title),style:TextStyle(fontSize: 22,fontWeight: FontWeight.w600)),
           SizedBox(height: 7,),
           Text(tasks,style:TextStyle(fontSize: 12,fontWeight: FontWeight.w300)),
 

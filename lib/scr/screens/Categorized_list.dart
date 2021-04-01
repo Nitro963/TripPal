@@ -15,16 +15,20 @@ class CategorizedList extends GetView{
   @override
   Widget build(BuildContext context) {
     List<Widget> _myCards=[];
+    TaskCategory tappedCat;
      controler.categorys.forEach((catelement)=>_myCards.add( GridCard(item:catelement,
      onTapCallBack: ()
      {
        List<Task> subTask=[];
-       controler.tasks.forEach((element) {
-         if(catelement.title==getCategoryName(element.category))
-        subTask.add(element);
+      tappedCat=catelement.title;
 
+       controler.tasks.forEach((element) {
+         if (catelement.title==TaskCategory.All){subTask=controler.tasks;}
+         else if(catelement.title==element.category){
+            subTask.add(element);
+         }
         });
-        Get.to(CheckList(tasks:subTask));
+        Get.to(CheckList(tasks:subTask ,cat:tappedCat));
      }
      )));
     SizeConfig.init(context);

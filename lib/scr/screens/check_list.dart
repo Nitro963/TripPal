@@ -9,7 +9,8 @@ class CheckList extends StatefulWidget {
   final String title = 'Lists';
   final ToDoListControler controler=Get.put(ToDoListControler());
   final List<Task> tasks;
-  CheckList({this.tasks});
+  final TaskCategory cat;
+  CheckList({this.tasks,this.cat});
   @override
   _CheckListState createState() => _CheckListState();
 }
@@ -37,11 +38,11 @@ class _CheckListState extends State<CheckList> {
                 CircleAvatar(
                   radius: 30,
                   backgroundColor: Colors.white,
-                  child: Icon(Icons.assignment,
-                      color: Colors.lightBlueAccent, size: 30.0),
+                  child: categoryIcon(widget.cat),
+                     // color: Colors.lightBlueAccent, size: 30.0),
                 ),
                 SizedBox(height: 10.0),
-                Text(getCategoryName(widget.tasks[0].category),
+                Text(getCategoryName(widget.cat),
                     style: Theme.of(context)
                         .textTheme
                         .headline3

@@ -69,7 +69,7 @@ class Task {
 }
 class CategoryData
 {
-  String title;
+   TaskCategory title;
   Icon icon;
   int taskCnt;
   CategoryData({this.title,this.icon,this.taskCnt});

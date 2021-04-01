@@ -12,6 +12,6 @@ void main() {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: appTheme,
-    home: CategorizedList(),
+    home: HomePage(),
   ));
 }

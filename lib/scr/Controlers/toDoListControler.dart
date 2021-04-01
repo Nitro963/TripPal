@@ -15,14 +15,14 @@ class ToDoListControler extends GetxController
       Task(title:"h",category: TaskCategory.Others),].obs;
   List categorys=[].obs;
   void addTask(Task task){tasks.add(task);updateCatInfo(task.category);}
-  void removeTask(Task task){tasks=tasks.removeAt(tasks.indexOf(task));update;}
+  void removeTask(Task task){tasks=tasks.removeAt(tasks.indexOf(task));}
   var _mapOfTasks=Map().obs;
   void updateCatInfo(TaskCategory cat){print(tasks.length);if(_mapOfTasks.containsKey(cat))_mapOfTasks[cat]+=1;else _mapOfTasks[cat]=1;}
  
  
   @override
   void onInit() {
-    TaskCategory.values.forEach((e) => categorys.add(CategoryData(title: getCategoryName(e),taskCnt:0,icon:categoryIcon(e))));
+    TaskCategory.values.forEach((e) => categorys.add(CategoryData(title: e,taskCnt:0,icon:categoryIcon(e))));
     tasks.forEach((el)
     {
       if(el.category !=TaskCategory.All)

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+
+const List<String> continent=["Europe","Asia","Africa", "North America",  "Australia",   "South America","Antarctica"];
+
 class SizeConfig {
   static MediaQueryData _mediaQueryData;
   static double screenWidth;
@@ -13,12 +16,18 @@ class SizeConfig {
   static double safeBlockHorizontal;
   static double safeBlockVertical;
 
+  static bool isLandScape;
+  static bool isTab;
+  
   static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
     screenWidth = _mediaQueryData.size.width;
     screenHeight = _mediaQueryData.size.height;
     blockSizeHorizontal = screenWidth / 100;
     blockSizeVertical = screenHeight / 100;
+
+    isLandScape=_mediaQueryData.orientation==Orientation.landscape ? true:false;
+    isTab=_mediaQueryData.size.aspectRatio >= 0.74 && _mediaQueryData.size.aspectRatio < 1.5 ? true :false;
 
     _safeAreaHorizontal =
         _mediaQueryData.padding.left + _mediaQueryData.padding.right;
@@ -35,7 +44,7 @@ const textInputDecoration = InputDecoration(
   errorStyle: TextStyle(color: const Color(0xffff6d6f)),
 );
 ShapeBorder shapeborder=RoundedRectangleBorder(
-    borderRadius: BorderRadius.circular(5.0),
+    borderRadius: BorderRadius.circular(15.0),
   );
 var emailRegExp = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
@@ -53,6 +62,8 @@ ThemeData appTheme = ThemeData(
     headline2: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
     headline3: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
     headline4: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+    headline5: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+
     bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
     bodyText2: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
   ),
