@@ -38,6 +38,8 @@ dependencies:
   line_icons: ^2.0.1
   smooth_page_indicator: ^0.2.3
   overflow_view: ^0.2.2
+  readmore: ^1.0.1
+  charts_flutter: ^0.10.0
 
 
 dev_dependencies:

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_app/scr/screens/password_reset.dart';
+import 'package:travel_app/scr/screens/place_details.dart';
 import 'package:travel_app/scr/screens/sign_up.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/services/validators.dart';
@@ -15,7 +17,6 @@ class _LoginState extends State<Login> {
   var password = '';
   final _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  var _forgotPasswordTextDecoration = TextDecoration.none;
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -87,7 +88,7 @@ class _LoginState extends State<Login> {
                                   height: 8 * SizeConfig.blockSizeVertical),
                               TextFormField(
                                 style: TextStyle(color: Colors.white),
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Email Address',
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.at,
@@ -103,7 +104,7 @@ class _LoginState extends State<Login> {
                               TextFormField(
                                 style: TextStyle(color: Colors.white),
                                 obscureText: true,
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Password',
                                     prefixIcon: Icon(
                                       Icons.lock_outlined,
@@ -132,10 +133,6 @@ class _LoginState extends State<Login> {
                                       )
                                     ]),
                                 child: RaisedButton(
-                                    color: const Color(0xff1368b8),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
@@ -147,19 +144,24 @@ class _LoginState extends State<Login> {
                                       if (_formKey.currentState.validate()) {
                                         // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                         // if(result == null) {
-                                        var error =
-                                            'Could not login with those credentials';
-                                        _scaffoldKey.currentState
-                                            .showSnackBar(SnackBar(
-                                          duration: new Duration(seconds: 2),
-                                          content: new Text(
-                                            error,
-                                            style: TextStyle(color: Colors.red),
-                                          ),
-                                        ));
+                                        // var error =
+                                        //     'Could not login with those credentials';
+                                        // _scaffoldKey.currentState
+                                        //     .showSnackBar(SnackBar(
+                                        //   duration: new Duration(seconds: 2),
+                                        //   content: new Text(
+                                        //     error,
+                                        //     style: TextStyle(color: Colors.red),
+                                        //   ),
+                                        // ));
                                         // }
-                                      }
-                                    }),
+                                    /*    Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PlaceDetails()));*/
+                                      
+                                    }}),
                               ),
                               Expanded(
                                 child: Column(
@@ -167,10 +169,26 @@ class _LoginState extends State<Login> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     CupertinoButton(
-                                      onPressed: () async {
-                                        // go to reset password screen :)
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PasswordReset()),
+                                        );
                                       },
                                       child: Text('Forgot your password?',
+                                          style: TextStyle(
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: Colors.white,
+                                              fontSize: 17.0)),
+                                    ),
+                                    CupertinoButton(
+                                      onPressed: () async {
+                                        // guest mode
+                                      },
+                                      child: Text('Login as Guest?',
                                           style: TextStyle(
                                               decoration:
                                                   TextDecoration.underline,
@@ -202,7 +220,7 @@ class _LoginState extends State<Login> {
                                                 size: 30,
                                               ),
                                               padding: EdgeInsets.all(16),
-                                              shape: CircleBorder())
+                                              shape: CircleBorder()),
                                         ],
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly),

@@ -72,7 +72,7 @@ class _LoginState extends State<Login2> {
                     ),
                     Spacer(flex: 2),
                     TextFormField(
-                      decoration: textInputDecoration.copyWith(
+                      decoration: InputDecoration(
                           hintText: 'Email Address',
                           prefixIcon: Icon(
                             Icons.alternate_email_sharp,
@@ -87,7 +87,7 @@ class _LoginState extends State<Login2> {
                     SizedBox(height: 30.0),
                     TextFormField(
                       obscureText: true,
-                      decoration: textInputDecoration.copyWith(
+                      decoration: InputDecoration(
                           hintText: 'Password',
                           prefixIcon: Icon(
                             Icons.lock,

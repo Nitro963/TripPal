@@ -31,7 +31,7 @@ class _SignUpState extends State<SignUp> {
           child: Stack(
             children: [
               Image.asset(
-                'images/sign up.jpg',
+                'images/sign up-mod.jpg',
                 fit: BoxFit.fill,
                 height: double.infinity,
                 width: double.infinity,
@@ -39,14 +39,14 @@ class _SignUpState extends State<SignUp> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  height: 35 * SizeConfig.blockSizeVertical,
+                  height: 47 * SizeConfig.blockSizeVertical,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        Colors.black.withOpacity(0.7),
+                        Colors.black.withOpacity(0.6),
                         Colors.black.withOpacity(0.6),
                         Colors.black.withOpacity(0.5),
                         Colors.black.withOpacity(0.4),
@@ -87,9 +87,7 @@ class _SignUpState extends State<SignUp> {
                                     child: TextFormField(
                                       textCapitalization:
                                           TextCapitalization.sentences,
-                                      decoration: textInputDecoration.copyWith(
-                                        errorStyle: TextStyle(
-                                            color: const Color(0xffcc0000)),
+                                      decoration: InputDecoration(
                                         hintText: 'First name',
                                         prefixIcon: Icon(
                                           Icons.person,
@@ -108,9 +106,7 @@ class _SignUpState extends State<SignUp> {
                                     child: TextFormField(
                                       textCapitalization:
                                           TextCapitalization.sentences,
-                                      decoration: textInputDecoration.copyWith(
-                                          errorStyle: TextStyle(
-                                              color: const Color(0xffcc0000)),
+                                      decoration: InputDecoration(
                                           hintText: 'Last name'),
                                       validator: (val) => val.isEmpty
                                           ? "Please fill your last name"
@@ -123,7 +119,7 @@ class _SignUpState extends State<SignUp> {
                                 ],
                               ),
                               TextFormField(
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Email Address',
                                     prefixIcon: Icon(
                                       FontAwesomeIcons.at,
@@ -136,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               TextFormField(
                                 obscureText: true,
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Password',
                                     prefixIcon: Icon(
                                       Icons.lock_outlined,
@@ -149,7 +145,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               TextFormField(
                                 obscureText: true,
-                                decoration: textInputDecoration.copyWith(
+                                decoration: InputDecoration(
                                     hintText: 'Re-type password',
                                     prefixIcon: Icon(
                                       Icons.lock_outlined,
@@ -162,9 +158,6 @@ class _SignUpState extends State<SignUp> {
                                     return 'Those passwords did not match. Try again.';
                                   }
                                   return null;
-                                },
-                                onChanged: (val) {
-                                  setState(() => password = val);
                                 },
                               ),
                               Container(
@@ -184,9 +177,6 @@ class _SignUpState extends State<SignUp> {
                                     ]),
                                 child: RaisedButton(
                                     color: const Color(0xff1368b8),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10.0))),
                                     child: Text(
                                       'Sign Up',
                                       style: TextStyle(
