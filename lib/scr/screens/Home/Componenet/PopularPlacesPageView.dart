@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:travel_app/scr/Models/DemoData.dart';
 import 'package:travel_app/scr/models/places.dart';
 
 import 'PopularPlaces_card.dart';
 class PopularPlacesPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Place> demoPlaces= [
-      Place(place:"Damascus syria",image: "images/1.jpg",days:3,raiting: 0.5),
-      Place(place:"Paris France",image: "images/2.jpg",days:3,raiting: 4.5),
-      Place(place:"NewYork USA",image: "images/3.jpg",days:3,raiting: 5),
-      Place(place:"Australia Australia",image: "images/4.jpg",days:3,raiting: 3.5),
-
-      
-    ];
+    
     PageController controller =PageController(viewportFraction: 0.95);
 
     return SizedBox

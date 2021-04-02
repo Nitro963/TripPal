@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:travel_app/scr/models/tasks.dart";
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 class GridCard extends StatefulWidget {
   final CategoryData item;
   final Function onTapCallBack;

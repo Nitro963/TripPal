@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/models/places.dart';
-import 'package:travel_app/scr/widgets/place_card.dart';
+import 'package:travel_app/scr/screens/Home/Componenet/place_card.dart';
 class TopCities extends StatelessWidget {
   List<Place> demoPlaces= [
       Place(place:"Damascus syria",image: "images/1.jpg",days:3,raiting: 0.5),

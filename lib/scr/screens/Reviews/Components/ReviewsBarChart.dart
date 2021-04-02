@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 class ReviewBarChartModel {
   final int count;

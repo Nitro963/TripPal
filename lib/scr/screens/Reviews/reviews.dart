@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/screens/review_writing.dart';
-import 'package:travel_app/scr/shared/constants.dart';
-import 'package:travel_app/scr/widgets/ReviewsBarChart.dart';
-import 'package:travel_app/scr/widgets/review_card.dart';
+import 'package:travel_app/scr/screens/Reviews/review_writing.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/screens/Reviews/Components/ReviewsBarChart.dart';
+import 'package:travel_app/scr/screens/Reviews/Components/review_card.dart';
 // import 'package:travel_app/scr/widgets/stars.dart';
 
 class Reviews extends StatelessWidget {

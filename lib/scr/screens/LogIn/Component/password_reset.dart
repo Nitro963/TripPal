@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/services/validators.dart';
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/shared/services/validators.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 class PasswordReset extends StatefulWidget {
   @override

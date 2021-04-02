@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/Models/DemoData.dart';
+import 'package:travel_app/scr/Models/blog.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 class BlogList extends StatelessWidget {
-  List<Blog> blogs =[
-    Blog(city: "Damascus syria",image:"images/1.jpg",info: "afdglgunw rwrg jgw;g jwgl rjwgw" ),
-    Blog(city: "Paris France",image:"images/2.jpg",info: "afdglgunw rwrg jgw;g jwgl rjwgw" ),
-    Blog(city: "NewYork syria",image:"images/4.jpg",info: "afdglgunw rwrg jgw;g jwgl rjwgw" ),
-
-  ];
+  
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -71,12 +68,4 @@ class BlogTile extends StatelessWidget {
       ),
     );
   }
-}
-class Blog
-{
-  String image;
-  String city;
-  String info;
-  Blog({this.image,this.city,this.info});
-
 }

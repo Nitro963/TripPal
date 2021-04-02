@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:overflow_view/overflow_view.dart';
-import 'package:travel_app/scr/screens/reviews.dart';
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/screens/Reviews/reviews.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 class AvatarOverFlowView extends StatelessWidget {
   final data = ['9.jpg', '10.jpg', '11.jpg', '12.jpg', '12.jpg'];

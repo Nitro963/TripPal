@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
 import 'package:travel_app/scr/Controlers/toDoListControler.dart';
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 import "package:intl/intl.dart";
 import "package:footer/footer_view.dart";
 import "package:footer/footer.dart";
