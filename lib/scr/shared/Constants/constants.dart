@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 
-const List<String> continent=["Europe","Asia","Africa", "North America",  "Australia",   "South America","Antarctica"];
 
 class SizeConfig {
   static MediaQueryData _mediaQueryData;

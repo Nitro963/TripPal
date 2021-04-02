@@ -5,8 +5,8 @@ import 'package:travel_app/scr/shared/constants.dart';
 import "package:get/get.dart";
 import "package:travel_app/scr/Controlers/toDoListControler.dart";
 
-import '../models/tasks.dart';
-import '../models/tasks.dart';
+import '../../../models/tasks.dart';
+import '../../../models/tasks.dart';
 
   class CategoryBottomSheet  extends StatelessWidget {
     final GlobalKey<FormState> _key=GlobalKey<FormState>();

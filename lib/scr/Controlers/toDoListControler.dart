@@ -1,18 +1,12 @@
 import "package:get/get.dart";
+import 'package:travel_app/scr/Models/DemoData.dart';
 import "package:travel_app/scr/models/tasks.dart";
-import 'package:travel_app/scr/widgets/grid_cards.dart';
+import 'package:travel_app/scr/screens/ToDoList/Component/grid_cards.dart';
 import '../models/tasks.dart';
 
 class ToDoListControler extends GetxController
 {
-  List tasks=[Task(title:"a",category: TaskCategory.Home),
-      Task(title:"b",category: TaskCategory.Airport),
-      Task(title:"c",category: TaskCategory.Airport),
-      Task(title:"d",category: TaskCategory.Airport),
-      Task(title:"e",category: TaskCategory.Airport),
-      Task(title:"f",category: TaskCategory.Shopping),
-      Task(title:"g",category: TaskCategory.Shopping),
-      Task(title:"h",category: TaskCategory.Others),].obs;
+  List tasks = myTasks.obs;
   List categorys=[].obs;
   void addTask(Task task){tasks.add(task);updateCatInfo(task.category);}
   void removeTask(Task task){tasks=tasks.removeAt(tasks.indexOf(task));}

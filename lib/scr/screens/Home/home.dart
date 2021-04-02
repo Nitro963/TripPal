@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/models/places.dart';
-import 'package:travel_app/scr/widgets/BlogListWidget.dart';
-import 'package:travel_app/scr/widgets/BottomNavigationBar.dart';
-import 'package:travel_app/scr/widgets/ContienetListView.dart';
-import 'package:travel_app/scr/widgets/PopularPlacesPageView.dart';
-import 'package:travel_app/scr/widgets/TopCitiesWidget.dart';
+
+import 'Componenet/BlogListWidget.dart';
+import 'Componenet/BottomNavigationBar.dart';
+import 'Componenet/ContienetListView.dart';
+import 'Componenet/PopularPlacesPageView.dart';
+import 'Componenet/TopCitiesWidget.dart';
+
 
 class HomePage extends StatelessWidget {
   @override
@@ -15,7 +16,7 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
         title:Padding(
-          padding: EdgeInsets.only(left: 7.0),
+          padding: EdgeInsets.only(left: 10.0),
           child:Text("Enjoy Your Life With us !!",style: TextStyle(color: Colors.black54),) ,
         ),
         actions: [

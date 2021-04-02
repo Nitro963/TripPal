@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_app/scr/screens/login.dart';
+import 'package:travel_app/scr/screens/LogIn/login.dart';
 import 'package:travel_app/scr/services/validators.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 

@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/Controlers/toDoListControler.dart';
 import 'package:travel_app/scr/models/tasks.dart';
-import 'package:travel_app/scr/screens/check_list.dart';
+import 'package:travel_app/scr/screens/ToDoList/check_list.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-import'package:travel_app/scr/screens/AddTaskScreen.dart';
+import'package:travel_app/scr/screens/ToDoList/AddTaskScreen.dart';
 import "package:get/get.dart";
-import 'package:travel_app/scr/widgets/grid_cards.dart';
+import 'package:travel_app/scr/screens/ToDoList/Component/grid_cards.dart';
 
 class CategorizedList extends GetView{
   final String title = 'Lists';

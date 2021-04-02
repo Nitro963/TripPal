@@ -7,8 +7,8 @@ import 'package:travel_app/scr/shared/constants.dart';
 import "package:intl/intl.dart";
 import "package:footer/footer_view.dart";
 import "package:footer/footer.dart";
-import "package:travel_app/scr/screens/CategoryBottomSheet.dart";
-import '../models/tasks.dart';
+import 'package:travel_app/scr/screens/ToDoList/Component/CategoryBottomSheet.dart';
+import '../../models/tasks.dart';
 
 
 class AddTask extends StatefulWidget {

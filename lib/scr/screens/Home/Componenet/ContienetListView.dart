@@ -7,6 +7,8 @@ class ContinentListView extends StatefulWidget {
 
 class _ContinentListViewState extends State<ContinentListView> {
   int selected_index=-1;
+  List<String> continent=["Europe","Asia","Africa", "North America",  "Australia",   "South America","Antarctica"];
+
   @override
   Widget build(BuildContext context) {
     return /*Padding(

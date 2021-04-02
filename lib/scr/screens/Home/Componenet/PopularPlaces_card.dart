@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/models/places.dart';
+import 'package:travel_app/scr/shared/Widgets/Avatars_List.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-
-
-import 'Avatars_List.dart';
 class PopularPlacesCard extends StatefulWidget {
  final Place place;
   PopularPlacesCard({this.place});
