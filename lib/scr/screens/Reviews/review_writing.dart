@@ -9,7 +9,7 @@ class ReviewWriting extends StatefulWidget {
 
 class _ReviewWritingState extends State<ReviewWriting> {
   String reviewText = '';
-  int rate = 0;
+  double rate = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   void showErrorSnackBar(String error) {
@@ -61,18 +61,8 @@ class _ReviewWritingState extends State<ReviewWriting> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ClickableStars(
-                          callback: (indicator) {
-                            setState(() {
-                              rate = indicator;
-                            });
-                          },
-                          starsModel: StarsModel(
-                              5,
-                              784 /
-                                  (SizeConfig.blockSizeVertical *
-                                      SizeConfig.blockSizeHorizontal)),
-                          mainAxisAlignment: MainAxisAlignment.center),
+                  StarRating(rating:this.rate,color: Colors.amber,onRatingChanged: (rating)=>setState(()=>this.rate=rating),),
+
                       Text(
                         'Tap a star to rate',
                         style: TextStyle(color: Colors.white54),

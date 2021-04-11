@@ -39,10 +39,10 @@ class ReviewCard extends StatelessWidget {
                               fontSize: 19, color: const Color(0xff24253D)),
                         ),
                         SizedBox(height: 5),
-                        StaticStars(active: 4, starsModel: StarsModel(5, 17)),
+                    StarRating(rating:4,color: Colors.amber,onRatingChanged: (rating){},)
                       ],
                     ),
-                  ],
+                  ], 
                 ),
                 Text('June 2017',
                     style: TextStyle(
