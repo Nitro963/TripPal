@@ -16,9 +16,10 @@ class PlaceCard extends StatelessWidget {
       place:place,
       radius: 10,
       child: Positioned(
-        top: SizeConfig.blockSizeHorizontal * 16,
+        bottom: SizeConfig.blockSizeVertical* 2,
         child: Container(
-          height: SizeConfig.blockSizeHorizontal * 6,
+          padding: EdgeInsets.only(left:6),
+          height: SizeConfig.blockSizeVertical * 2,
           decoration: BoxDecoration(
               color: const Color(0xff24253D).withOpacity(0.46),
               borderRadius: BorderRadius.only(

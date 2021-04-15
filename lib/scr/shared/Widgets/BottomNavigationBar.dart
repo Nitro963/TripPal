@@ -5,6 +5,7 @@ import 'package:travel_app/scr/screens/Home/home.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/LogIn/login.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/scr/screens/Profile/Profile.dart';
 
 class BottomNavBar extends StatefulWidget {
   int currentIndex;
@@ -20,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     NavItem(icon: Icons.flight, title: "Flights",nav:(){Get.to(Login());}),
     NavItem(icon: Icons.chat, title: "ChatBot",nav: (){Get.to(Chat());}),
     NavItem(icon: Icons.hotel, title: "Hotels",nav:(){Get.to(HotelSearchPage());}),
-    NavItem(icon: Icons.person, title: "Profile"),
+    NavItem(icon: Icons.person, title: "Profile",nav:(){Get.to(ProfilePage());}),
   ];
   @override
   void initState() {

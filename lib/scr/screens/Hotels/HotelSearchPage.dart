@@ -10,6 +10,7 @@ import 'package:travel_app/scr/shared/services/validators.dart';
 class HotelSearchPage extends StatelessWidget {
   String _city = '';
   DateTimeRange _date;
+  int selectedIndex=0;
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -113,11 +114,13 @@ class HotelSearchPage extends StatelessWidget {
                             iconSize: 24,
                             elevation: 16,
                             style: const TextStyle(color: Colors.deepPurple),
-                            value: rooms[0],
+                            value: rooms[selectedIndex],
+                            onChanged: (val){selectedIndex=rooms.indexOf(val);
+                            },
                             items: rooms.map((String item) {
                               return DropdownMenuItem<String>(
                                 value: item,
-                                child: Text(item),
+                                child: Text(item,style: TextStyle(color:Colors.grey[800])),
                               );
                             }).toList(),
                           ),

@@ -8,7 +8,7 @@ class PopularPlacesPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
-    PageController controller =PageController(viewportFraction: 0.95);
+    PageController controller =PageController(viewportFraction: 0.99);
 
     return SizedBox
     (
@@ -29,7 +29,7 @@ class PopularPlacesPageView extends StatelessWidget {
                 itemCount: demoPlaces.length,
                 controller: controller,
                 itemBuilder: (context,index)=>Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(4.0),
                   child: PopularPlacesCard(place:demoPlaces[index]),
                 )
                 

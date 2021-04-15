@@ -9,15 +9,15 @@ class HotelResult extends StatelessWidget {
   Widget build(BuildContext context) {  
     SizeConfig.init(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       
-        body: SafeArea(
-            child: Column(
+        body:  ListView(
 
              children: [
                UpperNavBar(onTapCallBack: (index){print(index.toString());},),
                ListView.builder(shrinkWrap: true,itemCount: myHotels.length, itemBuilder:(context,index)=> HotelCard(hotel:myHotels[index])),
               ],
             ),
-            ));
+            );
   }
 }
