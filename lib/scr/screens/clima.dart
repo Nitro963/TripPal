@@ -36,15 +36,15 @@ class _ClimaState extends State<Clima> {
                 // Navigator.pop(context);
               }),
           actions: [
-            IconButton(
-              icon: Icon(Icons.add, color: Colors.white),
-              onPressed: () {
-                // controller.jumpToPage(2);
-                // controller.animateToPage(2,
-                //     duration: Duration(milliseconds: 500),
-                //     curve: Curves.easeInCubic);
-              },
-            ),
+            // IconButton(
+            //   icon: Icon(Icons.add, color: Colors.white),
+            //   onPressed: () {
+            //     // controller.jumpToPage(2);
+            //     // controller.animateToPage(2,
+            //     //     duration: Duration(milliseconds: 500),
+            //     //     curve: Curves.easeInCubic);
+            //   },
+            // ),
             IconButton(
               icon: Icon(Icons.search, color: Colors.white),
               onPressed: () {},
@@ -57,9 +57,8 @@ class _ClimaState extends State<Clima> {
             fit: BoxFit.cover,
             height: double.infinity,
             width: double.infinity,
-          ),
-          Container(
-            decoration: BoxDecoration(color: Colors.black38),
+            colorBlendMode: BlendMode.darken,
+            color: Colors.black38,
           ),
           Positioned(
               top: 90,

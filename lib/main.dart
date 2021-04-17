@@ -14,6 +14,6 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
-    home: Clima(),
+    home: Reviews(),
   ));
 }

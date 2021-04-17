@@ -22,6 +22,10 @@ abstract class RequestBuilder {
     headers[name] = value;
   }
 
+  void addBodyField(String name, String value) {
+    body[name] = value;
+  }
+
   void _clear() {
     queryParameters = {};
     headers = {};
