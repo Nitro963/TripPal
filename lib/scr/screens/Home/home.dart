@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 import 'Componenet/BlogListWidget.dart';
@@ -16,6 +17,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
+      drawer: HomeDrawer(),
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,

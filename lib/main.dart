@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:travel_app/scr/screens/Chat/chat.dart';
 import 'package:travel_app/scr/screens/ToDoList/check_list.dart';
 import 'package:travel_app/scr/screens/Home/home.dart';
@@ -18,9 +19,14 @@ void main() async {
    await location.init();  
    Get.put(location);
   runApp(
-    GetMaterialApp(
-    debugShowCheckedModeBanner: false,
-    theme: appTheme,
-    home: HomePage(),
-  ));
+    AnnotatedRegion<SystemUiOverlayStyle>(
+   value: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+  ),
+          child: GetMaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: appTheme,
+      home: HomePage(),
+  ),
+    ));
 }
