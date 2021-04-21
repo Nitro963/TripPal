@@ -10,9 +10,9 @@ Future sendRequest(http.Request request) async {
 abstract class RequestBuilder {
   String endpoint;
   String path;
-  Map<String, String> queryParameters;
-  Map<String, String> headers;
-  Map<String, String> body;
+  Map<String, String> queryParameters = {};
+  Map<String, String> headers = {};
+  Map<String, String> body = {};
 
   void addQueryParameter(String name, String value) {
     queryParameters[name] = value;
@@ -72,5 +72,22 @@ class OpenWeatherMapAPI {
     _weatherRequestBuilder.addQueryParameter('lat', lat);
     _weatherRequestBuilder.addQueryParameter('lon', lon);
     return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
+  }
+}
+
+class PhotonRequestBuilder extends RequestBuilder {
+  PhotonRequestBuilder(String path) {
+    this.endpoint = 'photon.komoot.io';
+    this.path = path;
+  }
+}
+
+class PhotonAPI {
+  static final _photonRequestBuilder = PhotonRequestBuilder('/api/');
+  static dynamic getQuery(String query) async {
+    _photonRequestBuilder.addQueryParameter('q', query);
+    _photonRequestBuilder.addQueryParameter('lang', 'en');
+    _photonRequestBuilder.addQueryParameter('limit', '6');
+    return await sendRequest(_photonRequestBuilder.buildRequest('get'));
   }
 }

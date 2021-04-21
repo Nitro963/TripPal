@@ -18,14 +18,16 @@ class WeatherInfo {
       this.weatherMainCondition = 'Clear',
       this.weatherIcon = '01n'});
 
-  WeatherInfo.fromOpenWeatherMapJson(json) {
-    this.cityName = json['name'];
-    this.temperature = json['main']['temp'];
-    this.humidity = json['main']['humidity'];
-    this.cloudiness = json['clouds']['all'];
-    this.timeZoneShift = json['timezone'];
-    this.windSpeed = json['wind']['speed'];
-    this.weatherMainCondition = json['weather'][0]['main'];
-    this.weatherIcon = json['weather'][0]['icon'];
+  factory WeatherInfo.fromOpenWeatherMapJson(json) {
+    return WeatherInfo(
+      cityName: json['name'],
+      temperature: json['main']['temp'],
+      humidity: json['main']['humidity'],
+      cloudiness: json['clouds']['all'],
+      timeZoneShift: json['timezone'],
+      windSpeed: json['wind']['speed'],
+      weatherMainCondition: json['weather'][0]['main'],
+      weatherIcon: json['weather'][0]['icon'],
+    );
   }
 }
