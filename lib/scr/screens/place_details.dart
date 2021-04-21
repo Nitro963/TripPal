@@ -1,11 +1,13 @@
-import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:readmore/readmore.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
+import 'package:travel_app/scr/services/transformers.dart';
 
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/widgets/avatar_overflow.dart';
@@ -93,6 +95,29 @@ class DetailsContainer extends StatelessWidget {
                       );
                     }),
               ),
+              // SizedBox(height: 10),
+              // Text('Properties',
+              //     style: Theme.of(context)
+              //         .primaryTextTheme
+              //         .headline3
+              //         .copyWith(color: Colors.black)),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Column(
+              //       mainAxisAlignment: MainAxisAlignment.start,
+              //       crossAxisAlignment: CrossAxisAlignment.start,
+              //       children: [
+              //         Text('Wifi'),
+              //         Text('Pool'),
+              //         Text('Bar'),
+              //         Text('Air conditioning'),
+              //         Text(''),
+              //         Text(''),
+              //         Text(''),
+              //         Text(''),
+              //         Text(''),
+              //       ]),
+              // ),
               SizedBox(height: 10),
               Text('Places like Bali',
                   style: Theme.of(context)
@@ -124,12 +149,15 @@ class DetailsContainer extends StatelessWidget {
 }
 
 class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
-  final data;
-  final controller = PageController();
-  PlaceDetailsDelegate(this.data);
+  final List data;
+  TransformerPageController controller;
+  PlaceDetailsDelegate(this.data) {
+    this.controller =
+        TransformerPageController(itemCount: data.length, reverse: true);
+  }
 
   double appBarOpacity(double shrinkOffset) {
-    return min(1, max(0.0, shrinkOffset) / (maxExtent - minExtent));
+    return math.min(1, math.max(0.0, shrinkOffset) / (maxExtent - minExtent));
   }
 
   @override
@@ -158,9 +186,10 @@ class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
           Container(
             width: double.infinity,
             height: SizeConfig.blockSizeVertical * 56,
-            child: PageView.builder(
+            child: TransformerPageView(
                 scrollDirection: Axis.horizontal,
-                controller: controller,
+                pageController: controller,
+                transformer: DeepthPageTransformer(),
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   return Image.asset(
@@ -176,14 +205,18 @@ class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
           Positioned(
             top: SizeConfig.blockSizeVertical * 54,
             left: SizeConfig.blockSizeHorizontal * 40,
-            child: SmoothPageIndicator(
-              controller: controller,
-              count: data.length,
-              effect: ExpandingDotsEffect(
-                activeDotColor: Colors.white,
-                dotWidth: 15,
-                dotHeight: 4,
-                spacing: 3,
+            child: Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.rotationY(math.pi),
+              child: SmoothPageIndicator(
+                controller: controller,
+                count: data.length,
+                effect: ExpandingDotsEffect(
+                  activeDotColor: Colors.white,
+                  dotWidth: 15,
+                  dotHeight: 4,
+                  spacing: 3,
+                ),
               ),
             ),
           ),
