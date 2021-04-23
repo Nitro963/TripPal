@@ -84,7 +84,7 @@ class Themes {
         primaryColor: const Color(0xff3f72af),
         primaryColorLight: const Color(0xffdbe2ef),
         primaryColorDark: const Color(0xff112d4e),
-        accentColor: const Color(0xfff9f7f7),
+        accentColor: Colors.teal[600],
         shadowColor: Colors.black,
         dividerColor: const Color(0xffBDBDBD),
         scaffoldBackgroundColor: Colors.white,
@@ -93,10 +93,24 @@ class Themes {
           headline2: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           headline3: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           headline4: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),
+          bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
           bodyText2: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
         ),
-        fontFamily: 'Montserrat',
+        textTheme: TextTheme(
+          headline1: TextStyle(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          headline2: TextStyle(
+              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+          headline3: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+          headline4: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+          bodyText1: TextStyle(
+              color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal),
+          bodyText2: TextStyle(
+              color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+        //fontFamily: 'Montserrat',
         inputDecorationTheme: InputDecorationTheme(
             contentPadding: EdgeInsets.all(12.0),
             hintStyle: TextStyle(color: Colors.white),
