@@ -18,7 +18,7 @@ class WeatherInfo {
       this.weatherMainCondition = 'Clear',
       this.weatherIcon = '01n'});
 
-  factory WeatherInfo.fromOpenWeatherMapJson(json) {
+  factory WeatherInfo.fromOpenWeatherMapJson(Map<String, dynamic> json) {
     return WeatherInfo(
       cityName: json['name'],
       temperature: json['main']['temp'],

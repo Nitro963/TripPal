@@ -93,9 +93,9 @@ class _ClimaState extends State<Clima> {
                   print('refresh weather state');
                 }),
             IconButton(
-                icon: Icon(Icons.search),
+                icon: Icon(Icons.playlist_add),
                 onPressed: () {
-                  print('Search Bar');
+                  print('Places List');
                 }),
           ],
         ),

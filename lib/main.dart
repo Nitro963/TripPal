@@ -5,6 +5,7 @@ import 'package:travel_app/scr/models/search_model.dart';
 import 'package:travel_app/scr/screens/chat.dart';
 import 'package:travel_app/scr/screens/check_list.dart';
 import 'package:travel_app/scr/screens/clima.dart';
+import 'package:travel_app/scr/screens/clima_places.dart';
 import 'package:travel_app/scr/screens/password_reset.dart';
 import 'package:travel_app/scr/screens/place_details.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
@@ -22,13 +23,12 @@ class Home extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ClimaSearch(),
+                  builder: (context) => ClimaPlaces(),
                 ));
           },
         ),
         body: Align(
-          child: Text("Welcome to TripPal App.",
-              style: TextStyle(color: Colors.black)),
+          child: Text("Welcome to TripPal App."),
         ));
   }
 }
