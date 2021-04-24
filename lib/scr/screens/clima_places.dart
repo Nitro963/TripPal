@@ -5,7 +5,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
+import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:travel_app/scr/models/search_model.dart';
+import 'package:travel_app/scr/screens/clima_search.dart';
+import 'package:travel_app/scr/screens/trip_planning.dart';
 import 'package:travel_app/scr/widgets/clickable_box.dart';
 
 class ClimaPlaces extends StatefulWidget {
@@ -19,9 +22,10 @@ class ClimaPlaces extends StatefulWidget {
 
 class _ClimaPlacesState extends State<ClimaPlaces>
     with SingleTickerProviderStateMixin {
-  static const List<String> options = [
+  static const List<String> OPTIONS = [
     'Clear all',
   ];
+  static const int PLACES_LIMIT = 6;
 
   final List<Place> selectedPlaces = [
     Place(
@@ -36,35 +40,15 @@ class _ClimaPlacesState extends State<ClimaPlaces>
   ];
 
   bool inReorder = false;
-  final int placeLimit = 6;
-  ScrollController scrollController;
-
-  @override
-  void initState() {
-    super.initState();
-    scrollController = ScrollController();
-  }
-
-  void onReorderFinished(List<Place> newItems) {
-    scrollController.jumpTo(scrollController.offset);
-    setState(() {
-      inReorder = false;
-
-      selectedPlaces
-        ..clear()
-        ..addAll(newItems);
-    });
-  }
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Places'),
-        backgroundColor: theme.primaryColor,
+        title: const Text('The Weather Buddy'),
         actions: <Widget>[
           _buildPopupMenuButton(textTheme),
         ],
@@ -73,7 +57,9 @@ class _ClimaPlacesState extends State<ClimaPlaces>
         controller: scrollController,
         // Prevent the ListView from scrolling when an item is
         // currently being dragged.
-        physics: inReorder ? const NeverScrollableScrollPhysics() : null,
+        physics: inReorder
+            ? const NeverScrollableScrollPhysics()
+            : const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.only(bottom: 24),
         children: <Widget>[
           _buildVerticalPlacesList(),
@@ -82,20 +68,19 @@ class _ClimaPlacesState extends State<ClimaPlaces>
     );
   }
 
-  // * An example of a vertically reorderable list.
   Widget _buildVerticalPlacesList() {
     final theme = Theme.of(context);
-    const listPadding = EdgeInsets.symmetric(horizontal: 0);
 
     Widget buildReorderable(
       Place place,
+      int index,
       Widget Function(Widget tile) transitionBuilder,
     ) {
       return Reorderable(
         key: ValueKey(place),
         builder: (context, dragAnimation, inDrag) {
           final t = dragAnimation.value;
-          final tile = _buildTile(t, place);
+          final tile = _buildTile(t, place, index);
 
           // If the item is in drag, only return the tile as the
           // SizeFadeTransition would clip the shadow.
@@ -120,15 +105,20 @@ class _ClimaPlacesState extends State<ClimaPlaces>
       items: selectedPlaces,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: listPadding,
       areItemsTheSame: (oldItem, newItem) => oldItem == newItem,
       onReorderStarted: (item, index) => setState(() => inReorder = true),
-      onReorderFinished: (movedplaceuage, from, to, newItems) {
-        // Update the underlying data when the item has been reordered!
-        onReorderFinished(newItems);
+      onReorderFinished: (movedPlace, from, to, newItems) {
+        scrollController.jumpTo(scrollController.offset);
+        setState(() {
+          inReorder = false;
+
+          selectedPlaces
+            ..clear()
+            ..addAll(newItems);
+        });
       },
       itemBuilder: (context, itemAnimation, place, index) {
-        return buildReorderable(place, (tile) {
+        return buildReorderable(place, index, (tile) {
           return SizeFadeTransition(
             sizeFraction: 0.7,
             curve: Curves.easeInOut,
@@ -138,7 +128,7 @@ class _ClimaPlacesState extends State<ClimaPlaces>
         });
       },
       updateItemBuilder: (context, itemAnimation, place) {
-        return buildReorderable(place, (tile) {
+        return buildReorderable(place, selectedPlaces.indexOf(place), (tile) {
           return FadeTransition(
             opacity: itemAnimation,
             child: tile,
@@ -146,51 +136,48 @@ class _ClimaPlacesState extends State<ClimaPlaces>
         });
       },
       footer: AnimatedOpacity(
-          opacity: selectedPlaces.length < placeLimit ? 1 : 0,
+          opacity: selectedPlaces.length < PLACES_LIMIT ? 1 : 0,
           duration: Duration(
-              milliseconds: selectedPlaces.length < placeLimit ? 600 : 300),
+              milliseconds: selectedPlaces.length < PLACES_LIMIT ? 600 : 300),
           child: _buildFooter(context, theme.textTheme)),
     );
   }
 
-  Widget _buildTile(double t, Place place) {
+  Widget _buildTile(double t, Place place, int index) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-
     final color = Color.lerp(Colors.white, Colors.grey.shade100, t);
     final elevation = lerpDouble(0, 8, t);
 
-    final List<Widget> actions = selectedPlaces.length > 1
-        ? [
-            SlideAction(
-              closeOnTap: true,
-              color: Colors.redAccent,
-              onTap: () {
-                setState(
-                  () => selectedPlaces.remove(place),
-                );
-              },
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(
-                      Icons.delete,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Delete',
-                      style: textTheme.bodyText2.copyWith(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
+    final List<Widget> actions = [
+      SlideAction(
+        closeOnTap: true,
+        color: Colors.redAccent,
+        onTap: () {
+          setState(
+            () => selectedPlaces.removeAt(index),
+          );
+        },
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Icon(
+                Icons.delete,
+                color: Colors.white,
+              ),
+              const SizedBox(height: 4),
+              Text(
+                'Delete',
+                style: textTheme.bodyText1.copyWith(
+                  color: Colors.white,
                 ),
               ),
-            ),
-          ]
-        : [];
+            ],
+          ),
+        ),
+      ),
+    ];
 
     return Slidable(
       actionPane: const SlidableBehindActionPane(),
@@ -203,18 +190,18 @@ class _ClimaPlacesState extends State<ClimaPlaces>
         child: ListTile(
           title: Text(
             place.name,
-            style: textTheme.bodyText1,
+            style: textTheme.bodyText2,
           ),
           subtitle: Text(
             place.level2Address,
-            style: textTheme.bodyText2,
+            style: textTheme.subtitle1,
           ),
           leading: SizedBox(
             width: 36,
             height: 36,
             child: Center(
               child: Text(
-                '${selectedPlaces.indexOf(place) + 1}',
+                '${index + 1}',
                 style: textTheme.bodyText1.copyWith(
                   color: theme.accentColor,
                   fontSize: 16,
@@ -237,7 +224,7 @@ class _ClimaPlacesState extends State<ClimaPlaces>
   Widget _buildFooter(BuildContext context, TextTheme textTheme) {
     return Box(
       color: Colors.white,
-      onTap: selectedPlaces.length < placeLimit
+      onTap: selectedPlaces.length < PLACES_LIMIT
           ? () async {
               // final result = await Navigator.push(
               //   context,
@@ -251,6 +238,8 @@ class _ClimaPlacesState extends State<ClimaPlaces>
               //     selectedPlaces.add(result);
               //   });
               // }
+              await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ClimaSearch()));
               setState(() {
                 selectedPlaces.add(Place(name: 'Paris', country: 'France'));
               });
@@ -265,16 +254,14 @@ class _ClimaPlacesState extends State<ClimaPlaces>
               width: 36,
               child: Center(
                 child: Icon(
-                  Icons.add,
+                  Icons.add_location_alt,
                   color: Colors.grey,
                 ),
               ),
             ),
             title: Text(
               'Add a place',
-              style: textTheme.bodyText1.copyWith(
-                fontSize: 16,
-              ),
+              style: textTheme.bodyText2,
             ),
           ),
           const Divider(height: 0),
@@ -296,7 +283,7 @@ class _ClimaPlacesState extends State<ClimaPlaces>
             break;
         }
       },
-      itemBuilder: (context) => options.map((option) {
+      itemBuilder: (context) => OPTIONS.map((option) {
         return PopupMenuItem(
           value: option,
           child: Text(
