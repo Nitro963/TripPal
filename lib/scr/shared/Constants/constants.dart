@@ -97,20 +97,25 @@ class Themes {
           bodyText2: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
         ),
         textTheme: TextTheme(
-          headline1: TextStyle(
-              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
-          headline2: TextStyle(
-              color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-          headline3: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-          headline4: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-          bodyText1: TextStyle(
-              color: Colors.black, fontSize: 16, fontWeight: FontWeight.normal),
-          bodyText2: TextStyle(
-              color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-        //fontFamily: 'Montserrat',
+            headline1: TextStyle(
+                color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+            headline2: TextStyle(
+                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
+            headline3: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+            headline4: TextStyle(
+                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+            bodyText1: TextStyle(
+                color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
+            bodyText2: TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+                fontWeight: FontWeight.normal),
+            subtitle1: TextStyle(
+                color: Colors.black,
+                fontSize: 12,
+                fontWeight: FontWeight.bold)),
+        fontFamily: 'Montserrat',
         inputDecorationTheme: InputDecorationTheme(
             contentPadding: EdgeInsets.all(12.0),
             hintStyle: TextStyle(color: Colors.white),

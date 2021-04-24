@@ -31,17 +31,7 @@ class _ReviewsState extends State<Reviews> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-        appBar: AppBar(
-          shadowColor: Colors.transparent,
-          leading: BackButton(
-            color: Colors.black,
-            onPressed: () {
-              print("return");
-              Navigator.pop(context);
-            },
-          ),
-          backgroundColor: Colors.transparent,
-        ),
+        appBar: AppBar(),
         body: SafeArea(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,

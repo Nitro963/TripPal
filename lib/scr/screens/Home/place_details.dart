@@ -19,8 +19,6 @@ class PlaceDetails extends StatelessWidget {
   final dataNames = ['Vienna', 'Venice', 'Scotland', 'Berlin'];
   final data1 = ['13.jpg', '14.jpg'];
 
-  final controller = PageController();
-
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
@@ -30,12 +28,12 @@ class PlaceDetails extends StatelessWidget {
           slivers: [
             SliverPersistentHeader(
                 pinned: true, delegate: PlaceDetailsDelegate(data1)),
-            // SliverList(
-            //     delegate: SliverChildBuilderDelegate((context, index) {
-            //   return DetailsContainer(data: data, dataNames: dataNames);
-            // }, childCount: 2)),
-            SliverToBoxAdapter(
-                child: DetailsContainer(data: data, dataNames: dataNames))
+            SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+              return DetailsContainer(data: data, dataNames: dataNames);
+            }, childCount: 2)),
+            // SliverToBoxAdapter(
+            //     child: DetailsContainer(data: data, dataNames: dataNames))
           ],
         ));
   }
@@ -175,11 +173,6 @@ class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
         //   style: Theme.of(context).primaryTextTheme.headline1.copyWith(
         //       color: Colors.white.withOpacity(appBarOpacity(shrinkOffset))),
         // ),
-        leading: BackButton(
-          onPressed: () {
-            // Navigator.pop(context);
-          },
-        ),
       ),
       body: Stack(
         children: [
