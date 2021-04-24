@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
-import 'package:travel_app/scr/models/search_model.dart';
+import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/weather_info.dart';
 import 'package:travel_app/scr/screens/clima_places.dart';
 import 'package:travel_app/scr/services/transformers.dart';

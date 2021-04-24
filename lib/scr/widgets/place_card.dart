@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/models/places.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 import 'image_card.dart';
@@ -31,7 +30,10 @@ class PlaceCard extends StatelessWidget {
               child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 14.0),
             child: Text(place,
-                style: TextStyle(color: Colors.white, fontSize: 12)),
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500)),
           )),
         ),
       ),

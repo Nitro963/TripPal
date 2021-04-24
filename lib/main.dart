@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_app/scr/screens/clima.dart';
+import 'package:travel_app/scr/screens/place_details.dart';
+import 'package:travel_app/scr/screens/reviews.dart';
 import 'package:travel_app/scr/screens/trip_planning.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/screens/login.dart';
@@ -12,6 +14,7 @@ class Home extends StatelessWidget {
     SizeConfig.init(context);
     return Scaffold(
         appBar: AppBar(
+          title: Text('TripPal'),
           actions: [
             IconButton(
                 icon: Icon(Icons.cloud),
