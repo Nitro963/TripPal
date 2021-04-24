@@ -38,8 +38,9 @@ class AvatarOverFlowView extends StatelessWidget {
                 );
               },
               child: Center(
-                child:
-                    Text('$remaining+', style: TextStyle(color: Colors.white)),
+                child: Text('$remaining+',
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.w500)),
               ),
             ),
           );

@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -5,10 +6,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
-import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:travel_app/scr/models/search_model.dart';
+import 'package:provider/provider.dart';
+import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/screens/clima_search.dart';
-import 'package:travel_app/scr/screens/trip_planning.dart';
 import 'package:travel_app/scr/widgets/clickable_box.dart';
 
 class ClimaPlaces extends StatefulWidget {
@@ -37,10 +37,45 @@ class _ClimaPlacesState extends State<ClimaPlaces>
       name: 'London',
       country: 'United Kingdom',
     ),
+    // Place(
+    //   name: 'Munich1',
+    //   state: 'Bavaria',
+    //   country: 'Germany',
+    // ),
+    // Place(
+    //   name: 'London1',
+    //   country: 'United Kingdom',
+    // ),
+    // Place(
+    //   name: 'Munich1',
+    //   state: 'Bavaria',
+    //   country: 'Germany',
+    // ),
+    // Place(
+    //   name: 'London1',
+    //   country: 'United Kingdom',
+    // ),
+    // Place(
+    //   name: 'London2',
+    //   country: 'United Kingdom',
+    // ),
+    // Place(
+    //   name: 'London3',
+    //   country: 'United Kingdom',
+    // ),
+    // Place(
+    //   name: 'London4',
+    //   country: 'United Kingdom',
+    // ),
   ];
 
-  bool inReorder = false;
-  final ScrollController scrollController = ScrollController();
+  ScrollController scrollController;
+
+  @override
+  void initState() {
+    scrollController = ScrollController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,97 +88,97 @@ class _ClimaPlacesState extends State<ClimaPlaces>
           _buildPopupMenuButton(textTheme),
         ],
       ),
-      body: ListView(
-        controller: scrollController,
-        // Prevent the ListView from scrolling when an item is
-        // currently being dragged.
-        physics: inReorder
-            ? const NeverScrollableScrollPhysics()
-            : const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.only(bottom: 24),
-        children: <Widget>[
-          _buildVerticalPlacesList(),
-        ],
+      body: ChangeNotifierProvider(
+        create: (_) {
+          return PlacesListModel.fromList(selectedPlaces, PLACES_LIMIT);
+        },
+        builder: (context, _) => ListView(
+          controller: scrollController,
+          // Prevent the ListView from scrolling when an item is
+          // currently being dragged.
+          physics: Provider.of<PlacesListModel>(context).inReorder
+              ? const NeverScrollableScrollPhysics()
+              : const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.only(bottom: 24),
+          children: <Widget>[
+            // PlacesList(scrollController: scrollController),
+            PlacesList(),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildVerticalPlacesList() {
-    final theme = Theme.of(context);
-
-    Widget buildReorderable(
-      Place place,
-      int index,
-      Widget Function(Widget tile) transitionBuilder,
-    ) {
-      return Reorderable(
-        key: ValueKey(place),
-        builder: (context, dragAnimation, inDrag) {
-          final t = dragAnimation.value;
-          final tile = _buildTile(t, place, index);
-
-          // If the item is in drag, only return the tile as the
-          // SizeFadeTransition would clip the shadow.
-          if (t > 0.0) {
-            return tile;
-          }
-
-          return transitionBuilder(
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                tile,
-                const Divider(height: 0),
-              ],
-            ),
-          );
-        },
-      );
-    }
-
-    return ImplicitlyAnimatedReorderableList<Place>(
-      items: selectedPlaces,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      areItemsTheSame: (oldItem, newItem) => oldItem == newItem,
-      onReorderStarted: (item, index) => setState(() => inReorder = true),
-      onReorderFinished: (movedPlace, from, to, newItems) {
-        scrollController.jumpTo(scrollController.offset);
-        setState(() {
-          inReorder = false;
-
-          selectedPlaces
-            ..clear()
-            ..addAll(newItems);
-        });
+  Widget _buildPopupMenuButton(TextTheme textTheme) {
+    return PopupMenuButton<String>(
+      padding: const EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      onSelected: (value) {
+        switch (value) {
+          case 'Clear all':
+            setState(selectedPlaces.clear);
+            break;
+        }
       },
-      itemBuilder: (context, itemAnimation, place, index) {
-        return buildReorderable(place, index, (tile) {
-          return SizeFadeTransition(
-            sizeFraction: 0.7,
-            curve: Curves.easeInOut,
-            animation: itemAnimation,
-            child: tile,
-          );
-        });
-      },
-      updateItemBuilder: (context, itemAnimation, place) {
-        return buildReorderable(place, selectedPlaces.indexOf(place), (tile) {
-          return FadeTransition(
-            opacity: itemAnimation,
-            child: tile,
-          );
-        });
-      },
-      footer: AnimatedOpacity(
-          opacity: selectedPlaces.length < PLACES_LIMIT ? 1 : 0,
-          duration: Duration(
-              milliseconds: selectedPlaces.length < PLACES_LIMIT ? 600 : 300),
-          child: _buildFooter(context, theme.textTheme)),
+      itemBuilder: (context) => OPTIONS.map((option) {
+        return PopupMenuItem(
+          value: option,
+          child: Text(
+            option,
+            style: textTheme.bodyText1,
+          ),
+        );
+      }).toList(),
     );
   }
 
-  Widget _buildTile(double t, Place place, int index) {
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+}
+
+class PlacesList extends StatelessWidget {
+  // final ScrollController scrollController;
+  //
+  // const PlacesList({Key key, this.scrollController}) : super(key: key);
+  Widget buildReorderable(
+    BuildContext context,
+    PlacesListModel model,
+    Place place,
+    int index,
+    Widget Function(Widget tile) transitionBuilder,
+  ) {
+    return Reorderable(
+      key: ValueKey(place),
+      builder: (context, dragAnimation, inDrag) {
+        final t = dragAnimation.value;
+        final tile = _buildTile(context, t, place, index, model);
+
+        // If the item is in drag, only return the tile as the
+        // SizeFadeTransition would clip the shadow.
+        if (t > 0.0) {
+          return tile;
+        }
+
+        return transitionBuilder(
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              tile,
+              const Divider(height: 0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildTile(BuildContext context, double t, Place place, int index,
+      PlacesListModel model) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
     final color = Color.lerp(Colors.white, Colors.grey.shade100, t);
@@ -154,9 +189,7 @@ class _ClimaPlacesState extends State<ClimaPlaces>
         closeOnTap: true,
         color: Colors.redAccent,
         onTap: () {
-          setState(
-            () => selectedPlaces.removeAt(index),
-          );
+          model.removePlaceAt(index);
         },
         child: Center(
           child: Column(
@@ -221,28 +254,15 @@ class _ClimaPlacesState extends State<ClimaPlaces>
     );
   }
 
-  Widget _buildFooter(BuildContext context, TextTheme textTheme) {
+  Widget _buildFooter(BuildContext context, PlacesListModel model) {
     return Box(
       color: Colors.white,
-      onTap: selectedPlaces.length < PLACES_LIMIT
+      onTap: model.places.length < model.limit
           ? () async {
-              // final result = await Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) => const LanguageSearchPage(),
-              //   ),
-              // );
-              //
-              // if (result != null && !selectedPlaces.contains(result)) {
-              //   setState(() {
-              //     selectedPlaces.add(result);
-              //   });
-              // }
+              // ToDo get result from search page and add it to the state
               await Navigator.push(context,
                   MaterialPageRoute(builder: (context) => ClimaSearch()));
-              setState(() {
-                selectedPlaces.add(Place(name: 'Paris', country: 'France'));
-              });
+              model.addPlace(Place(name: 'Paris', country: 'France'));
             }
           : null,
       child: Column(
@@ -261,7 +281,7 @@ class _ClimaPlacesState extends State<ClimaPlaces>
             ),
             title: Text(
               'Add a place',
-              style: textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyText2,
             ),
           ),
           const Divider(height: 0),
@@ -270,34 +290,107 @@ class _ClimaPlacesState extends State<ClimaPlaces>
     );
   }
 
-  Widget _buildPopupMenuButton(TextTheme textTheme) {
-    return PopupMenuButton<String>(
-      padding: const EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      onSelected: (value) {
-        switch (value) {
-          case 'Clear all':
-            setState(selectedPlaces.clear);
-            break;
-        }
-      },
-      itemBuilder: (context) => OPTIONS.map((option) {
-        return PopupMenuItem(
-          value: option,
-          child: Text(
-            option,
-            style: textTheme.bodyText1,
-          ),
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<PlacesListModel>(
+      builder: (context, model, _) {
+        return ImplicitlyAnimatedReorderableList<Place>(
+          items: model.places,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          areItemsTheSame: (oldItem, newItem) => oldItem == newItem,
+          onReorderStarted: (item, index) {
+            model.enterOrderPhase();
+          },
+          onReorderFinished: (movedPlace, from, to, newItems) {
+            // scrollController.jumpTo(scrollController.offset);
+            model.exitOrderPhase();
+            model.replaceAll(newItems);
+          },
+          itemBuilder: (context, itemAnimation, place, index) {
+            return buildReorderable(context, model, place, index, (tile) {
+              return SizeFadeTransition(
+                sizeFraction: 0.7,
+                curve: Curves.easeInOut,
+                animation: itemAnimation,
+                child: tile,
+              );
+            });
+          },
+          updateItemBuilder: (context, itemAnimation, place) {
+            return buildReorderable(
+                context, model, place, model.places.indexOf(place), (tile) {
+              return FadeTransition(
+                opacity: itemAnimation,
+                child: tile,
+              );
+            });
+          },
+          footer: AnimatedOpacity(
+              opacity: model.isNotFull ? 1 : 0,
+              duration: Duration(milliseconds: model.isNotFull ? 600 : 300),
+              child: _buildFooter(context, model)),
         );
-      }).toList(),
+      },
     );
   }
+}
 
-  @override
-  void dispose() {
-    scrollController.dispose();
-    super.dispose();
+class PlacesListModel extends ChangeNotifier {
+  bool _inReorder = false;
+  List<Place> _places = [];
+
+  final int limit;
+
+  PlacesListModel(this.limit);
+
+  factory PlacesListModel.fromList(List<Place> places, int limit) {
+    assert(limit >= places.length);
+    var model = PlacesListModel(limit);
+    model._places.addAll(places);
+    return model;
+  }
+
+  bool get inReorder => _inReorder;
+
+  UnmodifiableListView<Place> get places => UnmodifiableListView(_places);
+
+  bool get isNotFull => _places.length < limit;
+
+  bool get isEmpty => _places.isEmpty;
+
+  bool get isNotEmpty => _places.isNotEmpty;
+
+  void addPlace(Place place) {
+    if (_places.length < limit && !_places.contains(place)) {
+      _places.add(place);
+      notifyListeners();
+    }
+  }
+
+  void removePlace(Place place) {
+    _places.remove(place) ?? notifyListeners();
+  }
+
+  void removePlaceAt(int index) {
+    _places.removeAt(index);
+    notifyListeners();
+  }
+
+  void enterOrderPhase() {
+    _inReorder = true;
+    notifyListeners();
+  }
+
+  void exitOrderPhase() {
+    _inReorder = false;
+    notifyListeners();
+  }
+
+  void replaceAll(List<Place> newPlaces) {
+    _places
+      ..clear()
+      ..addAll(newPlaces);
+    notifyListeners();
   }
 }

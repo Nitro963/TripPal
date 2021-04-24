@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:travel_app/scr/models/search_model.dart';
+import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/widgets/clickable_box.dart';
 import 'package:travel_app/scr/widgets/highlight_text.dart';
 

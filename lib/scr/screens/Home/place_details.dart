@@ -4,10 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:readmore/readmore.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
-import 'package:travel_app/scr/services/transformers.dart';
 
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/widgets/avatar_overflow.dart';
@@ -15,9 +12,9 @@ import 'package:travel_app/scr/widgets/place_card.dart';
 import 'package:travel_app/scr/widgets/stars.dart';
 
 class PlaceDetails extends StatelessWidget {
-  final data = ['5.jpg', '6.jpg', '7.jpg', '8.jpg'];
-  final dataNames = ['Vienna', 'Venice', 'Scotland', 'Berlin'];
-  final data1 = ['13.jpg', '14.jpg'];
+  final placesFigures = ['5.jpg', '6.jpg', '7.jpg', '8.jpg'];
+  final placesNames = ['Vienna', 'Venice', 'Scotland', 'Berlin'];
+  final headerImage = '13.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +24,11 @@ class PlaceDetails extends StatelessWidget {
         body: CustomScrollView(
           slivers: [
             SliverPersistentHeader(
-                pinned: true, delegate: PlaceDetailsDelegate(data1)),
+                pinned: true, delegate: PlaceDetailsDelegate(headerImage)),
             SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
-              return DetailsContainer(data: data, dataNames: dataNames);
+              return DetailsContainer(
+                  placesFigures: placesFigures, placesNames: placesNames);
             }, childCount: 2)),
             // SliverToBoxAdapter(
             //     child: DetailsContainer(data: data, dataNames: dataNames))
@@ -42,12 +40,12 @@ class PlaceDetails extends StatelessWidget {
 class DetailsContainer extends StatelessWidget {
   const DetailsContainer({
     Key key,
-    @required this.data,
-    @required this.dataNames,
+    @required this.placesFigures,
+    @required this.placesNames,
   }) : super(key: key);
 
-  final List<String> data;
-  final List<String> dataNames;
+  final List<String> placesFigures;
+  final List<String> placesNames;
 
   @override
   Widget build(BuildContext context) {
@@ -59,21 +57,18 @@ class DetailsContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Bali',
-                  style: Theme.of(context)
-                      .primaryTextTheme
-                      .headline1
-                      .copyWith(color: Colors.black)),
+              Text('Bali', style: Theme.of(context).textTheme.headline1),
               StaticStars(active: 3),
               SizedBox(height: 18),
               AvatarOverFlowView(),
               SizedBox(height: 18),
               ReadMoreText(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a',
-                  colorClickableText: Theme.of(context).primaryColor,
-                  trimMode: TrimMode.Length,
-                  trimCollapsedText: '...Read more',
-                  trimExpandedText: ' Less'),
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a',
+                colorClickableText: Theme.of(context).primaryColor,
+                trimMode: TrimMode.Length,
+                trimCollapsedText: '...Read more',
+                trimExpandedText: ' Less',
+              ),
               SizedBox(height: 3),
               Align(
                 alignment: Alignment.centerRight,
@@ -118,10 +113,7 @@ class DetailsContainer extends StatelessWidget {
               // ),
               SizedBox(height: 10),
               Text('Places like Bali',
-                  style: Theme.of(context)
-                      .primaryTextTheme
-                      .headline3
-                      .copyWith(color: Colors.black)),
+                  style: Theme.of(context).textTheme.headline3),
               SizedBox(height: 20),
               SizedBox(
                 height: SizeConfig.blockSizeVertical * 12,
@@ -129,14 +121,14 @@ class DetailsContainer extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return PlaceCard(
-                          data[index],
+                          placesFigures[index],
                           SizeConfig.blockSizeHorizontal * 28,
-                          dataNames[index]);
+                          placesNames[index]);
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(width: 15);
                     },
-                    itemCount: data.length),
+                    itemCount: placesFigures.length),
               ),
             ],
           ),
@@ -147,12 +139,8 @@ class DetailsContainer extends StatelessWidget {
 }
 
 class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
-  final List data;
-  TransformerPageController controller;
-  PlaceDetailsDelegate(this.data) {
-    this.controller =
-        TransformerPageController(itemCount: data.length, reverse: true);
-  }
+  final String headerImage;
+  PlaceDetailsDelegate(this.headerImage);
 
   double appBarOpacity(double shrinkOffset) {
     return math.min(1, math.max(0.0, shrinkOffset) / (maxExtent - minExtent));
@@ -162,60 +150,28 @@ class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        shadowColor: Colors.transparent,
-        backgroundColor: Theme.of(context)
-            .primaryColor
-            .withOpacity(appBarOpacity(shrinkOffset)),
-        // title: Text(
-        //   'Bali',
-        //   style: Theme.of(context).primaryTextTheme.headline1.copyWith(
-        //       color: Colors.white.withOpacity(appBarOpacity(shrinkOffset))),
-        // ),
-      ),
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: SizeConfig.blockSizeVertical * 56,
-            child: TransformerPageView(
-                scrollDirection: Axis.horizontal,
-                pageController: controller,
-                transformer: DeepthPageTransformer(),
-                itemCount: data.length,
-                itemBuilder: (context, index) {
-                  return Image.asset(
-                    'images/${data[index]}',
-                    fit: BoxFit.cover,
-                    color: Theme.of(context)
-                        .primaryColor
-                        .withOpacity(appBarOpacity(shrinkOffset)),
-                    colorBlendMode: BlendMode.xor,
-                  );
-                }),
-          ),
-          Positioned(
-            top: SizeConfig.blockSizeVertical * 54,
-            left: SizeConfig.blockSizeHorizontal * 40,
-            child: Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.rotationY(math.pi),
-              child: SmoothPageIndicator(
-                controller: controller,
-                count: data.length,
-                effect: ExpandingDotsEffect(
-                  activeDotColor: Colors.white,
-                  dotWidth: 15,
-                  dotHeight: 4,
-                  spacing: 3,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          shadowColor: Colors.transparent,
+          backgroundColor: Theme.of(context)
+              .primaryColor
+              .withOpacity(appBarOpacity(shrinkOffset)),
+          // title: Text(
+          //   'Bali',
+          //   style: Theme.of(context).primaryTextTheme.headline1.copyWith(
+          //       color: Colors.white.withOpacity(appBarOpacity(shrinkOffset))),
+          // ),
+        ),
+        body: Image.asset(
+          'images/$headerImage',
+          width: double.infinity,
+          height: SizeConfig.blockSizeVertical * 56,
+          fit: BoxFit.cover,
+          color: Theme.of(context)
+              .primaryColor
+              .withOpacity(appBarOpacity(shrinkOffset)),
+          colorBlendMode: BlendMode.xor,
+        ));
   }
 
   @override
@@ -230,16 +186,3 @@ class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
     return false;
   }
 }
-
-// Positioned(
-//   top: SizeConfig.blockSizeVertical * 10,
-//   child: Padding(
-//     padding: EdgeInsets.symmetric(
-//         horizontal: 15, vertical: 15),
-//     child: Text('Place details',
-//         style: Theme.of(context)
-//             .primaryTextTheme
-//             .headline2
-//             .copyWith(color: Colors.white)),
-//   ),
-// ),

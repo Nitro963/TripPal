@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/models/places.dart';
-import 'package:travel_app/scr/screens/Home/details.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 class ImageCard extends StatelessWidget {
+  final String picture;
   final double width;
   final double radius;
   final Widget child;
-  final Place place;
 
   // ImageCard(
   //     {@required this.name,
@@ -15,7 +13,7 @@ class ImageCard extends StatelessWidget {
   //     @required this.picture,
   //     this.place});
 
-  ImageCard( {this.child,this.place,this.width=120, this.radius = 20});
+  ImageCard(this.picture, this.width, {this.child, this.radius = 20});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class ImageCard extends StatelessWidget {
           child: Stack(
             children: [
               Image.asset(
-                place.image,
+                "images/$picture",
                 height: double.infinity,
                 width: width,
                 fit: BoxFit.cover,

@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/screens/Reviews/review_writing.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
-import 'package:travel_app/scr/screens/Reviews/Components/ReviewsBarChart.dart';
-import 'package:travel_app/scr/screens/Reviews/Components/review_card.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_app/scr/screens/review_writing.dart';
+import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/widgets/ReviewsBarChart.dart';
+import 'package:travel_app/scr/widgets/review_card.dart';
+
 // import 'package:travel_app/scr/widgets/stars.dart';
 class Reviews extends StatefulWidget {
   @override
@@ -31,47 +33,28 @@ class _ReviewsState extends State<Reviews> {
   Widget build(BuildContext context) {
     SizeConfig.init(context);
     return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          // backgroundColor: Colors.white,
+          // shadowColor: Colors.transparent,
+          // leading: BackButton(
+          //   color: Colors.black,
+          // ),
+          title: Text('Reviews'),
+          actions: [
+            IconButton(
+              icon: Icon(FontAwesomeIcons.edit),
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ReviewWriting()));
+              },
+            )
+          ],
+        ),
         body: SafeArea(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 15.0, bottom: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Reviews',
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline4
-                              .copyWith(color: const Color(0xff24253d))),
-                      CupertinoButton(
-                          child: Row(
-                            children: [
-                              Text(
-                                'Write a review',
-                                style: TextStyle(
-                                  color: const Color(0xffffaa00),
-                                  decoration: TextDecoration.none,
-                                ),
-                              ),
-                              SizedBox(width: 15),
-                              Icon(Icons.arrow_forward_ios,
-                                  size: 17, color: const Color(0xffffaa00)),
-                            ],
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ReviewWriting()),
-                            );
-                          })
-                    ],
-                  ),
-                ),
                 AnimatedOpacity(
                   duration: Duration(milliseconds: 200),
                   opacity: closeTopContainer ? 0 : 1,
