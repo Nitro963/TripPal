@@ -81,18 +81,18 @@ class _ClimaPlacesState extends State<ClimaPlaces>
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('The Weather Buddy'),
-        actions: <Widget>[
-          _buildPopupMenuButton(textTheme),
-        ],
-      ),
-      body: ChangeNotifierProvider(
-        create: (_) {
-          return PlacesListModel.fromList(selectedPlaces, PLACES_LIMIT);
-        },
-        builder: (context, _) => ListView(
+    return ChangeNotifierProvider(
+      create: (_) {
+        return PlacesListModel.fromList(selectedPlaces, PLACES_LIMIT);
+      },
+      builder: (context, _) => Scaffold(
+        appBar: AppBar(
+          title: const Text('The Weather Buddy'),
+          actions: <Widget>[
+            _buildPopupMenuButton(context, textTheme),
+          ],
+        ),
+        body: ListView(
           controller: scrollController,
           // Prevent the ListView from scrolling when an item is
           // currently being dragged.
@@ -109,16 +109,15 @@ class _ClimaPlacesState extends State<ClimaPlaces>
     );
   }
 
-  Widget _buildPopupMenuButton(TextTheme textTheme) {
+  Widget _buildPopupMenuButton(BuildContext context, TextTheme textTheme) {
     return PopupMenuButton<String>(
-      padding: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
       onSelected: (value) {
         switch (value) {
           case 'Clear all':
-            setState(selectedPlaces.clear);
+            Provider.of<PlacesListModel>(context, listen: false).clear();
             break;
         }
       },
@@ -391,6 +390,11 @@ class PlacesListModel extends ChangeNotifier {
     _places
       ..clear()
       ..addAll(newPlaces);
+    notifyListeners();
+  }
+
+  void clear() {
+    _places.clear();
     notifyListeners();
   }
 }

@@ -17,9 +17,10 @@ class _TripPlanningState extends State<TripPlanning> {
 
   Widget buildSearchBar() {
     final actions = [
-      FloatingSearchBarAction(
+      FloatingSearchBarAction.icon(
         showIfOpened: false,
-        child: Icon(Icons.place),
+        icon: Icons.place,
+        onTap: () {},
       ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,

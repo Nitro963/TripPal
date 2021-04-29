@@ -4,7 +4,8 @@ import 'package:travel_app/scr/shared/constants.dart';
 class ImageCard extends StatelessWidget {
   final String picture;
   final double width;
-  final double radius;
+  final double height;
+  final double borderRadius;
   final Widget child;
 
   // ImageCard(
@@ -13,13 +14,16 @@ class ImageCard extends StatelessWidget {
   //     @required this.picture,
   //     this.place});
 
-  ImageCard(this.picture, this.width, {this.child, this.radius = 20});
+  ImageCard(this.picture,
+      {this.child,
+      this.borderRadius = 20,
+      this.height = double.infinity,
+      this.width = double.infinity});
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Material(
-      borderRadius: BorderRadius.circular(radius),
+      borderRadius: BorderRadius.circular(borderRadius),
       elevation: 8,
       child: InkWell(
         onTap: () {
@@ -28,12 +32,12 @@ class ImageCard extends StatelessWidget {
           //     context, MaterialPageRoute(builder: (_) => Details(place)));
         },
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(radius),
+          borderRadius: BorderRadius.circular(borderRadius),
           child: Stack(
             children: [
               Image.asset(
                 "images/$picture",
-                height: double.infinity,
+                height: height,
                 width: width,
                 fit: BoxFit.cover,
               ),
