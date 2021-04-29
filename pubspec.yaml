@@ -32,17 +32,20 @@ dependencies:
   animated_text_kit: ^3.1.2
   provider: ^4.3.3
   overflow_view: ^0.2.2
-  readmore: ^1.0.1
+  readmore: ^2.0.0
   smooth_page_indicator: ^0.2.1
   charts_flutter: ^0.10.0
   flutter_svg: ^0.19.1
   transformer_page_view: ^0.1.6
-  intl: ^0.16.1
+  intl: ^0.17.0
   http: ^0.12.2
   flutter_dotenv: ^3.1.0
   material_floating_search_bar: ^0.2.6
   implicitly_animated_reorderable_list: ^0.2.5
   flutter_slidable: ^0.5.4
+  flutter_staggered_grid_view: ^0.4.0
+  get: ^4.1.4
+  animated_splash_screen: ^1.1.0
 
 dev_dependencies:
   flutter_test:

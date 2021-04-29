@@ -32,6 +32,7 @@ class _ReviewsState extends State<Reviews> {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
+    var textTheme = Theme.of(context).textTheme;
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: Colors.white,
@@ -75,13 +76,13 @@ class _ReviewsState extends State<Reviews> {
                               Column(children: [
                                 Text('4.5',
                                     style: TextStyle(
+                                        fontWeight: FontWeight.w500,
                                         color: const Color(0xffffaa00),
                                         fontSize: 60)),
                                 Text(
                                   'out of 5',
-                                  style: TextStyle(
-                                      color: const Color(0xff8c8c98),
-                                      fontSize: 15),
+                                  style: textTheme.headline3
+                                      .copyWith(color: const Color(0xff8c8c98)),
                                 ),
                               ]),
                               SizedBox(width: 35),
@@ -96,9 +97,9 @@ class _ReviewsState extends State<Reviews> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text('Total Rating 25',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            color: const Color(0xff024253d))),
+                                        style: textTheme.subtitle2.copyWith(
+                                            fontWeight: FontWeight.normal,
+                                            color: const Color(0xff24253d))),
                                   ),
                                 ],
                               ),
@@ -129,7 +130,10 @@ class _ReviewsState extends State<Reviews> {
                               child: Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15.0, right: 17.0),
-                                  child: ReviewCard()),
+                                  child: ReviewCard(
+                                    onPressed:
+                                        scale.floor() == 1 ? () {} : null,
+                                  )),
                             ),
                           ),
                         );

@@ -111,8 +111,7 @@ class _ClimaState extends State<Clima> {
               itemCount: 2,
               onPageChanged: (int page) {
                 pageController.animateToPage(page,
-                    duration: Duration(milliseconds: 300),
-                    curve: Curves.linear);
+                    duration: Duration(milliseconds: 300), curve: Curves.ease);
                 setState(() {
                   currentPage = page;
                 });

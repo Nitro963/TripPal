@@ -55,7 +55,7 @@ class Themes {
         ),
         textTheme: TextTheme(
             headline1: TextStyle(
-                color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
             headline2: TextStyle(
                 color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
             headline3: TextStyle(
@@ -79,9 +79,15 @@ class Themes {
             errorBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: const Color(0xffff6d6f))),
             errorStyle: TextStyle(color: const Color(0xffff6d6f))),
-        buttonTheme: ButtonThemeData(
-            buttonColor: const Color(0xff3f72af),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)))));
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ButtonStyle(
+          animationDuration: Duration(milliseconds: 300),
+          elevation: MaterialStateProperty.all<double>(15.0),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(const Color(0xff3f72af)),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+        )));
   }
 }

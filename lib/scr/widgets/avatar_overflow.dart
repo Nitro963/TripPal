@@ -8,7 +8,6 @@ class AvatarOverFlowView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return SizedBox(
       width: SizeConfig.blockSizeHorizontal * 40,
       child: OverflowView(
@@ -21,7 +20,6 @@ class AvatarOverFlowView extends StatelessWidget {
                   context,
                   MaterialPageRoute(builder: (context) => Reviews()),
                 );
-                print('Go to user review');
               }),
               backgroundImage: AssetImage('images/${data[i]}'),
             ),
@@ -31,7 +29,6 @@ class AvatarOverFlowView extends StatelessWidget {
             backgroundColor: Colors.black45,
             child: InkWell(
               onTap: () {
-                print("Go to reviews screen");
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Reviews()),

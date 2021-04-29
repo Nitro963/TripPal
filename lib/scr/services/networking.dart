@@ -7,12 +7,14 @@ Future sendRequest(http.Request request) async {
   throw 'Request failed ${response.statusCode}';
 }
 
-abstract class RequestBuilder {
+class RequestBuilder {
   String endpoint;
   String path;
   Map<String, String> queryParameters = {};
   Map<String, String> headers = {};
   Map<String, String> body = {};
+
+  RequestBuilder(this.endpoint, this.path);
 
   void addQueryParameter(String name, String value) {
     queryParameters[name] = value;
@@ -42,48 +44,28 @@ abstract class RequestBuilder {
   }
 }
 
-class OpenWeatherMapRequestBuilder extends RequestBuilder {
-  static const String _APIKEY = '';
-
-  OpenWeatherMapRequestBuilder(String path) {
-    this.endpoint = 'api.openweathermap.org';
-    this.path = path;
-    addQueryParameter('appid', _APIKEY);
-  }
-
-  @override
-  void _clear() {
-    queryParameters = {'appid': _APIKEY};
-    headers = {};
-    body = {};
-  }
-}
-
 class OpenWeatherMapAPI {
   static final _weatherRequestBuilder =
-      OpenWeatherMapRequestBuilder('/data/2.5/weather');
+      RequestBuilder('api.openweathermap.org', '/data/2.5/weather');
+  static const _API_KEY = '';
 
   static dynamic getWeatherByCityName(name) async {
+    _weatherRequestBuilder.addQueryParameter('appid', _API_KEY);
     _weatherRequestBuilder.addQueryParameter('q', name);
     return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
   }
 
   static dynamic getWeatherByGeographicCoordinates(lon, lat) async {
+    _weatherRequestBuilder.addQueryParameter('appid', _API_KEY);
     _weatherRequestBuilder.addQueryParameter('lat', lat);
     _weatherRequestBuilder.addQueryParameter('lon', lon);
     return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
   }
 }
 
-class PhotonRequestBuilder extends RequestBuilder {
-  PhotonRequestBuilder(String path) {
-    this.endpoint = 'photon.komoot.io';
-    this.path = path;
-  }
-}
-
 class PhotonAPI {
-  static final _photonRequestBuilder = PhotonRequestBuilder('/api/');
+  static final _photonRequestBuilder =
+      RequestBuilder('photon.komoot.io', '/api/');
   static dynamic getQuery(String query) async {
     _photonRequestBuilder.addQueryParameter('q', query);
     _photonRequestBuilder.addQueryParameter('lang', 'en');

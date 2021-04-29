@@ -1,13 +1,13 @@
-import 'dart:math' as math;
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import 'package:readmore/readmore.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
 
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/widgets/avatar_overflow.dart';
+import 'package:travel_app/scr/widgets/image_card.dart';
 import 'package:travel_app/scr/widgets/place_card.dart';
 import 'package:travel_app/scr/widgets/stars.dart';
 
@@ -18,27 +18,60 @@ class PlaceDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
         extendBodyBehindAppBar: true,
         body: CustomScrollView(
           slivers: [
-            SliverPersistentHeader(
-                pinned: true, delegate: PlaceDetailsDelegate(headerImage)),
-            SliverList(
-                delegate: SliverChildBuilderDelegate((context, index) {
-              return DetailsContainer(
-                  placesFigures: placesFigures, placesNames: placesNames);
-            }, childCount: 2)),
-            // SliverToBoxAdapter(
-            //     child: DetailsContainer(data: data, dataNames: dataNames))
+            SliverAppBar(
+              floating: false,
+              pinned: true,
+              expandedHeight: SizeConfig.blockSizeVertical * 51,
+              flexibleSpace: FlexibleSpaceBar(
+                title: Text(
+                  'Bali',
+                ),
+                centerTitle: true,
+                background: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    Image.asset(
+                      'images/$headerImage',
+                      fit: BoxFit.cover,
+                    ),
+                    const DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment(0.0, 0.5),
+                          end: Alignment(0.0, 0.0),
+                          colors: <Color>[
+                            Color(0x60000000),
+                            Color(0x00000000),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                IconButton(icon: Icon(Icons.location_pin), onPressed: () {})
+              ],
+            ),
+            // SliverList(
+            //     delegate: SliverChildBuilderDelegate((context, index) {
+            //   return DetailsContainer(
+            //       placesFigures: placesFigures, placesNames: placesNames);
+            // }, childCount: 2)),
+            SliverToBoxAdapter(
+                child: DetailsContainer(
+                    placesFigures: placesFigures, placesNames: placesNames))
           ],
         ));
   }
 }
 
 class DetailsContainer extends StatelessWidget {
-  const DetailsContainer({
+  DetailsContainer({
     Key key,
     @required this.placesFigures,
     @required this.placesNames,
@@ -46,9 +79,15 @@ class DetailsContainer extends StatelessWidget {
 
   final List<String> placesFigures;
   final List<String> placesNames;
+  final List<String> pictures = [
+    '14.jpg',
+    '15.jpg',
+    '16.jpg',
+  ];
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.only(left: 15.0),
       child: Column(
@@ -57,17 +96,19 @@ class DetailsContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Bali', style: Theme.of(context).textTheme.headline1),
+              Text('Bali', style: theme.textTheme.headline1),
+              SizedBox(height: 5),
               StaticStars(active: 3),
-              SizedBox(height: 18),
+              SizedBox(height: 20),
               AvatarOverFlowView(),
-              SizedBox(height: 18),
+              SizedBox(height: 20),
               ReadMoreText(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a',
-                colorClickableText: Theme.of(context).primaryColor,
+                colorClickableText: theme.primaryColor,
                 trimMode: TrimMode.Length,
                 trimCollapsedText: '...Read more',
                 trimExpandedText: ' Less',
+                style: theme.textTheme.bodyText2,
               ),
               SizedBox(height: 3),
               Align(
@@ -88,101 +129,98 @@ class DetailsContainer extends StatelessWidget {
                       );
                     }),
               ),
-              // SizedBox(height: 10),
-              // Text('Properties',
-              //     style: Theme.of(context)
-              //         .primaryTextTheme
-              //         .headline3
-              //         .copyWith(color: Colors.black)),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text('Wifi'),
-              //         Text('Pool'),
-              //         Text('Bar'),
-              //         Text('Air conditioning'),
-              //         Text(''),
-              //         Text(''),
-              //         Text(''),
-              //         Text(''),
-              //         Text(''),
-              //       ]),
-              // ),
-              SizedBox(height: 10),
-              Text('Places like Bali',
-                  style: Theme.of(context).textTheme.headline3),
+              buildPropertiesSection(theme),
               SizedBox(height: 20),
-              SizedBox(
-                height: SizeConfig.blockSizeVertical * 12,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return PlaceCard(
-                          placesFigures[index],
-                          SizeConfig.blockSizeHorizontal * 28,
-                          placesNames[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return SizedBox(width: 15);
-                    },
-                    itemCount: placesFigures.length),
-              ),
+              buildPicturesSection(theme),
+              SizedBox(height: 20),
+              buildSimilarPlacesSection(theme),
             ],
           ),
         ],
       ),
     );
   }
-}
 
-class PlaceDetailsDelegate extends SliverPersistentHeaderDelegate {
-  final String headerImage;
-  PlaceDetailsDelegate(this.headerImage);
-
-  double appBarOpacity(double shrinkOffset) {
-    return math.min(1, math.max(0.0, shrinkOffset) / (maxExtent - minExtent));
-  }
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          shadowColor: Colors.transparent,
-          backgroundColor: Theme.of(context)
-              .primaryColor
-              .withOpacity(appBarOpacity(shrinkOffset)),
-          // title: Text(
-          //   'Bali',
-          //   style: Theme.of(context).primaryTextTheme.headline1.copyWith(
-          //       color: Colors.white.withOpacity(appBarOpacity(shrinkOffset))),
-          // ),
+  Column buildPropertiesSection(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Properties', style: theme.textTheme.headline2),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('Free Wifi'),
+            Text('Pool'),
+            Text('Bar'),
+            Text('Air conditioning'),
+            Text('Daily housekeeping'),
+            Text('Garden'),
+            Text('Multilingual staff'),
+            Text('Concierge services'),
+            Text('6 meeting rooms'),
+          ]),
         ),
-        body: Image.asset(
-          'images/$headerImage',
-          width: double.infinity,
-          height: SizeConfig.blockSizeVertical * 56,
-          fit: BoxFit.cover,
-          color: Theme.of(context)
-              .primaryColor
-              .withOpacity(appBarOpacity(shrinkOffset)),
-          colorBlendMode: BlendMode.xor,
-        ));
+      ],
+    );
   }
 
-  @override
-  // TODO: implement maxExtent
-  double get maxExtent => SizeConfig.blockSizeVertical * 56;
-  @override
-  // TODO: implement minExtent
-  double get minExtent => SizeConfig.blockSizeVertical * 10.5;
+  Column buildSimilarPlacesSection(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Places like Bali', style: theme.textTheme.headline2),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Container(
+            height: SizeConfig.blockSizeVertical * 20,
+            child: ListView.separated(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return PlaceCard(
+                    placesFigures[index],
+                    placesNames[index],
+                    SizeConfig.blockSizeVertical * 20,
+                    SizeConfig.blockSizeHorizontal * 42,
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(width: 15);
+                },
+                itemCount: placesFigures.length),
+          ),
+        ),
+      ],
+    );
+  }
 
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
+  Column buildPicturesSection(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Pictures', style: theme.textTheme.headline2),
+        // Staggered Grid
+        Container(
+          height: SizeConfig.blockSizeVertical * 51,
+          child: StaggeredGridView.countBuilder(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            physics: BouncingScrollPhysics(),
+            itemCount: 3,
+            scrollDirection: Axis.horizontal,
+            crossAxisCount: 2,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 10,
+            staggeredTileBuilder: (int index) =>
+                StaggeredTile.count(index == 0 ? 2 : 1, 1),
+            itemBuilder: (context, index) => new ImageCard(
+              pictures[index],
+              height: double.infinity,
+              width: double.infinity,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -28,6 +28,11 @@ class _ReviewWritingState extends State<ReviewWriting> {
     return Scaffold(
         key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+        ),
         body: Stack(
           children: [
             Image.asset(
@@ -40,15 +45,6 @@ class _ReviewWritingState extends State<ReviewWriting> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.blockSizeHorizontal * 2),
-                    child: BackButton(
-                        color: Colors.white70,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }),
-                  ),
                   Padding(
                     padding: EdgeInsets.only(
                         left: SizeConfig.blockSizeHorizontal * 6, bottom: 20),
@@ -108,9 +104,10 @@ class _ReviewWritingState extends State<ReviewWriting> {
                         textCapitalization: TextCapitalization.sentences,
                         keyboardType: TextInputType.multiline,
                         maxLines: 10,
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: Colors.white, fontSize: 15),
                         decoration: InputDecoration(
-                            hintStyle: TextStyle(color: Colors.white54),
+                            hintStyle:
+                                TextStyle(color: Colors.white54, fontSize: 15),
                             hintText: 'Review',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10)))),
@@ -121,7 +118,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
                         vertical: SizeConfig.blockSizeVertical),
                     width: double.infinity,
                     height: 6.5 * SizeConfig.blockSizeVertical,
-                    child: RaisedButton(
+                    child: ElevatedButton(
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
                         if (rate == 0) {
@@ -134,7 +131,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
                           print("review sent");
                         }
                       },
-                      elevation: 15,
+                      // elevation: 15,
                       child: Text('Submit',
                           style: TextStyle(color: Colors.white, fontSize: 19)),
                     ),
