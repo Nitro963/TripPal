@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:travel_app/scr/models/place.dart';
-import 'package:travel_app/scr/models/search_model.dart';
-import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 
-class TripPlanning extends StatefulWidget {
-  @override
-  _TripPlanningState createState() => _TripPlanningState();
-}
-
-class _TripPlanningState extends State<TripPlanning> {
-  var searchBarController = FloatingSearchBarController();
+class TripPlanning extends StatelessWidget {
+  final searchBarController = FloatingSearchBarController();
+  final searchController = Get.find<PlacesSearchController>();
 
   Widget buildSearchBar() {
     final actions = [
@@ -27,64 +23,57 @@ class _TripPlanningState extends State<TripPlanning> {
       ),
     ];
 
-    return Consumer<SearchModel>(
-      builder: (context, model, _) => FloatingSearchBar(
-        backgroundColor: Colors.white,
-        controller: searchBarController,
-        clearQueryOnClose: true,
-        iconColor: Colors.grey,
-        transitionDuration: const Duration(milliseconds: 800),
-        transitionCurve: Curves.easeInOutCubic,
-        physics: const BouncingScrollPhysics(),
-        axisAlignment: 0,
-        openAxisAlignment: 0.0,
-        maxWidth: SizeConfig.screenWidth,
-        actions: actions,
-        progress: model.isLoading,
-        debounceDelay: const Duration(milliseconds: 500),
-        onQueryChanged: model.onQueryChanged,
-        scrollPadding: EdgeInsets.zero,
-        transition: SlideFadeFloatingSearchBarTransition(),
-        accentColor: Colors.blueAccent,
-        builder: (context, _) => buildExpandableBody(model),
-        body: buildBody(),
-      ),
-    );
+    return Obx(() => FloatingSearchBar(
+          backgroundColor: Colors.white,
+          controller: searchBarController,
+          clearQueryOnClose: true,
+          iconColor: Colors.grey,
+          transitionDuration: const Duration(milliseconds: 800),
+          transitionCurve: Curves.easeInOutCubic,
+          physics: const BouncingScrollPhysics(),
+          axisAlignment: 0,
+          openAxisAlignment: 0.0,
+          maxWidth: SizeConfig.screenWidth,
+          actions: actions,
+          progress: searchController.isLoading,
+          debounceDelay: const Duration(milliseconds: 500),
+          onQueryChanged: searchController.onQueryChanged,
+          scrollPadding: EdgeInsets.zero,
+          transition: SlideFadeFloatingSearchBarTransition(),
+          accentColor: Colors.blueAccent,
+          builder: (context, _) => buildExpandableBody(),
+          body: buildBody(),
+        ));
   }
 
-  Widget buildExpandableBody(SearchModel model) {
+  Widget buildExpandableBody() {
     return Material(
       color: Colors.white,
       elevation: 4.0,
       borderRadius: BorderRadius.circular(8),
-      child: ImplicitlyAnimatedList<Place>(
-        shrinkWrap: true,
-        padding: EdgeInsets.zero,
-        physics: const NeverScrollableScrollPhysics(),
-        items: model.suggestions.take(6).toList(),
-        areItemsTheSame: (a, b) => a == b,
-        itemBuilder: (context, animation, place, i) {
-          return SizeFadeTransition(
-            animation: animation,
-            child: buildItem(context, place),
-          );
-        },
-        updateItemBuilder: (context, animation, place) {
-          return FadeTransition(
-            opacity: animation,
-            child: buildItem(context, place),
-          );
-        },
-      ),
+      child: Obx(() => ImplicitlyAnimatedList<Place>(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            physics: const NeverScrollableScrollPhysics(),
+            items: searchController.suggestions.take(6).toList(),
+            areItemsTheSame: (a, b) => a == b,
+            itemBuilder: (_, animation, place, i) {
+              return SizeFadeTransition(
+                animation: animation,
+                child: buildItem(place),
+              );
+            },
+            updateItemBuilder: (_, animation, place) {
+              return FadeTransition(
+                opacity: animation,
+                child: buildItem(place),
+              );
+            },
+          )),
     );
   }
 
-  Widget buildItem(BuildContext context, Place place) {
-    final theme = Theme.of(context);
-    final textTheme = theme.textTheme;
-
-    final model = Provider.of<SearchModel>(context, listen: false);
-
+  Widget buildItem(Place place) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -93,7 +82,7 @@ class _TripPlanningState extends State<TripPlanning> {
             searchBarController.close();
             Future.delayed(
               const Duration(milliseconds: 500),
-              () => model.clear(),
+              () => searchController.clear(),
             );
           },
           child: Padding(
@@ -104,7 +93,7 @@ class _TripPlanningState extends State<TripPlanning> {
                   width: 36,
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 500),
-                    child: model.suggestions == history
+                    child: searchController.isHistory
                         ? const Icon(Icons.history, key: Key('history'))
                         : const Icon(Icons.place, key: Key('place')),
                   ),
@@ -117,12 +106,12 @@ class _TripPlanningState extends State<TripPlanning> {
                     children: [
                       Text(
                         place.name,
-                        style: textTheme.subtitle1,
+                        style: Get.textTheme.subtitle1,
                       ),
                       const SizedBox(height: 2),
                       Text(
                         place.level2Address,
-                        style: textTheme.bodyText2
+                        style: Get.textTheme.bodyText2
                             .copyWith(color: Colors.grey.shade600),
                       ),
                     ],
@@ -132,7 +121,8 @@ class _TripPlanningState extends State<TripPlanning> {
             ),
           ),
         ),
-        if (model.suggestions.isNotEmpty && place != model.suggestions.last)
+        if (searchController.suggestions.isNotEmpty &&
+            place != searchController.suggestions.last)
           const Divider(height: 0),
       ],
     );
@@ -151,18 +141,9 @@ class _TripPlanningState extends State<TripPlanning> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Directionality(
-            textDirection: TextDirection.ltr,
-            child: ChangeNotifierProvider(
-                create: (_) => SearchModel(), child: buildSearchBar())));
-  }
-
-  @override
-  void dispose() {
-    searchBarController.dispose();
-    super.dispose();
+            textDirection: TextDirection.ltr, child: buildSearchBar()));
   }
 }

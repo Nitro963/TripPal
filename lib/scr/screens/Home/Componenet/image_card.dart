@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/shared/constants.dart';
 
 class ImageCard extends StatelessWidget {
   final String picture;

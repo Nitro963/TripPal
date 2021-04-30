@@ -10,7 +10,6 @@ class InfoContainer extends StatelessWidget {
   InfoContainer({this.leading, this.trailling});
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return GestureDetector(
       child: Container(
         // width: SizeConfig.blockSizeHorizontal*30,
@@ -29,7 +28,7 @@ class InfoContainer extends StatelessWidget {
           children: [
             Text(leading,
                 style: TextStyle(
-                  fontSize: 18,
+                    fontSize: 18,
                     shadows: [
                       Shadow(
                           blurRadius: 2,
@@ -48,10 +47,7 @@ class InfoContainer extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () async {
-       
-       
-      },
+      onTap: () async {},
     );
   }
 }

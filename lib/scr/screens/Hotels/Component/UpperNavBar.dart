@@ -8,12 +8,11 @@ class UpperNavBar extends StatelessWidget {
   UpperNavBar({this.onTapCallBack});
   @override
   Widget build(BuildContext context) {
-    int selectedIndex = -1;
-    SizeConfig.init(context);
     return Padding(
-      padding: const EdgeInsets.fromLTRB(8,15,8,30),
+      padding: const EdgeInsets.fromLTRB(8, 15, 8, 30),
       child: Container(
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        child:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           UpperItem(
               title: "Sort", icon: Icons.sort_by_alpha, onTapCallBack: () {}),
           UpperItem(title: "Filter", icon: Icons.filter, onTapCallBack: () {}),
@@ -31,16 +30,24 @@ class UpperItem extends StatelessWidget {
   UpperItem({this.title, this.icon, this.onTapCallBack});
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return GestureDetector(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 4,vertical: 2),
-         
+            padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
             child: Row(
               children: [
-                Icon(icon,color: Colors.blueAccent[700],),
+                Icon(
+                  icon,
+                  color: Colors.blueAccent[700],
+                ),
                 SizedBox(width: SizeConfig.blockSizeHorizontal * 2),
-                Text(title,style: TextStyle(color:Colors.blueGrey,fontStyle:FontStyle.italic,fontSize: 15,fontWeight: FontWeight.w700),)
+                Text(
+                  title,
+                  style: TextStyle(
+                      color: Colors.blueGrey,
+                      fontStyle: FontStyle.italic,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700),
+                )
               ],
             )),
         onTap: onTapCallBack);

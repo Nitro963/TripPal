@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
-/*
+
 class StarsModel {
   final int starCount;
   final double starSize;
@@ -84,7 +84,8 @@ class _ClickableStarsState extends State<ClickableStars> {
       ],
     );
   }
-}*/
+}
+
 typedef void RatingChangeCallback(double rating);
 
 class StarRating extends StatelessWidget {
@@ -95,36 +96,46 @@ class StarRating extends StatelessWidget {
   final Color color;
   final bool isStatic;
 
-  StarRating({this.starCount = 5,this.isStatic=false, this.size=15,this.rating = .0, this.onRatingChanged, this.color});
+  StarRating(
+      {this.starCount = 5,
+      this.isStatic = false,
+      this.size = 15,
+      this.rating = .0,
+      this.onRatingChanged,
+      this.color});
 
   Widget buildStar(BuildContext context, int index) {
     Icon icon;
     if (index >= rating) {
       icon = new Icon(
-        Icons.star_border,size: size,
+        Icons.star_border,
+        size: size,
         color: Theme.of(context).buttonColor,
       );
-    }
-    else if (index > rating - 1 && index < rating) {
+    } else if (index > rating - 1 && index < rating) {
       icon = new Icon(
-        Icons.star_half,size: size,
+        Icons.star_half,
+        size: size,
         color: color ?? Theme.of(context).primaryColor,
       );
     } else {
       icon = new Icon(
-        Icons.star,size: size,
+        Icons.star,
+        size: size,
         color: color ?? Theme.of(context).primaryColor,
       );
     }
     return new InkResponse(
-      onTap: onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
+      onTap:
+          onRatingChanged == null ? null : () => onRatingChanged(index + 1.0),
       child: icon,
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Row(children: new List.generate(isStatic ?rating.ceil():starCount, (index) => buildStar(context, index)));
+    return new Row(
+        children: new List.generate(isStatic ? rating.ceil() : starCount,
+            (index) => buildStar(context, index)));
   }
 }
-

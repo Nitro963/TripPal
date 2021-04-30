@@ -1,13 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:meta/meta.dart';
 
 class Place {
   final String name;
   final String state;
   final String country;
-  const Place({
+  String image;
+  double rating;
+
+  Place({
     @required this.name,
-    this.state,
     @required this.country,
+    this.state,
+    this.image,
+    this.rating,
   })  : assert(name != null),
         assert(country != null);
 

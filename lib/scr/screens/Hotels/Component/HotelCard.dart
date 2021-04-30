@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/Models/Hotel.dart';
+import 'package:travel_app/scr/models/Hotel.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/stars.dart';
 
@@ -8,7 +8,6 @@ class HotelCard extends StatelessWidget {
   HotelCard({this.hotel});
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return SizedBox(
       width: double.infinity,
       height: SizeConfig.blockSizeHorizontal * 55,
@@ -100,25 +99,38 @@ class HotelCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          right:SizeConfig.blockSizeHorizontal*3,
-          top:SizeConfig.blockSizeVertical*2,
-          child: Icon(Icons.favorite_border_outlined,color:deactivatedColor)),
+            right: SizeConfig.blockSizeHorizontal * 3,
+            top: SizeConfig.blockSizeVertical * 2,
+            child:
+                Icon(Icons.favorite_border_outlined, color: deactivatedColor)),
         Positioned(
-          right: SizeConfig.blockSizeHorizontal*3,
-          bottom: SizeConfig.blockSizeVertical*4,
+          right: SizeConfig.blockSizeHorizontal * 3,
+          bottom: SizeConfig.blockSizeVertical * 4,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               //replace with a search results
-              Text("Price for ${hotel.avalibaleRooms[0].details}",style:TextStyle(fontSize: 15,color:Colors.grey[600],fontWeight: FontWeight.w500)),
+              Text("Price for ${hotel.avalibaleRooms[0].details}",
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey[600],
+                      fontWeight: FontWeight.w500)),
               SizedBox(height: 3),
-              Text(hotel.avalibaleRooms[0].type,style: TextStyle(fontSize: 14,color:Colors.grey),),
+              Text(
+                hotel.avalibaleRooms[0].type,
+                style: TextStyle(fontSize: 14, color: Colors.grey),
+              ),
               SizedBox(height: 3),
-              Text("${hotel.avalibaleRooms[0].price.toString()}",style: TextStyle(fontSize: 18,color:Colors.grey[700],fontWeight: FontWeight.w600),)
+              Text(
+                "${hotel.avalibaleRooms[0].price.toString()}",
+                style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.grey[700],
+                    fontWeight: FontWeight.w600),
+              )
             ],
           ),
         )
-      
       ]),
     );
   }

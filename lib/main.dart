@@ -1,22 +1,28 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/screens/LogIn/login.dart';
 import 'package:travel_app/scr/screens/clima.dart';
-import 'package:travel_app/scr/screens/place_details.dart';
-import 'package:travel_app/scr/screens/review_writing.dart';
-import 'package:travel_app/scr/screens/reviews.dart';
 import 'package:travel_app/scr/screens/trip_planning.dart';
-import 'package:travel_app/scr/shared/constants.dart';
-import 'package:travel_app/scr/screens/login.dart';
-import 'package:travel_app/scr/widgets/image_card.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final List<String> pictures = ['14.jpg', '15.jpg', '16.jpg', '13.jpg'];
+
+  void initState() {
+    SizeConfig.init();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
         appBar: AppBar(
           title: Text('TripPal'),
@@ -24,63 +30,31 @@ class Home extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.cloud),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Clima(),
-                      ));
+                  Get.to(() => Clima());
                 }),
             IconButton(
               icon: Icon(FontAwesomeIcons.mapMarkedAlt, color: Colors.white),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TripPlanning()));
+                Get.put(PlacesSearchController());
+                Get.to(() => TripPlanning());
               },
             )
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PlaceDetails(),
-                ));
+            Get.to(() => Login());
           },
         ),
         body: Align(
           child: Text("Welcome to TripPal App."),
-        )
-        // body: Container(
-        //   height: 400,
-        //   child: StaggeredGridView.countBuilder(
-        //     physics: BouncingScrollPhysics(),
-        //     itemCount: 10,
-        //     scrollDirection: Axis.horizontal,
-        //     crossAxisCount: 2,
-        //     mainAxisSpacing: 8,
-        //     crossAxisSpacing: 10,
-        //     staggeredTileBuilder: (int index) =>
-        //         StaggeredTile.count(index == 0 ? 2 : 1, 1),
-        //     itemBuilder: (context, index) => new Container(
-        //         color: Colors.green,
-        //         child: new Center(
-        //           child: new CircleAvatar(
-        //             backgroundColor: Colors.white,
-        //             child: new Text('$index',
-        //                 style:
-        //                     TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-        //           ),
-        //         )),
-        //   ),
-        // ),
-        );
+        ));
   }
 }
 
 void main() {
   Paint.enableDithering = true;
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
     home: Home(),

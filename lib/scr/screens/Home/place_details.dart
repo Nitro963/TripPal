@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:get/get.dart';
 
 import 'package:readmore/readmore.dart';
-import 'package:travel_app/scr/screens/review_writing.dart';
+import 'package:travel_app/scr/screens/Reviews/review_writing.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/Widgets/avatar_overflow.dart';
+import 'package:travel_app/scr/shared/Widgets/stars.dart';
 
-import 'package:travel_app/scr/shared/constants.dart';
-import 'package:travel_app/scr/widgets/avatar_overflow.dart';
-import 'package:travel_app/scr/widgets/image_card.dart';
-import 'package:travel_app/scr/widgets/place_card.dart';
-import 'package:travel_app/scr/widgets/stars.dart';
+import 'Componenet/image_card.dart';
+import 'Componenet/place_card.dart';
 
 class PlaceDetails extends StatelessWidget {
   final placesFigures = ['5.jpg', '6.jpg', '7.jpg', '8.jpg'];
@@ -122,11 +123,7 @@ class DetailsContainer extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ReviewWriting()),
-                      );
+                      Get.to(ReviewWriting());
                     }),
               ),
               buildPropertiesSection(theme),

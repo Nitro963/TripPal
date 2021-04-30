@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/stars.dart';
+import 'package:travel_app/scr/shared/utils.dart';
 
 class ReviewWriting extends StatefulWidget {
   @override
@@ -9,24 +11,11 @@ class ReviewWriting extends StatefulWidget {
 
 class _ReviewWritingState extends State<ReviewWriting> {
   String reviewText = '';
-  double rate = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  void showErrorSnackBar(String error) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      duration: new Duration(seconds: 2),
-      content: new Text(
-        error,
-        style: TextStyle(color: Colors.red),
-      ),
-    ));
-  }
+  int rate = 0;
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
-        key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -57,8 +46,18 @@ class _ReviewWritingState extends State<ReviewWriting> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                  StarRating(rating:this.rate,color: Colors.amber,onRatingChanged: (rating)=>setState(()=>this.rate=rating),),
-
+                      ClickableStars(
+                          callback: (indicator) {
+                            setState(() {
+                              rate = indicator;
+                            });
+                          },
+                          starsModel: StarsModel(
+                              5,
+                              784 /
+                                  (SizeConfig.blockSizeVertical *
+                                      SizeConfig.blockSizeHorizontal)),
+                          mainAxisAlignment: MainAxisAlignment.center),
                       Text(
                         'Tap a star to rate',
                         style: TextStyle(color: Colors.white54),
@@ -111,14 +110,14 @@ class _ReviewWritingState extends State<ReviewWriting> {
                     child: ElevatedButton(
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        if (rate == 0) {
-                          showErrorSnackBar(
-                              'You must set a rating before submitting.');
-                        } else {
-                          if (reviewText.isEmpty) {
-                            showErrorSnackBar('Review text can\'t be empty.');
-                          }
-                          print("review sent");
+                        if (rate == 0)
+                          Get.showSnackbar(buildErrorSnackBar(
+                              'You must set a rating before submitting.'));
+                        else {
+                          if (reviewText.isEmpty)
+                            Get.showSnackbar(buildErrorSnackBar(
+                                'Review text can\'t be empty.'));
+                          // TODO send a post request to TripPal servers.
                         }
                       },
                       // elevation: 15,

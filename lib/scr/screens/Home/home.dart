@@ -15,12 +15,11 @@ class HomePage extends StatelessWidget {
   var isSearching = false.obs;
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
-      drawer: HomeDrawer(),
+        drawer: HomeDrawer(),
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           title: Padding(
             padding: EdgeInsets.only(left: 10.0),
@@ -36,7 +35,9 @@ class HomePage extends StatelessWidget {
                 child: Icon(
                   Icons.search,
                   size: 33,
-                  color:isSearching.value?Colors.blueAccent[400]: Colors.black54,
+                  color: isSearching.value
+                      ? Colors.blueAccent[400]
+                      : Colors.black54,
                 ),
               ),
               onPressed: () {
@@ -61,39 +62,34 @@ class HomePage extends StatelessWidget {
                   BlogList(),
                 ],
               ),
-              Obx(()=> isSearching.value ?
-              HomeSearch()
-              :Container()),
-
+              Obx(() => isSearching.value ? HomeSearch() : Container()),
             ],
           ),
         )));
   }
 }
+
 class HomeSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: SizeConfig.blockSizeVertical*.4,
+      top: SizeConfig.blockSizeVertical * .4,
       child: Container(
         color: Colors.white,
-        width: SizeConfig.blockSizeHorizontal*94,
-        height:SizeConfig.blockSizeVertical*7,
+        width: SizeConfig.blockSizeHorizontal * 94,
+        height: SizeConfig.blockSizeVertical * 7,
         child: TextField(
-          autofocus: true,
-          decoration:InputDecoration(
-            hintText: "Main Search ",
-
-            hintStyle:TextStyle(color:Colors.grey),
-            contentPadding: EdgeInsets.symmetric(horizontal: 10),
-            
-            border:OutlineInputBorder(
-              borderRadius:BorderRadius.all(Radius.circular(20)),
-              borderSide:BorderSide(color: Colors.amber) ,
-              
-             ),
-          )
-          ),
-        ),);
+            autofocus: true,
+            decoration: InputDecoration(
+              hintText: "Main Search ",
+              hintStyle: TextStyle(color: Colors.grey),
+              contentPadding: EdgeInsets.symmetric(horizontal: 10),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderSide: BorderSide(color: Colors.amber),
+              ),
+            )),
+      ),
+    );
   }
 }

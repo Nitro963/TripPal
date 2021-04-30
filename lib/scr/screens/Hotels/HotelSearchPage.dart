@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/Models/DemoData.dart';
+import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelResults.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 import 'package:intl/intl.dart';
@@ -10,10 +10,9 @@ import 'package:travel_app/scr/shared/services/validators.dart';
 class HotelSearchPage extends StatelessWidget {
   String _city = '';
   DateTimeRange _date;
-  int selectedIndex=0;
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         bottomNavigationBar: BottomNavBar(
@@ -35,9 +34,8 @@ class HotelSearchPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 40.0),
                     child: Text(
                         "TripPal will provide you what you really Need ",
-                        style:TextStyle(
-                            fontSize: 30, color: Colors.lightBlue[700])
-                            ),
+                        style: TextStyle(
+                            fontSize: 30, color: Colors.lightBlue[700])),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 15),
@@ -56,7 +54,7 @@ class HotelSearchPage extends StatelessWidget {
                         height: SizeConfig.blockSizeVertical * 40,
                         child: Column(children: [
                           TextFormField(
-                            decoration: textInputDecoration.copyWith(
+                            decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
@@ -83,11 +81,14 @@ class HotelSearchPage extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     SizedBox(width: 8),
-                                    Icon(Icons.calendar_today_outlined,color: deactivatedColor,),
+                                    Icon(
+                                      Icons.calendar_today_outlined,
+                                      color: deactivatedColor,
+                                    ),
                                     SizedBox(width: 10),
                                     Text(_date == null
-                                        ? "From - To"
-                                        : "${DateFormat(DateFormat.MONTH_DAY).format(_date.start)} - ${DateFormat(DateFormat.MONTH_DAY).format(_date.end)}"
+                                            ? "From - To"
+                                            : "${DateFormat(DateFormat.MONTH_DAY).format(_date.start)} - ${DateFormat(DateFormat.MONTH_DAY).format(_date.end)}"
                                         //style:TextStyle()
                                         )
                                   ],
@@ -115,12 +116,14 @@ class HotelSearchPage extends StatelessWidget {
                             elevation: 16,
                             style: const TextStyle(color: Colors.deepPurple),
                             value: rooms[selectedIndex],
-                            onChanged: (val){selectedIndex=rooms.indexOf(val);
+                            onChanged: (val) {
+                              selectedIndex = rooms.indexOf(val);
                             },
                             items: rooms.map((String item) {
                               return DropdownMenuItem<String>(
                                 value: item,
-                                child: Text(item,style: TextStyle(color:Colors.grey[800])),
+                                child: Text(item,
+                                    style: TextStyle(color: Colors.grey[800])),
                               );
                             }).toList(),
                           ),
@@ -134,7 +137,9 @@ class HotelSearchPage extends StatelessWidget {
                               style: TextStyle(color: Colors.white),
                             ),
                             color: Colors.blue[700],
-                            onPressed: () {Get.to(HotelResult());},
+                            onPressed: () {
+                              Get.to(HotelResult());
+                            },
                           ),
                         ])),
                   ),

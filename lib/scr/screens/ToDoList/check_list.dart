@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 
 class CheckList extends StatefulWidget {
   final String title = 'Lists';
-  final ToDoListControler controler=Get.put(ToDoListControler());
+  final ToDoListControler controler = Get.put(ToDoListControler());
   final List<Task> tasks;
   final TaskCategory cat;
-  CheckList({this.tasks,this.cat});
+  CheckList({this.tasks, this.cat});
   @override
   _CheckListState createState() => _CheckListState();
 }
@@ -18,9 +18,8 @@ class CheckList extends StatefulWidget {
 class _CheckListState extends State<CheckList> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
-    List<Widget> list=[];
-    widget.tasks.forEach((element) =>list.add(_build(element)));
+    List<Widget> list = [];
+    widget.tasks.forEach((element) => list.add(_build(element)));
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       // appBar: AppBar(
@@ -39,7 +38,7 @@ class _CheckListState extends State<CheckList> {
                   radius: 30,
                   backgroundColor: Colors.white,
                   child: categoryIcon(widget.cat),
-                     // color: Colors.lightBlueAccent, size: 30.0),
+                  // color: Colors.lightBlueAccent, size: 30.0),
                 ),
                 SizedBox(height: 10.0),
                 Text(getCategoryName(widget.cat),
@@ -60,7 +59,9 @@ class _CheckListState extends State<CheckList> {
                     topLeft: Radius.circular(30.0),
                     topRight: Radius.circular(30.0)),
               ),
-              child: ListView(children:list,),
+              child: ListView(
+                children: list,
+              ),
             ),
           )
         ],
@@ -73,28 +74,25 @@ class _CheckListState extends State<CheckList> {
     );
   }
 
-
-
-
-  
   Widget _build(Task task) {
-    int index=widget.controler.tasks.indexOf(task);
-    return
-           ListTile(
-        title: Text(widget.controler.tasks[index].title ,style: TextStyle(decoration: widget.controler.tasks[index].done ? TextDecoration.lineThrough:null,)),
-        trailing: Checkbox(value: widget.controler.tasks[index].done, onChanged: (val) {
-          setState(()=>
-          widget.controler.tasks[index].done=val);
-          print(widget.controler.tasks[index].done);
-          print("${task.done} here");
+    int index = widget.controler.tasks.indexOf(task);
+    return ListTile(
+      title: Text(widget.controler.tasks[index].title,
+          style: TextStyle(
+            decoration: widget.controler.tasks[index].done
+                ? TextDecoration.lineThrough
+                : null,
+          )),
+      trailing: Checkbox(
+          value: widget.controler.tasks[index].done,
+          onChanged: (val) {
+            setState(() => widget.controler.tasks[index].done = val);
+            print(widget.controler.tasks[index].done);
+            print("${task.done} here");
           }),
-          onLongPress: (){
-            setState(()=>
-            widget.controler.tasks.removeAt(index));
-          
-          },
-      
+      onLongPress: () {
+        setState(() => widget.controler.tasks.removeAt(index));
+      },
     );
-  
-}
+  }
 }

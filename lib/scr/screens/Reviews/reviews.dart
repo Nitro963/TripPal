@@ -1,12 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:travel_app/scr/screens/review_writing.dart';
-import 'package:travel_app/scr/shared/constants.dart';
-import 'package:travel_app/scr/widgets/ReviewsBarChart.dart';
-import 'package:travel_app/scr/widgets/review_card.dart';
+import 'package:get/get.dart';
+import 'package:travel_app/scr/screens/Reviews/review_writing.dart';
+import 'package:travel_app/scr/shared/Constants/constants.dart';
 
-// import 'package:travel_app/scr/widgets/stars.dart';
+import 'Components/ReviewsBarChart.dart';
+import 'Components/review_card.dart';
+
 class Reviews extends StatefulWidget {
   @override
   _ReviewsState createState() => _ReviewsState();
@@ -30,9 +30,13 @@ class _ReviewsState extends State<Reviews> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
-    var textTheme = Theme.of(context).textTheme;
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: Colors.white,
@@ -45,8 +49,7 @@ class _ReviewsState extends State<Reviews> {
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),
               onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ReviewWriting()));
+                Get.to(ReviewWriting());
               },
             )
           ],
@@ -81,7 +84,7 @@ class _ReviewsState extends State<Reviews> {
                                         fontSize: 60)),
                                 Text(
                                   'out of 5',
-                                  style: textTheme.headline3
+                                  style: Get.textTheme.headline3
                                       .copyWith(color: const Color(0xff8c8c98)),
                                 ),
                               ]),
@@ -97,7 +100,7 @@ class _ReviewsState extends State<Reviews> {
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text('Total Rating 25',
-                                        style: textTheme.subtitle2.copyWith(
+                                        style: Get.textTheme.subtitle2.copyWith(
                                             fontWeight: FontWeight.normal,
                                             color: const Color(0xff24253d))),
                                   ),

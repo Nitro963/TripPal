@@ -17,16 +17,15 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final _picker = ImagePicker();
   List<RadioModel> gender = [
-      RadioModel(false, "Male"),
-      RadioModel(false, "female"),
-      RadioModel(false, "other")
-    ];
+    RadioModel(false, "Male"),
+    RadioModel(false, "female"),
+    RadioModel(false, "other")
+  ];
   File image;
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
-   //  LocationCustom loc = Get.find<LocationCustom>();
-    
+    //  LocationCustom loc = Get.find<LocationCustom>();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomNavBar(
@@ -36,7 +35,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: SingleChildScrollView(
-                      child: Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Align(
@@ -54,8 +53,9 @@ class _ProfilePageState extends State<ProfilePage> {
                                     )
                                   : null,
                               radius: 80,
-                              foregroundImage:
-                                  image != null ? Image.file(image).image : null,
+                              foregroundImage: image != null
+                                  ? Image.file(image).image
+                                  : null,
                               backgroundColor: Colors.grey[100],
                             ),
                             Positioned(
@@ -108,10 +108,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: RadioItem(gender[index]));
                       }),
                 ),
-                Item(label:"Email Adress",value:"email@gmail.com"),
-                Item(label:"Phone",value:"0997493103"),
-                Item(label:"Location",value:"Damscus")
-
+                Item(label: "Email Adress", value: "email@gmail.com"),
+                Item(label: "Phone", value: "0997493103"),
+                Item(label: "Location", value: "Damscus")
               ],
             ),
           ),
