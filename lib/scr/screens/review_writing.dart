@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/shared/utils.dart';
 import 'package:travel_app/scr/widgets/stars.dart';
 
 class ReviewWriting extends StatefulWidget {
@@ -10,23 +12,10 @@ class ReviewWriting extends StatefulWidget {
 class _ReviewWritingState extends State<ReviewWriting> {
   String reviewText = '';
   int rate = 0;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
-  void showErrorSnackBar(String error) {
-    _scaffoldKey.currentState.showSnackBar(SnackBar(
-      duration: new Duration(seconds: 2),
-      content: new Text(
-        error,
-        style: TextStyle(color: Colors.red),
-      ),
-    ));
-  }
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
-        key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -121,14 +110,14 @@ class _ReviewWritingState extends State<ReviewWriting> {
                     child: ElevatedButton(
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());
-                        if (rate == 0) {
-                          showErrorSnackBar(
-                              'You must set a rating before submitting.');
-                        } else {
-                          if (reviewText.isEmpty) {
-                            showErrorSnackBar('Review text can\'t be empty.');
-                          }
-                          print("review sent");
+                        if (rate == 0)
+                          Get.showSnackbar(buildErrorSnackBar(
+                              'You must set a rating before submitting.'));
+                        else {
+                          if (reviewText.isEmpty)
+                            Get.showSnackbar(buildErrorSnackBar(
+                                'Review text can\'t be empty.'));
+                          // TODO send a post request to TripPal servers.
                         }
                       },
                       // elevation: 15,

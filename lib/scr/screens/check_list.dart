@@ -12,7 +12,6 @@ class CheckList extends StatefulWidget {
 class _CheckListState extends State<CheckList> {
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       // appBar: AppBar(

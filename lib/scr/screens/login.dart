@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/scr/screens/password_reset.dart';
 import 'package:travel_app/scr/screens/place_details.dart';
 import 'package:travel_app/scr/screens/sign_up.dart';
@@ -16,12 +17,9 @@ class _LoginState extends State<Login> {
   var email = '';
   var password = '';
   final _formKey = GlobalKey<FormState>();
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
-        key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         body: GestureDetector(
           onTap: () {
@@ -132,7 +130,7 @@ class _LoginState extends State<Login> {
                                         offset: Offset(0, 3),
                                       )
                                     ]),
-                                child: RaisedButton(
+                                child: ElevatedButton(
                                     child: Text(
                                       'Login',
                                       style: TextStyle(
@@ -155,11 +153,7 @@ class _LoginState extends State<Login> {
                                         //   ),
                                         // ));
                                         // }
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PlaceDetails()));
+                                        Get.to(PlaceDetails());
                                       }
                                     }),
                               ),
@@ -170,12 +164,7 @@ class _LoginState extends State<Login> {
                                   children: [
                                     CupertinoButton(
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  PasswordReset()),
-                                        );
+                                        Get.to(PasswordReset());
                                       },
                                       child: Text('Forgot your password?',
                                           style: TextStyle(
@@ -201,7 +190,7 @@ class _LoginState extends State<Login> {
                                             fontSize: 17.0)),
                                     Row(
                                         children: [
-                                          RaisedButton(
+                                          MaterialButton(
                                               onPressed: () {},
                                               color: const Color(0xff3b5998),
                                               textColor: Colors.white,
@@ -211,7 +200,7 @@ class _LoginState extends State<Login> {
                                               ),
                                               padding: EdgeInsets.all(16),
                                               shape: CircleBorder()),
-                                          RaisedButton(
+                                          MaterialButton(
                                               onPressed: () {},
                                               color: const Color(0xff2ca7e0),
                                               textColor: Colors.white,
@@ -234,12 +223,7 @@ class _LoginState extends State<Login> {
                                                 fontSize: 17.0)),
                                         CupertinoButton(
                                           onPressed: () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      SignUp()),
-                                            );
+                                            Get.to(SignUp());
                                           },
                                           child: Text('SIGN UP',
                                               style: TextStyle(

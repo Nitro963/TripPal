@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/scr/screens/login.dart';
 import 'package:travel_app/scr/services/validators.dart';
 import 'package:travel_app/scr/shared/constants.dart';
@@ -21,7 +22,6 @@ class _SignUpState extends State<SignUp> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: GestureDetector(
@@ -175,8 +175,7 @@ class _SignUpState extends State<SignUp> {
                                         offset: Offset(0, 3),
                                       )
                                     ]),
-                                child: RaisedButton(
-                                    color: const Color(0xff1368b8),
+                                child: ElevatedButton(
                                     child: Text(
                                       'Sign Up',
                                       style: TextStyle(
@@ -204,7 +203,7 @@ class _SignUpState extends State<SignUp> {
                                     padding: EdgeInsets.only(top: 25),
                                     child: Row(
                                         children: [
-                                          RaisedButton(
+                                          MaterialButton(
                                               onPressed: () {},
                                               color: const Color(0xff3b5998),
                                               textColor: Colors.white,
@@ -214,7 +213,7 @@ class _SignUpState extends State<SignUp> {
                                               ),
                                               padding: EdgeInsets.all(16),
                                               shape: CircleBorder()),
-                                          RaisedButton(
+                                          MaterialButton(
                                               onPressed: () {},
                                               color: const Color(0xff2ca7e0),
                                               textColor: Colors.white,
@@ -239,7 +238,7 @@ class _SignUpState extends State<SignUp> {
                                           color: Colors.white, fontSize: 17.0)),
                                   CupertinoButton(
                                     onPressed: () {
-                                      Navigator.pop(context);
+                                      Get.back();
                                     },
                                     child: Text('Login',
                                         style: TextStyle(

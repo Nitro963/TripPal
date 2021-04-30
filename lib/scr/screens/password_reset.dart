@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/scr/services/validators.dart';
 import 'package:travel_app/scr/shared/constants.dart';
+
+// TODO change to indexed stack or NeverScrollable PageView
 
 class PasswordReset extends StatefulWidget {
   @override
@@ -31,7 +35,7 @@ class _PasswordResetState extends State<PasswordReset> {
         },
       ),
       SizedBox(height: SizeConfig.blockSizeVertical * 3),
-      RaisedButton(
+      ElevatedButton(
           child: Text(
             'Next',
             style: TextStyle(color: Colors.white, fontSize: 19),
@@ -66,7 +70,7 @@ class _PasswordResetState extends State<PasswordReset> {
         },
       ),
       SizedBox(height: SizeConfig.blockSizeVertical * 3),
-      RaisedButton(
+      ElevatedButton(
           child: Text(
             'Next',
             style: TextStyle(color: Colors.white, fontSize: 19),
@@ -119,7 +123,7 @@ class _PasswordResetState extends State<PasswordReset> {
         },
       ),
       SizedBox(height: SizeConfig.blockSizeVertical * 3),
-      RaisedButton(
+      ElevatedButton(
           child: Text(
             'Finish',
             style: TextStyle(color: Colors.white, fontSize: 19),
@@ -154,9 +158,13 @@ class _PasswordResetState extends State<PasswordReset> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
+      ),
       body: Stack(
         children: [
           Image.asset(
@@ -166,33 +174,58 @@ class _PasswordResetState extends State<PasswordReset> {
             width: double.infinity,
           ),
           SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BackButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-                Expanded(
-                    flex: 1,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Reset your password',
-                              style: Theme.of(context).textTheme.headline4),
-                          SizedBox(height: SizeConfig.blockSizeVertical * 5),
-                          Form(key: _formKey, child: buildStageInputs(context)),
-                        ],
-                      ),
-                    ))
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Reset your password',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          .copyWith(color: Colors.blueGrey.shade900)),
+                  SizedBox(height: SizeConfig.blockSizeVertical * 5),
+                  Center(
+                      child: Form(
+                          key: _formKey, child: buildStageInputs(context))),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+class PasswordResetController extends GetxController {
+  RxString _email = ''.obs;
+  RxString _verificationCode = ''.obs;
+  RxString _newPassword = ''.obs;
+  RxInt _stage = 0.obs;
+
+  int get stage => _stage.value;
+  String get email => _email.value;
+  String get verificationCode => _verificationCode.value;
+  String get newPassword => _newPassword.value;
+
+  void setEmail(String val) {
+    _email.value = val;
+  }
+
+  void setVerificationCode(String val) {
+    _verificationCode.value = val;
+  }
+
+  void setNewPassword(String val) {
+    _newPassword.value = val;
+  }
+
+  void proceed() {
+    _stage++;
+  }
+
+  void back() {
+    _stage--;
   }
 }

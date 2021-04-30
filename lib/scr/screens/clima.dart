@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:transformer_page_view/transformer_page_view.dart';
 import 'package:travel_app/scr/models/place.dart';
@@ -9,22 +10,6 @@ import 'package:travel_app/scr/models/weather_info.dart';
 import 'package:travel_app/scr/screens/clima_places.dart';
 import 'package:travel_app/scr/services/transformers.dart';
 import 'package:intl/intl.dart' as intl;
-
-class WeatherDataModel extends ChangeNotifier {
-  List<Place> _placesList;
-  void addPlace(Place p) {
-    _placesList.add(p);
-    notifyListeners();
-  }
-
-  void removePlace(Place p) {
-    _placesList.remove(p);
-    notifyListeners();
-  }
-
-  UnmodifiableListView<Place> get placesList =>
-      UnmodifiableListView(_placesList);
-}
 
 class Clima extends StatefulWidget {
   @override
