@@ -16,16 +16,17 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final _picker = ImagePicker();
+  List<RadioModel> gender = [
+      RadioModel(false, "Male"),
+      RadioModel(false, "female"),
+      RadioModel(false, "other")
+    ];
   File image;
   @override
   Widget build(BuildContext context) {
     SizeConfig.init(context);
    //  LocationCustom loc = Get.find<LocationCustom>();
-    List<RadioModel> sampleData = [
-      RadioModel(true, "Male"),
-      RadioModel(false, "female"),
-      RadioModel(false, "other")
-    ];
+    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       bottomNavigationBar: BottomNavBar(
@@ -92,18 +93,19 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: SizeConfig.blockSizeVertical * 10,
                   child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: sampleData.length,
+                      //padding: EdgeInsets.symmetric(horizontal:12),
+                      itemCount: gender.length,
                       itemBuilder: (BuildContext context, int index) {
                         return InkWell(
                             splashColor: Colors.blueAccent,
                             onTap: () {
                               setState(() {
-                                sampleData.forEach(
+                                gender.forEach(
                                     (element) => element.isSelected = false);
-                                sampleData[index].isSelected = true;
+                                gender[index].isSelected = true;
                               });
                             },
-                            child: RadioItem(sampleData[index]));
+                            child: RadioItem(gender[index]));
                       }),
                 ),
                 Item(label:"Email Adress",value:"email@gmail.com"),

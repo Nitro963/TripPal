@@ -19,15 +19,15 @@ List<Blog> blogs = [
   Blog(
       city: "Damascus syria",
       image: "images/1.jpg",
-      info: "afdglgunw rwrg jgw;g jwgl rjwgw"),
+      info: "Nice prices ,good people"),
   Blog(
       city: "Paris France",
       image: "images/2.jpg",
-      info: "afdglgunw rwrg jgw;g jwgl rjwgw"),
+      info: "It has amaizing weather and amizing buildings"),
   Blog(
       city: "NewYork USA",
       image: "images/4.jpg",
-      info: "afdglgunw rwrg jgw;g jwgl rjwgw"),
+      info: "Good place to start a buisness"),
 ];
 List myTasks = [
   Task(title: "a", category: TaskCategory.Home),
@@ -44,7 +44,7 @@ List<String> rooms=["1 Room - 1 adult . 0 Childrens","1 Room - 2 adult . 0 Child
 
 List<Hotel>myHotels=[
   Hotel(name: "Hotel",image:"images/hotel1.jpg",raiting: 8.4,stars: 5,numReviews: 130,location: "London UK",avalibaleRooms: [Room(price: 200,type: "Royal Room")]),
-  Hotel(name: "Kattan Hotel",image:"images/hotel2.jpg",raiting: 2.4,stars: 2,numReviews: 70,location: "Damas",avalibaleRooms: [Room(price: 10,type: "Single Room")]),
-  Hotel(name: "Blowjob Hotel",image:"images/hotel3.jpg",raiting: 9.1,stars:5,numReviews: 200,location: "Paris",avalibaleRooms: [Room(price: 1000,type: "Double Room")])
+  Hotel(name: "Kattan Hotel",image:"images/hotel3.jpg",raiting: 2.4,stars: 2,numReviews: 70,location: "Damas",avalibaleRooms: [Room(price: 10,type: "Single Room")]),
+  Hotel(name: "Four Seasons Hotel",image:"images/hotel3.jpg",raiting: 9.1,stars:5,numReviews: 200,location: "Paris",avalibaleRooms: [Room(price: 1000,type: "Double Room")])
 
 ];
