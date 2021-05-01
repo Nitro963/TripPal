@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
-import 'package:geocoder/geocoder.dart';
 import 'package:intl/intl.dart';
 
 class InfoContainer extends StatelessWidget {

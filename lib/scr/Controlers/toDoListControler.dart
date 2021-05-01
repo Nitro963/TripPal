@@ -1,5 +1,4 @@
 import "package:get/get.dart";
-import 'package:travel_app/scr/Models/DemoData.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import "package:travel_app/scr/models/tasks.dart";
 import 'package:travel_app/scr/screens/ToDoList/Component/grid_cards.dart';

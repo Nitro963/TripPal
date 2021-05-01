@@ -49,7 +49,7 @@ class _ReviewsState extends State<Reviews> {
             IconButton(
               icon: Icon(FontAwesomeIcons.edit),
               onPressed: () {
-                Get.to(ReviewWriting());
+                Get.to(() => ReviewWriting());
               },
             )
           ],
