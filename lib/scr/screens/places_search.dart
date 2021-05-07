@@ -6,12 +6,12 @@ import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/widgets/clickable_box.dart';
 import 'package:travel_app/scr/widgets/highlight_text.dart';
 
-class ClimaSearch extends StatefulWidget {
+class PlacesSearch extends StatefulWidget {
   @override
-  _ClimaSearchState createState() => _ClimaSearchState();
+  _PlacesSearchState createState() => _PlacesSearchState();
 }
 
-class _ClimaSearchState extends State<ClimaSearch> {
+class _PlacesSearchState extends State<PlacesSearch> {
   final List<Place> filteredPlaces = [];
   final List<Place> history = [];
 

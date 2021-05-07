@@ -39,7 +39,7 @@ class PlacesSearchController extends GetxController {
   }
 }
 
-const List<Place> history = [
+List<Place> history = [
   Place(
     name: 'San Fracisco',
     country: 'United States of America',

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
-import 'package:travel_app/scr/screens/clima.dart';
+import 'package:travel_app/scr/screens/weather_buddy.dart';
+import 'package:travel_app/scr/screens/weather_buddy_places.dart';
 import 'package:travel_app/scr/screens/place_details.dart';
 import 'package:travel_app/scr/screens/review_writing.dart';
 import 'package:travel_app/scr/screens/reviews.dart';
@@ -12,6 +14,39 @@ import 'package:travel_app/scr/screens/trip_planning.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/screens/login.dart';
 import 'package:travel_app/scr/widgets/image_card.dart';
+
+final List<Place> selectedPlaces = [
+  // Place(
+  //   name: 'Munich',
+  //   state: 'Bavaria',
+  //   country: 'Germany',
+  // ),
+  // Place(
+  //   name: 'Tokyo',
+  //   country: 'Japan',
+  // ),
+  // Place(
+  //   name: 'London',
+  //   country: 'United Kingdom',
+  // ),
+  // Place(
+  //   name: 'Munich1',
+  //   state: 'Bavaria',
+  //   country: 'Germany',
+  // ),
+  // Place(
+  //   name: 'London1',
+  //   country: 'United Kingdom',
+  // ),
+  // Place(
+  //   name: 'London2',
+  //   country: 'United Kingdom',
+  // ),
+  // Place(
+  //   name: 'London3',
+  //   country: 'United Kingdom',
+  // ),
+];
 
 class Home extends StatefulWidget {
   @override
@@ -35,12 +70,13 @@ class _HomeState extends State<Home> {
             IconButton(
                 icon: Icon(Icons.cloud),
                 onPressed: () {
-                  Get.to(() => Clima());
+                  Get.put(WeatherBuddyController.from(selectedPlaces, 7));
+                  Get.to(() => WeatherBuddy());
                 }),
             IconButton(
               icon: Icon(FontAwesomeIcons.mapMarkedAlt, color: Colors.white),
               onPressed: () {
-                Get.put(PlacesSearchController());
+                // Get.put(PlacesSearchController());
                 Get.to(() => TripPlanning());
               },
             )

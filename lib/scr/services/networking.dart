@@ -1,9 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:travel_app/scr/models/weather_info.dart';
+import 'package:travel_app/scr/screens/weather_buddy.dart';
 
 Future sendRequest(http.Request request) async {
-  http.Response response = await http.Response.fromStream(await request.send());
-  if (response.statusCode == 200) return jsonDecode(response.body);
+  http.Response response;
+  try {
+    response = await http.Response.fromStream(await request.send());
+  } catch (e) {
+    throw e;
+  }
+  if (response?.statusCode == 200) return jsonDecode(response.body);
   throw 'Request failed ${response.statusCode}';
 }
 
@@ -47,19 +54,23 @@ class RequestBuilder {
 class OpenWeatherMapAPI {
   static final _weatherRequestBuilder =
       RequestBuilder('api.openweathermap.org', '/data/2.5/weather');
-  static const _API_KEY = '';
+  static const _API_KEY = 'd136f87331b0bd808daa2fe6de21e662';
 
-  static dynamic getWeatherByCityName(name) async {
+  static Future<WeatherInfo> getWeatherByCityName(name) async {
     _weatherRequestBuilder.addQueryParameter('appid', _API_KEY);
     _weatherRequestBuilder.addQueryParameter('q', name);
-    return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
+    _weatherRequestBuilder.addQueryParameter('units', 'metric');
+    return WeatherInfo.fromOpenWeatherMapJson(
+        await sendRequest(_weatherRequestBuilder.buildRequest('get')));
   }
 
-  static dynamic getWeatherByGeographicCoordinates(lon, lat) async {
+  static Future<WeatherInfo> getWeatherByGeographicCoordinates(lon, lat) async {
     _weatherRequestBuilder.addQueryParameter('appid', _API_KEY);
     _weatherRequestBuilder.addQueryParameter('lat', lat);
     _weatherRequestBuilder.addQueryParameter('lon', lon);
-    return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
+    _weatherRequestBuilder.addQueryParameter('units', 'metric');
+    return WeatherInfo.fromOpenWeatherMapJson(
+        await sendRequest(_weatherRequestBuilder.buildRequest('get')));
   }
 }
 
