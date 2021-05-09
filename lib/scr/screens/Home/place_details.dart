@@ -99,7 +99,8 @@ class DetailsContainer extends StatelessWidget {
             children: [
               Text('Bali', style: theme.textTheme.headline1),
               SizedBox(height: 5),
-              StaticStars(active: 3),
+             // StaticStars(active: 3),
+             StarRating(isStatic:true,rating:3),
               SizedBox(height: 20),
               AvatarOverFlowView(),
               SizedBox(height: 20),
