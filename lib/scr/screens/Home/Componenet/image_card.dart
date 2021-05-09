@@ -35,7 +35,7 @@ class ImageCard extends StatelessWidget {
           child: Stack(
             children: [
               Image.asset(
-                "images/$picture",
+                "$picture",
                 height: height,
                 width: width,
                 fit: BoxFit.cover,

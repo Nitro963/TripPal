@@ -63,7 +63,7 @@ List<Hotel> myHotels = [
       location: "Damas",
       avalibaleRooms: [Room(price: 10, type: "Single Room")]),
   Hotel(
-      name: "Four Seasons Hotel",
+      name: "Four Seasons",
       image: "images/hotel3.jpg",
       raiting: 9.1,
       stars: 5,

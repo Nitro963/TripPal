@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
+import 'package:travel_app/scr/shared/Animation/TextWithAnmation.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 import 'Componenet/BlogListWidget.dart';
@@ -15,15 +16,16 @@ class HomePage extends StatelessWidget {
   var isSearching = false.obs;
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init();
     return Scaffold(
         drawer: HomeDrawer(),
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Padding(
-            padding: EdgeInsets.only(left: 10.0),
-            child: Text(
+          title: TextWithAnmation(
+           // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
+                        child: Text(
               "Enjoy Your Life With us !!",
               style: TextStyle(color: Colors.black54),
             ),
