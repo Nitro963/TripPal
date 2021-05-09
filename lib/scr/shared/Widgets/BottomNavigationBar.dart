@@ -34,14 +34,14 @@ class _BottomNavBarState extends State<BottomNavBar> {
       widget.currentIndex = index;
     }
 
-    return/* Container(
+    return Container(
         height: 50,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 8),
-        color: Colors.grey[100],*/
-        BlurContainer(
+        color: Colors.grey[100],
+       /* BlurContainer(
         height: 50,
-        width: double.infinity,
+        width: double.infinity,*/
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: childs.map((item) {
