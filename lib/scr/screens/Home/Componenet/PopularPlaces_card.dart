@@ -37,7 +37,6 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
                 blurRadius: 3, offset: const Offset(0, 2), color: Colors.grey)
           ]),
 
-      // padding:EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -59,7 +58,8 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(children: [
-                            Text(place),
+                            Text(place,
+                            style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600,color: Colors.grey[400]),),
                             SizedBox(width: 14),
                             StarRating(
                               rating: this.rating,
@@ -68,7 +68,7 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
                                   setState(() => this.rating = rating),
                             )
                           ]),
-                          Text(country, style: TextStyle(fontSize: 10))
+                          Text(country, style: TextStyle(fontSize: 15,fontWeight:FontWeight.w500,color: Colors.grey[600]))
                         ]),
                   ],
                 ),

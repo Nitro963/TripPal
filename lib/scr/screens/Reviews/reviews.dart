@@ -37,6 +37,7 @@ class _ReviewsState extends State<Reviews> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.init();
     return Scaffold(
         appBar: AppBar(
           // backgroundColor: Colors.white,

@@ -11,7 +11,7 @@ class ReviewWriting extends StatefulWidget {
 
 class _ReviewWritingState extends State<ReviewWriting> {
   String reviewText = '';
-  int rate = 0;
+  double rate = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -45,8 +45,9 @@ class _ReviewWritingState extends State<ReviewWriting> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                  //  mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ClickableStars(
+                      /*ClickableStars(
                           callback: (indicator) {
                             setState(() {
                               rate = indicator;
@@ -57,7 +58,22 @@ class _ReviewWritingState extends State<ReviewWriting> {
                               784 /
                                   (SizeConfig.blockSizeVertical *
                                       SizeConfig.blockSizeHorizontal)),
-                          mainAxisAlignment: MainAxisAlignment.center),
+                          mainAxisAlignment: MainAxisAlignment.center),*/
+                     
+                           StarRating(
+                             rating: rate,
+                             mainAxisAlignment: MainAxisAlignment.center,
+                            onRatingChanged: (indicator) {
+                              setState(() {
+                                rate = indicator;
+                              });
+                            },
+                            size: 784 /
+                                (SizeConfig.blockSizeVertical *
+                                    SizeConfig.blockSizeHorizontal),
+                          ),
+                        
+                      
                       Text(
                         'Tap a star to rate',
                         style: TextStyle(color: Colors.white54),
