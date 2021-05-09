@@ -11,9 +11,7 @@ class _ContinentListViewState extends State<ContinentListView> {
 
   @override
   Widget build(BuildContext context) {
-    return /*Padding(
-      padding: const EdgeInsets.all(8.0),
-      child:*/ SizedBox(
+    return  SizedBox(
         height: 45,
       child:ListView.builder(
         itemCount: continent.length,
@@ -26,17 +24,22 @@ class _ContinentListViewState extends State<ContinentListView> {
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
                 child:Container(
-                  //width: 80,
                   height: 6,
                   padding: EdgeInsets.symmetric(horizontal: 18,vertical: 3),
                   decoration: BoxDecoration(borderRadius:BorderRadius.circular(15) ,color:selected_index==index ? Theme.of(context).primaryColorDark:Colors.grey[100]),
-                  child: Center(child:Text(continent[index],textAlign:TextAlign.center,style:TextStyle(color:selected_index==index ? Colors.white :Colors.black54 ))),
+                  child: Center(
+                    child:Text(continent[index],
+                    textAlign:TextAlign.center,
+                    style:TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                      color:selected_index==index ? Colors.white :Colors.black54 ))),
                 ),
                 onTap: ()=>setState(()=>selected_index=index),
             ),
           );
         }
-           )    // ),
+           )    
     );
   }
 }

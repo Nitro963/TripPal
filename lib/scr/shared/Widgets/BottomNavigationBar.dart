@@ -4,7 +4,6 @@ import 'package:travel_app/scr/screens/Chat/chat.dart';
 import 'package:travel_app/scr/screens/Home/home.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/LogIn/login.dart';
-import 'package:get/get.dart';
 import 'package:travel_app/scr/screens/Profile/Profile.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -17,11 +16,11 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   List<NavItem> childs = [
-    NavItem(icon: Icons.home,title: "Home",nav: (){Get.to(HomePage());}),
-    NavItem(icon: Icons.flight, title: "Flights",nav:(){Get.to(Login());}),
-    NavItem(icon: Icons.chat, title: "ChatBot",nav: (){Get.to(Chat());}),
-    NavItem(icon: Icons.hotel, title: "Hotels",nav:(){Get.to(HotelSearchPage());}),
-    NavItem(icon: Icons.person, title: "Profile",nav:(){Get.to(ProfilePage());}),
+    NavItem(icon: Icons.home,title: "Home",nav: (){Get.to(()=>HomePage());}),
+    NavItem(icon: Icons.flight, title: "Flights",nav:(){Get.to(()=>Login());}),
+    NavItem(icon: Icons.chat, title: "ChatBot",nav: (){Get.to(()=>Chat());}),
+    NavItem(icon: Icons.hotel, title: "Hotels",nav:(){Get.to(()=>HotelSearchPage());}),
+    NavItem(icon: Icons.person, title: "Profile",nav:(){Get.to(()=>ProfilePage());}),
   ];
   @override
   void initState() {
@@ -59,7 +58,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           color: widget.currentIndex == childs.indexOf(item)
                               ? Theme.of(context).primaryColorDark
                               : Colors.grey,
-                          fontSize: 8.7),
+                          fontSize: 8.4,fontWeight: FontWeight.w900
+                          ),
                     ),
                   ]),
                   onTap: () {

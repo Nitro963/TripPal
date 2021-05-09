@@ -41,7 +41,7 @@ class TopCities extends StatelessWidget {
                     child: Center(
                         child: Text(
                       "Hot",
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,fontFamily:'Lato'),
                       textAlign: TextAlign.center,
                     )),
                   )

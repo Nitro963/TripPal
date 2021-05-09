@@ -49,7 +49,6 @@ final activationColor = const Color(0xFF0288D1);
 
 final deactivatedColor = const Color(0xFF757575);
 
-final validateColor = const Color(0xFF76FF03);
 
 class Themes {
   static ThemeData get mainTheme {
