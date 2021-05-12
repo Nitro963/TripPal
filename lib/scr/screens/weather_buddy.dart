@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
@@ -51,11 +52,23 @@ class WeatherBuddyController extends PlacesListController {
     });
   }
 
+  StreamSubscription<WeatherInfo> dataSub;
+
+  void onClose() {
+    dataSub?.cancel();
+    super.onClose();
+  }
+
   Future<void> refreshCurrentPageWeatherInfo() async {
-    WeatherInfo res = await places[currentPage].getWeatherInfo();
-    var current = _weatherStatus[currentPage];
-    current.value = res;
-    current.refresh();
+    dataSub?.cancel();
+    dataSub = places[currentPage]
+        .getWeatherInfo()
+        .asStream()
+        .listen((WeatherInfo res) {
+      var current = _weatherStatus[currentPage];
+      current.value = res;
+      current.refresh();
+    });
     // await Future.delayed(Duration(milliseconds: 1500), () async {});
   }
 

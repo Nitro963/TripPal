@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/screens/review_writing.dart';
-import 'package:travel_app/scr/shared/constants.dart';
-import 'package:travel_app/scr/widgets/ReviewsBarChart.dart';
-import 'package:travel_app/scr/widgets/review_card.dart';
+import '../shared/constants.dart';
+import '../widgets/ReviewsBarChart.dart';
+import '../widgets/review_card.dart';
+
+import '../shared/custom_rect_tween.dart';
+import '../shared/hero_dialog_route.dart';
+
+import 'review_writing.dart';
 
 class Reviews extends StatefulWidget {
   @override
@@ -130,12 +134,46 @@ class _ReviewsState extends State<Reviews> {
                               heightFactor: 0.7,
                               alignment: Alignment.topCenter,
                               child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 17.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Hero(
+                                  tag: '$index card',
+                                  createRectTween: (begin, end) {
+                                    return CustomRectTween(
+                                        begin: begin, end: end);
+                                  },
                                   child: ReviewCard(
-                                    onPressed:
-                                        scale.floor() == 1 ? () {} : null,
-                                  )),
+                                    onPressed: scale.floor() == 1
+                                        ? () async {
+                                            Navigator.of(context)
+                                                .push(HeroDialogRoute(
+                                              builder: (context) => Center(
+                                                child: Hero(
+                                                  tag: '$index card',
+                                                  createRectTween:
+                                                      (begin, end) {
+                                                    return CustomRectTween(
+                                                        begin: begin, end: end);
+                                                  },
+                                                  child: Padding(
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 15),
+                                                    child: ReviewCard(
+                                                        height: SizeConfig
+                                                                .screenHeight *
+                                                            0.65,
+                                                        scrollable: true,
+                                                        onPressed: null),
+                                                  ),
+                                                ),
+                                              ),
+                                            ));
+                                          }
+                                        : null,
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
                         );

@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/weather_info.dart';
 import 'package:travel_app/scr/screens/weather_buddy.dart';
 
-Future sendRequest(http.Request request) async {
+Future<dynamic> sendRequest(http.Request request) async {
   http.Response response;
   try {
     response = await http.Response.fromStream(await request.send());
@@ -77,10 +78,12 @@ class OpenWeatherMapAPI {
 class PhotonAPI {
   static final _photonRequestBuilder =
       RequestBuilder('photon.komoot.io', '/api/');
-  static dynamic getQuery(String query) async {
+  static Future<List<Place>> getQuery(String query) async {
     _photonRequestBuilder.addQueryParameter('q', query);
     _photonRequestBuilder.addQueryParameter('lang', 'en');
     _photonRequestBuilder.addQueryParameter('limit', '6');
-    return await sendRequest(_photonRequestBuilder.buildRequest('get'));
+    var res = await sendRequest(_photonRequestBuilder.buildRequest('get'));
+    var features = res['features'] as List;
+    return features.map((e) => Place.fromJson(e)).toSet().toList();
   }
 }

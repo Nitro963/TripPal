@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/screens/places_search.dart';
 import 'package:travel_app/scr/screens/weather_buddy.dart';
 import 'package:travel_app/scr/screens/weather_buddy_places.dart';
 import 'package:travel_app/scr/screens/place_details.dart';
@@ -84,7 +85,7 @@ class _HomeState extends State<Home> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Get.to(() => Login());
+            Get.to(() => Reviews());
           },
         ),
         body: Align(

@@ -17,25 +17,29 @@ class PlacesSearchController extends GetxController {
 
   bool get isHistory => _query.isEmpty;
 
-  void onQueryChanged(String query) async {
+  Future<void> onQueryChanged(String query) async {
     if (query == _query.value) return;
 
     _query.value = query;
     _isLoading.value = true;
 
     if (query.isEmpty) {
-      _suggestions.value = history;
+      _suggestions
+        ..clear()
+        ..addAll(history);
     } else {
-      final body = await PhotonAPI.getQuery(query);
-      final features = body['features'] as List;
-      _suggestions.value =
-          features.map((e) => Place.fromJson(e)).toSet().toList();
+      final res = await PhotonAPI.getQuery(query);
+      _suggestions
+        ..clear()
+        ..addAll(res);
     }
     _isLoading.value = false;
   }
 
   void clear() {
-    _suggestions.value = history;
+    _suggestions
+      ..clear()
+      ..addAll(history);
   }
 }
 

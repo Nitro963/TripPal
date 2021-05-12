@@ -207,11 +207,11 @@ class PlacesList extends StatelessWidget {
     return Box(
       color: Colors.white,
       onTap: controller.places.length < controller.limit
-          ? () async {
-              // ToDo get result from search page and add it to the state
-              await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => PlacesSearch()));
-              controller.addPlace(Place(name: 'Paris', country: 'France'));
+          ? () {
+              Get.put(PlacesSearchUIController());
+              Get.to(() => PlacesSearch()).then((value) {
+                if (value != null) controller.addPlace(value);
+              });
             }
           : null,
       child: Column(
