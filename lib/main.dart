@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
             IconButton(
               icon: Icon(FontAwesomeIcons.mapMarkedAlt, color: Colors.white),
               onPressed: () {
-                // Get.put(PlacesSearchController());
+                Get.put(PlacesSearchController());
                 Get.to(() => TripPlanning());
               },
             )

@@ -23,6 +23,8 @@ class WeatherBuddyController extends PlacesListController {
 
   List<RxBool> _hasInfo = List<RxBool>.empty(growable: true);
 
+  final pageController = PageController();
+
   WeatherBuddyController(int limit) : super(limit);
 
   UnmodifiableListView<bool> get hasInfo =>
@@ -40,16 +42,16 @@ class WeatherBuddyController extends PlacesListController {
   }
 
   void _requestWeatherInfo(int index, Place place) {
-    // Future.delayed(Duration(milliseconds: 800), () async {
-    //   var value = await place.getWeatherInfo();
-    //   _hasInfo[index].value = true;
-    //   var current = _weatherStatus[index];
-    //   current.value = value;
-    //   current.refresh();
-    // });
-    Future.delayed(Duration(milliseconds: 1500), () async {
+    Future.delayed(Duration(milliseconds: 800), () async {
+      var value = await place.getWeatherInfo();
       _hasInfo[index].value = true;
+      var current = _weatherStatus[index];
+      current.value = value;
+      current.refresh();
     });
+    // Future.delayed(Duration(milliseconds: 1500), () async {
+    //   _hasInfo[index].value = true;
+    // });
   }
 
   StreamSubscription<WeatherInfo> dataSub;
@@ -93,12 +95,15 @@ class WeatherBuddyController extends PlacesListController {
     return false;
   }
 
-  void removePlaceAt(int index) {
+  Future<void> removePlaceAt(int index) async {
+    if (currentPage == index) if (currentPage == _hasInfo.length - 1) {
+      currentPage = max(_hasInfo.length - 2, 0);
+      await pageController.animateToPage(currentPage,
+          duration: Duration(milliseconds: 350), curve: Curves.ease);
+    }
     super.removePlaceAt(index);
     _hasInfo.removeAt(index);
     _weatherStatus.removeAt(index);
-    _currentPage++;
-    _currentPage.value = max(min(_hasInfo.length - 1, currentPage), 0);
   }
 
   void clear() {
@@ -116,26 +121,27 @@ class WeatherBuddyController extends PlacesListController {
     objectFrom.value = objectTo.value;
     objectTo.value = tmp;
 
-    objectFrom = _hasInfo[from].value;
-    objectTo = _hasInfo[to].value;
-
     objectFrom.refresh();
     objectTo.refresh();
 
+    objectFrom = _hasInfo[from];
+    objectTo = _hasInfo[to];
     tmp = objectFrom.value;
+
     objectFrom.value = objectTo.value;
     objectTo.value = tmp;
 
-    objectFrom.refresh();
-    objectTo.refresh();
-
     replaceAll(newPlaces);
+  }
+
+  set currentPage(int page) {
+    assert(page < _hasInfo.length);
+    assert(page >= 0);
+    _currentPage.value = page;
   }
 }
 
 class WeatherBuddy extends GetView<WeatherBuddyController> {
-  final pageController = PageController();
-
   Widget _buildBackground() {
     var path;
     var key;
@@ -188,12 +194,12 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
     );
   }
 
-  Widget _buildView() {
+  Widget _buildPlacesStack() {
     return Stack(key: ValueKey(0), children: [
       AnimatedSwitcher(
           duration: Duration(milliseconds: 800), child: _buildBackground()),
       PageView.builder(
-          controller: pageController,
+          controller: controller.pageController,
           itemCount: controller.places.length,
           itemBuilder: (context, index) => Container()),
       TransformerPageView(
@@ -201,15 +207,16 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
           transformer: ScaleAndFadeTransformer(),
           itemCount: controller.places.length,
           onPageChanged: (int page) {
-            pageController.animateToPage(page,
+            controller.pageController.animateToPage(page,
                 duration: Duration(milliseconds: 300), curve: Curves.ease);
+            controller.currentPage = page;
           },
           itemBuilder: (context, index) => WeatherPage(index: index)),
       Positioned(
           top: 90,
           left: 20,
           child: SmoothPageIndicator(
-            controller: pageController,
+            controller: controller.pageController,
             count: controller.places.length,
             effect: ExpandingDotsEffect(
               activeDotColor: Colors.white,
@@ -220,6 +227,15 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
             ),
           )),
     ]);
+  }
+
+  Widget _buildView() {
+    return Obx(() => AnimatedSwitcher(
+        switchOutCurve: Curves.elasticOut,
+        duration: Duration(milliseconds: 650),
+        child: controller.isNotEmpty
+            ? _buildPlacesStack()
+            : _buildEmptyPlaceHolder()));
   }
 
   @override
@@ -235,8 +251,9 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
             if (controller.isNotEmpty)
               IconButton(
                   icon: Icon(Icons.remove),
-                  onPressed: () {
-                    controller.removePlaceAt(controller._currentPage.value);
+                  onPressed: () async {
+                    await controller
+                        .removePlaceAt(controller._currentPage.value);
                   }),
             if (controller.isNotEmpty)
               IconButton(
@@ -249,20 +266,11 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
             IconButton(
                 icon: Icon(Icons.playlist_add),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => WeatherBuddyPlaces(),
-                      ));
+                  Get.to(() => WeatherBuddyPlaces());
                 }),
           ],
         ),
-        body: AnimatedSwitcher(
-            switchOutCurve: Curves.elasticOut,
-            duration: Duration(milliseconds: 650),
-            child: controller.isNotEmpty
-                ? _buildView()
-                : _buildEmptyPlaceHolder())));
+        body: _buildView()));
   }
 }
 

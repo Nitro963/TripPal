@@ -208,7 +208,7 @@ class PlacesList extends StatelessWidget {
       color: Colors.white,
       onTap: controller.places.length < controller.limit
           ? () {
-              Get.put(PlacesSearchUIController());
+              Get.put(PlacesSearchUIController(), permanent: true);
               Get.to(() => PlacesSearch()).then((value) {
                 if (value != null) controller.addPlace(value);
               });

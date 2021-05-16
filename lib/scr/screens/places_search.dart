@@ -69,12 +69,12 @@ class PlacesSearchUIController extends GetxController {
     if (value.length >= 3) {
       _debounce = Timer(Duration(milliseconds: 350), () async {
         _isLoading.value = true;
-        await Future.delayed(Duration(milliseconds: 3000), () {});
+        await Future.delayed(Duration(milliseconds: 800), () {});
         _suggestions
           ..clear()
           ..addAll([
             Place(
-              name: 'San Fracisco',
+              name: 'San Francisco',
               country: 'United States of America',
               state: 'California',
             ),
@@ -97,8 +97,7 @@ class PlacesSearchUIController extends GetxController {
         //   _suggestions
         //     ..clear()
         //     ..addAll(res.take(10));
-        //   _isLoading.value = false;
-        // });
+        _isLoading.value = false;
       });
     } else
       _isLoading.value = false;
