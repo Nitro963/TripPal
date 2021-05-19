@@ -15,7 +15,7 @@ class TripPlanning extends StatelessWidget {
     final actions = [
       FloatingSearchBarAction.icon(
         showIfOpened: false,
-        icon: Icons.place,
+        icon: Icons.not_listed_location_outlined,
         onTap: () {},
       ),
       FloatingSearchBarAction.searchToClear(
@@ -38,8 +38,7 @@ class TripPlanning extends StatelessWidget {
           progress: searchController.isLoading,
           debounceDelay: const Duration(milliseconds: 500),
           onQueryChanged: searchController.onQueryChanged,
-          scrollPadding: EdgeInsets.zero,
-          transition: SlideFadeFloatingSearchBarTransition(),
+          transition: CircularFloatingSearchBarTransition(),
           accentColor: Colors.blueAccent,
           builder: (context, _) => buildExpandableBody(),
           body: buildBody(),
@@ -129,13 +128,31 @@ class TripPlanning extends StatelessWidget {
   }
 
   Widget buildBody() {
-    return Image.asset(
-      'images/map.jpg',
-      fit: BoxFit.cover,
-      height: double.infinity,
-      width: double.infinity,
-      colorBlendMode: BlendMode.darken,
-      color: Colors.black38,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Image.asset(
+        'images/map.jpg',
+        fit: BoxFit.cover,
+        height: double.infinity,
+        width: double.infinity,
+        colorBlendMode: BlendMode.darken,
+        color: Colors.black38,
+      ),
+      floatingActionButton: Padding(
+          padding: const EdgeInsetsDirectional.only(bottom: 16),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            FloatingActionButton(
+              onPressed: () {},
+              backgroundColor: Colors.white,
+              child: const Icon(Icons.gps_fixed, color: Color(0xFF4d4d4d)),
+            ),
+            // const SizedBox(height: 16),
+            // FloatingActionButton(
+            //   onPressed: () {},
+            //   backgroundColor: Colors.blue,
+            //   child: const Icon(Icons.workspaces_filled),
+            // )
+          ])),
     );
   }
 

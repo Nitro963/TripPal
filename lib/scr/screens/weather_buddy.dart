@@ -4,7 +4,6 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -14,6 +13,7 @@ import 'package:travel_app/scr/models/weather_info.dart';
 import 'package:travel_app/scr/screens/weather_buddy_places.dart';
 import 'package:travel_app/scr/services/transformers.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:travel_app/scr/widgets/loading_spinner.dart';
 
 class WeatherBuddyController extends PlacesListController {
   RxInt _currentPage = 0.obs;
@@ -49,9 +49,6 @@ class WeatherBuddyController extends PlacesListController {
       current.value = value;
       current.refresh();
     });
-    // Future.delayed(Duration(milliseconds: 1500), () async {
-    //   _hasInfo[index].value = true;
-    // });
   }
 
   StreamSubscription<WeatherInfo> dataSub;
@@ -63,10 +60,9 @@ class WeatherBuddyController extends PlacesListController {
 
   Future<void> refreshCurrentPageWeatherInfo() async {
     dataSub?.cancel();
-    dataSub = places[currentPage]
-        .getWeatherInfo()
-        .asStream()
-        .listen((WeatherInfo res) {
+    dataSub = Future.delayed(Duration(milliseconds: 500), () async {
+      return await places[currentPage].getWeatherInfo();
+    }).asStream().listen((WeatherInfo res) {
       var current = _weatherStatus[currentPage];
       current.value = res;
       current.refresh();
@@ -141,7 +137,28 @@ class WeatherBuddyController extends PlacesListController {
   }
 }
 
-class WeatherBuddy extends GetView<WeatherBuddyController> {
+class WeatherBuddy extends StatefulWidget {
+  @override
+  _WeatherBuddyState createState() => _WeatherBuddyState();
+}
+
+class _WeatherBuddyState extends State<WeatherBuddy>
+    with TickerProviderStateMixin {
+  final controller = Get.find<WeatherBuddyController>();
+  AnimationController animationController;
+  Animation<double> animation;
+
+  void initState() {
+    animationController = AnimationController(
+      duration: const Duration(milliseconds: 1600),
+      vsync: this,
+    )..repeat();
+    animation = Tween<double>(begin: 0, end: -1).animate(
+        CurvedAnimation(parent: animationController, curve: Curves.linear));
+    animationController.reset();
+    super.initState();
+  }
+
   Widget _buildBackground() {
     var path;
     var key;
@@ -172,7 +189,7 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
       children: [
         Image.asset(
           'images/The Weather Buddy/Empty List.jpg',
-          key: key,
+          key: ValueKey(-1),
           fit: BoxFit.cover,
           height: double.infinity,
           width: double.infinity,
@@ -256,13 +273,20 @@ class WeatherBuddy extends GetView<WeatherBuddyController> {
                         .removePlaceAt(controller._currentPage.value);
                   }),
             if (controller.isNotEmpty)
-              IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () async {
-                    print('refresh weather state');
-                    await controller.refreshCurrentPageWeatherInfo();
-                    print('done');
-                  }),
+              RotationTransition(
+                turns: animation,
+                child: IconButton(
+                    icon: Icon(Icons.sync),
+                    onPressed: () async {
+                      print('refresh weather state');
+                      animationController.forward();
+                      await controller.refreshCurrentPageWeatherInfo();
+                      await animationController.animateTo(0,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.easeOut);
+                      animationController.reset();
+                    }),
+              ),
             IconButton(
                 icon: Icon(Icons.playlist_add),
                 onPressed: () {
@@ -395,20 +419,7 @@ class WeatherPage extends GetView<WeatherBuddyController> {
                     )
                   ],
                 )
-              : Center(
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.black26,
-                      borderRadius: BorderRadius.circular(45),
-                    ),
-                    child: SpinKitCircle(
-                      color: Get.theme.accentColor,
-                      size: 60.0,
-                    ),
-                  ),
-                ))),
+              : LoadingSpinner())),
     );
   }
 }

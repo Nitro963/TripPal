@@ -84,6 +84,9 @@ class PhotonAPI {
     _photonRequestBuilder.addQueryParameter('limit', '6');
     var res = await sendRequest(_photonRequestBuilder.buildRequest('get'));
     var features = res['features'] as List;
-    return features.map((e) => Place.fromJson(e)).toSet().toList();
+    return features
+        .map((e) => Place.fromJson(e))
+        .toSet()
+        .toList(growable: false);
   }
 }
