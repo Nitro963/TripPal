@@ -164,7 +164,7 @@ class _LoginState extends State<Login> {
                                   children: [
                                     CupertinoButton(
                                       onPressed: () {
-                                        Get.to(PasswordReset());
+                                        Get.to(() => PasswordReset());
                                       },
                                       child: Text('Forgot your password?',
                                           style: TextStyle(
