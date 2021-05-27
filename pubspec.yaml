@@ -50,8 +50,7 @@ dependencies:
   flutter_staggered_grid_view: ^0.4.0
   get: ^4.1.4
   animated_splash_screen: ^1.1.0
-  location: ^4.1.1
-  geocoder: ^0.2.1
+  flutter_spinkit: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -70,7 +69,8 @@ flutter:
 
   assets:
     - images/
-    - images/SVG/
+    - images/The Weather Buddy/
+    - images/The Weather Buddy/SVG/
 
   fonts:
      - family: Montserrat

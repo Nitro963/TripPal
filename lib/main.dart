@@ -4,13 +4,11 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/LogIn/login.dart';
-import 'package:travel_app/scr/screens/Profile/Profile.dart';
-import 'package:travel_app/scr/screens/clima.dart';
-import 'package:travel_app/scr/screens/trip_planning.dart';
+import 'package:travel_app/scr/screens/plan/trip_planning.dart';
+import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 import 'scr/screens/Home/home.dart';
-import 'scr/shared/services/location.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -34,13 +32,20 @@ class _HomeState extends State<Home> {
             IconButton(
                 icon: Icon(Icons.cloud),
                 onPressed: () {
-                  Get.to(() => Clima());
+                  Get.put(WeatherBuddyController(10));
+                  Get.to(() => WeatherBuddy());
                 }),
             IconButton(
               icon: Icon(FontAwesomeIcons.mapMarkedAlt, color: Colors.white),
               onPressed: () {
                 Get.put(PlacesSearchController());
                 Get.to(() => TripPlanning());
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.home, color: Colors.white),
+              onPressed: () {
+                Get.to(() => HomePage());
               },
             )
           ],
@@ -56,15 +61,15 @@ class _HomeState extends State<Home> {
   }
 }
 
-void main()async {
+void main() async {
   Paint.enableDithering = true;
   WidgetsFlutterBinding.ensureInitialized();
   //LocationCustom location =LocationCustom();
-   //await location.init();  
- //  Get.put(location);
+  //await location.init();
+  //  Get.put(location);
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
-    home:HomePage(),
+    home: Home(),
   ));
 }

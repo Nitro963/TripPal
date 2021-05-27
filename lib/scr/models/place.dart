@@ -1,4 +1,7 @@
 import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
+import 'package:travel_app/scr/models/weather_info.dart';
+import 'package:travel_app/scr/shared/services/networking.dart';
 
 class Place {
   final String name;
@@ -6,6 +9,8 @@ class Place {
   final String country;
   String image;
   double rating;
+  double lat;
+  double lon;
 
   Place({
     @required this.name,
@@ -13,6 +18,8 @@ class Place {
     this.state,
     this.image,
     this.rating,
+    this.lat,
+    this.lon,
   })  : assert(name != null),
         assert(country != null);
 
@@ -46,6 +53,14 @@ class Place {
     if (isCountry || isState || !hasState) return country;
     if (!hasCountry) return state;
     return '$state, $country';
+  }
+
+  Future<WeatherInfo> getWeatherInfo() async {
+    if (lon != null && lat != null) {
+      return await OpenWeatherMapAPI.getWeatherByGeographicCoordinates(
+          lon, lat);
+    }
+    return await OpenWeatherMapAPI.getWeatherByCityName(name);
   }
 
   @override

@@ -13,7 +13,12 @@ import 'Componenet/image_card.dart';
 import 'Componenet/place_card.dart';
 
 class PlaceDetails extends StatelessWidget {
-  final placesFigures = ['5.jpg', '6.jpg', '7.jpg', '8.jpg'];
+  final placesFigures = [
+    'images/5.jpg',
+    'images/6.jpg',
+    'images/7.jpg',
+    'images/8.jpg'
+  ];
   final placesNames = ['Vienna', 'Venice', 'Scotland', 'Berlin'];
   final headerImage = '13.jpg';
 
@@ -81,9 +86,9 @@ class DetailsContainer extends StatelessWidget {
   final List<String> placesFigures;
   final List<String> placesNames;
   final List<String> pictures = [
-    '14.jpg',
-    '15.jpg',
-    '16.jpg',
+    'images/14.jpg',
+    'images/15.jpg',
+    'images/16.jpg',
   ];
 
   @override
@@ -99,8 +104,8 @@ class DetailsContainer extends StatelessWidget {
             children: [
               Text('Bali', style: theme.textTheme.headline1),
               SizedBox(height: 5),
-             // StaticStars(active: 3),
-             StarRating(isStatic:true,rating:3),
+              // StaticStars(active: 3),
+              StarRating(isStatic: true, rating: 3),
               SizedBox(height: 20),
               AvatarOverFlowView(),
               SizedBox(height: 20),

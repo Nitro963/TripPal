@@ -1,9 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:travel_app/scr/models/place.dart';
+import 'package:travel_app/scr/models/weather_info.dart';
+import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 
-Future sendRequest(http.Request request) async {
-  http.Response response = await http.Response.fromStream(await request.send());
-  if (response.statusCode == 200) return jsonDecode(response.body);
+Future<dynamic> sendRequest(http.Request request) async {
+  http.Response response;
+  try {
+    response = await http.Response.fromStream(await request.send());
+  } catch (e) {
+    throw e;
+  }
+  if (response?.statusCode == 200) return jsonDecode(response.body);
   throw 'Request failed ${response.statusCode}';
 }
 
@@ -47,29 +55,38 @@ class RequestBuilder {
 class OpenWeatherMapAPI {
   static final _weatherRequestBuilder =
       RequestBuilder('api.openweathermap.org', '/data/2.5/weather');
-  static const _API_KEY = '';
+  static const _API_KEY = 'd136f87331b0bd808daa2fe6de21e662';
 
-  static dynamic getWeatherByCityName(name) async {
+  static Future<WeatherInfo> getWeatherByCityName(name) async {
     _weatherRequestBuilder.addQueryParameter('appid', _API_KEY);
     _weatherRequestBuilder.addQueryParameter('q', name);
-    return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
+    _weatherRequestBuilder.addQueryParameter('units', 'metric');
+    return WeatherInfo.fromOpenWeatherMapJson(
+        await sendRequest(_weatherRequestBuilder.buildRequest('get')));
   }
 
-  static dynamic getWeatherByGeographicCoordinates(lon, lat) async {
+  static Future<WeatherInfo> getWeatherByGeographicCoordinates(lon, lat) async {
     _weatherRequestBuilder.addQueryParameter('appid', _API_KEY);
     _weatherRequestBuilder.addQueryParameter('lat', lat);
     _weatherRequestBuilder.addQueryParameter('lon', lon);
-    return await sendRequest(_weatherRequestBuilder.buildRequest('get'));
+    _weatherRequestBuilder.addQueryParameter('units', 'metric');
+    return WeatherInfo.fromOpenWeatherMapJson(
+        await sendRequest(_weatherRequestBuilder.buildRequest('get')));
   }
 }
 
 class PhotonAPI {
   static final _photonRequestBuilder =
       RequestBuilder('photon.komoot.io', '/api/');
-  static dynamic getQuery(String query) async {
+  static Future<List<Place>> getQuery(String query) async {
     _photonRequestBuilder.addQueryParameter('q', query);
     _photonRequestBuilder.addQueryParameter('lang', 'en');
     _photonRequestBuilder.addQueryParameter('limit', '6');
-    return await sendRequest(_photonRequestBuilder.buildRequest('get'));
+    var res = await sendRequest(_photonRequestBuilder.buildRequest('get'));
+    var features = res['features'] as List;
+    return features
+        .map((e) => Place.fromJson(e))
+        .toSet()
+        .toList(growable: false);
   }
 }

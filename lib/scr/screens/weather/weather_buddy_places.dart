@@ -8,89 +8,19 @@ import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorder
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 
 import 'package:travel_app/scr/models/place.dart';
-import 'package:travel_app/scr/screens/clima_search.dart';
+import 'package:travel_app/scr/screens/weather/places_search.dart';
 import 'package:travel_app/scr/widgets/clickable_box.dart';
 
-class ClimaPlaces extends StatefulWidget {
-  const ClimaPlaces({
-    Key key,
-  }) : super(key: key);
+import 'weather_buddy.dart';
 
-  @override
-  _ClimaPlacesState createState() => _ClimaPlacesState();
-}
+class WeatherBuddyPlaces extends GetView<WeatherBuddyController> {
+  static const List<String> OPTIONS = ['Clear all', 'Add current trip cities'];
+  static const Map<String, IconData> ICONS = {
+    'Clear all': Icons.clear,
+    'Add current trip cities': Icons.list_alt
+  };
 
-class _ClimaPlacesState extends State<ClimaPlaces>
-    with SingleTickerProviderStateMixin {
-  static const List<String> OPTIONS = [
-    'Clear all',
-  ];
-  static const int PLACES_LIMIT = 12;
-
-  final List<Place> selectedPlaces = [
-    Place(
-      name: 'Munich',
-      state: 'Bavaria',
-      country: 'Germany',
-    ),
-    Place(
-      name: 'London',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'Munich1',
-      state: 'Bavaria',
-      country: 'Germany',
-    ),
-    Place(
-      name: 'London1',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'Munich1',
-      state: 'Bavaria',
-      country: 'Germany',
-    ),
-    Place(
-      name: 'London1',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'London2',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'London3',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'London4',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'London5',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'London6',
-      country: 'United Kingdom',
-    ),
-    Place(
-      name: 'London7',
-      country: 'United Kingdom',
-    ),
-  ];
-
-  ScrollController scrollController;
-  PlacesListController controller;
-
-  @override
-  void initState() {
-    scrollController = ScrollController();
-    controller = PlacesListController.from(selectedPlaces, PLACES_LIMIT);
-    Get.put(controller);
-    super.initState();
-  }
+  final ScrollController scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +42,9 @@ class _ClimaPlacesState extends State<ClimaPlaces>
                     : const AlwaysScrollableScrollPhysics(),
                 padding: const EdgeInsets.only(bottom: 24),
                 children: <Widget>[
-                  PlacesList(scrollController: scrollController),
+                  PlacesList(
+                      scrollController: scrollController,
+                      controller: controller),
                 ])));
   }
 
@@ -126,33 +58,43 @@ class _ClimaPlacesState extends State<ClimaPlaces>
           case 'Clear all':
             controller.clear();
             break;
+          case 'Add current trip cities':
+            // TODO
+            break;
         }
       },
       itemBuilder: (context) => OPTIONS.map((option) {
         return PopupMenuItem(
           value: option,
-          child: Text(
-            option,
-            style: textTheme.bodyText1,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(ICONS[option], color: Colors.black, size: 20),
+              SizedBox(width: 10),
+              Text(
+                option,
+                style: textTheme.bodyText1,
+              )
+            ],
           ),
         );
       }).toList(),
     );
   }
-
-  @override
-  void dispose() {
-    scrollController.dispose();
-    controller.dispose();
-    super.dispose();
-  }
 }
 
 class PlacesList extends StatelessWidget {
-  final controller = Get.find<PlacesListController>();
-  final scrollController;
+  final PlacesListController controller;
+  final ScrollController scrollController;
+  final bool buildFooter;
 
-  PlacesList({Key key, @required this.scrollController}) : super(key: key);
+  PlacesList(
+      {Key key,
+      @required this.scrollController,
+      @required this.controller,
+      this.buildFooter = true})
+      : super(key: key);
 
   Widget buildReorderable(
     BuildContext context,
@@ -265,11 +207,11 @@ class PlacesList extends StatelessWidget {
     return Box(
       color: Colors.white,
       onTap: controller.places.length < controller.limit
-          ? () async {
-              // ToDo get result from search page and add it to the state
-              await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ClimaSearch()));
-              controller.addPlace(Place(name: 'Paris', country: 'France'));
+          ? () {
+              Get.put(PlacesSearchUIController(), permanent: true);
+              Get.to(() => PlacesSearch()).then((value) {
+                if (value != null) controller.addPlace(value);
+              });
             }
           : null,
       child: Column(
@@ -309,8 +251,8 @@ class PlacesList extends StatelessWidget {
           },
           onReorderFinished: (movedPlace, from, to, newItems) {
             scrollController.jumpTo(scrollController.offset);
+            controller.reorder(movedPlace, from, to, newItems);
             controller.exitOrderPhase();
-            controller.replaceAll(newItems);
           },
           itemBuilder: (context, itemAnimation, place, index) {
             return buildReorderable(context, place, index, (tile) {
@@ -331,17 +273,20 @@ class PlacesList extends StatelessWidget {
               );
             });
           },
-          footer: AnimatedOpacity(
-              opacity: controller.isNotFull ? 1 : 0,
-              duration:
-                  Duration(milliseconds: controller.isNotFull ? 600 : 300),
-              child: _buildFooter(context)),
+          footer: buildFooter
+              ? AnimatedOpacity(
+                  opacity: controller.isNotFull ? 1 : 0,
+                  duration:
+                      Duration(milliseconds: controller.isNotFull ? 600 : 300),
+                  child: _buildFooter(context))
+              : null,
         ));
   }
 }
 
 class PlacesListController extends GetxController {
   RxBool _inReorder = false.obs;
+
   RxList<Place> _places = List<Place>.empty(growable: true).obs;
 
   final int limit;
@@ -349,9 +294,8 @@ class PlacesListController extends GetxController {
   PlacesListController(this.limit);
 
   factory PlacesListController.from(Iterable<Place> places, int limit) {
-    assert(limit >= places.length);
     var controller = PlacesListController(limit);
-    controller._places.addAll(Set.from(places));
+    controller.assign(places);
     return controller;
   }
 
@@ -365,12 +309,20 @@ class PlacesListController extends GetxController {
 
   bool get isNotEmpty => _places.isNotEmpty;
 
-  void addPlace(Place place) {
-    _places.addIf(_places.length < limit && !_places.contains(place), place);
+  void assign(Iterable<Place> places) {
+    var se = Set<Place>.from(places);
+    assert(limit >= se.length);
+    _places
+      ..clear()
+      ..addAll(se);
   }
 
-  void removePlace(Place place) {
-    _places.remove(place);
+  bool addPlace(Place place) {
+    if (_places.length < limit && !_places.contains(place)) {
+      _places.add(place);
+      return true;
+    }
+    return false;
   }
 
   void removePlaceAt(int index) {
@@ -390,6 +342,10 @@ class PlacesListController extends GetxController {
     _places
       ..clear()
       ..addAll(newPlaces);
+  }
+
+  void reorder(Place place, int from, int to, List<Place> newPlaces) {
+    replaceAll(newPlaces);
   }
 
   void clear() {

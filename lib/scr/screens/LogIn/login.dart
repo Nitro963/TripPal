@@ -154,7 +154,7 @@ class _LoginState extends State<Login> {
                                         //   ),
                                         // ));
                                         // }
-                                        Get.to(PlaceDetails());
+                                        Get.to(() => PlaceDetails());
                                       }
                                     }),
                               ),
@@ -165,7 +165,7 @@ class _LoginState extends State<Login> {
                                   children: [
                                     CupertinoButton(
                                       onPressed: () {
-                                        Get.to(PasswordReset());
+                                        Get.to(() => PasswordReset());
                                       },
                                       child: Text('Forgot your password?',
                                           style: TextStyle(
@@ -224,7 +224,7 @@ class _LoginState extends State<Login> {
                                                 fontSize: 17.0)),
                                         CupertinoButton(
                                           onPressed: () {
-                                            Get.to(SignUp());
+                                            Get.to(() => SignUp());
                                           },
                                           child: Text('SIGN UP',
                                               style: TextStyle(

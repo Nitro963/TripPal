@@ -12,30 +12,26 @@ class ReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0)
-          ]),
-      child: !scrollable
-          ? TextButton(
-              onPressed: onPressed,
-              style: ButtonStyle(
-                  overlayColor: MaterialStateProperty.all(Colors.grey.shade200),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                        side: BorderSide(
-                            color: Colors.transparent,
-                            style: BorderStyle.solid),
-                        borderRadius: BorderRadius.circular(20)),
-                  )),
-              child: buildCardContent(),
-            )
-          : buildCardContent(),
-    );
+        height: height,
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0)
+            ]),
+        child: TextButton(
+          onPressed: onPressed,
+          style: ButtonStyle(
+              overlayColor: MaterialStateProperty.all(Colors.grey.shade200),
+              shape: MaterialStateProperty.all(
+                RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: Colors.transparent, style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(20)),
+              )),
+          child: buildCardContent(),
+        ));
   }
 
   Widget buildCardContent() {

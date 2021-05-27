@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 import 'package:travel_app/scr/shared/services/validators.dart';
 
-// TODO change to indexed stack or NeverScrollable PageView
-
 class PasswordReset extends StatefulWidget {
   @override
   _PasswordResetState createState() => _PasswordResetState();
@@ -170,6 +168,8 @@ class _PasswordResetState extends State<PasswordReset> {
           Image.asset(
             'images/password-reset.jpg',
             fit: BoxFit.cover,
+            color: Colors.black26,
+            colorBlendMode: BlendMode.darken,
             height: double.infinity,
             width: double.infinity,
           ),
@@ -183,8 +183,8 @@ class _PasswordResetState extends State<PasswordReset> {
                       style: Theme.of(context)
                           .textTheme
                           .headline4
-                          .copyWith(color: Colors.blueGrey.shade900)),
-                  SizedBox(height: SizeConfig.blockSizeVertical * 5),
+                          .copyWith(color: Colors.blueGrey.shade100)),
+                  SizedBox(height: SizeConfig.blockSizeVertical * 2.5),
                   Center(
                       child: Form(
                           key: _formKey, child: buildStageInputs(context))),
@@ -195,37 +195,5 @@ class _PasswordResetState extends State<PasswordReset> {
         ],
       ),
     );
-  }
-}
-
-class PasswordResetController extends GetxController {
-  RxString _email = ''.obs;
-  RxString _verificationCode = ''.obs;
-  RxString _newPassword = ''.obs;
-  RxInt _stage = 0.obs;
-
-  int get stage => _stage.value;
-  String get email => _email.value;
-  String get verificationCode => _verificationCode.value;
-  String get newPassword => _newPassword.value;
-
-  void setEmail(String val) {
-    _email.value = val;
-  }
-
-  void setVerificationCode(String val) {
-    _verificationCode.value = val;
-  }
-
-  void setNewPassword(String val) {
-    _newPassword.value = val;
-  }
-
-  void proceed() {
-    _stage++;
-  }
-
-  void back() {
-    _stage--;
   }
 }
