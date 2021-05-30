@@ -4,13 +4,10 @@ import 'package:travel_app/scr/shared/Animation/TextWithAnmation.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
 
 import 'Componenet/BlogListWidget.dart';
-import '../../shared/Widgets/BottomNavigationBar.dart';
 import 'Componenet/ContienetListView.dart';
 import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
 import 'package:get/get.dart';
-
-import 'Componenet/search.dart';
 
 class HomePage extends StatelessWidget {
   var isSearching = false.obs;
@@ -48,7 +45,7 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
-        bottomNavigationBar: BottomNavBar(),
+        // bottomNavigationBar: BottomNavBar(),
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.all(10.0),

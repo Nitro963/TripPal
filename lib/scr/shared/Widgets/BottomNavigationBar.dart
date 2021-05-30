@@ -4,8 +4,10 @@ import 'package:travel_app/scr/screens/Chat/chat.dart';
 import 'package:travel_app/scr/screens/Home/home.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/LogIn/login.dart';
-import 'package:travel_app/scr/screens/Profile/Profile.dart';
 import 'dart:ui';
+
+import 'package:travel_app/scr/screens/Profile/Profile.dart';
+
 class BottomNavBar extends StatefulWidget {
   int currentIndex;
 

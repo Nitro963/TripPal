@@ -69,5 +69,21 @@ List<Hotel> myHotels = [
       stars: 5,
       numReviews: 200,
       location: "Paris",
+      avalibaleRooms: [Room(price: 1000, type: "Double Room")]),
+      Hotel(
+      name: "Four Seasons",
+      image: "images/hotel3.jpg",
+      raiting: 9.1,
+      stars: 5,
+      numReviews: 200,
+      location: "Paris",
+      avalibaleRooms: [Room(price: 1000, type: "Double Room")]),
+      Hotel(
+      name: "Four Seasons",
+      image: "images/hotel3.jpg",
+      raiting: 9.1,
+      stars: 5,
+      numReviews: 200,
+      location: "Paris",
       avalibaleRooms: [Room(price: 1000, type: "Double Room")])
 ];

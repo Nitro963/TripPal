@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/LogIn/login.dart';
+import 'package:travel_app/scr/screens/Main/home.dart';
 import 'package:travel_app/scr/screens/plan/trip_planning.dart';
 import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 import 'package:travel_app/scr/shared/Constants/constants.dart';
@@ -19,7 +20,7 @@ class _HomeState extends State<Home> {
   final List<String> pictures = ['14.jpg', '15.jpg', '16.jpg', '13.jpg'];
 
   void initState() {
-    SizeConfig.init();
+    SizeConfig.init(  );
     super.initState();
   }
 
@@ -45,7 +46,7 @@ class _HomeState extends State<Home> {
             IconButton(
               icon: Icon(Icons.home, color: Colors.white),
               onPressed: () {
-                Get.to(() => HomePage());
+                Get.to(() => HomePagePV());
               },
             )
           ],
