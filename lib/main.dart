@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
-import 'package:travel_app/scr/screens/LogIn/login.dart';
+import 'package:travel_app/scr/screens/credentials/login.dart';
 import 'package:travel_app/scr/screens/plan/trip_planning.dart';
 import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 import 'scr/screens/Home/home.dart';
 

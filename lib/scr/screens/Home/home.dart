@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
 import 'package:travel_app/scr/shared/Animation/TextWithAnmation.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 import 'Componenet/BlogListWidget.dart';
-import '../../shared/Widgets/BottomNavigationBar.dart';
+import '../../shared/Widgets/bottom_navigation_bar.dart';
 import 'Componenet/ContienetListView.dart';
 import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
@@ -24,8 +24,8 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: TextWithAnmation(
-           // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
-                        child: Text(
+            // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
+            child: Text(
               "Enjoy Your Life With us !!",
               style: TextStyle(color: Colors.black54),
             ),

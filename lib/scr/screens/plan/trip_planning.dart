@@ -5,7 +5,7 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 class TripPlanning extends StatelessWidget {
   final searchBarController = FloatingSearchBarController();

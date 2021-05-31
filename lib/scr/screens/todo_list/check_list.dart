@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/Controlers/toDoListControler.dart';
+import 'package:travel_app/scr/controllers/todo_list_controller.dart';
 import 'package:travel_app/scr/models/tasks.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
 import 'package:get/get.dart';
 
 class CheckList extends StatefulWidget {
   final String title = 'Lists';
-  final ToDoListControler controler = Get.put(ToDoListControler());
+  final ToDoListController controller = Get.put(ToDoListController());
   final List<Task> tasks;
   final TaskCategory cat;
   CheckList({this.tasks, this.cat});
@@ -75,23 +74,23 @@ class _CheckListState extends State<CheckList> {
   }
 
   Widget _build(Task task) {
-    int index = widget.controler.tasks.indexOf(task);
+    int index = widget.controller.tasks.indexOf(task);
     return ListTile(
-      title: Text(widget.controler.tasks[index].title,
+      title: Text(widget.controller.tasks[index].title,
           style: TextStyle(
-            decoration: widget.controler.tasks[index].done
+            decoration: widget.controller.tasks[index].done
                 ? TextDecoration.lineThrough
                 : null,
           )),
       trailing: Checkbox(
-          value: widget.controler.tasks[index].done,
+          value: widget.controller.tasks[index].done,
           onChanged: (val) {
-            setState(() => widget.controler.tasks[index].done = val);
-            print(widget.controler.tasks[index].done);
+            setState(() => widget.controller.tasks[index].done = val);
+            print(widget.controller.tasks[index].done);
             print("${task.done} here");
           }),
       onLongPress: () {
-        setState(() => widget.controler.tasks.removeAt(index));
+        setState(() => widget.controller.tasks.removeAt(index));
       },
     );
   }

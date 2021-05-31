@@ -5,9 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/models/RadioModel.dart';
 import 'package:travel_app/scr/screens/Profile/Component/InfoContainer.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
-import 'package:travel_app/scr/shared/Widgets/BottomNavigationBar.dart';
-import 'package:travel_app/scr/shared/Widgets/RadioItem.dart';
+import 'package:travel_app/scr/shared/constants.dart';
+import 'package:travel_app/scr/shared/Widgets/bottom_navigation_bar.dart';
+import 'package:travel_app/scr/shared/Widgets/radio_item.dart';
 import 'package:travel_app/scr/shared/services/location.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -118,12 +118,13 @@ class ProfilePage extends GetView {
                             onTap: () {
                               gender.forEach(
                                   (element) => element.isSelected = false);
-                              gender[index].isSelected =
-                                  true;
+                              gender[index].isSelected = true;
                               _controller.genderIndex.value = index;
-
                             },
-                            child: Obx(()=> RadioItem(gender[ _controller.genderIndex.value==index? _controller.genderIndex.value:index])));
+                            child: Obx(() => RadioItem(gender[
+                                _controller.genderIndex.value == index
+                                    ? _controller.genderIndex.value
+                                    : index])));
                       }),
                 ),
                 TextFeildItem(
@@ -140,11 +141,10 @@ class ProfilePage extends GetView {
                     _controller.phone.value = val;
                   },
                 ),
-               
                 ElevatedButton(
                   child: Text("Save"),
                   onPressed: () {
-                   //TODO: Save changes to the user
+                    //TODO: Save changes to the user
                   },
                 )
               ],
@@ -155,6 +155,3 @@ class ProfilePage extends GetView {
     );
   }
 }
-
-
-

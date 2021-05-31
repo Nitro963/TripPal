@@ -1,10 +1,9 @@
 import "package:get/get.dart";
 import 'package:travel_app/scr/models/DemoData.dart';
 import "package:travel_app/scr/models/tasks.dart";
-import 'package:travel_app/scr/screens/ToDoList/Component/grid_cards.dart';
 import '../models/tasks.dart';
 
-class ToDoListControler extends GetxController {
+class ToDoListController extends GetxController {
   List tasks = myTasks.obs;
   List categorys = [].obs;
   void addTask(Task task) {

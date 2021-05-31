@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/models/blog.dart';
 import 'package:travel_app/scr/shared/Animation/Heart.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 class BlogList extends StatelessWidget {
   @override
@@ -102,9 +102,7 @@ class BlogTile extends StatelessWidget {
               size: 34,
               startingIcon: Icons.favorite_outline,
               endingIcon: Icons.favorite,
-              tapCallBack: (bool t) {
-               
-              },
+              tapCallBack: (bool t) {},
             ),
           ))
     ]);

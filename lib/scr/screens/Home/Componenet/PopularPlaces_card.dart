@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/models/place.dart';
-import 'package:travel_app/scr/shared/Widgets/Avatars_List.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/Widgets/avatars_list.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/stars.dart';
 
 class PopularPlacesCard extends StatefulWidget {
@@ -36,7 +36,6 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
             BoxShadow(
                 blurRadius: 3, offset: const Offset(0, 2), color: Colors.grey)
           ]),
-
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -58,8 +57,13 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(children: [
-                            Text(place,
-                            style: TextStyle(fontSize: 20,fontWeight:FontWeight.w600,color: Colors.grey[400]),),
+                            Text(
+                              place,
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.grey[400]),
+                            ),
                             SizedBox(width: 14),
                             StarRating(
                               rating: this.rating,
@@ -68,7 +72,11 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
                                   setState(() => this.rating = rating),
                             )
                           ]),
-                          Text(country, style: TextStyle(fontSize: 15,fontWeight:FontWeight.w500,color: Colors.grey[600]))
+                          Text(country,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.grey[600]))
                         ]),
                   ],
                 ),

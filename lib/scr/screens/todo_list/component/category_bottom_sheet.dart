@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
+import 'package:travel_app/scr/controllers/todo_list_controller.dart';
 import "package:travel_app/scr/models/tasks.dart";
 import "package:get/get.dart";
-import "package:travel_app/scr/Controlers/toDoListControler.dart";
 
 import '../../../models/tasks.dart';
-import '../../../models/tasks.dart';
 
-class CategoryBottomSheet extends StatelessWidget {
+class CategoryBottomSheet extends GetView<ToDoListController> {
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
-  final controler = Get.put(ToDoListControler());
 
   Widget _build(TaskCategory cat, onTapCallBack) {
     return InkWell(

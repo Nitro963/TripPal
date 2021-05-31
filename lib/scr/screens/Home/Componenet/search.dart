@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/services/validators.dart';
 
 class SearchWidget extends StatelessWidget {

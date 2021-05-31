@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/Animation/Heart.dart';
 import 'package:travel_app/scr/shared/Animation/StarAnimation.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 /*
 class StarsModel {
   final int starCount;
@@ -130,18 +130,16 @@ class _StarRatingState extends State<StarRating> with TickerProviderStateMixin {
         color: Theme.of(context).buttonColor,
       );
     } else if (index > widget.rating - 1 && index < widget.rating) {
-     /* icon = new Icon(
+      /* icon = new Icon(
         Icons.star_half,
         size: widget.size,
         color: widget.color ?? starsActivationColor,*/
-        icon = StarsAnimation(
+      icon = StarsAnimation(
           startWidget: Icons.star_half,
           endWidget: Icons.star_border,
           beginColor: Colors.grey,
           endColor: widget.color ?? starsActivationColor,
-          size: widget.size
-
-      );
+          size: widget.size);
     } else if (index == widget.rating - 1) {
       icon = StarsAnimation(
           startWidget: Icons.star,

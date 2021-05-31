@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/stars.dart';
 import 'package:travel_app/scr/shared/utils.dart';
 
@@ -45,7 +45,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
-                  //  mainAxisAlignment: MainAxisAlignment.center,
+                    //  mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       /*ClickableStars(
                           callback: (indicator) {
@@ -59,21 +59,19 @@ class _ReviewWritingState extends State<ReviewWriting> {
                                   (SizeConfig.blockSizeVertical *
                                       SizeConfig.blockSizeHorizontal)),
                           mainAxisAlignment: MainAxisAlignment.center),*/
-                     
-                           StarRating(
-                             rating: rate,
-                             mainAxisAlignment: MainAxisAlignment.center,
-                            onRatingChanged: (indicator) {
-                              setState(() {
-                                rate = indicator;
-                              });
-                            },
-                            size: 784 /
-                                (SizeConfig.blockSizeVertical *
-                                    SizeConfig.blockSizeHorizontal),
-                          ),
-                        
-                      
+
+                      StarRating(
+                        rating: rate,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        onRatingChanged: (indicator) {
+                          setState(() {
+                            rate = indicator;
+                          });
+                        },
+                        size: 784 /
+                            (SizeConfig.blockSizeVertical *
+                                SizeConfig.blockSizeHorizontal),
+                      ),
                       Text(
                         'Tap a star to rate',
                         style: TextStyle(color: Colors.white54),

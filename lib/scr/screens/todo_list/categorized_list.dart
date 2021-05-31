@@ -1,34 +1,34 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/Controlers/toDoListControler.dart';
+import 'package:travel_app/scr/controllers/todo_list_controller.dart';
 import 'package:travel_app/scr/models/tasks.dart';
-import 'package:travel_app/scr/screens/ToDoList/check_list.dart';
-import 'package:travel_app/scr/screens/ToDoList/AddTaskScreen.dart';
 import "package:get/get.dart";
-import 'package:travel_app/scr/screens/ToDoList/Component/grid_cards.dart';
 
-class CategorizedList extends GetView {
+import 'add_task_screen.dart';
+import 'check_list.dart';
+import 'component/grid_cards.dart';
+
+class CategorizedList extends GetView<ToDoListController> {
   final String title = 'Lists';
-  final controler = Get.put(ToDoListControler());
 
   @override
   Widget build(BuildContext context) {
     List<Widget> _myCards = [];
     TaskCategory tappedCat;
-    controler.categorys.forEach((catelement) => _myCards.add(GridCard(
+    controller.categorys.forEach((catelement) => _myCards.add(GridCard(
         item: catelement,
         onTapCallBack: () {
           List<Task> subTask = [];
           tappedCat = catelement.title;
 
-          controler.tasks.forEach((element) {
+          controller.tasks.forEach((element) {
             if (catelement.title == TaskCategory.All) {
-              subTask = controler.tasks;
+              subTask = controller.tasks;
             } else if (catelement.title == element.category) {
               subTask.add(element);
             }
           });
-          Get.to(CheckList(tasks: subTask, cat: tappedCat));
+          Get.to(() => CheckList(tasks: subTask, cat: tappedCat));
         })));
     return Scaffold(
       backgroundColor: Colors.white,
@@ -59,7 +59,7 @@ class CategorizedList extends GetView {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(AddTask());
+          Get.to(() => AddTask());
         },
         tooltip: 'Create',
         backgroundColor: Colors.lightBlueAccent[200],

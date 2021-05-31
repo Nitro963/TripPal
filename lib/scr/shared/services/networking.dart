@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/weather_info.dart';
-import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 
 Future<dynamic> sendRequest(http.Request request) async {
   http.Response response;

@@ -2,12 +2,12 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 import 'package:get/get.dart';
-import 'package:travel_app/scr/Controlers/toDoListControler.dart';
 import "package:intl/intl.dart";
 import "package:footer/footer_view.dart";
 import "package:footer/footer.dart";
-import 'package:travel_app/scr/screens/ToDoList/Component/CategoryBottomSheet.dart';
+import 'package:travel_app/scr/controllers/todo_list_controller.dart';
 import '../../models/tasks.dart';
+import 'Component/category_bottom_sheet.dart';
 
 class AddTask extends StatefulWidget {
   @override
@@ -15,7 +15,7 @@ class AddTask extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTask> {
-  final ToDoListControler controler = Get.find();
+  final ToDoListController controller = Get.find();
   final scaffoldState = GlobalKey<ScaffoldState>();
   String _time =
       "${DateFormat(DateFormat.MONTH_DAY).format(DateTime.now())} , ${DateFormat(DateFormat.HOUR_MINUTE).format(DateTime.now())}";
@@ -164,7 +164,7 @@ class _AddTaskState extends State<AddTask> {
                       return true;
                     return false;
                   }));
-              controler.addTask(task);
+              controller.addTask(task);
               Get.back();
             },
           ))),

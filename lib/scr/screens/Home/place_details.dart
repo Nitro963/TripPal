@@ -4,8 +4,8 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 import 'package:readmore/readmore.dart';
-import 'package:travel_app/scr/screens/Reviews/review_writing.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/screens/review/review_writing.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/avatar_overflow.dart';
 import 'package:travel_app/scr/shared/Widgets/stars.dart';
 
@@ -129,7 +129,7 @@ class DetailsContainer extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Get.to(ReviewWriting());
+                      Get.to(() => ReviewWriting());
                     }),
               ),
               buildPropertiesSection(theme),

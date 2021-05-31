@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/models/Hotel.dart';
 import 'package:travel_app/scr/shared/Animation/Heart.dart';
-import 'package:travel_app/scr/shared/Constants/constants.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/stars.dart';
 
 class HotelCard extends StatelessWidget {
@@ -100,12 +100,21 @@ class HotelCard extends StatelessWidget {
           ),
         ),
         Positioned(
-            right: SizeConfig.blockSizeHorizontal * 3,
-            top: SizeConfig.blockSizeVertical * 2,
-            child:
-               // Icon(Icons.favorite_border_outlined, color: deactivatedColor)
-               Heart(startingIcon:Icons.favorite_outline,endingIcon: Icons.favorite,tapCallBack:(bool t){if(t)print("${hotel.name} is liked ");else print("${hotel.name} is desliked ");} ,),
-                ),
+          right: SizeConfig.blockSizeHorizontal * 3,
+          top: SizeConfig.blockSizeVertical * 2,
+          child:
+              // Icon(Icons.favorite_border_outlined, color: deactivatedColor)
+              Heart(
+            startingIcon: Icons.favorite_outline,
+            endingIcon: Icons.favorite,
+            tapCallBack: (bool t) {
+              if (t)
+                print("${hotel.name} is liked ");
+              else
+                print("${hotel.name} is desliked ");
+            },
+          ),
+        ),
         Positioned(
           right: SizeConfig.blockSizeHorizontal * 3,
           bottom: SizeConfig.blockSizeVertical * 4,
