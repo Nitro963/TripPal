@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/models/Hotel.dart';
+import 'package:travel_app/scr/screens/Home/place_details.dart';
 import 'Component/HotelCard.dart';
 import 'Component/UpperNavBar.dart';
 
@@ -54,7 +55,15 @@ class _HotelListState extends State<HotelList> {
         shrinkWrap: true,
         initialItemCount: _list.length,
         itemBuilder: (context, index, animation) => SlideTransition(
-              child: HotelCard(hotel: _list[index]),
+              child: HotelCard(
+                hotel: _list[index],
+                onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PlaceDetails()),
+        );
+      },
+                ),
               position: Tween<Offset>(
                   begin: Offset(index % 2 == 0 ? 1 : -1, 0),
                   end: Offset(0, 0)).animate(animation),

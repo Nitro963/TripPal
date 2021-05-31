@@ -62,4 +62,8 @@ List<Place> history = [
     name: 'London',
     country: 'United Kingdom',
   ),
+  Place(
+    name: 'Zahle',
+    country: 'Lebanon',
+  ),
 ];

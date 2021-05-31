@@ -7,6 +7,7 @@ import 'package:travel_app/scr/screens/Profile/Profile.dart';
 import 'dart:ui';
 
 import 'package:travel_app/scr/screens/credentials/login.dart';
+
 class BottomNavBar extends StatefulWidget {
   int currentIndex;
 
@@ -17,11 +18,36 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   List<NavItem> childs = [
-    NavItem(icon: Icons.home,title: "Home",nav: (){Get.to(()=>HomePage());}),
-    NavItem(icon: Icons.flight, title: "Flights",nav:(){Get.to(()=>Login());}),
-    NavItem(icon: Icons.chat, title: "ChatBot",nav: (){Get.to(()=>Chat());}),
-    NavItem(icon: Icons.hotel, title: "Hotels",nav:(){Get.to(()=>HotelSearchPage());}),
-    NavItem(icon: Icons.person, title: "Profile",nav:(){Get.to(()=>ProfilePage());}),
+    NavItem(
+        icon: Icons.home,
+        title: "Home",
+        nav: () {
+          Get.to(() => HomePage());
+        }),
+    NavItem(
+        icon: Icons.flight,
+        title: "Flights",
+        nav: () {
+          Get.to(() => Login());
+        }),
+    NavItem(
+        icon: Icons.chat,
+        title: "ChatBot",
+        nav: () {
+          Get.to(() => Chat());
+        }),
+    NavItem(
+        icon: Icons.hotel,
+        title: "Hotels",
+        nav: () {
+          Get.to(() => HotelSearchPage());
+        }),
+    NavItem(
+        icon: Icons.person,
+        title: "Profile",
+        nav: () {
+          Get.to(() => ProfilePage());
+        }),
   ];
   @override
   void initState() {
@@ -40,7 +66,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 8),
         color: Colors.grey[100],
-       /* BlurContainer(
+        /* BlurContainer(
         height: 50,
         width: double.infinity,*/
         child: Row(
@@ -62,17 +88,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           color: widget.currentIndex == childs.indexOf(item)
                               ? Theme.of(context).primaryColorDark
                               : Colors.grey,
-                          fontSize: 8.4,fontWeight: FontWeight.w900
-                          ),
+                          fontSize: 8.4,
+                          fontWeight: FontWeight.w900),
                     ),
                   ]),
                   onTap: () {
-                    setState((){
-                    _changeIndex(childs.indexOf(item));
-                    item.nav();
+                    setState(() {
+                      _changeIndex(childs.indexOf(item));
+                      item.nav();
                     });
-                  }
-                  ),
+                  }),
             );
           }).toList(),
         ));
@@ -83,7 +108,7 @@ class NavItem {
   final IconData icon;
   final String title;
   final Function nav;
-  NavItem({this.icon, this.title,this.nav});
+  NavItem({this.icon, this.title, this.nav});
 }
 
 class BlurContainer extends StatelessWidget {
@@ -106,7 +131,6 @@ class BlurContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
     return Stack(children: [
       Positioned(
         top: this.posY,

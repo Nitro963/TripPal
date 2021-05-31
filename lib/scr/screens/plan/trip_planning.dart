@@ -10,7 +10,6 @@ import 'package:travel_app/scr/shared/constants.dart';
 class TripPlanning extends StatelessWidget {
   final searchBarController = FloatingSearchBarController();
   final searchController = Get.find<PlacesSearchController>();
-
   Widget buildSearchBar() {
     final actions = [
       FloatingSearchBarAction.icon(
@@ -72,6 +71,18 @@ class TripPlanning extends StatelessWidget {
     );
   }
 
+  Widget buildList() {
+    return Container(
+      height: 300.0,
+      width: 300.0,
+      color: Colors.blue,
+      child: Text(
+        'fuck',
+        style: TextStyle(fontSize: 50.0),
+      ),
+    );
+  }
+
   Widget buildItem(Place place) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -79,6 +90,7 @@ class TripPlanning extends StatelessWidget {
         InkWell(
           onTap: () {
             searchBarController.close();
+
             Future.delayed(
               const Duration(milliseconds: 500),
               () => searchController.clear(),
@@ -160,6 +172,7 @@ class TripPlanning extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
         body: Directionality(
             textDirection: TextDirection.ltr, child: buildSearchBar()));
   }

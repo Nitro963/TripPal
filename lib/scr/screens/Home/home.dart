@@ -10,8 +10,6 @@ import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
 import 'package:get/get.dart';
 
-import 'Componenet/search.dart';
-
 class HomePage extends StatelessWidget {
   var isSearching = false.obs;
   @override
@@ -24,8 +22,8 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: TextWithAnmation(
-            // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
-            child: Text(
+           // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
+                        child: Text(
               "Enjoy Your Life With us !!",
               style: TextStyle(color: Colors.black54),
             ),
@@ -48,7 +46,7 @@ class HomePage extends StatelessWidget {
             )
           ],
         ),
-        bottomNavigationBar: BottomNavBar(),
+        // bottomNavigationBar: BottomNavBar(),
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.all(10.0),

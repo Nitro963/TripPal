@@ -2,11 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelResults.dart';
-import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:intl/intl.dart';
-import 'package:travel_app/scr/shared/Widgets/bottom_navigation_bar.dart';
-import 'package:travel_app/scr/shared/services/validators.dart';
 
 class HotelSearchController extends GetxController {
   Rx<String> cityName = ''.obs;
@@ -19,13 +16,7 @@ class HotelSearchPage extends GetView {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init();
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: BottomNavBar(
-          currentIndex: 3,
-        ),
-        body: Container(
+    return Container(
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: AssetImage("images/BaiscBackground.jpg"),
@@ -183,6 +174,6 @@ class HotelSearchPage extends GetView {
                   ),
                 ],
               ),
-            )));
+            ));
   }
 }
