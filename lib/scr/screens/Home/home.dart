@@ -22,8 +22,8 @@ class HomePage extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: TextWithAnmation(
-           // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
-                        child: Text(
+            // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
+            child: Text(
               "Enjoy Your Life With us !!",
               style: TextStyle(color: Colors.black54),
             ),
