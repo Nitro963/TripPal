@@ -142,14 +142,7 @@ class TripPlanning extends StatelessWidget {
   Widget buildBody() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Image.asset(
-        'images/map.jpg',
-        fit: BoxFit.cover,
-        height: double.infinity,
-        width: double.infinity,
-        colorBlendMode: BlendMode.darken,
-        color: Colors.black38,
-      ),
+      backgroundColor: Colors.transparent,
       floatingActionButton: Padding(
           padding: const EdgeInsetsDirectional.only(bottom: 16),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -170,10 +163,15 @@ class TripPlanning extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
-        body: Directionality(
-            textDirection: TextDirection.ltr, child: buildSearchBar()));
+    return  Container(
+      decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/map.jpg'),
+              fit: BoxFit.fill,
+            ),
+          ),
+      child: Directionality(
+              textDirection: TextDirection.ltr, child: buildSearchBar()),
+    );
   }
 }

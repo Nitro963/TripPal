@@ -22,7 +22,7 @@ class RoundedButton extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: 50,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.0),
+              borderRadius: BorderRadius.circular(15.0),
               color: color,
               boxShadow: [
                 BoxShadow(
@@ -37,7 +37,7 @@ class RoundedButton extends StatelessWidget {
               child: Text(
                 title,
                 style: TextStyle(
-                    color: textColor, fontSize: 25.0, fontFamily: 'Sta'),
+                    color: textColor, fontSize: 22.0, fontFamily: 'Montserrat'),
               ),
             ),
           )),

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
-import 'package:travel_app/scr/shared/Animation/TextWithAnmation.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 import 'Componenet/BlogListWidget.dart';
-import '../../shared/Widgets/bottom_navigation_bar.dart';
 import 'Componenet/ContienetListView.dart';
 import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
@@ -15,57 +12,30 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig.init();
-    return Scaffold(
-        drawer: HomeDrawer(),
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: TextWithAnmation(
-            // padding:EdgeInsets.only(right:SizeConfig.blockSizeHorizontal*4),
-            child: Text(
-              "Enjoy Your Life With us !!",
-              style: TextStyle(color: Colors.black54),
-            ),
-          ),
-          actions: [
-            IconButton(
-              icon: Padding(
-                padding: EdgeInsets.only(right: 17),
-                child: Icon(
-                  Icons.search,
-                  size: 33,
-                  color: isSearching.value
-                      ? Colors.blueAccent[400]
-                      : Colors.black54,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: SingleChildScrollView(
+              child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Stack(
+              alignment: AlignmentDirectional.center,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ContinentListView(),
+                    PopularPlacesPageView(),
+                    TopCities(),
+                    BlogList(),
+                  ],
                 ),
-              ),
-              onPressed: () {
-                isSearching.value = !isSearching.value;
-              },
-            )
-          ],
-        ),
-        // bottomNavigationBar: BottomNavBar(),
-        body: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Stack(
-            alignment: AlignmentDirectional.center,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ContinentListView(),
-                  PopularPlacesPageView(),
-                  TopCities(),
-                  BlogList(),
-                ],
-              ),
-              Obx(() => isSearching.value ? HomeSearch() : Container()),
-            ],
-          ),
-        )));
+                Obx(() => isSearching.value ? HomeSearch() : Container()),
+              ],
+            ),
+          )),
+      ),
+    );
   }
 }
 

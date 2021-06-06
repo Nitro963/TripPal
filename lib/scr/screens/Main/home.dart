@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
+import 'package:travel_app/scr/screens/Home/home.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/Main/Componenet/Nav_bar_item.dart';
-import 'package:travel_app/scr/screens/Main/Componenet/trip_card.dart';
 import 'package:travel_app/scr/screens/Profile/Profile.dart';
-import 'package:travel_app/scr/screens/Trip/filters.dart';
+import 'package:travel_app/scr/screens/Trip/trip_types_screen.dart';
+import 'package:travel_app/scr/screens/plan/trip_planning.dart';
 
 class HomePagePV extends StatefulWidget {
   HomePagePV({Key key}) : super(key: key);
@@ -16,103 +18,60 @@ class HomePagePV extends StatefulWidget {
 class _HomePagePVState extends State<HomePagePV> {
   PageController _myPage;
   var selectedPage;
+  String img = 'images/1.jpg';
   @override
   void initState() {
     super.initState();
-    _myPage = PageController(initialPage: 2);
-    selectedPage = 2;
+    _myPage = PageController(initialPage: 3);
+    selectedPage = 3;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
-        physics: NeverScrollableScrollPhysics(),
-        controller: _myPage,
+      backgroundColor: Colors.transparent,
+      resizeToAvoidBottomInset: false,
+      drawer: HomeDrawer(),
+      body: Stack(
         children: <Widget>[
-          Center(child: Text('Places Search Engine')),
-          Center(
-              child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 20.0, bottom : 30.0),
-                  child: Text(
-                    'Chose your fucking type',
-                    style:  TextStyle(
-                      fontSize: 20.0,
-                      fontFamily: 'Lato'
-                    ),
-                  ),
-                ),
-                TripCard(
-                  tripType: 'First Type',
-                  tripWriter: 'A trip suggested by the work team',
-                  tripExp: 'write a simple explanation write a simple explanation write a simple explanation write a simple explanation',
-                  onTap: (){
-                    Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FiltersScreen()),
-                        );
-                  },
-                  img: AssetImage('images/1.jpg')
-                ),
-                TripCard(
-                  tripType: 'Seconde Type',
-                  tripWriter: 'A trip used by the other users',
-                  tripExp: 'write a simple explanation write a simple explanation write a simple explanation write a simple explanation',
-                  onTap: (){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FiltersScreen()),
-                        );},
-                  img: AssetImage('images/2.jpg'),
-                ),
-                TripCard(
-                  tripType: 'Third Type',
-                  tripWriter: 'A trip you build by yourself',
-                  tripExp: 'write a simple explanation write a simple explanation write a simple explanation write a simple explanation',
-                  onTap: (){Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => FiltersScreen()),
-                        );},
-                  img: AssetImage('images/3.jpg'),
-                )
-                ],
-            ),
-          )),
-          Center(child: Text('Home')),
-          HotelSearchPage(),
-          ProfilePage(),
-        ],
-      ),
-      bottomNavigationBar: Container(
+          PageView(
+          physics: NeverScrollableScrollPhysics(),
+          controller: _myPage,
+          children: <Widget>[
+            TripPlanning(),
+            HotelSearchPage(),
+            HomePage(),
+            TripsPage(),
+            ProfilePage(),
+          ],
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Container(
         height: 60.0,
         margin: EdgeInsets.all(10.0),
         decoration: BoxDecoration(
-            color: Colors.grey.withAlpha(80),
-            borderRadius: BorderRadius.circular(20.0)),
+            color: Colors.white.withOpacity(0.8), borderRadius: BorderRadius.circular(20.0)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             NavBarItem(
-              title: 'Search',
+              title: 'Browse',
               icon: FontAwesomeIcons.placeOfWorship,
               color: selectedPage == 0 ? Colors.blueAccent : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(0);
                 setState(() {
                   selectedPage = 0;
+                  img = 'images/map.jpg';
                 });
               },
             ),
             NavBarItem(
-              title: 'Trip',
-              icon: FontAwesomeIcons.mapMarkedAlt,
+              title: 'Hotels',
+              icon: FontAwesomeIcons.hotel,
               color: selectedPage == 1 ? Colors.blueAccent : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(1);
@@ -133,13 +92,14 @@ class _HomePagePVState extends State<HomePagePV> {
               },
             ),
             NavBarItem(
-              title: 'Hotels',
-              icon: FontAwesomeIcons.hotel,
+              title: 'Plans',
+              icon: FontAwesomeIcons.mapMarkedAlt,
               color: selectedPage == 3 ? Colors.blueAccent : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(3);
                 setState(() {
                   selectedPage = 3;
+                  img = 'images/hotel_.jpg';
                 });
               },
             ),
@@ -151,12 +111,19 @@ class _HomePagePVState extends State<HomePagePV> {
                 _myPage.jumpToPage(4);
                 setState(() {
                   selectedPage = 4;
+                  img = 'images/2.jpg';
                 });
               },
             ),
           ],
         ),
       ),
+          ],
+        )
+        ],
+          
+      ),
+       
     );
   }
 }
