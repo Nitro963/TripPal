@@ -7,16 +7,18 @@ class RoundedButton extends StatelessWidget {
     @required this.onPressed,
     @required this.color,
     @required this.textColor,
+    @required this.icon
   }) : super(key: key);
   final String title;
   final onPressed;
   final Color color;
   final Color textColor;
+  final Icon icon;
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
-      child: FlatButton(
+      child: TextButton(
           onPressed:onPressed,
           child: Container(
             width: MediaQuery.of(context).size.width,
@@ -33,12 +35,17 @@ class RoundedButton extends StatelessWidget {
                 ),
               ],
             ),
-            child: Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                    color: textColor, fontSize: 22.0, fontFamily: 'Montserrat'),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                icon,
+                SizedBox(width: 8.0,),
+                Text(
+                  title,
+                  style: TextStyle(
+                      color: textColor, fontSize: 18.0, fontFamily: 'Montserrat'),
+                ),
+              ],
             ),
           )),
     );

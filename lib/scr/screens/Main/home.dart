@@ -60,7 +60,7 @@ class _HomePagePVState extends State<HomePagePV> {
             NavBarItem(
               title: 'Browse',
               icon: FontAwesomeIcons.placeOfWorship,
-              color: selectedPage == 0 ? Colors.blueAccent : Colors.black54,
+              color: selectedPage == 0 ? Colors.blue[800] : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(0);
                 setState(() {
@@ -72,7 +72,7 @@ class _HomePagePVState extends State<HomePagePV> {
             NavBarItem(
               title: 'Hotels',
               icon: FontAwesomeIcons.hotel,
-              color: selectedPage == 1 ? Colors.blueAccent : Colors.black54,
+              color: selectedPage == 1 ? Colors.blue[800] : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(1);
                 setState(() {
@@ -83,7 +83,7 @@ class _HomePagePVState extends State<HomePagePV> {
             NavBarItem(
               title: 'Home',
               icon: FontAwesomeIcons.home,
-              color: selectedPage == 2 ? Colors.blueAccent : Colors.black54,
+              color: selectedPage == 2 ? Colors.blue[800] : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(2);
                 setState(() {
@@ -94,7 +94,7 @@ class _HomePagePVState extends State<HomePagePV> {
             NavBarItem(
               title: 'Plans',
               icon: FontAwesomeIcons.mapMarkedAlt,
-              color: selectedPage == 3 ? Colors.blueAccent : Colors.black54,
+              color: selectedPage == 3 ? Colors.blue[800] : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(3);
                 setState(() {
@@ -105,8 +105,8 @@ class _HomePagePVState extends State<HomePagePV> {
             ),
             NavBarItem(
               title: 'Profile',
-              icon: FontAwesomeIcons.user,
-              color: selectedPage == 4 ? Colors.blueAccent : Colors.black54,
+              icon: FontAwesomeIcons.solidUserCircle,
+              color: selectedPage == 4 ? Colors.blue[800] : Colors.black54,
               onPressed: () {
                 _myPage.jumpToPage(4);
                 setState(() {

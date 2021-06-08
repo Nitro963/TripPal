@@ -1,5 +1,6 @@
 import 'package:travel_app/scr/Models/tasks.dart';
 import 'package:travel_app/scr/models/place.dart';
+import 'package:travel_app/scr/models/trip.dart';
 
 import 'Hotel.dart';
 import 'blog.dart';
@@ -87,3 +88,86 @@ List<Hotel> myHotels = [
       location: "Paris",
       avalibaleRooms: [Room(price: 1000, type: "Double Room")])
 ];
+
+
+List<Trip> dummyTrips = [
+  Trip(
+    city: 'Dubai',
+    country: 'UAE',
+    details: 'Foods, malls & shops included',
+    type: 'Extended Trip',
+    days: 7
+  ),
+  Trip(
+    city: 'Milan',
+    country: 'Italy',
+    details: 'Malls included',
+    type: 'Focused Trip',
+    days: 3
+  ),
+  Trip(
+    city: 'Ankara',
+    country: 'Turkey',
+    details: 'Foods & Shops included',
+    type: 'Focused Trip',
+    days: 6
+  ),
+  Trip(
+    city: 'Barcelona',
+    country: 'Spain',
+    details: 'Foods included',
+    type: 'Extended Trip',
+    days: 9
+  ),
+  Trip(
+    city: 'Dubai',
+    country: 'UAE',
+    details: 'Foods, malls & shops included',
+    type: 'Extended Trip',
+    days: 7
+  ),
+  Trip(
+    city: 'Milan',
+    country: 'Italy',
+    details: 'Malls included',
+    type: 'Focused Trip',
+    days: 3
+  ),
+  Trip(
+    city: 'Ankara',
+    country: 'Turkey',
+    details: 'Foods & Shops included',
+    type: 'Focused Trip',
+    days: 6
+  ),
+  Trip(
+    city: 'Barcelona',
+    country: 'Spain',
+    details: 'Foods included',
+    type: 'Extended Trip',
+    days: 9
+  ),
+];
+
+List<String> dummyCities = [
+    'Bangkok',
+    'Paris',
+    'London',
+    'Dubai',
+    'Milan',
+    'Singapore',
+    'Kuala Lumpur',
+    'New York',
+    'Istanbul',
+    'Tokyo',
+    'Antalya',
+    'Seoul',
+    'Osaka',
+    'Makkah',
+    'Phuket',
+    'Pataya',
+    'Barcelona',
+    'Palma De Mallorca',
+    'Bali',
+    'Hong Kong',
+  ];

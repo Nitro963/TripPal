@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/screens/filters/cities_page.dart';
 import 'package:travel_app/scr/screens/trip/components/trip_card.dart';
+import 'package:travel_app/scr/screens/trip/users_trips_screen.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 class TripsPage extends StatelessWidget {
@@ -79,7 +80,7 @@ class TripsPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CitiesPage()),
+                        builder: (context) => UsersTripsScreen()),
                   );
                 },
                 img: 'images/3.jpg',

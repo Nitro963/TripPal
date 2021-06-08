@@ -21,21 +21,22 @@ class TripCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Padding(
-        padding:  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(18),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 9, sigmaY: 9),
-            child: Container(
-              height: 150.0,
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18.0),
-                color: Colors.white.withOpacity(0.4),
-              ),
+      child: FittedBox(
+        fit: BoxFit.contain,
               child: Padding(
+          padding:  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 9, sigmaY: 9),
+              child: Container(
                 padding: EdgeInsets.all(15.0),
+                height: 150.0,
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18.0),
+                  color: Colors.white.withOpacity(0.4),
+                ),
                 child: Row(
                   children: <Widget>[
                     Container(
