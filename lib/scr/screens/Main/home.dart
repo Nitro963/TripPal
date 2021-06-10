@@ -6,7 +6,7 @@ import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/Main/Componenet/Nav_bar_item.dart';
 import 'package:travel_app/scr/screens/Profile/Profile.dart';
 import 'package:travel_app/scr/screens/Trip/trip_types_screen.dart';
-import 'package:travel_app/scr/screens/plan/trip_planning.dart';
+import 'package:travel_app/scr/screens/places/trip_planning.dart';
 
 class HomePagePV extends StatefulWidget {
   HomePagePV({Key key}) : super(key: key);

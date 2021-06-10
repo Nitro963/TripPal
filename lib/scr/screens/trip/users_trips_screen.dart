@@ -45,10 +45,10 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
       );
     });
     controller.addListener(() {
-      double value = controller.offset / 210.0;
+      double value = controller.offset / 230.0;
       setState(() {
         topContainer = value;
-        closeHeader = controller.offset > 1.0;
+        closeHeader = controller.offset > 3.0;
       });
     });
   }
@@ -72,14 +72,14 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
             children: <Widget>[
               AnimatedOpacity(
                 opacity: closeHeader ? 0 : 1,
-                duration: const Duration(milliseconds: 400),
+                duration: const Duration(milliseconds: 200),
                 child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 400),
+                  duration: const Duration(milliseconds: 200),
                   width: MediaQuery.of(context).size.width,
                   alignment: Alignment.topLeft,
                   height: closeHeader
                       ? 0
-                      : MediaQuery.of(context).size.height * 0.10,
+                      : MediaQuery.of(context).size.height * 0.1,
                   child: SavedTripsHeader(
                     title: 'Most Popular Plans',
                     subTitle: 'See some trips planned Manualy by other users',

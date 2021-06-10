@@ -5,17 +5,18 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/screens/places/places_search_page.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 class TripPlanning extends StatelessWidget {
   final searchBarController = FloatingSearchBarController();
   final searchController = Get.find<PlacesSearchController>();
-  Widget buildSearchBar() {
+  Widget buildSearchBar(onTap) {
     final actions = [
       FloatingSearchBarAction.icon(
         showIfOpened: false,
         icon: Icons.not_listed_location_outlined,
-        onTap: () {},
+        onTap: onTap,
       ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,
@@ -171,7 +172,10 @@ class TripPlanning extends StatelessWidget {
             ),
           ),
       child: Directionality(
-              textDirection: TextDirection.ltr, child: buildSearchBar()),
+              textDirection: TextDirection.ltr, child: buildSearchBar((){ Navigator.push(context, MaterialPageRoute(
+                            builder: (context) =>
+                                PlacesSearchPage()),
+                      );})),
     );
   }
 }

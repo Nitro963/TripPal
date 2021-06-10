@@ -15,7 +15,7 @@ class FilterCheckBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      padding: const EdgeInsets.fromLTRB(26.0, 0.0, 26.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(26.0, 0.0, 40.0, 0.0),
       height: 50.0,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,

@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/screens/filters/components/filters_header.dart';
 import 'package:travel_app/scr/screens/filters/filter_page.dart';
-import 'package:travel_app/scr/shared/constants.dart';
 import 'package:get/get.dart';
 
 import 'components/custom_appbar.dart';
@@ -22,6 +21,7 @@ class _CitiesPageState extends State<CitiesPage> {
   List<Widget> _content = List<Widget>.empty(growable: true).obs;
   Map<String, RxBool> _contentCheck = Map<String, RxBool>();
   List<String> _selectedCities;
+  
   @override
   void initState() {
     super.initState();
@@ -80,9 +80,7 @@ class _CitiesPageState extends State<CitiesPage> {
                       if (_contentCheck[city] == true.obs)
                         _selectedCities.add(city);
                     if (_selectedCities.length > 0) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                      Navigator.push(context, MaterialPageRoute(
                             builder: (context) =>
                                 FiltersPageV2(content: _selectedCities)),
                       );

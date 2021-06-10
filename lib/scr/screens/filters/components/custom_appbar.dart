@@ -25,7 +25,7 @@ class CustomAppbar extends StatelessWidget {
         ),
         SizedBox(
           height: 100.0,
-          width: 60.0,
+          width: 80.0,
           child: TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.all<Color>(Colors.white),
