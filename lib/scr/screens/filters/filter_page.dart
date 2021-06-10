@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/screens/Trip/trip_resulte_screen.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'components/filter_sub_title.dart';
 import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
@@ -35,167 +36,101 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
 
   TripMode _tripMode = TripMode.extendedTrip;
 
-  List<Widget> _content = List<Widget>.empty(growable: true).obs;
   Map<String, RxBool> _contentCheck = Map<String, RxBool>();
-
-  
+  Map<String, double> _contentValues = Map<String, double>();
 
   double _daysCount = 3;
 
-  double _historic = 5;
-  double _cultural = 5;
-  double _natural = 5;
-  double _religion = 5;
-  double _sport = 5;
-  double _architecture = 5;
+  double _placesPerDay = 3;
   double _foods = 5;
   double _shops = 5;
-  double _placesPerDay = 3;
-
-  List<Widget> sliders = List<Widget>.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
-    for (String type in widget.types) {
+    for (var type in widget.types) {
       _contentCheck[type] = false.obs;
-      _content.add(new RoundedGestWidget(
-        title: type,
-        selected: _contentCheck[type],
-        onTap: () {
-          _contentCheck[type] = _contentCheck[type].toggle();
-        },
-      ));
+      _contentValues[type] = 5;
     }
+  }
+
+  // now the problem is solved yet the code need a lot of refactoring
+  // it is recommended to isolate the state of this widget to GetX controller
+  // and convert the widget into a stateless widget (or GetView) since
+  // there is no animations. the code can be a lot simpler and shorter.
+  // take a look at weather body controllers and widgets for reference.
+  // using get you can get rid of media query! and Navigator.push
+  // also the controller is kept in the memory and manged by Get.
+
+  List<Widget> buildSliders() {
+    List<Widget> res = List<Widget>.empty(growable: true);
+    for (String type in _contentCheck.keys) {
+      if (_contentCheck[type].value) {
+        res.add(FilterSubTitle(
+            filterName: 'How interested are you in ' + type + ' places?'));
+        res.add(FiltersSlider(
+            count: _contentValues[type],
+            sliderType: 'Rate',
+            min: '1',
+            max: '10',
+            onChanged: (newValue) {
+              setState(() {
+                _contentValues[type] = newValue;
+              });
+            }));
+      }
+    }
+    res.add(FilterSubTitle(
+        filterName: 'How many places would you like to go to in one day?'));
+    res.add(FiltersSlider(
+        count: _placesPerDay,
+        sliderType: 'Rate',
+        min: '1',
+        max: '10',
+        onChanged: (newValue) {
+          setState(() {
+            _placesPerDay = newValue;
+          });
+        }));
+    if (foodsChecked) {
+      res.add(FilterSubTitle(filterName: 'Your interest in foods'));
+      res.add(FiltersSlider(
+          count: _foods,
+          sliderType: 'Rate',
+          min: '1',
+          max: '10',
+          onChanged: (newValue) {
+            setState(() {
+              _foods = newValue;
+            });
+          }));
+    }
+    if (shopsChecked) {
+      res.add(FilterSubTitle(filterName: 'Your interest in shopping'));
+      res.add(FiltersSlider(
+          count: _shops,
+          sliderType: 'Rate',
+          min: '1',
+          max: '10',
+          onChanged: (newValue) {
+            setState(() {
+              _shops = newValue;
+            });
+          }));
+    }
+    return res;
   }
 
   @override
   Widget build(BuildContext context) {
-
-    // here is the problem :(
-    List<Widget> buildSliders() {
-      List<Widget> res = List<Widget>.empty(growable: true);
-      for (String type in _contentCheck.keys) {
-        if (_contentCheck[type].isTrue) {
-          res.add(FilterSubTitle(
-              filterName: 'How interested are you in ' + type + ' places?'));
-          if (type == 'Sport') {
-            res.add(FiltersSlider(
-                count: _sport,
-                min: '1',
-                max: '10',
-                sliderType: 'Rate',
-                onChanged: (newValue) {
-                  setState(() {
-                    _sport = newValue;
-                  });
-                }));
-          } else if (type == 'Historic') {
-            res.add(FiltersSlider(
-                count: _historic,
-                sliderType: 'Rate',
-                min: '1',
-                max: '10',
-                onChanged: (newValue) {
-                  setState(() {
-                    _historic = newValue;
-                  });
-                }));
-          } else if (type == 'Cultural') {
-            res.add(FiltersSlider(
-                count: _cultural,
-                sliderType: 'Rate',
-                min: '1',
-                max: '10',
-                onChanged: (newValue) {
-                  setState(() {
-                    _cultural = newValue;
-                  });
-                }));
-          } else if (type == 'Religion') {
-            res.add(FiltersSlider(
-                count: _religion,
-                sliderType: 'Rate',
-                min: '1',
-                max: '10',
-                onChanged: (newValue) {
-                  setState(() {
-                    _religion = newValue;
-                  });
-                }));
-          } else if (type == 'Architecture') {
-            res.add(FiltersSlider(
-                count: _architecture,
-                sliderType: 'Rate',
-                min: '1',
-                max: '10',
-                onChanged: (newValue) {
-                  setState(() {
-                    _architecture = newValue;
-                  });
-                }));
-          } else if (type == 'Natural') {
-            res.add(FiltersSlider(
-                count: _natural,
-                sliderType: 'Rate',
-                min: '1',
-                max: '10',
-                onChanged: (newValue) {
-                  setState(() {
-                    _natural = newValue;
-                  });
-                }));
-          }
-        }
-      }
-      res.add(FilterSubTitle(filterName: 'How many places would you like to go to in one day?'));
-        res.add(FiltersSlider(
-            count: _placesPerDay,
-            sliderType: 'Rate',
-            min: '1',
-            max: '10',
-            onChanged: (newValue) {
-              setState(() {
-                _placesPerDay = newValue;
-              });
-            }));
-      if (foodsChecked) {
-        res.add(FilterSubTitle(filterName: 'Your interest in foods'));
-        res.add(FiltersSlider(
-            count: _foods,
-            sliderType: 'Rate',
-            min: '1',
-            max: '10',
-            onChanged: (newValue) {
-              setState(() {
-                _foods = newValue;
-              });
-            }));
-      }
-      if (shopsChecked) {
-        res.add(FilterSubTitle(filterName: 'Your interest in shopping'));
-        res.add(FiltersSlider(
-            count: _shops,
-            sliderType: 'Rate',
-            min: '1',
-            max: '10',
-            onChanged: (newValue) {
-              setState(() {
-                _shops = newValue;
-              });
-            }));
-      }      
-      return res;
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
             Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
+              width: SizeConfig.screenWidth,
+              height: SizeConfig.screenWidth,
               child: ListView(
                 children: <Widget>[
                   Stack(
@@ -248,13 +183,21 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                         filterName: 'Place Types',
                       ),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 2.0),
-                        height: 50.0,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: _content,
-                        ),
-                      ),
+                          padding: EdgeInsets.symmetric(horizontal: 2.0),
+                          height: 50.0,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: widget.types.length,
+                              itemBuilder: (ctx, i) {
+                                var type = widget.types[i];
+                                return RoundedGestWidget(
+                                  title: type,
+                                  selected: _contentCheck[type],
+                                  onTap: () {
+                                    _contentCheck[type].toggle();
+                                  },
+                                );
+                              })),
                       FilterSubTitle(
                         filterName: 'Tourist Facilities',
                       ),
@@ -283,7 +226,7 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                       ),
                       Container(
                         height: 50.0,
-                        width: MediaQuery.of(context).size.width,
+                        width: SizeConfig.screenWidth,
                         color: Colors.white,
                         padding:
                             const EdgeInsets.fromLTRB(26.0, 0.0, 26.0, 0.0),
@@ -317,7 +260,7 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                       ),
                       Container(
                         height: 50.0,
-                        width: MediaQuery.of(context).size.width,
+                        width: SizeConfig.screenWidth,
                         color: Colors.white,
                         padding:
                             const EdgeInsets.fromLTRB(26.0, 0.0, 26.0, 0.0),
@@ -363,7 +306,6 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                           });
                         },
                       ),
-                      
                       SizedBox(
                         height: 30.0,
                       ),
@@ -388,8 +330,8 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
             Visibility(
               visible: _visible,
               child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
+                  width: SizeConfig.screenWidth,
+                  height: SizeConfig.screenHeight,
                   color: Colors.white,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -404,7 +346,6 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                         child: ListView(
                             children: _visible == true ? buildSliders() : []),
                       ),
-                
                       RoundedButton(
                           title: 'Save Controls',
                           onPressed: () {
