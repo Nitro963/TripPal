@@ -4,6 +4,7 @@ import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/shared/services/networking.dart';
 
 class PlacesSearchController extends GetxController {
+  
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
   RxString _query = ''.obs;

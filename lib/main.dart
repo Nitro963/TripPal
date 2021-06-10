@@ -6,6 +6,7 @@ import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/Main/home.dart';
 import 'package:travel_app/scr/screens/credentials/login.dart';
+import 'package:travel_app/scr/screens/filters/cities_page.dart';
 import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 

@@ -29,7 +29,8 @@ class FilterCheckBox extends StatelessWidget {
             ),
           ),
           RoundCheckBox(
-            borderColor: Colors.grey[350],
+            borderColor: Colors.blue[800],
+            
             size: 25.0,
             checkedColor: Colors.blue[800],
             onTap: onTap,

@@ -11,6 +11,7 @@ import 'package:travel_app/scr/shared/constants.dart';
 class TripPlanning extends StatelessWidget {
   final searchBarController = FloatingSearchBarController();
   final searchController = Get.find<PlacesSearchController>();
+  
   Widget buildSearchBar(onTap) {
     final actions = [
       FloatingSearchBarAction.icon(

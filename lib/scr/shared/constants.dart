@@ -74,6 +74,7 @@ final kSeconderyFiltersTitleStyle = TextStyle(
 class Themes {
   static ThemeData get mainTheme {
     return ThemeData(
+        unselectedWidgetColor:Colors.blue[800],
         primaryColor: const Color(0xff3f72af),
         primaryColorLight: const Color(0xffdbe2ef),
         primaryColorDark: const Color(0xff112d4e),

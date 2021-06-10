@@ -1,121 +1,84 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/scr/controllers/filters_controller.dart';
 import 'package:travel_app/scr/screens/Trip/trip_resulte_screen.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-import 'components/filter_sub_title.dart';
 import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
 import 'components/rounded_check_box.dart';
 import 'components/rounded_gesture_widget.dart';
+import 'components/rounded_radio_button.dart';
 import 'components/rounded_slider.dart';
 import 'components/rounded_widget.dart';
 
 class FiltersPageV2 extends StatefulWidget {
   FiltersPageV2({Key key, @required this.content}) : super(key: key);
+
+  final FilterController controller = FilterController();
   final List<String> content;
-  final List<String> types = [
-    'Historic',
-    'Cultural',
-    'Natural',
-    'Religion',
-    'Sport',
-    'Architecture',
-  ];
+
   @override
   _FiltersPageV2State createState() => _FiltersPageV2State();
 }
 
-enum TripMode { extendedTrip, focusedTrip }
-
 class _FiltersPageV2State extends State<FiltersPageV2> {
-  bool _visible = false;
-
-  bool foodsChecked = false;
-  bool shopsChecked = false;
-
-  TripMode _tripMode = TripMode.extendedTrip;
-
-  Map<String, RxBool> _contentCheck = Map<String, RxBool>();
-  Map<String, double> _contentValues = Map<String, double>();
-
-  double _daysCount = 3;
-
-  double _placesPerDay = 3;
-  double _foods = 5;
-  double _shops = 5;
-
-  @override
-  void initState() {
-    super.initState();
-    for (var type in widget.types) {
-      _contentCheck[type] = false.obs;
-      _contentValues[type] = 5;
-    }
-  }
-
-  // now the problem is solved yet the code need a lot of refactoring
-  // it is recommended to isolate the state of this widget to GetX controller
-  // and convert the widget into a stateless widget (or GetView) since
-  // there is no animations. the code can be a lot simpler and shorter.
-  // take a look at weather body controllers and widgets for reference.
-  // using get you can get rid of media query! and Navigator.push
-  // also the controller is kept in the memory and manged by Get.
+  FilterController controller = Get.put(FilterController());
 
   List<Widget> buildSliders() {
     List<Widget> res = List<Widget>.empty(growable: true);
-    for (String type in _contentCheck.keys) {
-      if (_contentCheck[type].value) {
-        res.add(FilterSubTitle(
-            filterName: 'How interested are you in ' + type + ' places?'));
+    for (String type in controller.contentCheck.keys) {
+      if (controller.contentCheck[type].value) {
+        res.add(FilterSubTitle(filterName: 'How interested are you in ' + type + ' places?'));
         res.add(FiltersSlider(
-            count: _contentValues[type],
+            count: controller.contentValues[type],
             sliderType: 'Rate',
             min: '1',
             max: '10',
             onChanged: (newValue) {
               setState(() {
-                _contentValues[type] = newValue;
+                controller.contentValues[type] = newValue;
               });
             }));
       }
     }
-    res.add(FilterSubTitle(
-        filterName: 'How many places would you like to go to in one day?'));
+    res.add(FilterSubTitle(filterName: 'How many places would you like to go to in one day?'));
     res.add(FiltersSlider(
-        count: _placesPerDay,
+        count: controller.placesPerDay,
         sliderType: 'Rate',
         min: '1',
         max: '10',
         onChanged: (newValue) {
           setState(() {
-            _placesPerDay = newValue;
+             controller.placesPerDay = newValue;
           });
+           
         }));
-    if (foodsChecked) {
-      res.add(FilterSubTitle(filterName: 'Your interest in foods'));
+    if (controller.foodsChecked) {
+      res.add(FilterSubTitle(filterName: 'Your interest in Foods & Drinks'));
       res.add(FiltersSlider(
-          count: _foods,
+          count: controller.foods,
           sliderType: 'Rate',
           min: '1',
           max: '10',
           onChanged: (newValue) {
             setState(() {
-              _foods = newValue;
+              controller.foods = newValue;
             });
+              
           }));
     }
-    if (shopsChecked) {
-      res.add(FilterSubTitle(filterName: 'Your interest in shopping'));
+    if (controller.shopsChecked) {res.add(FilterSubTitle(filterName: 'Your interest in Shopping'));
       res.add(FiltersSlider(
-          count: _shops,
+          count: controller.shops,
           sliderType: 'Rate',
           min: '1',
           max: '10',
           onChanged: (newValue) {
             setState(() {
-              _shops = newValue;
+               controller.shops = newValue;
             });
+             
           }));
     }
     return res;
@@ -130,7 +93,7 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
           children: <Widget>[
             Container(
               width: SizeConfig.screenWidth,
-              height: SizeConfig.screenWidth,
+              height: SizeConfig.screenHeight,
               child: ListView(
                 children: <Widget>[
                   Stack(
@@ -153,7 +116,7 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                               ),
                               onPressed: () {
                                 setState(() {
-                                  _visible = true;
+                                  controller.visible = true;
                                 });
                               }),
                         ),
@@ -187,14 +150,14 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                           height: 50.0,
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount: widget.types.length,
+                              itemCount: controller.placeType.length,
                               itemBuilder: (ctx, i) {
-                                var type = widget.types[i];
+                                var type = controller.placeType[i];
                                 return RoundedGestWidget(
                                   title: type,
-                                  selected: _contentCheck[type],
+                                  selected: controller.contentCheck[type],
                                   onTap: () {
-                                    _contentCheck[type].toggle();
+                                    controller.contentCheck[type].toggle();
                                   },
                                 );
                               })),
@@ -207,7 +170,7 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                             Icon(Icons.check, color: Colors.white, size: 18.0),
                         onTap: (selected) {
                           setState(() {
-                            foodsChecked = !foodsChecked;
+                            controller.foodsChecked = !controller.foodsChecked;
                           });
                         },
                       ),
@@ -217,92 +180,26 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                             Icon(Icons.check, color: Colors.white, size: 18.0),
                         onTap: (selected) {
                           setState(() {
-                            shopsChecked = !shopsChecked;
+                            controller.shopsChecked = !controller.shopsChecked;
                           });
                         },
                       ),
                       FilterSubTitle(
                         filterName: 'Trip Mode',
                       ),
-                      Container(
-                        height: 50.0,
-                        width: SizeConfig.screenWidth,
-                        color: Colors.white,
-                        padding:
-                            const EdgeInsets.fromLTRB(26.0, 0.0, 26.0, 0.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Extended Trip',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Transform.scale(
-                              scale: 1.4,
-                              child: Radio<TripMode>(
-                                value: TripMode.extendedTrip,
-                                fillColor: MaterialStateColor.resolveWith(
-                                    (states) => Colors.blue[800]),
-                                groupValue: _tripMode,
-                                onChanged: (TripMode value) {
-                                  setState(() {
-                                    _tripMode = value;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        height: 50.0,
-                        width: SizeConfig.screenWidth,
-                        color: Colors.white,
-                        padding:
-                            const EdgeInsets.fromLTRB(26.0, 0.0, 26.0, 0.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              'Focused Trip',
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Transform.scale(
-                              scale: 1.4,
-                              child: Radio<TripMode>(
-                                value: TripMode.focusedTrip,
-                                groupValue: _tripMode,
-                                fillColor: MaterialStateColor.resolveWith(
-                                    (states) => Colors.blue[800]),
-                                onChanged: (TripMode value) {
-                                  setState(() {
-                                    _tripMode = value;
-                                  });
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      RoundedRadioButton(idx : 0, title: 'Extended Trip', controller: controller),
+                      RoundedRadioButton(idx : 1, title: 'Focused Trip', controller: controller),
                       FilterSubTitle(
                         filterName: 'Trip Duration',
                       ),
                       FiltersSlider(
-                        count: _daysCount,
+                        count: controller.daysCount,
                         min: '3 Days',
                         max: '2 weeks',
                         sliderType: 'Days',
                         onChanged: (newValue) {
                           setState(() {
-                            _daysCount = newValue;
+                            controller.daysCount = newValue;
                           });
                         },
                       ),
@@ -328,7 +225,7 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
               ),
             ),
             Visibility(
-              visible: _visible,
+              visible: controller.visible,
               child: Container(
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenHeight,
@@ -344,13 +241,15 @@ class _FiltersPageV2State extends State<FiltersPageV2> {
                       ),
                       Expanded(
                         child: ListView(
-                            children: _visible == true ? buildSliders() : []),
+                            children: controller.visible == true
+                                ? buildSliders()
+                                : []),
                       ),
                       RoundedButton(
                           title: 'Save Controls',
                           onPressed: () {
                             setState(() {
-                              _visible = false;
+                              controller.visible = false;
                             });
                           },
                           color: Colors.blue[900],
