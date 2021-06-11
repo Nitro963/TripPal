@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-import 'package:intl/intl.dart';
 
 class InfoContainer extends StatelessWidget {
   final String leading;
@@ -10,7 +9,6 @@ class InfoContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       child: Container(
-        // width: SizeConfig.blockSizeHorizontal*30,
         padding: EdgeInsets.symmetric(horizontal: 12),
         height: SizeConfig.blockSizeVertical * 6,
         decoration: BoxDecoration(
