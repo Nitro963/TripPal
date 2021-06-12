@@ -12,10 +12,12 @@ class FilterSubTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding:  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
-      child: Text(
-        filterName,
-        textAlign: TextAlign.left,
-        style: kFiltersSubTitle,
+      child: Align(
+        alignment: Alignment.topLeft,
+        child: Text(
+          filterName,
+          style: kFiltersSubTitle,
+        ),
       ),
     );
   }

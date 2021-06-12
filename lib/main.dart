@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:travel_app/scr/controllers/filters_controller.dart';
 import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/Main/home.dart';
 import 'package:travel_app/scr/screens/credentials/login.dart';
-import 'package:travel_app/scr/screens/filters/cities_page.dart';
 import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-
+import 'scr/screens/filters/locations_page.dart';
 import 'scr/screens/places/trip_planning.dart';
 
 
@@ -49,6 +49,7 @@ class _HomeState extends State<Home> {
               icon: Icon(Icons.home, color: Colors.white),
               onPressed: () {
                 Get.put(PlacesSearchController());
+                Get.put(FilterController());
                 Get.to(() => HomePagePV());
               },
             )
@@ -74,6 +75,6 @@ void main() async {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
-    home: Home(),
+    home: LocationsPage(),
   ));
 }

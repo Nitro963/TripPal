@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FiltersSlider extends StatelessWidget {
   const FiltersSlider(
       {Key key,
       @required this.count,
-      @required this.max,
-      @required this.min,
       @required this.onChanged,
       @required this.sliderType
       })
       : super(key: key);
 
-  final double count;
-  final String min;
-  final String max;
+  final RxDouble count;
   final onChanged;
   final String sliderType;
   @override
@@ -33,8 +30,8 @@ class FiltersSlider extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(min),
-              Text(max),
+              Text(sliderType == 'Days' ? '3 Days' : '1'),
+              Text(sliderType == 'Days' ? '2 Weeks' : 10.toString()),
             ],
           ),
         ),
@@ -53,7 +50,7 @@ class CustomSliderTheme extends StatelessWidget {
     @required this.divisions,
   }) : super(key: key);
 
-  final double currentSliderValue;
+  final RxDouble currentSliderValue;
   final onChanged;
   final int minRange;
   final int maxRange;
@@ -80,13 +77,13 @@ class CustomSliderTheme extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        child: Slider(
-            value: currentSliderValue,
+        child: Obx(() =>Slider(
+            value: currentSliderValue.value,
             min: minRange.toDouble(),
             max: maxRange.toDouble(),
             divisions: divisions,
-            label: currentSliderValue.round().toString(),
-            onChanged: onChanged),
+            label: currentSliderValue.value.round().toString(),
+            onChanged: onChanged)),
       ),
     );
   }
