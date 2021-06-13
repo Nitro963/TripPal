@@ -116,6 +116,17 @@ class Themes {
             errorBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: const Color(0xffff6d6f))),
             errorStyle: TextStyle(color: const Color(0xffff6d6f))),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+          animationDuration: Duration(milliseconds: 300),
+          elevation: MaterialStateProperty.all<double>(15.0),
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.blue[800]),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)))),
+        )
+        ),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
           animationDuration: Duration(milliseconds: 300),

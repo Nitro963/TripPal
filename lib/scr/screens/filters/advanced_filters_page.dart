@@ -61,8 +61,6 @@ class AdvancedFiltersPage extends StatelessWidget {
            RoundedButton(
             title: 'Save Controls',
             onPressed: () => Get.back(),
-            color: Colors.blue[900],
-            textColor: Colors.white,
             icon: Icon(
               FontAwesomeIcons.save,
               color: Colors.white,

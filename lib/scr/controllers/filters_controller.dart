@@ -41,16 +41,12 @@ class FilterController extends GetxController {
 
   List<String> get placeType => this._types;
 
-  final List<String> tripModes = ["Extended", "Focused"];
+  final List<RxString> tripModes = ["Extended Trip".obs, "Focused Trip".obs];
 
-  String tripMode = 'Extended';
+  RxString tripMode = 'Extended Trip'.obs;
   void onClickRadioButton(value) {
-    print(value);
-    tripMode = value;
-    update();
+    tripMode.value = value;
   }
-
- 
 
   // Countries page
   final List<String> cities = dummyCities;
@@ -69,4 +65,39 @@ class FilterController extends GetxController {
     for (String city in placesContentCheck.keys)
       if (placesContentCheck[city] == true.obs) selectedTypes.add(city);
   }
+
+  //Trip Filters Page
+  RxString sortType = 'Most Resent'.obs;
+
+  RxString sortOrder = 'Descending'.obs;
+
+  final List<RxString> tripsSortType = [
+    'Most Resent'.obs,
+    'Most Popular'.obs,
+    'Trip Duration'.obs,
+    'Count of Places'.obs
+  ];
+  final List<RxString> tripsSortOrder = ['Descending'.obs, 'Ascending'.obs];
+  void changeTripsSortOrder(value) => sortOrder.value = value;
+
+  void changeTripsSorttype(value) => sortType.value = value;
+
+
+
+  //Hotels Results Page
+  RxString hotelsSortType = 'Best Seller'.obs;
+
+
+  final List<RxString> hotelSortTypes = [
+    'Best Seller'.obs,
+    'Star Rating Highest First'.obs,
+    'Star Rating Lowest First'.obs,
+    'Distance fom Landmark'.obs,
+    'Guest Rating'.obs,
+    'Proce Highest First'.obs,
+    'Price'.obs
+  ];
+
+  void changeHotelsSorttype(value) => hotelsSortType.value = value;
+
 }

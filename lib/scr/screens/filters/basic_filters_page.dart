@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/filters_controller.dart';
-import 'package:travel_app/scr/screens/filters/advanced_filters_page.dart';
-import 'package:travel_app/scr/screens/trip/trip_resulte_screen.dart';
+import 'package:travel_app/scr/screens/trip/trip_result_screen.dart';
+import 'components/custom_icon_button.dart';
 import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
 import 'components/rounded_check_box.dart';
@@ -14,16 +14,14 @@ import 'components/rounded_widget.dart';
 
 class FiltersPage extends StatelessWidget {
   FiltersPage({Key key}) : super(key: key);
-
-  // final controller = Get.find<FilterController>();
+  
   final controller = Get.find<FilterController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: ListView(
           children: <Widget>[
             Stack(
               children: <Widget>[
@@ -31,21 +29,7 @@ class FiltersPage extends StatelessWidget {
                     title: 'Tell us your preferences',
                     subTitle:
                         'And we will help to build best trips special for you'),
-                Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: IconButton(
-                          icon: Icon(
-                            FontAwesomeIcons.slidersH,
-                            size: 18.0,
-                          ),
-                          onPressed: () {
-                            controller.selectPlaces();
-                            Get.to(AdvancedFiltersPage());
-                          }
-                          )
-                    ))
+                CustomIconButton(controller: controller)
               ],
             ),
             FilterSubTitle(filterName: 'Selected Countries'),
@@ -88,9 +72,14 @@ class FiltersPage extends StatelessWidget {
                     controller.shopsChecked = !controller.shopsChecked),
             FilterSubTitle(filterName: 'Trip Mode'),
             RoundedRadioButton(
-                idx: 0, title: 'Extended Trip', controller: controller),
-            RoundedRadioButton(
-                idx: 1, title: 'Focused Trip', controller: controller),
+              groupValue: controller.tripMode,
+              value: controller.tripModes[0],
+              onChanged: (value) => controller.onClickRadioButton(value)),
+             RoundedRadioButton(
+              groupValue: controller.tripMode,
+              value: controller.tripModes[1],
+              onChanged: (value) => controller.onClickRadioButton(value)),  
+              
             FilterSubTitle(filterName: 'Trip Duration'),
             FiltersSlider(
                 count: controller.daysCount,
@@ -102,9 +91,7 @@ class FiltersPage extends StatelessWidget {
                     color: Colors.white, size: 18.0),
                 onPressed: () {
                   Get.to(TripPage());
-                },
-                color: Colors.blue[800],
-                textColor: Colors.white),
+                },),
           ],
         ),
       ),

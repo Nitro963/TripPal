@@ -173,10 +173,7 @@ class TripPlanning extends StatelessWidget {
             ),
           ),
       child: Directionality(
-              textDirection: TextDirection.ltr, child: buildSearchBar((){ Navigator.push(context, MaterialPageRoute(
-                            builder: (context) =>
-                                PlacesSearchPage()),
-                      );})),
+              textDirection: TextDirection.ltr, child: buildSearchBar((){ Get.to(PlacesSearchEngine());})),
     );
   }
 }

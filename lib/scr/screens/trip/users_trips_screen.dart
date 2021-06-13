@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/models/trip.dart';
-import 'package:travel_app/scr/screens/trip/trip_resulte_screen.dart';
+import 'package:travel_app/scr/screens/trip/trip_result_screen.dart';
 import 'components/custom_appbar.dart';
 import 'components/saved_trips_header.dart';
 import 'components/trip_widget.dart';
@@ -33,14 +34,7 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
           tripType: element.type,
           location: '$_city, $_country',
           details: element.details,
-          onTap: () {
-            Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                TripPage()),
-                      );
-          },
+          onTap: () => Get.to(TripPage())
         ),
       );
     });

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
 import 'package:travel_app/scr/screens/Home/home.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
@@ -10,7 +12,7 @@ import 'package:travel_app/scr/screens/places/trip_planning.dart';
 
 class HomePagePV extends StatefulWidget {
   HomePagePV({Key key}) : super(key: key);
-
+  
   @override
   _HomePagePVState createState() => _HomePagePVState();
 }
@@ -22,12 +24,13 @@ class _HomePagePVState extends State<HomePagePV> {
   @override
   void initState() {
     super.initState();
-    _myPage = PageController(initialPage: 3);
-    selectedPage = 3;
+    _myPage = PageController(initialPage: 0);
+    selectedPage = 0;
   }
 
   @override
   Widget build(BuildContext context) {
+    Get.put(PlacesSearchController());
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,

@@ -56,9 +56,7 @@ class LocationsPage extends StatelessWidget {
                 controller.selectLocs();
                 if (controller.selectedCities.length > 0) 
                   Get.to(FiltersPage());
-              },
-              color: Colors.blue[800],
-              textColor: Colors.white),
+              }),
           SizedBox(height: 40.0)
         ],
       )),

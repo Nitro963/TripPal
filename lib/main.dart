@@ -7,9 +7,10 @@ import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/Main/home.dart';
 import 'package:travel_app/scr/screens/credentials/login.dart';
+import 'package:travel_app/scr/screens/filters/hotels_filters_page.dart';
 import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-import 'scr/screens/filters/locations_page.dart';
+import 'scr/screens/places/places_search_page.dart';
 import 'scr/screens/places/trip_planning.dart';
 
 
@@ -75,6 +76,6 @@ void main() async {
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.mainTheme,
-    home: LocationsPage(),
+    home:Home(),
   ));
 }

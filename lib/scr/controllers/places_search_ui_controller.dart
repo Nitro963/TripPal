@@ -109,4 +109,5 @@ class PlacesSearchUIController extends GetxController {
     editingController.text = '';
     _suggestions.clear();
   }
+
 }

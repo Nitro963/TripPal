@@ -26,22 +26,22 @@ class TripCard extends StatelessWidget {
               child: Padding(
           padding:  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(10),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 9, sigmaY: 9),
               child: Container(
                 padding: EdgeInsets.all(15.0),
-                height: 150.0,
+                height: 160.0,
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18.0),
+                  borderRadius: BorderRadius.circular(10.0),
                   color: Colors.white.withOpacity(0.4),
                 ),
                 child: Row(
                   children: <Widget>[
                     Container(
-                      height: 120.0,
-                      width: 120.0,
+                      height: 150.0,
+                      width: 130.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
                         image: DecorationImage(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
+import 'package:travel_app/scr/screens/filters/hotels_sort_page.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 class UpperNavBar extends StatelessWidget {
@@ -14,7 +15,11 @@ class UpperNavBar extends StatelessWidget {
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           UpperItem(
-              title: "Sort", icon: Icons.sort_by_alpha, onTapCallBack: () {}),
+              title: "Sort",
+              icon: Icons.sort_by_alpha,
+              onTapCallBack: () {
+                Get.to(HotelSortPage());
+              }),
           UpperItem(title: "Filter", icon: Icons.filter, onTapCallBack: () {}),
           UpperItem(title: "Map", icon: Icons.map, onTapCallBack: () {}),
         ]),

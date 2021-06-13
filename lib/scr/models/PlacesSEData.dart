@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final Map<String, List<String>> placesDict = {
-    'Attractions & Culture' : [
+  'Attractions & Culture': [
     'All Attractions & Culture',
     'Museums',
     'Theaters',
@@ -12,7 +12,7 @@ final Map<String, List<String>> placesDict = {
     'Bridges',
     'Lightouses',
   ],
-  'Food & Drink' : [
+  'Food & Drink': [
     'All Foods & drinks',
     'Cafes',
     'Restaurants',
@@ -23,7 +23,7 @@ final Map<String, List<String>> placesDict = {
     'Bars',
     'Pubs',
   ],
-  'Shopping' :[
+  'Shopping': [
     'All Shoppings',
     'Bakeries',
     'Conveniences',
@@ -33,7 +33,7 @@ final Map<String, List<String>> placesDict = {
     'Outdoor',
     'Supermarkets',
   ],
-  'Sports' : [
+  'Sports': [
     'All Sports',
     'Climbing',
     'Diving',
@@ -43,7 +43,7 @@ final Map<String, List<String>> placesDict = {
     'Surfing',
     'Winter Sports',
   ],
-  'OutDoors' : [
+  'OutDoors': [
     'All Outdoors',
     'Beaches',
     'Glaciers',
@@ -53,7 +53,7 @@ final Map<String, List<String>> placesDict = {
     'Water',
     'Geological Formations'
   ],
-  'Points of Interest' :[
+  'Points of Interest': [
     'All Points of Interest',
     'Archaeology',
     'Burial Places',
@@ -62,7 +62,7 @@ final Map<String, List<String>> placesDict = {
     'Monuments and Memorials',
     'Industrial facilities',
   ],
-  'Motoring' : [
+  'Motoring': [
     'All Motoring',
     'Bicycle Rental',
     'boat Sharing',
@@ -72,7 +72,7 @@ final Map<String, List<String>> placesDict = {
     'Sharging Station',
     'Fuel',
   ],
-  'Entertainment' : [
+  'Entertainment': [
     'All Entertainment',
     'Water Parks',
     'Roller Coasters',
@@ -82,7 +82,7 @@ final Map<String, List<String>> placesDict = {
     'Sauns',
     'Thermal bath',
   ],
-  'Accomodations':[
+  'Accomodations': [
     'Apartments',
     'Villas and Chalet',
     'Resorts',
@@ -91,65 +91,17 @@ final Map<String, List<String>> placesDict = {
     'Campsites',
     'Alpine Huts'
   ],
-  };
+};
 
-
-
-  Icon selectIcon(String type) {
-    if (type == 'Attractions & Culture') {
-      return Icon(
-        FontAwesomeIcons.guitar,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'Food & Drink') {
-      return Icon(
-        FontAwesomeIcons.hamburger,
-        // FontAwesomeIcons.gulp,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'Shopping') {
-      return Icon(
-        FontAwesomeIcons.shoppingCart,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'OutDoors') {
-      return Icon(
-        // FontAwesomeIcons.campground,
-        FontAwesomeIcons.envira,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'Sports') {
-      return Icon(
-        FontAwesomeIcons.basketballBall,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'Points of Interest') {
-      return Icon(
-        FontAwesomeIcons.landmark,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'Motoring') {
-      return Icon(
-        FontAwesomeIcons.car,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    } else if (type == 'Entertainment') {
-      return Icon(
-        FontAwesomeIcons.icons,
-        color: Colors.blue[500],
-        size: 14,
-      );
-    }
-    return Icon(
-      FontAwesomeIcons.handPaper,
-      color: Colors.blue[500],
-      size: 14,
-    );
-  }
+IconData selectIcon(String type) {
+  if (type == 'Attractions & Culture') return FontAwesomeIcons.guitar;
+  else if (type == 'Food & Drink') return FontAwesomeIcons.hamburger;
+  else if (type == 'Shopping') return FontAwesomeIcons.shoppingCart;
+  else if (type == 'OutDoors') return FontAwesomeIcons.envira;
+  else if (type == 'Sports') return FontAwesomeIcons.basketballBall;
+  else if (type == 'Points of Interest') return FontAwesomeIcons.landmark;
+  else if (type == 'Motoring') return FontAwesomeIcons.car;
+  else if (type == 'Entertainment') return FontAwesomeIcons.icons;
+  else if (type == 'Accomodations') return FontAwesomeIcons.bed;
+  return FontAwesomeIcons.handPaper;
+}

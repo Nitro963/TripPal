@@ -23,6 +23,7 @@ class ReviewCard extends StatelessWidget {
         child: TextButton(
           onPressed: onPressed,
           style: ButtonStyle(
+            backgroundColor:  MaterialStateProperty.all<Color>(Colors.white),
               overlayColor: MaterialStateProperty.all(Colors.grey.shade200),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
