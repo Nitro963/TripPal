@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:travel_app/scr/screens/Main/Componenet/constants.dart';
 
 class NavBarItem extends StatelessWidget {
   const NavBarItem({
@@ -23,12 +22,15 @@ class NavBarItem extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            size: 20.0,
+            size: 24.0,
             color: color,
           ),
+          SizedBox(height: 4),
           Text(title,
-              style: kSecondaryTitleStyle.copyWith(
+              style: TextStyle(
                 color: color,
+                fontWeight: FontWeight.bold,
+                fontSize: 14.0
               ))
         ],
       ),

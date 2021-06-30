@@ -9,8 +9,7 @@ class TripWidget extends StatelessWidget {
       @required this.location,
       @required this.details,
       @required this.days,
-      @required this.onTap
-      })
+      @required this.onTap})
       : super(key: key);
   final String imgPath;
   final String tripType;

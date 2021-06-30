@@ -1,10 +1,10 @@
 import 'dart:collection';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/models/place.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/services/networking.dart';
 
 class PlacesSearchController extends GetxController {
-  
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
   RxString _query = ''.obs;
@@ -41,6 +41,11 @@ class PlacesSearchController extends GetxController {
     _suggestions
       ..clear()
       ..addAll(history);
+  }
+
+  RxDouble mapHeight = 100.0.obs;
+  void updateMapHeight(double size) {
+    mapHeight.value = size;
   }
 }
 

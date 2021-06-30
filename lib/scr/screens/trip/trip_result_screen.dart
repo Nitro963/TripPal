@@ -11,7 +11,7 @@ class _TripPageState extends State<TripPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
-        child: Center(child: Text('Fuck you!'),),
+        child: Center(child: Text('Put Planned Trip Here!'),),
       ),
     );
   }

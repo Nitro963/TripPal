@@ -8,7 +8,7 @@ TextStyle disabledStyle = TextStyle(
     fontWeight: FontWeight.w600);
 TextStyle activatedStyle = TextStyle(
     fontSize: 20,
-    color: Color(0xff7BDC91).withOpacity(.86),
+    color: Colors.blue[900].withOpacity(.86),
     fontWeight: FontWeight.w600);
 Rx<int> selectedIndex = 0.obs;
 class PagesIndecators extends StatelessWidget {
@@ -24,7 +24,7 @@ class PagesIndecators extends StatelessWidget {
       width: SizeConfig.blockSizeHorizontal * 80,
       height: SizeConfig.blockSizeVertical * 4.5,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(10.0),
           color: Color(0xffA1A1A1).withOpacity(.16)),
       child: Obx(
         () => Row(

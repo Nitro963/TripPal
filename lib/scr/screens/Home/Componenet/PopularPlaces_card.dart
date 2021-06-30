@@ -28,7 +28,7 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: 30),
+      // margin: EdgeInsets.only(right: 30),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: Colors.white,

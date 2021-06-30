@@ -8,13 +8,11 @@ class TripCard extends StatelessWidget {
     Key key,
     @required this.tripType,
     @required this.tripWriter,
-    @required this.tripExp,
     @required this.onTap,
     @required this.img,
   }) : super(key: key);
   final String tripType;
   final String tripWriter;
-  final String tripExp;
   final onTap;
   final String img;
   @override
@@ -57,22 +55,28 @@ class TripCard extends StatelessWidget {
                       child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          tripType,
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold
+                        Flexible(
+                          flex: 1,
+                          child: Text(
+                            tripType,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold
+                            ),
                           ),
                         ),
                          SizedBox(
                           height: 12.0,
                         ),
-                        Text(
-                          tripWriter,
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.white,
+                        Flexible(
+                          flex: 1,
+                          child: Text(
+                            tripWriter,
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],

@@ -13,11 +13,10 @@ class BlogList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Text(
-          //   "Blog",
-          //   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-          // ),
-          // Spacer(),
+          Text(
+            "Blog",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: blogs.length,

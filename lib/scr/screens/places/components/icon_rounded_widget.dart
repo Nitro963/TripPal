@@ -20,13 +20,13 @@ class RoundedGestWithIconWidget extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Obx(() => Container(
-            padding: EdgeInsets.all(12),
-            margin: EdgeInsets.all(10),
+            padding: EdgeInsets.all(12.0),
+            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 6.0),
             // height: 100,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(12.0),
               border: Border.all(
-                  color: !selected.value ? Colors.grey[100] : Colors.grey[300]),
+                  color: !selected.value ? Colors.grey[100] : Colors.grey[200]),
               color: !selected.value ? Colors.white : Colors.grey[100],
               boxShadow: [
                 BoxShadow(
@@ -41,7 +41,7 @@ class RoundedGestWithIconWidget extends StatelessWidget {
               children: <Widget>[
                 iconName != null ?Icon(
                   iconName,
-                  color: Colors.blueGrey[900],
+                  color: !selected.value ? Colors.blueGrey[900] : Colors.blueGrey[700],
                   size: 16.0,
                 ): SizedBox(),
                 SizedBox(

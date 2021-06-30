@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:travel_app/scr/controllers/filters_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
-import 'package:travel_app/scr/screens/Home/Componenet/HomeDrawer.dart';
-import 'package:travel_app/scr/screens/Home/home.dart';
+import 'package:travel_app/scr/screens/Home/new_home.dart';
+import 'package:travel_app/scr/screens/home_drawer/home_drawer.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/Main/Componenet/Nav_bar_item.dart';
-import 'package:travel_app/scr/screens/Profile/Profile.dart';
 import 'package:travel_app/scr/screens/Trip/trip_types_screen.dart';
-import 'package:travel_app/scr/screens/places/trip_planning.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 class HomePagePV extends StatefulWidget {
   HomePagePV({Key key}) : super(key: key);
-  
+
   @override
   _HomePagePVState createState() => _HomePagePVState();
 }
@@ -24,13 +24,15 @@ class _HomePagePVState extends State<HomePagePV> {
   @override
   void initState() {
     super.initState();
-    _myPage = PageController(initialPage: 0);
-    selectedPage = 0;
+    _myPage = PageController(initialPage: 1);
+    selectedPage = 1;
+    Get.put(PlacesSearchController());
+    Get.put(FilterController());
+    SizeConfig.init();
   }
 
   @override
   Widget build(BuildContext context) {
-    Get.put(PlacesSearchController());
     return Scaffold(
       backgroundColor: Colors.transparent,
       resizeToAvoidBottomInset: false,
@@ -38,95 +40,78 @@ class _HomePagePVState extends State<HomePagePV> {
       body: Stack(
         children: <Widget>[
           PageView(
-          physics: NeverScrollableScrollPhysics(),
-          controller: _myPage,
-          children: <Widget>[
-            TripPlanning(),
-            HotelSearchPage(),
-            HomePage(),
-            TripsPage(),
-            ProfilePage(),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
-        height: 60.0,
-        margin: EdgeInsets.all(10.0),
-        decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.8), borderRadius: BorderRadius.circular(20.0)),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            NavBarItem(
-              title: 'Browse',
-              icon: FontAwesomeIcons.placeOfWorship,
-              color: selectedPage == 0 ? Colors.blue[800] : Colors.black54,
-              onPressed: () {
-                _myPage.jumpToPage(0);
-                setState(() {
-                  selectedPage = 0;
-                  img = 'images/map.jpg';
-                });
-              },
-            ),
-            NavBarItem(
-              title: 'Hotels',
-              icon: FontAwesomeIcons.hotel,
-              color: selectedPage == 1 ? Colors.blue[800] : Colors.black54,
-              onPressed: () {
-                _myPage.jumpToPage(1);
-                setState(() {
-                  selectedPage = 1;
-                });
-              },
-            ),
-            NavBarItem(
-              title: 'Home',
-              icon: FontAwesomeIcons.home,
-              color: selectedPage == 2 ? Colors.blue[800] : Colors.black54,
-              onPressed: () {
-                _myPage.jumpToPage(2);
-                setState(() {
-                  selectedPage = 2;
-                });
-              },
-            ),
-            NavBarItem(
-              title: 'Plans',
-              icon: FontAwesomeIcons.mapMarkedAlt,
-              color: selectedPage == 3 ? Colors.blue[800] : Colors.black54,
-              onPressed: () {
-                _myPage.jumpToPage(3);
-                setState(() {
-                  selectedPage = 3;
-                  img = 'images/hotel_.jpg';
-                });
-              },
-            ),
-            NavBarItem(
-              title: 'Profile',
-              icon: FontAwesomeIcons.solidUserCircle,
-              color: selectedPage == 4 ? Colors.blue[800] : Colors.black54,
-              onPressed: () {
-                _myPage.jumpToPage(4);
-                setState(() {
-                  selectedPage = 4;
-                  img = 'images/2.jpg';
-                });
-              },
-            ),
-          ],
-        ),
-      ),
-          ],
-        )
+            physics: NeverScrollableScrollPhysics(),
+            controller: _myPage,
+            children: <Widget>[
+              HotelSearchPage(),
+              NewHome(),
+              TripsPage(),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                height: 60.0,
+                margin: EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.96),
+                  borderRadius: BorderRadius.circular(16.0),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    NavBarItem(
+                      title: 'Hotels',
+                      icon: FontAwesomeIcons.hotel,
+                      color: selectedPage == 0
+                          ? Colors.indigo[500]
+                          : Colors.black54,
+                      onPressed: () {
+                        _myPage.jumpToPage(0);
+                        setState(() {
+                          selectedPage = 0;
+                          print('Hotels Pressed!');
+                        });
+                      },
+                    ),
+                    NavBarItem(
+                      title: 'Home',
+                      icon: FontAwesomeIcons.home,
+                      color: selectedPage == 1
+                          ? Colors.indigo[500]
+                          : Colors.black54,
+                      onPressed: () {
+                        _myPage.jumpToPage(1);
+                        setState(() {
+                          selectedPage = 1;
+                          print('Home Pressed!');
+                        });
+                      },
+                    ),
+                    NavBarItem(
+                      title: 'Plans',
+                      icon: FontAwesomeIcons.mapMarkedAlt,
+                      color: selectedPage == 2
+                          ? Colors.indigo[500]
+                          : Colors.black54,
+                      onPressed: () {
+                        _myPage.jumpToPage(2);
+                        setState(() {
+                          selectedPage = 2;
+                          print('Plans Pressed!');
+                          img = 'images/hotel_.jpg';
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          )
         ],
-          
       ),
-       
     );
   }
 }

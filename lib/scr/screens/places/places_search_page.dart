@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:travel_app/scr/models/PlacesSEData.dart';
-import 'package:travel_app/scr/screens/Home/Componenet/BlogListWidget.dart';
+import 'package:travel_app/scr/screens/places/components/place_class.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 import 'components/icon_rounded_widget.dart';
+import 'components/place_card.dart';
 
 class PlacesSearchEngine extends StatefulWidget {
   PlacesSearchEngine({Key key}) : super(key: key);
@@ -15,6 +16,8 @@ class PlacesSearchEngine extends StatefulWidget {
 }
 
 class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
+  List<Place2> testingPlaces = List<Place2>.empty(growable: true);
+
   List<Widget> types = List<Widget>.empty(growable: true).obs;
   List<Widget> subTypes = List<Widget>.empty(growable: true).obs;
 
@@ -69,12 +72,28 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
         backgroundColor: Colors.transparent,
         body: SafeArea(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            // mainAxisAlignment: MainAxisAlignment.s,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
-                height: 65.0,
-                margin:const EdgeInsets.only(top: 65),
+                width: SizeConfig.screenWidth,
+                height: SizeConfig.screenHeight / 3,
+                margin: EdgeInsets.only(bottom: 20.0),
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom:
+                            BorderSide(color: Colors.grey[200], width: 5.0)),
+                    image: DecorationImage(
+                        image: AssetImage('images/map.jpg'),
+                        fit: BoxFit.cover)),
+              ),
+              Text('Explore new places and start your trip',
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center),
+              Container(
+                height: 60.0,
+                // margin: const EdgeInsets.only(top: 65),
                 child:
                     ListView(scrollDirection: Axis.horizontal, children: types),
               ),
@@ -82,7 +101,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                   ? Divider(color: Colors.blueGrey[200])
                   : SizedBox(),
               Container(
-                height: 65.0,
+                height: 60.0,
                 child: ListView(
                     scrollDirection: Axis.horizontal, children: subTypes),
               ),
@@ -102,9 +121,14 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                                 fontSize: 16.0, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        BlogList(),
-                        BlogList(),
-                        BlogList(),
+                        for (Place2 place in testingPlaces)
+                          if (place != null)
+                            PlaceCard(
+                                data: place,
+                                primaryColor: selectPrimaryColor(
+                                    place.kinds.split(',')[0]),
+                                secondaryColor: selectSecondartColor(
+                                    place.kinds.split(',')[0])),
                       ],
                     ),
                   ))
@@ -114,17 +138,16 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
   }
 
   Widget buildFloatingSearchBar() {
-
     final actions = [
-        FloatingSearchBarAction.icon(
-          showIfOpened: false,
-          icon: Icons.location_on,
-          onTap: () => Get.back(),
-        ),
-        FloatingSearchBarAction.searchToClear(
-          showIfClosed: false,
-        ),
-      ];
+      FloatingSearchBarAction.icon(
+        showIfOpened: false,
+        icon: Icons.location_on,
+        onTap: () => Get.back(),
+      ),
+      FloatingSearchBarAction.searchToClear(
+        showIfClosed: false,
+      ),
+    ];
     final isPortrait =
         MediaQuery.of(context).orientation == Orientation.portrait;
 
@@ -136,29 +159,12 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
       physics: const BouncingScrollPhysics(),
       axisAlignment: isPortrait ? 0.0 : -1.0,
       openAxisAlignment: 0.0,
-      // width: isPortrait ? 600 : 500,
       debounceDelay: const Duration(milliseconds: 500),
-      onQueryChanged: (query) {
-        // Call your model, bloc, controller here.
-      },
-      // Specify a custom transition to be used for
-      // animating between opened and closed stated.
+      onQueryChanged: (query) {},
       transition: CircularFloatingSearchBarTransition(),
       actions: actions,
       builder: (context, transition) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(8),
-          child: Material(
-            color: Colors.white,
-            elevation: 4.0,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: Colors.accents.map((color) {
-                return Container(height: 112, color: color);
-              }).toList(),
-            ),
-          ),
-        );
+        return Container();
       },
       body: buildBody(),
     );
@@ -179,6 +185,11 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
 
   @override
   Widget build(BuildContext context) {
+    for (var place in dummyJson) {
+      print(place);
+      testingPlaces.add(Place2.fromJson(place));
+    }
+    // print(testingPlaces[0].name);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: buildFloatingSearchBar(),

@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:travel_app/main.dart';
-
+import 'package:travel_app/scr/screens/Main/home.dart';
 import 'Components/starting_page_view_item.dart';
 
 class LaunchingScreen extends StatefulWidget {
@@ -86,30 +86,27 @@ class _StartingScreenState extends State<LaunchingScreen> {
                                 ),
                                 onDotClicked: (index) =>
                                     _pageController.animateToPage(index,
-                                        duration: Duration(seconds: 3),
+                                        duration: Duration(milliseconds: 900),
                                         curve: Curves.bounceOut),
                               ),
                               GestureDetector(
                                 onTap: () {
                                   _pageController.nextPage(
-                                      duration: Duration(milliseconds: 1300),
+                                      duration: Duration(milliseconds: 900),
                                       curve: Curves.easeOut);
                                   setState(() {
                                     if (currentPage == 2) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Home()),
-                                      );
+                                      Get.to(HomePagePV());
                                     }
                                   });
                                 },
                                 child: Text(
-                                  'NEXT',
+                                  currentPage == 2 ? 'GET STARTED': 'NEXT',
                                   style: TextStyle(
                                       fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
                                       color: Colors.white.withOpacity(0.6),
-                                      fontFamily: 'Lato'),
+                                     ),
                                 ),
                               )
                             ],

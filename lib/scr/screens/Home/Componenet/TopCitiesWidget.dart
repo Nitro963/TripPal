@@ -18,6 +18,7 @@ class TopCities extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: 140,
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -25,7 +26,7 @@ class TopCities extends StatelessWidget {
               flex: 3,
               child: Row(
                 children: [
-                  Text("Top Cities",
+                  Text("Best Cities of The Week",
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.w700,
@@ -40,7 +41,7 @@ class TopCities extends StatelessWidget {
                     ),
                     child: Center(
                         child: Text(
-                      "Hot",
+                      "Fresh",
                       style: TextStyle(color: Colors.white,fontFamily:'Lato'),
                       textAlign: TextAlign.center,
                     )),
@@ -54,7 +55,7 @@ class TopCities extends StatelessWidget {
               child: SizedBox(
                   height: 100,
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
