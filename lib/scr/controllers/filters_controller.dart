@@ -1,14 +1,10 @@
 import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 
-// enum TripMode { extendedTrip, focusedTrip }
-
 class FilterController extends GetxController {
+
   @override
   void onInit() {
-    selectedCities.add('dada');
-    selectedCities.add('dodo');
-
     for (var type in _types) {
       placesContentCheck[type] = false.obs;
       contentValues[type] = 5.0.obs;
@@ -27,8 +23,8 @@ class FilterController extends GetxController {
 
   bool visible = false;
 
-  bool foodsChecked = false;
-  bool shopsChecked = false;
+  RxBool foodsChecked = false.obs;
+  RxBool shopsChecked = false.obs;
 
   Map<String, RxBool> locsContentCheck = Map<String, RxBool>();
   Map<String, RxDouble> contentValues = Map<String, RxDouble>();
@@ -38,6 +34,9 @@ class FilterController extends GetxController {
   RxDouble placesPerDay = 3.0.obs;
   RxDouble foods = 5.0.obs;
   RxDouble shops = 5.0.obs;
+  RxDouble selectedPrice = 150.0.obs;
+  RxDouble selectedStarRating = 3.0.obs;
+  RxDouble selectedGuestRating = 5.0.obs;
 
   List<String> get placeType => this._types;
 
@@ -82,11 +81,8 @@ class FilterController extends GetxController {
 
   void changeTripsSorttype(value) => sortType.value = value;
 
-
-
   //Hotels Results Page
   RxString hotelsSortType = 'Best Seller'.obs;
-
 
   final List<RxString> hotelSortTypes = [
     'Best Seller'.obs,
@@ -99,5 +95,4 @@ class FilterController extends GetxController {
   ];
 
   void changeHotelsSorttype(value) => hotelsSortType.value = value;
-
 }

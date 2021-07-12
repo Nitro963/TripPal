@@ -59,6 +59,7 @@ class TopCities extends StatelessWidget {
                     child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
+                      physics: BouncingScrollPhysics(),
                       itemCount: demoPlaces.length,
                       itemBuilder: (context, index) {
                         return Padding(

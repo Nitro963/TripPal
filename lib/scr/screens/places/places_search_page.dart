@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:travel_app/scr/models/PlacesSEData.dart';
+import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/screens/Main/main_page.dart';
 import 'package:travel_app/scr/screens/places/components/place_class.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
@@ -16,6 +19,9 @@ class PlacesSearchEngine extends StatefulWidget {
 }
 
 class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
+  final searchBarController = FloatingSearchBarController();
+  final searchController = Get.find<PlacesSearchController>();
+
   List<Place2> testingPlaces = List<Place2>.empty(growable: true);
 
   List<Widget> types = List<Widget>.empty(growable: true).obs;
@@ -80,22 +86,36 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                 width: SizeConfig.screenWidth,
                 height: SizeConfig.screenHeight / 3,
                 margin: EdgeInsets.only(bottom: 20.0),
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom:
-                            BorderSide(color: Colors.grey[200], width: 5.0)),
-                    image: DecorationImage(
-                        image: AssetImage('images/map.jpg'),
-                        fit: BoxFit.cover)),
+                child: GoogleMap(
+                  myLocationButtonEnabled: false,
+                  trafficEnabled: false,
+                  mapToolbarEnabled: false,
+                  myLocationEnabled: true,
+                  initialCameraPosition: searchController.cameraPosition,
+                  onMapCreated: (controller) {
+                    searchController.mapController = controller;
+                  },
+                  markers: {
+                    Marker(
+                        markerId: const MarkerId('marker1'),
+                        infoWindow: InfoWindow(
+                            title:
+                                searchController.markerInfoWindowTitle.value),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueAzure),
+                        position: LatLng(searchController.latitude.value,
+                            searchController.longitud.value))
+                  },
+                ),
               ),
               Text('Explore new places and start your trip',
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center),
               Container(
                 height: 60.0,
                 // margin: const EdgeInsets.only(top: 65),
                 child:
-                    ListView(scrollDirection: Axis.horizontal, children: types),
+                    ListView(scrollDirection: Axis.horizontal, children: types, physics: BouncingScrollPhysics(),),
               ),
               subTypes.length > 0
                   ? Divider(color: Colors.blueGrey[200])
@@ -103,7 +123,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
               Container(
                 height: 60.0,
                 child: ListView(
-                    scrollDirection: Axis.horizontal, children: subTypes),
+                    scrollDirection: Axis.horizontal, children: subTypes, physics: BouncingScrollPhysics(),),
               ),
               subTypes.length > 0
                   ? Divider(color: Colors.blueGrey[200])
@@ -112,6 +132,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                   visible: _visible,
                   child: Expanded(
                     child: ListView(
+                      physics: BouncingScrollPhysics(),
                       children: [
                         Padding(
                           padding: EdgeInsets.fromLTRB(20.0, .0, 30.0, 10.0),
@@ -128,7 +149,9 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                                 primaryColor: selectPrimaryColor(
                                     place.kinds.split(',')[0]),
                                 secondaryColor: selectSecondartColor(
-                                    place.kinds.split(',')[0])),
+                                    place.kinds.split(',')[0]),
+                                onTap: () => setState(() =>
+                                    searchController.updateMapView(place)))
                       ],
                     ),
                   ))
@@ -142,7 +165,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
       FloatingSearchBarAction.icon(
         showIfOpened: false,
         icon: Icons.location_on,
-        onTap: () => Get.back(),
+        onTap: () => Get.off(MainPage()),
       ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,
@@ -186,7 +209,6 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
   @override
   Widget build(BuildContext context) {
     for (var place in dummyJson) {
-      print(place);
       testingPlaces.add(Place2.fromJson(place));
     }
     // print(testingPlaces[0].name);

@@ -10,11 +10,13 @@ class PlaceCard extends StatelessWidget {
       {Key key,
       @required this.primaryColor,
       @required this.secondaryColor,
+      @required this.onTap,
       @required this.data})
       : super(key: key);
   final Color primaryColor;
   final Color secondaryColor;
   final Place2 data;
+  final onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -24,7 +26,7 @@ class PlaceCard extends StatelessWidget {
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.grey[50],
           borderRadius: BorderRadius.circular(10.0),
           border: Border.all(color: Colors.blueGrey[100]),
           boxShadow: [
@@ -109,13 +111,24 @@ class PlaceCard extends StatelessWidget {
                     ],
                   ),
                   GestureDetector(
-                    onTap: () {},
-                    child: Text(
-                      'See Details',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 14.0),
-                    ),
-                  ),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(
+                            FontAwesomeIcons.solidMap,
+                            size: 15.0,
+                            color: Colors.blueGrey[700],
+                          ),
+                          SizedBox(width: 6.0),
+                          Text(
+                            'Map',
+                            style: TextStyle(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.blueGrey[600]),
+                          ),
+                        ],
+                      ),
+                      onTap: onTap),
                 ],
               ),
             )
@@ -188,20 +201,23 @@ class BasicInfo extends StatelessWidget {
             ),
           ],
         ),
-        Column(
-          children: <Widget>[
-            Text(
-              'sorted by',
-              style: TextStyle(fontSize: 14.0),
-            ),
-            Text(
-              'Distance',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 13.0,
+        GestureDetector(
+          onTap: (){},
+          child: Column(
+            children: <Widget>[
+              Text(
+                'read more',
+                style: TextStyle(fontSize: 14.0),
               ),
-            ),
-          ],
+              Text(
+                'Information',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13.0,
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );

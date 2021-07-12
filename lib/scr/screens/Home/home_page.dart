@@ -1,23 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:travel_app/scr/models/PlacesSEData.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/screens/places/components/place_class.dart';
 import 'package:travel_app/scr/screens/places/places_search_page.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
 
-class NewHome extends StatelessWidget {
-  NewHome({Key key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  HomePage({Key key}) : super(key: key);
   final searchBarController = FloatingSearchBarController();
   final searchController = Get.find<PlacesSearchController>();
 
   Widget buildSearchBar(onTap) {
     final actions = [
+      FloatingSearchBarAction.icon(
+        showIfOpened: false,
+        icon: Icons.swap_horiz,
+        onTap: () =>
+            searchController.updateMapView(Place2.fromJson(dummyJson[1])),
+      ),
+      FloatingSearchBarAction.icon(
+        showIfOpened: false,
+        icon: Icons.my_location,
+        onTap: () =>
+            searchController.getMyLocation(),
+      ),
       FloatingSearchBarAction.icon(
         showIfOpened: false,
         icon: Icons.not_listed_location_outlined,
@@ -76,19 +91,7 @@ class NewHome extends StatelessWidget {
           )),
     );
   }
-
-  Widget buildList() {
-    return Container(
-      height: 300.0,
-      width: 300.0,
-      color: Colors.blue,
-      child: Text(
-        'fuck',
-        style: TextStyle(fontSize: 50.0),
-      ),
-    );
-  }
-
+  
   Widget buildItem(Place place) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -160,19 +163,33 @@ class NewHome extends StatelessWidget {
                   SizeConfig.screenHeight / 3)
                 searchController.updateMapHeight(SizeConfig.screenHeight);
               else
-                searchController.updateMapHeight(SizeConfig.screenHeight/3);
+                searchController.updateMapHeight(SizeConfig.screenHeight / 3);
             },
             child: Obx(() => Container(
                   width: SizeConfig.screenWidth,
                   height: searchController.mapHeight.value,
                   margin: EdgeInsets.only(bottom: 20.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(color: Colors.grey[200], width: 5.0)),
-                      image: DecorationImage(
-                          image: AssetImage('images/map.jpg'),
-                          fit: BoxFit.cover)),
+                  child: GoogleMap(
+                    myLocationButtonEnabled: false,
+                    trafficEnabled: false,
+                    mapToolbarEnabled: false,
+                    myLocationEnabled: true,
+                    initialCameraPosition: searchController.cameraPosition,
+                    onMapCreated: (controller) {
+                      searchController.mapController = controller;
+                    },
+                    markers: {
+                      Marker(
+                          markerId: const MarkerId('marker1'),
+                          infoWindow: InfoWindow(
+                              title:
+                                  searchController.markerInfoWindowTitle.value),
+                          icon: BitmapDescriptor.defaultMarkerWithHue(
+                              BitmapDescriptor.hueAzure),
+                          position: LatLng(searchController.latitude.value,
+                              searchController.longitud.value))
+                    },
+                  ),
                 )),
           ),
           TopCities(),
@@ -186,7 +203,6 @@ class NewHome extends StatelessWidget {
                 )),
           ),
           PopularPlacesPageView(),
-          // BlogList(),
         ])),
       ),
     );
@@ -195,11 +211,11 @@ class NewHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.grey[50],
       child: Directionality(
           textDirection: TextDirection.ltr,
           child: buildSearchBar(() {
-            Get.to(PlacesSearchEngine());
+            Get.off(PlacesSearchEngine());
           })),
     );
   }

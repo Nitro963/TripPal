@@ -22,6 +22,7 @@ class FiltersPage extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Center(
         child: ListView(
+          physics: BouncingScrollPhysics(),
           children: <Widget>[
             Stack(
               children: <Widget>[
@@ -37,6 +38,7 @@ class FiltersPage extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 2.0),
               height: 50.0,
               child: ListView.builder(
+                physics: BouncingScrollPhysics(),
                 itemCount: controller.selectedCities.length,
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
@@ -49,6 +51,7 @@ class FiltersPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 2.0),
                 height: 50.0,
                 child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.placeType.length,
                     itemBuilder: (ctx, i) {
@@ -63,13 +66,15 @@ class FiltersPage extends StatelessWidget {
             FilterCheckBox(
                 title: 'Foods Inculded',
                 icon: Icon(Icons.check, color: Colors.white, size: 18.0),
+                isChecked: controller.foodsChecked.value,
                 onTap: (selected) =>
-                    controller.foodsChecked = !controller.foodsChecked),
+                    controller.foodsChecked.toggle()),
             FilterCheckBox(
                 title: 'Shops Inculded',
                 icon: Icon(Icons.check, color: Colors.white, size: 18.0),
+                isChecked: controller.shopsChecked.value,
                 onTap: (selected) =>
-                    controller.shopsChecked = !controller.shopsChecked),
+                    controller.shopsChecked.toggle()),
             FilterSubTitle(filterName: 'Trip Mode'),
             RoundedRadioButton(
               groupValue: controller.tripMode,
@@ -83,7 +88,8 @@ class FiltersPage extends StatelessWidget {
             FilterSubTitle(filterName: 'Trip Duration'),
             FiltersSlider(
                 count: controller.daysCount,
-                sliderType: 'Days',
+                label: ' days',
+                divisions: 13, maxLabel: '2 weeks', minLabele: '3 days', maxrange: 14,
                 onChanged: (newValue) => controller.daysCount.value = newValue),
             RoundedButton(
                 title: 'Save Preferences',

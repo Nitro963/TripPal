@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelResults.dart';
+import 'package:travel_app/scr/screens/filters/components/rounded_button.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:intl/intl.dart';
 
@@ -183,26 +184,7 @@ class HotelSearchPage extends GetView {
                   ),
                 ),
                 SizedBox(height: 30.0),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all<Size>(Size(
-                          SizeConfig.blockSizeHorizontal * 70,
-                          SizeConfig.blockSizeVertical * 6))),
-                  child: Text(
-                    "Search",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.italic),
-                  ),
-                  onPressed: () {
-                    print(controller.cityName.value);
-                    print(controller.date.value);
-                    print(controller.selectedIndex.value);
-                    Get.to(HotelResult());
-                  },
-                ),
+                RoundedButton(title: 'Search', onPressed: ()=> Get.to(HotelResult()), icon: Icon(Icons.search, color: Colors.white,)),
                 SizedBox(
                   height: 60.0,
                 )

@@ -59,6 +59,7 @@ class TripCard extends StatelessWidget {
                           flex: 1,
                           child: Text(
                             tripType,
+                            overflow: TextOverflow.fade,
                             style: TextStyle(
                               fontSize: 20.0,
                               color: Colors.white,
@@ -73,6 +74,7 @@ class TripCard extends StatelessWidget {
                           flex: 1,
                           child: Text(
                             tripWriter,
+                            overflow: TextOverflow.fade,
                             style: TextStyle(
                               fontSize: 16.0,
                               color: Colors.white,

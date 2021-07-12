@@ -84,6 +84,7 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
                   child: ListView.builder(
                 controller: controller,
                 itemCount: _content.length,
+                physics: BouncingScrollPhysics(),
                 itemBuilder: (BuildContext context, int index) {
                   double scale = 1.0;
                   if (topContainer > 0.5) {

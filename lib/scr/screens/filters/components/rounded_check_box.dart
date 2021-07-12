@@ -7,10 +7,12 @@ class FilterCheckBox extends StatelessWidget {
     @required this.title,
     @required this.onTap,
     @required this.icon,
+    @required this.isChecked
   });
   final String title;
   final onTap;
   final Icon icon;
+  final bool isChecked;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +32,7 @@ class FilterCheckBox extends StatelessWidget {
           ),
           RoundCheckBox(
             borderColor: Colors.blue[800],
-            
+            isChecked: isChecked,
             size: 25.0,
             checkedColor: Colors.blue[800],
             onTap: onTap,

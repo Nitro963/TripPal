@@ -11,7 +11,7 @@ import 'components/rounded_gesture_widget.dart';
 class LocationsPage extends StatelessWidget {
   LocationsPage({Key key}) : super(key: key);
 
-  final FilterController controller = Get.put(FilterController());
+  final FilterController controller = Get.find<FilterController>();
   @override
   Widget build(BuildContext context) {
     List<Widget> content = List<Widget>.empty(growable: true).obs;
@@ -54,8 +54,7 @@ class LocationsPage extends StatelessWidget {
                   Icon(FontAwesomeIcons.plus, color: Colors.white, size: 14.0),
               onPressed: () {
                 controller.selectLocs();
-                if (controller.selectedCities.length > 0) 
-                  Get.to(FiltersPage());
+                if (controller.selectedCities.length > 0) Get.to(FiltersPage());
               }),
           SizedBox(height: 40.0)
         ],

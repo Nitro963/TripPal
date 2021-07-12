@@ -4,6 +4,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 import 'package:readmore/readmore.dart';
+import 'package:travel_app/scr/screens/Map/map_page.dart';
 import 'package:travel_app/scr/screens/review/review_writing.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/Widgets/avatar_overflow.dart';
@@ -60,7 +61,7 @@ class PlaceDetails extends StatelessWidget {
                 ),
               ),
               actions: [
-                IconButton(icon: Icon(Icons.location_pin), onPressed: () {})
+                IconButton(icon: Icon(Icons.location_pin), onPressed: () => Get.to(MapPage(latitude: 41.015182, longitude: 28.951982, placeName: 'Bali')))
               ],
             ),
             // SliverList(

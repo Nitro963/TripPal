@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:travel_app/scr/screens/Main/home.dart';
+import 'package:travel_app/scr/screens/Main/main_page.dart';
 import 'Components/starting_page_view_item.dart';
 
 class LaunchingScreen extends StatefulWidget {
@@ -15,6 +15,11 @@ class _StartingScreenState extends State<LaunchingScreen> {
   PageController _pageController = PageController();
   double currentPage = 0;
   String img = 'images/trip_.jpg';
+  String exp1 =
+      "Search and try the best trip planns, you can plan your own trip too; with the help of the best artificial intelligence technologies. Our search engine help you to find all places around the world as well as create a dynamic map for your own trip.";
+  String exp2 =
+      "Search and find the best hotels around the world by using our search engine, with a high degree of filtering and customization. Share your experiences with the hotels you visited and let other users benefit from it";
+  String exp3 = "Share the best moments of your travels with other users, give your opinion of the hotels and places you visited. Share your trips plans on the newsfeed page and let other users try it out and rate your planning taste.";
   @override
   void initState() {
     _pageController.addListener(() {
@@ -37,19 +42,19 @@ class _StartingScreenState extends State<LaunchingScreen> {
               LaunchScreenWidget(
                 subTitle: 'Plan your',
                 title: 'Trip',
-                description: 'write something here',
+                description: exp1,
                 imagePath: 'images/trip_.jpg',
               ),
               LaunchScreenWidget(
                 subTitle: 'Book your',
                 title: 'HOTEL',
-                description: 'write something here',
+                description: exp2,
                 imagePath: 'images/2.jpg',
               ),
               LaunchScreenWidget(
                 subTitle: 'Share your',
                 title: 'experience',
-                description: 'write something here',
+                description: exp3,
                 imagePath: 'images/1.jpg',
               ),
             ],
@@ -96,17 +101,17 @@ class _StartingScreenState extends State<LaunchingScreen> {
                                       curve: Curves.easeOut);
                                   setState(() {
                                     if (currentPage == 2) {
-                                      Get.to(HomePagePV());
+                                      Get.off(MainPage());
                                     }
                                   });
                                 },
                                 child: Text(
-                                  currentPage == 2 ? 'GET STARTED': 'NEXT',
+                                  currentPage == 2 ? 'GET STARTED' : 'NEXT',
                                   style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white.withOpacity(0.6),
-                                     ),
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white.withOpacity(0.6),
+                                  ),
                                 ),
                               )
                             ],

@@ -9,8 +9,7 @@ import 'components/rounded_radio_button.dart';
 
 class TripFiltersPage extends StatelessWidget {
   TripFiltersPage({Key key}) : super(key: key);
-  // final controller = Get.find<FilterController>();
-  final controller = Get.put(FilterController());
+  final FilterController controller = Get.find<FilterController>();
 
   @override
   Widget build(BuildContext context) {

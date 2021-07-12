@@ -2,17 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FiltersSlider extends StatelessWidget {
-  const FiltersSlider(
-      {Key key,
-      @required this.count,
-      @required this.onChanged,
-      @required this.sliderType
-      })
-      : super(key: key);
+  const FiltersSlider({
+    Key key,
+    @required this.count,
+    @required this.onChanged,
+    @required this.maxrange,
+    @required this.divisions,
+    @required this.minLabele,
+    @required this.maxLabel,
+    @required this.label,
+  }) : super(key: key);
 
   final RxDouble count;
   final onChanged;
-  final String sliderType;
+  final int maxrange;
+  final int divisions;
+  final String minLabele;
+  final String maxLabel;
+  final String label;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,18 +27,19 @@ class FiltersSlider extends StatelessWidget {
         Padding(
             padding: const EdgeInsets.symmetric(horizontal: 26.0),
             child: CustomSliderTheme(
-                currentSliderValue: count, 
+                currentSliderValue: count,
+                label: label,
                 minRange: 1,
-                maxRange: sliderType == 'Days' ? 14 : 10,
-                divisions: sliderType == 'Days' ? 13 : 9,
+                maxRange: maxrange,
+                divisions: divisions,
                 onChanged: onChanged)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(sliderType == 'Days' ? '3 Days' : '1'),
-              Text(sliderType == 'Days' ? '2 Weeks' : 10.toString()),
+              Text(minLabele),
+              Text(maxLabel),
             ],
           ),
         ),
@@ -48,6 +56,7 @@ class CustomSliderTheme extends StatelessWidget {
     @required this.maxRange,
     @required this.minRange,
     @required this.divisions,
+    @required this.label
   }) : super(key: key);
 
   final RxDouble currentSliderValue;
@@ -55,6 +64,7 @@ class CustomSliderTheme extends StatelessWidget {
   final int minRange;
   final int maxRange;
   final int divisions;
+  final String label;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,12 +87,12 @@ class CustomSliderTheme extends StatelessWidget {
             color: Colors.white,
           ),
         ),
-        child: Obx(() =>Slider(
+        child: Obx(() => Slider(
             value: currentSliderValue.value,
             min: minRange.toDouble(),
             max: maxRange.toDouble(),
             divisions: divisions,
-            label: currentSliderValue.value.round().toString(),
+            label: currentSliderValue.value.round().toString() + label,
             onChanged: onChanged)),
       ),
     );

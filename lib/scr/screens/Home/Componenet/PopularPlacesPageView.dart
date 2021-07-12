@@ -9,28 +9,22 @@ class PopularPlacesPageView extends StatelessWidget {
     PageController controller = PageController(viewportFraction: 0.99);
 
     return SizedBox(
-      //margin:EdgeInsets.only(left:15),
       width: double.infinity,
-      height: 256,
-      //color: Colors.red,
+      height: 330.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-              flex: 11,
-              child: PageView.builder(
-                  /*    onPageChanged: ()
-                {
-
-                },*/
+              flex: 10,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
                   itemCount: demoPlaces.length,
                   controller: controller,
                   itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: PopularPlacesCard(place: demoPlaces[index]),
+                        child: NewPopularPlacesCard(place: demoPlaces[index]),
                       ))),
-//Spacer(flex: 1,),
-
           Expanded(
             flex: 1,
             child: SmoothPageIndicator(

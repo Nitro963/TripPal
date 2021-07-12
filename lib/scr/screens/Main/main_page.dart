@@ -2,22 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/filters_controller.dart';
+import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
-import 'package:travel_app/scr/screens/Home/new_home.dart';
+import 'package:travel_app/scr/screens/Home/home_page.dart';
 import 'package:travel_app/scr/screens/home_drawer/home_drawer.dart';
 import 'package:travel_app/scr/screens/Hotels/HotelSearchPage.dart';
 import 'package:travel_app/scr/screens/Main/Componenet/Nav_bar_item.dart';
 import 'package:travel_app/scr/screens/Trip/trip_types_screen.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
-class HomePagePV extends StatefulWidget {
-  HomePagePV({Key key}) : super(key: key);
+class MainPage extends StatefulWidget {
+  MainPage({Key key}) : super(key: key);
 
   @override
-  _HomePagePVState createState() => _HomePagePVState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomePagePVState extends State<HomePagePV> {
+class _MainPageState extends State<MainPage> {
   PageController _myPage;
   var selectedPage;
   String img = 'images/1.jpg';
@@ -44,7 +45,7 @@ class _HomePagePVState extends State<HomePagePV> {
             controller: _myPage,
             children: <Widget>[
               HotelSearchPage(),
-              NewHome(),
+              HomePage(),
               TripsPage(),
             ],
           ),

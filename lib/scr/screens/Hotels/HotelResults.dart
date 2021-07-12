@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/DemoData.dart';
-import 'package:travel_app/scr/models/Hotel.dart';
+import 'package:travel_app/scr/controllers/profile_controller.dart';
 import 'package:travel_app/scr/screens/Home/place_details.dart';
+import 'package:travel_app/scr/screens/Hotels/Component/UpperNavBar.dart';
+
 import 'Component/HotelCard.dart';
-import 'Component/UpperNavBar.dart';
 
 class HotelResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: ListView(
-        children: [
-          UpperNavBar(
-            onTapCallBack: (index) {
-              print(index.toString());
-            },
-          ),
-          HotelList(),
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            UpperNavBar(),
+            HotelList(),
+          ],
+        ),
       ),
     );
   }
@@ -35,34 +33,33 @@ class HotelList extends StatefulWidget {
 }
 
 class _HotelListState extends State<HotelList> {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-  List<Hotel> _list = [];
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      myHotels.forEach((element) {
-        _list.add(element);
-        _listKey.currentState.insertItem(_list.length - 1,
-            duration: const Duration(milliseconds: 2500));
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return AnimatedList(
-        key: _listKey,
-        shrinkWrap: true,
-        initialItemCount: _list.length,
-        itemBuilder: (context, index, animation) => SlideTransition(
-              child: HotelCard(
-                hotel: _list[index],
-                onTap: ()=>Get.to(PlaceDetails())
-              ),
-              position: Tween<Offset>(
-                      begin: Offset(index % 2 == 0 ? 1 : -1, 0),
-                      end: Offset(0, 0))
-                  .animate(animation),
-            ));
+    final controller = Get.put(ProfileContnroller());
+    final _myListKey = GlobalKey<AnimatedListState>();
+    final scrollingController = ScrollController();
+    return Expanded(
+      child: ListView(
+        children: <Widget>[
+          AnimatedList(
+              physics: BouncingScrollPhysics(),
+              initialItemCount: controller.availableHotels.length,
+              key: _myListKey,
+              scrollDirection: Axis.vertical,
+              controller: scrollingController,
+              shrinkWrap: true,
+              itemBuilder: (context, index, animation) {
+                return SlideTransition(
+                    position: Tween<Offset>(
+                            begin: Offset(index % 2 == 0 ? 1 : -1, 0),
+                            end: Offset(0, 0))
+                        .animate(animation),
+                    child: HotelCard(
+                        data: controller.availableHotels[index],
+                        onTap: () => Get.to(PlaceDetails())));
+              }),
+        ],
+      ),
+    );
   }
 }
