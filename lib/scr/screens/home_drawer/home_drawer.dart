@@ -125,64 +125,78 @@ class CustomDrawerHeader extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Flexible(
-                  flex: 2,
-                  child: Text(
-                    controller.userName,
-                    style: TextStyle(
-                        color: Colors.blueGrey[900], fontSize: 20.0),
+          ProfileMiniInfo(controller: controller)
+        ],
+      ),
+    );
+  }
+}
+
+class ProfileMiniInfo extends StatelessWidget {
+  const ProfileMiniInfo({
+    Key key,
+    @required this.controller,
+  }) : super(key: key);
+
+  final ProfileContnroller controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding:
+          const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Flexible(
+            flex: 2,
+            child: Text(
+              controller.userName,
+              style: TextStyle(
+                  color: Colors.blueGrey[900], fontSize: 20.0),
+            ),
+          ),
+          SizedBox(
+            height: 6.0,
+          ),
+          Flexible(
+            flex: 1,
+            child: Text(
+              controller.userSubName,
+              style: TextStyle(
+                  color: Colors.blueGrey[600], fontSize: 12.0),
+            ),
+          ),
+          SizedBox(height: 8.0),
+          Flexible(
+            flex: 3,
+            child: Container(
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.0),
+                  color: Colors.grey[200]),
+              child: Row(
+                children: <Widget>[
+                  InfoItem(
+                    title: 'Plans',
+                    count: 7,
                   ),
-                ),
-                SizedBox(
-                  height: 6.0,
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Text(
-                    controller.userSubName,
-                    style: TextStyle(
-                        color: Colors.blueGrey[600], fontSize: 12.0),
+                  SizedBox(
+                    width: 6.0,
                   ),
-                ),
-                SizedBox(height: 8.0),
-                Flexible(
-                  flex: 3,
-                  child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8.0),
-                        color: Colors.grey[200]),
-                    child: Row(
-                      children: <Widget>[
-                        InfoItem(
-                          title: 'Plans',
-                          count: 7,
-                        ),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        InfoItem(
-                          title: 'Reviews',
-                          count: 16,
-                        ),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        InfoItem(
-                          title: 'Blogs',
-                          count: 10,
-                        ),
-                      ],
-                    ),
+                  InfoItem(
+                    title: 'Reviews',
+                    count: 16,
                   ),
-                )
-              ],
+                  SizedBox(
+                    width: 6.0,
+                  ),
+                  InfoItem(
+                    title: 'Blogs',
+                    count: 10,
+                  ),
+                ],
+              ),
             ),
           )
         ],
