@@ -13,14 +13,20 @@ class SavedPlaces extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        toolbarHeight: 80.0,
-        elevation: 0.9,
-        backgroundColor: Colors.white,
-        title: ProfileAppbar(
-          title: 'Your Saved Places',
+        backgroundColor: Colors.grey[50],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.blueGrey[700], size: 22,),
+          onPressed: () => Get.back(),
         ),
+        title: Text(
+          'Favorite Places',
+          style: TextStyle(color: Colors.blueGrey[900]),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        automaticallyImplyLeading: true,
       ),
       body: Container(
           child: ListView.builder(

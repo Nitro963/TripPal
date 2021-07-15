@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/profile_controller.dart';
+import 'package:travel_app/scr/shared/constants.dart';
 
 class ProfileAppbar extends StatelessWidget {
   ProfileAppbar({
@@ -12,46 +14,25 @@ class ProfileAppbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(
-                color: Colors.blueGrey[900],
-                fontSize: 23.0,
-                fontWeight: FontWeight.bold),
-          ),
-          Row(
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    controller.userName,
-                    style:
-                        TextStyle(color: Colors.blueGrey[900], fontSize: 14.0),
-                  ),
-                  Text(
-                    controller.userSubName,
-                    style:
-                        TextStyle(color: Colors.blueGrey[600], fontSize: 8.0),
-                  ),
-                ],
+        margin: const EdgeInsets.only(top: 16.0),
+        width: SizeConfig.screenWidth,
+        child: Stack(
+          children: <Widget>[
+            IconButton(
+                onPressed: ()=> Get.back(),
+                icon: Icon(
+                  FontAwesomeIcons.arrowLeft,
+                  color: Colors.black,
+                  size: 16,
+                )),
+            Positioned(
+              child: Text(
+                'Favorite Places',
+                style: TextStyle(color: Colors.black),
               ),
-              SizedBox(
-                width: 6.0,
-              ),
-              Hero(
-                  tag: 1,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(controller.imgPath),
-                    radius: 28.0,
-                  )),
-            ],
-          )
-        ],
-      ),
-    );
+            ),
+            
+          ],
+        ));
   }
 }

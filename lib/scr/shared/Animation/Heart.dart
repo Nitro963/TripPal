@@ -9,7 +9,7 @@ class Heart extends StatefulWidget {
   final IconData endingIcon;
 
   Heart(
-      {this.size = 30,
+      {this.size = 25,
       this.startingColor = Colors.grey,
       this.tapCallBack,
       this.endingColor=Colors.red,

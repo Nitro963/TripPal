@@ -4,6 +4,9 @@ import 'package:travel_app/scr/screens/places/components/place_class.dart';
 import 'package:travel_app/scr/shared/Animation/Heart.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/widgets/stars.dart';
+String capitalize(String word) {
+      return "${word[0].toUpperCase()}${word.substring(1)}";
+    }
 
 class PlaceCard extends StatelessWidget {
   const PlaceCard(
@@ -19,16 +22,18 @@ class PlaceCard extends StatelessWidget {
   final onTap;
   @override
   Widget build(BuildContext context) {
+    
+
     return GestureDetector(
       onTap: () {},
       child: Container(
-        height: 150.0,
+        height: 140.0,
         margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
         padding: EdgeInsets.all(12.0),
         decoration: BoxDecoration(
-          color: Colors.grey[50],
-          borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.blueGrey[100]),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.0),
+          border: Border.all(color: Colors.grey[200]),
           boxShadow: [
             BoxShadow(
               color: Colors.grey[100],
@@ -42,7 +47,7 @@ class PlaceCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            BasicInfo(primaryColor: primaryColor, data: data),
+            BasicInfo(data: data),
             SizedBox(
               height: 10.0,
             ),
@@ -56,6 +61,7 @@ class PlaceCard extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         data.name,
+                        overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 19.0,
                           fontWeight: FontWeight.w600,
@@ -68,19 +74,19 @@ class PlaceCard extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           if (data.kinds != null)
-                            for (String kind in data.kinds.split(',').take(2))
+                            for (String kind in data.kinds.split(' ').take(2))
                               Tag(
-                                  secondaryColor: secondaryColor,
-                                  kind: kind,
-                                  primaryColor: primaryColor),
+                               kind: kind,),
                         ],
                       ),
                     ],
                   ),
                 ),
                 Heart(
-                  startingIcon: Icons.favorite_outline,
-                  endingIcon: Icons.favorite,
+                  startingIcon: Icons.favorite,
+                  endingIcon: Icons.favorite_border,
+                  startingColor: Colors.red[600],
+                  endingColor: Colors.grey[200],
                   tapCallBack: () {},
                 ),
               ],
@@ -101,10 +107,11 @@ class PlaceCard extends StatelessWidget {
                         child: Icon(
                           Icons.location_pin,
                           size: 18.0,
+                          color: Colors.lightBlue[900],
                         ),
                       ),
                       Text(
-                        '${data.distance.round()} m from city center',
+                        '${data.distance.round()}m from city center',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 14.0),
                       ),
@@ -142,11 +149,9 @@ class PlaceCard extends StatelessWidget {
 class BasicInfo extends StatelessWidget {
   const BasicInfo({
     Key key,
-    @required this.primaryColor,
     @required this.data,
   }) : super(key: key);
 
-  final Color primaryColor;
   final Place2 data;
 
   @override
@@ -159,27 +164,23 @@ class BasicInfo extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(6.0),
               decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.circular(6.0),
+                color: Colors.lightBlue[800],
+                borderRadius: BorderRadius.circular(3.0),
               ),
               child: Icon(
-                FontAwesomeIcons.candyCane,
+                FontAwesomeIcons.locationArrow,
                 color: Colors.white,
-                size: 15.0,
+                size: 13.0,
               ),
             ),
             SizedBox(width: 4.0),
-            Column(
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  data.kinds.split(',')[0],
+                  capitalize(data.kinds.split(' ')[0]) + ' Place',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
-                Text(
-                  'place',
-                  style: TextStyle(fontSize: 14.0),
-                )
               ],
             )
           ],
@@ -187,13 +188,17 @@ class BasicInfo extends StatelessWidget {
         Row(
           children: <Widget>[
             Text(
-              data.guestrating.toString(),
+              data.guestrating.toDouble() > 5
+                  ? '5'
+                  : data.guestrating.toString(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
             ),
             SizedBox(width: 4.0),
             StarRating(
               starCount: 5,
-              rating: data.guestrating.toDouble(),
+              rating: data.guestrating.toDouble() > 5
+                  ? 5
+                  : data.guestrating.toDouble(),
               isStatic: false,
               size: 15,
               color: starsActivationColor,
@@ -202,19 +207,20 @@ class BasicInfo extends StatelessWidget {
           ],
         ),
         GestureDetector(
-          onTap: (){},
-          child: Column(
+          onTap: () {},
+          child: Row(
             children: <Widget>[
               Text(
-                'read more',
-                style: TextStyle(fontSize: 14.0),
-              ),
-              Text(
-                'Information',
+                'More Info',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 13.0,
+                  fontSize: 14.0,
                 ),
+              ),
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 10.0,
+                color: Colors.blueGrey[700],
               ),
             ],
           ),
@@ -227,14 +233,9 @@ class BasicInfo extends StatelessWidget {
 class Tag extends StatelessWidget {
   const Tag({
     Key key,
-    @required this.secondaryColor,
     @required this.kind,
-    @required this.primaryColor,
   }) : super(key: key);
-
-  final Color secondaryColor;
   final String kind;
-  final Color primaryColor;
 
   @override
   Widget build(BuildContext context) {
@@ -242,11 +243,11 @@ class Tag extends StatelessWidget {
         padding: EdgeInsets.all(4.0),
         margin: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0), color: secondaryColor),
+            borderRadius: BorderRadius.circular(2.0), color: Colors.lightBlue[50]),
         child: Text(
-          kind,
+          capitalize(kind),
           style: TextStyle(
-              color: primaryColor, fontSize: 14.0, fontWeight: FontWeight.bold),
+              color: Colors.lightBlue[400], fontSize: 14.0, fontWeight: FontWeight.bold),
         ));
   }
 }
