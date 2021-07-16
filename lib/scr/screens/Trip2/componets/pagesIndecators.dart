@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/days.dart';
+import 'package:travel_app/scr/models/Day.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -9,7 +9,7 @@ Rx<int> selectedIndex = 0.obs;
 class PagesIndecators extends StatelessWidget {
   final PageController controller;
   final int index;
-  final List<Days> days;
+  final List<Day> days;
   PagesIndecators({this.controller, this.index, this.days});
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class PagesIndecators extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Obx(() => PageIndecectorItem(
                     index: index,
-                    title: "Day ${days[index].day}",
+                    title: "Day ${days[index].dayIndex}",
                     date: DateTime.now(),
                     isSelected: selectedIndex.value == index,
                     onTapCallBack: (int index) {
@@ -39,8 +39,9 @@ class PagesIndecators extends StatelessWidget {
                     })),
               );
             }),
-        Align(
+      Align(
           alignment: Alignment.bottomCenter,
+          heightFactor: SizeConfig.blockSizeVertical*14,
           child: Divider(),
         ),
         Align(
@@ -74,31 +75,39 @@ class PageIndecectorItem extends StatelessWidget {
     return GestureDetector(
       child: SizedBox(
           width: SizeConfig.blockSizeHorizontal * 25,
-          child: SizedBox(
-            height: SizeConfig.blockSizeVertical * 10,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 26),
-                ),
-                Text(intl.DateFormat.yMd().format(date),
-                    style: TextStyle(fontSize: 18, color: Colors.grey)),
-                SizedBox(
-                  height: SizeConfig.blockSizeVertical,
-                  child: Stack(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      children: [
-                        if (isSelected)
-                          Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                  width: 60, height: 2, color: Colors.green))
-                      ]),
-                ),
-              ],
-            ),
+          height: SizeConfig.blockSizeVertical * 10,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.grey[700]),
+              ),
+              Spacer(),
+              Text(intl.DateFormat("MMMM d,y").format(date),
+                  style: TextStyle(fontSize: 18, color: Colors.grey)),
+              Spacer(),
+             
+              SizedBox(
+                height: 2,
+                child: Stack(
+                    alignment: AlignmentDirectional.bottomCenter,
+                    children: [
+                      if (isSelected)
+                        Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                                width: 80,
+                                height: 2,
+                                color: Get.theme.primaryColor))
+                    ]),
+              ),
+              Spacer(),
+
+            ],
           )),
       onTap: () {
         onTapCallBack(index);
