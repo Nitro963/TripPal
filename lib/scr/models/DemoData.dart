@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:travel_app/scr/Models/tasks.dart';
+import 'package:travel_app/scr/models/activites.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/trip.dart';
 
 import 'Hotel.dart';
 import 'blog.dart';
+import 'days.dart';
 
 List<Place> demoPlaces = [
   Place(name: "Damascus", country: "syria", image: "images/1.jpg", rating: 0.5),
@@ -71,7 +74,7 @@ List<Hotel> myHotels = [
       numReviews: 200,
       location: "Paris",
       avalibaleRooms: [Room(price: 1000, type: "Double Room")]),
-      Hotel(
+  Hotel(
       name: "Four Seasons",
       image: "images/hotel3.jpg",
       raiting: 9.1,
@@ -79,7 +82,7 @@ List<Hotel> myHotels = [
       numReviews: 200,
       location: "Paris",
       avalibaleRooms: [Room(price: 1000, type: "Double Room")]),
-      Hotel(
+  Hotel(
       name: "Four Seasons",
       image: "images/hotel3.jpg",
       raiting: 9.1,
@@ -89,85 +92,115 @@ List<Hotel> myHotels = [
       avalibaleRooms: [Room(price: 1000, type: "Double Room")])
 ];
 
-
 List<Trip> dummyTrips = [
   Trip(
-    city: 'Dubai',
-    country: 'UAE',
-    details: 'Foods, malls & shops included',
-    type: 'Extended Trip',
-    days: 7
-  ),
+      city: 'Dubai',
+      country: 'UAE',
+      details: 'Foods, malls & shops included',
+      type: 'Extended Trip',
+      days: 7),
   Trip(
-    city: 'Milan',
-    country: 'Italy',
-    details: 'Malls included',
-    type: 'Focused Trip',
-    days: 3
-  ),
+      city: 'Milan',
+      country: 'Italy',
+      details: 'Malls included',
+      type: 'Focused Trip',
+      days: 3),
   Trip(
-    city: 'Ankara',
-    country: 'Turkey',
-    details: 'Foods & Shops included',
-    type: 'Focused Trip',
-    days: 6
-  ),
+      city: 'Ankara',
+      country: 'Turkey',
+      details: 'Foods & Shops included',
+      type: 'Focused Trip',
+      days: 6),
   Trip(
-    city: 'Barcelona',
-    country: 'Spain',
-    details: 'Foods included',
-    type: 'Extended Trip',
-    days: 9
-  ),
+      city: 'Barcelona',
+      country: 'Spain',
+      details: 'Foods included',
+      type: 'Extended Trip',
+      days: 9),
   Trip(
-    city: 'Dubai',
-    country: 'UAE',
-    details: 'Foods, malls & shops included',
-    type: 'Extended Trip',
-    days: 7
-  ),
+      city: 'Dubai',
+      country: 'UAE',
+      details: 'Foods, malls & shops included',
+      type: 'Extended Trip',
+      days: 7),
   Trip(
-    city: 'Milan',
-    country: 'Italy',
-    details: 'Malls included',
-    type: 'Focused Trip',
-    days: 3
-  ),
+      city: 'Milan',
+      country: 'Italy',
+      details: 'Malls included',
+      type: 'Focused Trip',
+      days: 3),
   Trip(
-    city: 'Ankara',
-    country: 'Turkey',
-    details: 'Foods & Shops included',
-    type: 'Focused Trip',
-    days: 6
-  ),
+      city: 'Ankara',
+      country: 'Turkey',
+      details: 'Foods & Shops included',
+      type: 'Focused Trip',
+      days: 6),
   Trip(
-    city: 'Barcelona',
-    country: 'Spain',
-    details: 'Foods included',
-    type: 'Extended Trip',
-    days: 9
-  ),
+      city: 'Barcelona',
+      country: 'Spain',
+      details: 'Foods included',
+      type: 'Extended Trip',
+      days: 9),
 ];
 
 List<String> dummyCities = [
-    'Bangkok',
-    'Paris',
-    'London',
-    'Dubai',
-    'Milan',
-    'Singapore',
-    'Kuala Lumpur',
-    'New York',
-    'Istanbul',
-    'Tokyo',
-    'Antalya',
-    'Seoul',
-    'Osaka',
-    'Makkah',
-    'Phuket',
-    'Pataya',
-    'Barcelona',
-    'Palma De Mallorca',
-    'Bali',
-    'Hong Kong',
-  ];
+  'Bangkok',
+  'Paris',
+  'London',
+  'Dubai',
+  'Milan',
+  'Singapore',
+  'Kuala Lumpur',
+  'New York',
+  'Istanbul',
+  'Tokyo',
+  'Antalya',
+  'Seoul',
+  'Osaka',
+  'Makkah',
+  'Phuket',
+  'Pataya',
+  'Barcelona',
+  'Palma De Mallorca',
+  'Bali',
+  'Hong Kong',
+];
+
+List<Days> days = [
+  Days(day: 1, activates: [
+    Acitvites(
+        time: TimeOfDay(hour: 12, minute: 0),
+        activity: "Leave Home",
+        details: "use uber"),
+    Acitvites(
+        time: TimeOfDay(hour: 2, minute: 0),
+        activity: "Shopping",
+        details: "Go to talis"),
+    Acitvites(
+        time: TimeOfDay(hour: 4, minute: 0),
+        activity: "Eat Food",
+        details: "Burger"),
+    Acitvites(
+        time: TimeOfDay(hour:7, minute: 0),
+        activity: "Fuck adnan",
+        details: "use your dick"),
+  ]),
+  Days(day: 2, activates: [
+    Acitvites(
+        time: TimeOfDay(hour: 10, minute: 0),
+        activity: "Leave Home",
+        details: "use uber"),
+    Acitvites(
+        time: TimeOfDay(hour: 12, minute: 0),
+        activity: "Day 2",
+        details: "Go to talis"),
+    Acitvites(
+        time: TimeOfDay(hour: 1, minute: 0),
+        activity: "Eat Food",
+        details: "Burger"),
+    Acitvites(
+        time: TimeOfDay(hour: 2, minute: 0),
+        activity: "Fuck adnan",
+        details: "use your dick"),
+  ]),
+];
