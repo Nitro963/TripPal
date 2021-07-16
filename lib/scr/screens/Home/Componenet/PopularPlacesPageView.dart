@@ -23,16 +23,8 @@ class PopularPlacesPageView extends StatelessWidget {
                   controller: controller,
                   itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: NewPopularPlacesCard(place: demoPlaces[index]),
+                        child: PopularPlacesCard(place: demoPlaces[index]),
                       ))),
-          Expanded(
-            flex: 1,
-            child: SmoothPageIndicator(
-              controller: controller,
-              count: demoPlaces.length,
-              effect: WormEffect(dotWidth: 18, dotHeight: 4, spacing: 4),
-            ),
-          ),
           Spacer(),
         ],
       ),

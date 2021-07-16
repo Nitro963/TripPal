@@ -4,13 +4,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+import 'package:travel_app/scr/controllers/profile_controller.dart';
 import 'package:travel_app/scr/models/PlacesSEData.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
+import 'package:travel_app/scr/screens/Map/map_page.dart';
+import 'package:travel_app/scr/screens/places/components/place_card.dart';
 import 'package:travel_app/scr/screens/places/components/place_class.dart';
 import 'package:travel_app/scr/screens/places/places_search_page.dart';
 import 'package:travel_app/scr/shared/constants.dart';
-
 import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
 
@@ -30,8 +32,7 @@ class HomePage extends StatelessWidget {
       FloatingSearchBarAction.icon(
         showIfOpened: false,
         icon: Icons.my_location,
-        onTap: () =>
-            searchController.getMyLocation(),
+        onTap: () => searchController.getMyLocation(),
       ),
       FloatingSearchBarAction.icon(
         showIfOpened: false,
@@ -66,20 +67,31 @@ class HomePage extends StatelessWidget {
   }
 
   Widget buildExpandableBody() {
+    final profileController = Get.put(ProfileContnroller());
     return Material(
-      color: Colors.white,
+      color: Colors.grey[100],
       elevation: 4.0,
       borderRadius: BorderRadius.circular(8),
       child: Obx(() => ImplicitlyAnimatedList<Place>(
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
-            items: searchController.suggestions.take(6).toList(),
+            items: searchController.suggestions.take(3).toList(),
             areItemsTheSame: (a, b) => a == b,
-            itemBuilder: (_, animation, place, i) {
+            itemBuilder: (_, animation, place, index) {
               return SizeFadeTransition(
                 animation: animation,
-                child: buildItem(place),
+                child: PlaceCard(
+                  activated: false,
+                  data: profileController.placeSearchResult[index],
+                  onTap: () => Get.to(MapPage(
+                      latitude: profileController
+                          .placeSearchResult[index].coordinate.lat,
+                      longitude: profileController
+                          .placeSearchResult[index].coordinate.lon,
+                      placeName:
+                          profileController.placeSearchResult[index].name)),
+                ),
               );
             },
             updateItemBuilder: (_, animation, place) {
@@ -91,7 +103,7 @@ class HomePage extends StatelessWidget {
           )),
     );
   }
-  
+
   Widget buildItem(Place place) {
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -169,6 +181,10 @@ class HomePage extends StatelessWidget {
                   width: SizeConfig.screenWidth,
                   height: searchController.mapHeight.value,
                   margin: EdgeInsets.only(bottom: 20.0),
+                  decoration: BoxDecoration(
+                      border: Border(
+                          bottom:
+                              BorderSide(color: Colors.grey[350], width: 3.0))),
                   child: GoogleMap(
                     myLocationButtonEnabled: false,
                     trafficEnabled: false,
@@ -211,7 +227,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[50],
+      color: Colors.grey[100],
       child: Directionality(
           textDirection: TextDirection.ltr,
           child: buildSearchBar(() {

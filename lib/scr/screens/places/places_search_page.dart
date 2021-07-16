@@ -146,10 +146,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                           if (place != null)
                             PlaceCard(
                                 data: place,
-                                primaryColor: selectPrimaryColor(
-                                    place.kinds.split(',')[0]),
-                                secondaryColor: selectSecondartColor(
-                                    place.kinds.split(',')[0]),
+                                activated: false,
                                 onTap: () => setState(() =>
                                     searchController.updateMapView(place)))
                       ],
