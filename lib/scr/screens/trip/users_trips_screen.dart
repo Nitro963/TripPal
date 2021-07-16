@@ -29,7 +29,7 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
       String _country = element.country;
       _content.add(
         new TripWidget(
-          days: element.days,
+          days: element.days.length,
           imgPath: 'images/$_city.jpg'.toLowerCase(),
           tripType: element.type,
           location: '$_city, $_country',
