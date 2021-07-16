@@ -6,7 +6,7 @@ import 'package:travel_app/scr/models/trip.dart';
 
 import 'Hotel.dart';
 import 'blog.dart';
-import 'days.dart';
+import 'Day.dart';
 
 List<Place> demoPlaces = [
   Place(name: "Damascus", country: "syria", image: "images/1.jpg", rating: 0.5),
@@ -98,49 +98,49 @@ List<Trip> dummyTrips = [
       country: 'UAE',
       details: 'Foods, malls & shops included',
       type: 'Extended Trip',
-      days: 7),
+      days: days),
   Trip(
       city: 'Milan',
       country: 'Italy',
       details: 'Malls included',
       type: 'Focused Trip',
-      days: 3),
+      days:days),
   Trip(
       city: 'Ankara',
       country: 'Turkey',
       details: 'Foods & Shops included',
       type: 'Focused Trip',
-      days: 6),
+      days: days),
   Trip(
       city: 'Barcelona',
       country: 'Spain',
       details: 'Foods included',
       type: 'Extended Trip',
-      days: 9),
+      days: days),
   Trip(
       city: 'Dubai',
       country: 'UAE',
       details: 'Foods, malls & shops included',
       type: 'Extended Trip',
-      days: 7),
+      days: days),
   Trip(
       city: 'Milan',
       country: 'Italy',
       details: 'Malls included',
       type: 'Focused Trip',
-      days: 3),
+      days: days),
   Trip(
       city: 'Ankara',
       country: 'Turkey',
       details: 'Foods & Shops included',
       type: 'Focused Trip',
-      days: 6),
+      days: days),
   Trip(
       city: 'Barcelona',
       country: 'Spain',
       details: 'Foods included',
       type: 'Extended Trip',
-      days: 9),
+      days: days),
 ];
 
 List<String> dummyCities = [
@@ -166,40 +166,41 @@ List<String> dummyCities = [
   'Hong Kong',
 ];
 
-List<Days> days = [
-  Days(day: 1, activates: [
+List<Day> days = [
+  Day(dayIndex: 1, date:DateTime.now(),activates: [
     Acitvites(
-        time: TimeOfDay(hour: 12, minute: 0),
+        time: DateTime.now().subtract(Duration(hours: 2)),
         activity: "Leave Home",
         details: "use uber"),
     Acitvites(
-        time: TimeOfDay(hour: 2, minute: 0),
+        time: DateTime.now().subtract(Duration(hours: 1)),
         activity: "Shopping",
         details: "Go to talis"),
     Acitvites(
-        time: TimeOfDay(hour: 4, minute: 0),
+        time: DateTime.now(),
         activity: "Eat Food",
         details: "Burger"),
     Acitvites(
-        time: TimeOfDay(hour:7, minute: 0),
+        time: DateTime.now().add(Duration(hours: 1)),
         activity: "Fuck adnan",
         details: "use your dick"),
   ]),
-  Days(day: 2, activates: [
+  Day(dayIndex: 2, date:DateTime.now().add(Duration(hours: 24)),activates: [
     Acitvites(
-        time: TimeOfDay(hour: 10, minute: 0),
+        time: DateTime.now().subtract(Duration(hours: 2)),
         activity: "Leave Home",
         details: "use uber"),
     Acitvites(
-        time: TimeOfDay(hour: 12, minute: 0),
+        time: DateTime.now(),
         activity: "Day 2",
         details: "Go to talis"),
     Acitvites(
-        time: TimeOfDay(hour: 1, minute: 0),
+        time: DateTime.now().add(Duration(minutes: 1)),
         activity: "Eat Food",
         details: "Burger"),
     Acitvites(
-        time: TimeOfDay(hour: 2, minute: 0),
+        time: DateTime.now().add(Duration(minutes: 5)),
+
         activity: "Fuck adnan",
         details: "use your dick"),
   ]),
