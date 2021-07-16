@@ -4,26 +4,19 @@ import 'package:travel_app/scr/screens/places/components/place_class.dart';
 import 'package:travel_app/scr/shared/Animation/Heart.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'package:travel_app/scr/shared/widgets/stars.dart';
+
 String capitalize(String word) {
-      return "${word[0].toUpperCase()}${word.substring(1)}";
-    }
+  return "${word[0].toUpperCase()}${word.substring(1)}";
+}
 
 class PlaceCard extends StatelessWidget {
-  const PlaceCard(
-      {Key key,
-      @required this.primaryColor,
-      @required this.secondaryColor,
-      @required this.onTap,
-      @required this.data})
+  const PlaceCard({Key key, @required this.onTap, @required this.data, @required this.activated})
       : super(key: key);
-  final Color primaryColor;
-  final Color secondaryColor;
   final Place2 data;
   final onTap;
+  final bool activated;
   @override
   Widget build(BuildContext context) {
-    
-
     return GestureDetector(
       onTap: () {},
       child: Container(
@@ -76,17 +69,18 @@ class PlaceCard extends StatelessWidget {
                           if (data.kinds != null)
                             for (String kind in data.kinds.split(' ').take(2))
                               Tag(
-                               kind: kind,),
+                                kind: kind,
+                              ),
                         ],
                       ),
                     ],
                   ),
                 ),
                 Heart(
-                  startingIcon: Icons.favorite,
-                  endingIcon: Icons.favorite_border,
-                  startingColor: Colors.red[600],
-                  endingColor: Colors.grey[200],
+                  startingIcon: activated ?  Icons.favorite : Icons.favorite_border,
+                  endingIcon:  activated ? Icons.favorite_border :  Icons.favorite,
+                  startingColor: activated ? Colors.red[600] : Colors.grey[200],
+                  endingColor: activated ?Colors.grey[200] : Colors.red[600],
                   tapCallBack: () {},
                 ),
               ],
@@ -243,11 +237,14 @@ class Tag extends StatelessWidget {
         padding: EdgeInsets.all(4.0),
         margin: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2.0), color: Colors.lightBlue[50]),
+            borderRadius: BorderRadius.circular(2.0),
+            color: Colors.lightBlue[50]),
         child: Text(
           capitalize(kind),
           style: TextStyle(
-              color: Colors.lightBlue[400], fontSize: 14.0, fontWeight: FontWeight.bold),
+              color: Colors.lightBlue[400],
+              fontSize: 14.0,
+              fontWeight: FontWeight.bold),
         ));
   }
 }

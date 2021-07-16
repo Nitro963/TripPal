@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/profile_controller.dart';
-import 'package:travel_app/scr/models/PlacesSEData.dart';
 import 'package:travel_app/scr/screens/Map/map_page.dart';
 import 'components/place_card.dart';
-import 'components/profile_appbar.dart';
 
 class SavedPlaces extends StatelessWidget {
   SavedPlaces({Key key}) : super(key: key);
@@ -34,10 +32,7 @@ class SavedPlaces extends StatelessWidget {
         physics: BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return PlaceCard(
-            primaryColor: selectPrimaryColor(
-                controller.userSavedPlaces[index].kinds.split(',')[0]),
-            secondaryColor: selectSecondartColor(
-                controller.userSavedPlaces[index].kinds.split(',')[0]),
+            activated: true,
             data: controller.userSavedPlaces[index],
             onTap: () => Get.to(MapPage(
                 latitude: controller.userSavedPlaces[index].coordinate.lat,
