@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/models/trip.dart';
+import 'package:travel_app/scr/screens/Trip2/trip.dart';
 import 'package:travel_app/scr/screens/trip/trip_result_screen.dart';
 import 'components/custom_appbar.dart';
 import 'components/saved_trips_header.dart';
@@ -28,13 +29,16 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
       String _city = element.city;
       String _country = element.country;
       _content.add(
-        new TripWidget(
-          days: element.days.length,
-          imgPath: 'images/$_city.jpg'.toLowerCase(),
-          tripType: element.type,
-          location: '$_city, $_country',
-          details: element.details,
-          onTap: () => Get.to(TripPage())
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+          child: new TripWidget(
+            days: element.days.length,
+            imgPath: 'images/$_city.jpg'.toLowerCase(),
+            tripType: element.type,
+            location: '$_city, $_country',
+            details: element.details,
+            onTap: () => Get.to(TripPlan())
+          ),
         ),
       );
     });

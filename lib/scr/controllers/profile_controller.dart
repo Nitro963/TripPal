@@ -6,7 +6,7 @@ import 'package:travel_app/scr/screens/places/components/hotel_class.dart';
 import 'package:travel_app/scr/screens/places/components/place_class.dart';
 
 class ProfileContnroller extends GetxController {
-  String userName = 'justine';
+  String userName = 'Rita Ora';
   String userSubName = 'Great Planner';
   String imgPath = 'images/user_.jpg';
 

@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/profile_controller.dart';
 import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
-import 'package:travel_app/scr/screens/Profile/Profile.dart';
+import 'package:travel_app/scr/screens/Profile/Profile_page.dart';
 import 'package:travel_app/scr/screens/chat/chat.dart';
 import 'package:travel_app/scr/screens/credentials/login.dart';
 import 'package:travel_app/scr/screens/places/user_saved_places.dart';

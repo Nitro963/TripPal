@@ -4,6 +4,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:travel_app/scr/screens/Main/main_page.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
+import 'scr/screens/Profile/Profile_page.dart';
+
 
 void main() async {
   Paint.enableDithering = true;
