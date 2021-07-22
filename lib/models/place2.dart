@@ -1,4 +1,4 @@
-import 'hotel_class.dart';
+import 'coordinate.dart';
 
 class Place2 {
   String id;

@@ -1,8 +1,3 @@
-import 'package:meta/meta.dart';
-import 'package:flutter/material.dart';
-import 'package:travel_app/scr/models/weather_info.dart';
-import 'package:travel_app/scr/shared/services/networking.dart';
-
 class Place {
   final String name;
   final String? state;
@@ -27,8 +22,8 @@ class Place {
   bool get isCountry => name == country;
   bool get isState => hasState && name == state;
 
-  factory Place.fromJson(Map<String, dynamic> map) {
-    final props = map['properties'];
+  static Place fromJson(dynamic json) {
+    final props = json['properties'];
 
     return Place(
       name: props['name'] ?? '',
@@ -51,14 +46,6 @@ class Place {
     if (isCountry || isState || !hasState) return country;
     if (!hasState) return state!;
     return '$country';
-  }
-
-  Future<WeatherInfo> getWeatherInfo() async {
-    if (lon != null && lat != null) {
-      return await OpenWeatherMapAPI.getWeatherByGeographicCoordinates(
-          lon, lat);
-    }
-    return await OpenWeatherMapAPI.getWeatherByCityName(name);
   }
 
   @override
