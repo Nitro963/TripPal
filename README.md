@@ -1,6 +1,6 @@
-# trip_pal
+# trip_pal_null_safe
 
-A new Flutter project.
+A new Flutter application.
 
 ## Getting Started
 
