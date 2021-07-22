@@ -1,14 +1,15 @@
 import 'dart:collection';
 
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/PlacesSEData.dart';
-import 'package:travel_app/scr/screens/places/components/hotel_class.dart';
-import 'package:travel_app/scr/screens/places/components/place_class.dart';
+import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
+import 'package:trip_pal_null_safe/models/hotel.dart';
+import 'package:trip_pal_null_safe/models/place2.dart';
 
 class ProfileController extends GetxController {
   String userName = 'Rita Ora';
   String userSubName = 'Great Planner';
-  String imgPath = 'images/user_.jpg';
+  // TODO read from server
+  String imgPath = 'assets/images/user_.jpg';
 
   List<Place2> userSavedPlaces = List<Place2>.empty(growable: true);
   List<Hotel> availableHotels = List<Hotel>.empty(growable: true);

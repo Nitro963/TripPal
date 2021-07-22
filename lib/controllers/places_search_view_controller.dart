@@ -3,9 +3,9 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/place.dart';
+import 'package:trip_pal_null_safe/models/place.dart';
 
-class PlacesSearchUIController extends GetxController {
+class PlacesSearchViewController extends GetxController {
   final TextEditingController editingController = TextEditingController();
   final focusNode = FocusNode();
   Timer? _debounce;
@@ -18,7 +18,7 @@ class PlacesSearchUIController extends GetxController {
   final historyLimit;
   final Queue<Place> _history = Queue<Place>();
 
-  PlacesSearchUIController({this.historyLimit = 10});
+  PlacesSearchViewController({this.historyLimit = 10});
 
   String get query => _query.value;
 

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/DemoData.dart';
+import 'package:trip_pal_null_safe/dummy_data.dart';
 
 class FilterController extends GetxController {
   @override

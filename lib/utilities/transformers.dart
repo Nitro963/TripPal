@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:transformer_page_view/transformer_page_view.dart';
+import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_info.dart';
+import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
 import 'dart:math' as Math;
 
 import 'package:vector_math/vector_math_64.dart';

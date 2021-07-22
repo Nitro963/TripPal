@@ -3,11 +3,12 @@ import 'dart:collection';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:travel_app/scr/models/place.dart';
-import 'package:travel_app/scr/screens/places/components/place_class.dart';
-import 'package:travel_app/scr/shared/services/networking.dart';
+import 'package:trip_pal_null_safe/models/place.dart';
+import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/services/geocoding_service.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-class PlacesSearchController extends GetxController {
+class SearchBarController extends GetxController {
   RxBool _isMyLocation = false.obs;
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
@@ -22,6 +23,8 @@ class PlacesSearchController extends GetxController {
 
   bool get isHistory => _query.isEmpty;
 
+  late final PhotonApi _photon;
+
   Future<void> onQueryChanged(String query) async {
     if (query == _query.value) return;
 
@@ -33,7 +36,7 @@ class PlacesSearchController extends GetxController {
         ..clear()
         ..addAll(history);
     } else {
-      final res = await PhotonAPI.getQuery(query);
+      final res = await _photon.getQuery(query, 6);
       _suggestions
         ..clear()
         ..addAll(res);
@@ -47,7 +50,8 @@ class PlacesSearchController extends GetxController {
       ..addAll(history);
   }
 
-  RxDouble mapHeight = 100.0.obs;
+  RxDouble mapHeight = 0.0.obs;
+
   void updateMapHeight(double size) {
     mapHeight.value = size;
   }
@@ -58,6 +62,8 @@ class PlacesSearchController extends GetxController {
       target: LatLng(latitude.value, longitude.value),
       zoom: 14.4746,
     );
+    _photon = Get.find<GeoCodingService>().photon;
+    mapHeight.value = MySize.screenHeight / 3;
     super.onInit();
   }
 

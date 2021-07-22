@@ -3,6 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+TextDirection appCurrentTextDirection() {
+  if (isRTL(Get.locale!.languageCode)) return TextDirection.rtl;
+  return TextDirection.ltr;
+}
+
+bool isRTL(String languageCode) {
+  return rtlLanguages.contains(languageCode);
+}
+
 GetBar<Object> buildErrorSnackBar(String error) {
   return GetBar(
     duration: new Duration(seconds: 3),

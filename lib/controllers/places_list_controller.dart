@@ -1,19 +1,19 @@
 import 'dart:collection';
 
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/place.dart';
+import 'package:trip_pal_null_safe/models/place.dart';
 
-class PlacesListController extends GetxController {
+class PlacesMiniListController extends GetxController {
   RxBool _inReorder = false.obs;
 
   RxList<Place> _places = List<Place>.empty(growable: true).obs;
 
   final int limit;
 
-  PlacesListController(this.limit);
+  PlacesMiniListController(this.limit);
 
-  factory PlacesListController.from(Iterable<Place> places, int limit) {
-    var controller = PlacesListController(limit);
+  factory PlacesMiniListController.from(Iterable<Place> places, int limit) {
+    var controller = PlacesMiniListController(limit);
     controller.assign(places);
     return controller;
   }

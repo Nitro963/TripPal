@@ -4,75 +4,80 @@ class MySize {
   static late MediaQueryData _mediaQueryData;
   static late double screenWidth;
   static late double screenHeight;
-  static double? safeWidth;
-  static double? safeHeight;
+  static late double safeWidth;
+  static late double safeHeight;
   static late double scaleFactorWidth;
   static late double scaleFactorHeight;
 
   //Custom sizes
-  static double? size0;
+  static late double size0;
   static late double size2;
   static late double size3;
-  static double? size4;
-  static double? size5;
-  static double? size6;
+  static late double size4;
+  static late double size5;
+  static late double size6;
   static late double size7;
-  static double? size8;
-  static double? size10;
-  static double? size12;
-  static double? size14;
-  static double? size16;
-  static double? size18;
-  static double? size20;
-  static double? size22;
-  static double? size24;
-  static double? size26;
-  static double? size28;
-  static double? size30;
-  static double? size32;
+  static late double size8;
+  static late double size10;
+  static late double size12;
+  static late double size14;
+  static late double size16;
+  static late double size18;
+  static late double size20;
+  static late double size22;
+  static late double size24;
+  static late double size26;
+  static late double size28;
+  static late double size30;
+  static late double size32;
   static late double size34;
-  static double? size36;
-  static double? size38;
-  static double? size40;
-  static double? size42;
-  static double? size44;
-  static double? size48;
-  static double? size50;
-  static double? size52;
-  static double? size54;
-  static double? size56;
-  static double? size60;
-  static double? size64;
-  static double? size68;
-  static double? size72;
-  static double? size76;
-  static double? size80;
-  static double? size90;
+  static late double size36;
+  static late double size38;
+  static late double size40;
+  static late double size42;
+  static late double size44;
+  static late double size48;
+  static late double size50;
+  static late double size52;
+  static late double size54;
+  static late double size56;
+  static late double size60;
+  static late double size64;
+  static late double size68;
+  static late double size72;
+  static late double size76;
+  static late double size80;
+  static late double size90;
   static late double size96;
-  static double? size100;
-  static double? size120;
-  static double? size140;
-  static double? size160;
-  static double? size180;
+  static late double size100;
+  static late double size120;
+  static late double size140;
+  static late double size160;
+  static late double size180;
 
   static void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
+
     screenWidth = _mediaQueryData.size.width;
+
     screenHeight = _mediaQueryData.size.height;
+
     double _safeAreaWidth =
         _mediaQueryData.padding.left + _mediaQueryData.padding.right;
+
     double _safeAreaHeight =
         _mediaQueryData.padding.top + _mediaQueryData.padding.bottom;
+
     safeWidth = (screenWidth - _safeAreaWidth);
     safeHeight = (screenHeight - _safeAreaHeight);
 
     //Scale factor for responsive UI
-    scaleFactorHeight = (safeHeight! / 820);
+    scaleFactorHeight = (safeHeight / 820);
     if (scaleFactorHeight < 1) {
       double diff = (1 - scaleFactorHeight) * (1 - scaleFactorHeight);
       scaleFactorHeight += diff;
     }
-    scaleFactorWidth = safeWidth! / 392;
+    scaleFactorWidth = safeWidth / 392;
     if (scaleFactorWidth < 1) {
       double diff = (1 - scaleFactorWidth) * (1 - scaleFactorWidth);
       scaleFactorWidth += diff;
@@ -286,107 +291,5 @@ class Shape {
       case ShapeTypeFor.button:
         return RoundedRectangleBorder(borderRadius: borderRadius);
     }
-  }
-}
-
-var emailRegExp = RegExp(
-    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
-
-final starsActivationColor = const Color(0xffffaa00);
-
-final starsDeactivationColor = const Color(0xff8C8C98);
-
-final activationColor = const Color(0xFF0288D1);
-
-final deactivatedColor = const Color(0xFF757575);
-
-final kCardTitle = TextStyle(
-  fontSize: 26.0,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-  fontFamily: 'Patrick',
-);
-
-final kFiltersSubTitle =
-    TextStyle(fontSize: 16, fontFamily: 'Lato', fontWeight: FontWeight.bold);
-
-final kFieldTitle = TextStyle(
-    fontFamily: 'Patrick',
-    fontSize: 18,
-    color: Colors.black.withOpacity(0.8),
-    fontWeight: FontWeight.bold);
-
-final kPrimaryFiltersTitleStyle =
-    TextStyle(fontFamily: 'Lato', fontSize: 25.0, fontWeight: FontWeight.bold);
-
-final kSecondaryFiltersTitleStyle = TextStyle(
-  fontFamily: 'Lato',
-  fontSize: 18.0,
-);
-
-class Themes {
-  static ThemeData get mainTheme {
-    return ThemeData(
-        unselectedWidgetColor: Colors.blue[800],
-        primaryColor: const Color(0xff3f72af),
-        primaryColorLight: const Color(0xffdbe2ef),
-        primaryColorDark: const Color(0xff112d4e),
-        accentColor: Colors.teal[600],
-        shadowColor: Colors.black,
-        dividerColor: const Color(0xffBDBDBD),
-        scaffoldBackgroundColor: Colors.white,
-        primaryTextTheme: TextTheme(
-          headline1: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-          headline2: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          headline3: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          headline4: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          bodyText1: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-          bodyText2: TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-        ),
-        textTheme: TextTheme(
-            headline1: TextStyle(
-                color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold),
-            headline2: TextStyle(
-                color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-            headline3: TextStyle(
-                color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
-            headline4: TextStyle(
-                color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-            bodyText1: TextStyle(
-                color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
-            bodyText2: TextStyle(
-                color: Colors.black,
-                fontSize: 16,
-                fontWeight: FontWeight.normal),
-            subtitle1: TextStyle(
-                color: Colors.black,
-                fontSize: 12,
-                fontWeight: FontWeight.bold)),
-        fontFamily: 'Montserrat',
-        inputDecorationTheme: InputDecorationTheme(
-            contentPadding: EdgeInsets.all(12.0),
-            hintStyle: TextStyle(color: Colors.white),
-            errorBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: const Color(0xffff6d6f))),
-            errorStyle: TextStyle(color: const Color(0xffff6d6f))),
-        textButtonTheme: TextButtonThemeData(
-            style: ButtonStyle(
-          animationDuration: Duration(milliseconds: 300),
-          elevation: MaterialStateProperty.all<double>(15.0),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[800]!),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-        )),
-        elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-          animationDuration: Duration(milliseconds: 300),
-          elevation: MaterialStateProperty.all<double>(15.0),
-          backgroundColor:
-              MaterialStateProperty.all<Color>(const Color(0xff3f72af)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10.0)))),
-        )));
   }
 }
