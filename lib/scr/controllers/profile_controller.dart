@@ -5,7 +5,7 @@ import 'package:travel_app/scr/models/PlacesSEData.dart';
 import 'package:travel_app/scr/screens/places/components/hotel_class.dart';
 import 'package:travel_app/scr/screens/places/components/place_class.dart';
 
-class ProfileContnroller extends GetxController {
+class ProfileController extends GetxController {
   String userName = 'Rita Ora';
   String userSubName = 'Great Planner';
   String imgPath = 'images/user_.jpg';
@@ -34,5 +34,4 @@ class ProfileContnroller extends GetxController {
 
   UnmodifiableListView<Place2> get suggestions =>
       UnmodifiableListView(placeSearchResult);
-      
 }

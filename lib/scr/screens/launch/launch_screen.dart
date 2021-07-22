@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:travel_app/scr/screens/Main/main_page.dart';
 import 'Components/starting_page_view_item.dart';
@@ -16,15 +17,16 @@ class _StartingScreenState extends State<LaunchingScreen> {
   double currentPage = 0;
   String img = 'images/trip_.jpg';
   String exp1 =
-      "Search and try the best trip planns, you can plan your own trip too; with the help of the best artificial intelligence technologies. Our search engine help you to find all places around the world as well as create a dynamic map for your own trip.";
+      "Search and try the best trip plan's, you can plan your own trip too; with the help of the best artificial intelligence technologies. Our search engine help you to find all places around the world as well as create a dynamic map for your own trip.";
   String exp2 =
       "Search and find the best hotels around the world by using our search engine, with a high degree of filtering and customization. Share your experiences with the hotels you visited and let other users benefit from it";
-  String exp3 = "Share the best moments of your travels with other users, give your opinion of the hotels and places you visited. Share your trips plans on the newsfeed page and let other users try it out and rate your planning taste.";
+  String exp3 =
+      "Share the best moments of your travels with other users, give your opinion of the hotels and places you visited. Share your trips plans on the newsfeed page and let other users try it out and rate your planning taste.";
   @override
   void initState() {
     _pageController.addListener(() {
       setState(() {
-        currentPage = _pageController.page;
+        currentPage = _pageController.page!;
       });
     });
     super.initState();

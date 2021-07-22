@@ -15,10 +15,10 @@ import 'Componenet/place_card.dart';
 
 class PlaceDetails extends StatelessWidget {
   final placesFigures = [
-    'images/5.jpg',
-    'images/6.jpg',
-    'images/7.jpg',
-    'images/8.jpg'
+    'assets/images/5.jpg',
+    'assets/images/6.jpg',
+    'assets/images/7.jpg',
+    'assets/images/8.jpg'
   ];
   final placesNames = ['Vienna', 'Venice', 'Scotland', 'Berlin'];
   final headerImage = '13.jpg';
@@ -32,7 +32,7 @@ class PlaceDetails extends StatelessWidget {
             SliverAppBar(
               floating: false,
               pinned: true,
-              expandedHeight: SizeConfig.blockSizeVertical * 51,
+              expandedHeight: MySize.getScaledSizeHeight(51),
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   'Bali',
@@ -42,7 +42,7 @@ class PlaceDetails extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     Image.asset(
-                      'images/$headerImage',
+                      'assets/images/$headerImage',
                       fit: BoxFit.cover,
                     ),
                     const DecoratedBox(
@@ -61,7 +61,12 @@ class PlaceDetails extends StatelessWidget {
                 ),
               ),
               actions: [
-                IconButton(icon: Icon(Icons.location_pin), onPressed: () => Get.to(MapPage(latitude: 41.015182, longitude: 28.951982, placeName: 'Bali')))
+                IconButton(
+                    icon: Icon(Icons.location_pin),
+                    onPressed: () => Get.to(MapPage(
+                        latitude: 41.015182,
+                        longitude: 28.951982,
+                        placeName: 'Bali')))
               ],
             ),
             // SliverList(
@@ -79,17 +84,17 @@ class PlaceDetails extends StatelessWidget {
 
 class DetailsContainer extends StatelessWidget {
   DetailsContainer({
-    Key key,
-    @required this.placesFigures,
-    @required this.placesNames,
+    Key? key,
+    required this.placesFigures,
+    required this.placesNames,
   }) : super(key: key);
 
   final List<String> placesFigures;
   final List<String> placesNames;
   final List<String> pictures = [
-    'images/14.jpg',
-    'images/15.jpg',
-    'images/16.jpg',
+    'assets/images/14.jpg',
+    'assets/images/15.jpg',
+    'assets/images/16.jpg',
   ];
 
   @override
@@ -175,18 +180,18 @@ class DetailsContainer extends StatelessWidget {
       children: [
         Text('Places like Bali', style: theme.textTheme.headline2),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
+          padding: Spacing.vertical(20),
           child: Container(
-            height: SizeConfig.blockSizeVertical * 20,
+            height: MySize.getScaledSizeHeight(20),
             child: ListView.separated(
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  return PlaceCard(
+                  return PlaceImageCard(
                     placesFigures[index],
                     placesNames[index],
-                    SizeConfig.blockSizeVertical * 20,
-                    SizeConfig.blockSizeHorizontal * 42,
+                    MySize.getScaledSizeHeight(20),
+                    MySize.getScaledSizeWidth(42),
                   );
                 },
                 separatorBuilder: (context, index) {
@@ -206,7 +211,7 @@ class DetailsContainer extends StatelessWidget {
         Text('Pictures', style: theme.textTheme.headline2),
         // Staggered Grid
         Container(
-          height: SizeConfig.blockSizeVertical * 51,
+          height: MySize.getScaledSizeHeight(51),
           child: StaggeredGridView.countBuilder(
             padding: const EdgeInsets.symmetric(vertical: 10),
             physics: BouncingScrollPhysics(),

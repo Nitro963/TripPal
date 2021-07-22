@@ -5,9 +5,10 @@ import 'package:travel_app/scr/screens/Map/map_page.dart';
 import 'components/place_card.dart';
 
 class SavedPlaces extends StatelessWidget {
-  SavedPlaces({Key key}) : super(key: key);
+  SavedPlaces({Key? key}) : super(key: key);
 
-  final controller = Get.put(ProfileContnroller());
+  final controller = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +16,11 @@ class SavedPlaces extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.blueGrey[700], size: 22,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.blueGrey[700],
+            size: 22,
+          ),
           onPressed: () => Get.back(),
         ),
         title: Text(
@@ -33,10 +38,10 @@ class SavedPlaces extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return PlaceCard(
             activated: true,
-            data: controller.userSavedPlaces[index],
+            place: controller.userSavedPlaces[index],
             onTap: () => Get.to(MapPage(
-                latitude: controller.userSavedPlaces[index].coordinate.lat,
-                longitude: controller.userSavedPlaces[index].coordinate.lon,
+                latitude: controller.userSavedPlaces[index].coordinate!.lat,
+                longitude: controller.userSavedPlaces[index].coordinate!.lon,
                 placeName: controller.userSavedPlaces[index].name)),
           );
         },

@@ -12,10 +12,9 @@ import 'components/rounded_radio_button.dart';
 import 'components/rounded_slider.dart';
 import 'components/rounded_widget.dart';
 
-class FiltersPage extends StatelessWidget {
-  FiltersPage({Key key}) : super(key: key);
-  
-  final controller = Get.find<FilterController>();
+class FiltersPage extends GetView<FilterController> {
+  FiltersPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,53 +50,54 @@ class FiltersPage extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 2.0),
                 height: 50.0,
                 child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
+                    physics: BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     itemCount: controller.placeType.length,
                     itemBuilder: (ctx, i) {
                       var type = controller.placeType[i];
                       return RoundedGestWidget(
                           title: type,
-                          selected: controller.placesContentCheck[type],
+                          selected: controller.placesContentCheck[type]!,
                           onTap: () =>
-                              controller.placesContentCheck[type].toggle());
+                              controller.placesContentCheck[type]!.toggle());
                     })),
             FilterSubTitle(filterName: 'Tourist Facilities'),
             FilterCheckBox(
-                title: 'Foods Inculded',
+                title: 'Foods Included',
                 icon: Icon(Icons.check, color: Colors.white, size: 18.0),
                 isChecked: controller.foodsChecked.value,
-                onTap: (selected) =>
-                    controller.foodsChecked.toggle()),
+                onTap: (selected) => controller.foodsChecked.toggle()),
             FilterCheckBox(
-                title: 'Shops Inculded',
+                title: 'Shops Included',
                 icon: Icon(Icons.check, color: Colors.white, size: 18.0),
                 isChecked: controller.shopsChecked.value,
-                onTap: (selected) =>
-                    controller.shopsChecked.toggle()),
+                onTap: (selected) => controller.shopsChecked.toggle()),
             FilterSubTitle(filterName: 'Trip Mode'),
             RoundedRadioButton(
-              groupValue: controller.tripMode,
-              value: controller.tripModes[0],
-              onChanged: (value) => controller.onClickRadioButton(value)),
-             RoundedRadioButton(
-              groupValue: controller.tripMode,
-              value: controller.tripModes[1],
-              onChanged: (value) => controller.onClickRadioButton(value)),  
-              
+                groupValue: controller.tripMode,
+                value: controller.tripModes[0],
+                onChanged: (value) => controller.onClickRadioButton(value)),
+            RoundedRadioButton(
+                groupValue: controller.tripMode,
+                value: controller.tripModes[1],
+                onChanged: (value) => controller.onClickRadioButton(value)),
             FilterSubTitle(filterName: 'Trip Duration'),
             FiltersSlider(
                 count: controller.daysCount,
                 label: ' days',
-                divisions: 13, maxLabel: '2 weeks', minLabele: '3 days', maxrange: 14,
+                divisions: 13,
+                maxLabel: '2 weeks',
+                minLabel: '3 days',
+                maxRange: 14,
                 onChanged: (newValue) => controller.daysCount.value = newValue),
             RoundedButton(
-                title: 'Save Preferences',
-                icon: Icon(FontAwesomeIcons.solidSave,
-                    color: Colors.white, size: 18.0),
-                onPressed: () {
-                  Get.to(TripPage());
-                },),
+              title: 'Save Preferences',
+              icon: Icon(FontAwesomeIcons.solidSave,
+                  color: Colors.white, size: 18.0),
+              onPressed: () {
+                Get.to(TripPage());
+              },
+            ),
           ],
         ),
       ),

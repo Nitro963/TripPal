@@ -3,21 +3,21 @@ import 'package:get/get.dart';
 
 class FiltersSlider extends StatelessWidget {
   const FiltersSlider({
-    Key key,
-    @required this.count,
-    @required this.onChanged,
-    @required this.maxrange,
-    @required this.divisions,
-    @required this.minLabele,
-    @required this.maxLabel,
-    @required this.label,
+    Key? key,
+    required this.count,
+    required this.onChanged,
+    required this.maxRange,
+    required this.divisions,
+    required this.minLabel,
+    required this.maxLabel,
+    required this.label,
   }) : super(key: key);
 
   final RxDouble count;
   final onChanged;
-  final int maxrange;
+  final int maxRange;
   final int divisions;
-  final String minLabele;
+  final String minLabel;
   final String maxLabel;
   final String label;
   @override
@@ -30,7 +30,7 @@ class FiltersSlider extends StatelessWidget {
                 currentSliderValue: count,
                 label: label,
                 minRange: 1,
-                maxRange: maxrange,
+                maxRange: maxRange,
                 divisions: divisions,
                 onChanged: onChanged)),
         Padding(
@@ -38,7 +38,7 @@ class FiltersSlider extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(minLabele),
+              Text(minLabel),
               Text(maxLabel),
             ],
           ),
@@ -49,15 +49,15 @@ class FiltersSlider extends StatelessWidget {
 }
 
 class CustomSliderTheme extends StatelessWidget {
-  const CustomSliderTheme({
-    Key key,
-    @required this.currentSliderValue,
-    @required this.onChanged,
-    @required this.maxRange,
-    @required this.minRange,
-    @required this.divisions,
-    @required this.label
-  }) : super(key: key);
+  const CustomSliderTheme(
+      {Key? key,
+      required this.currentSliderValue,
+      required this.onChanged,
+      required this.maxRange,
+      required this.minRange,
+      required this.divisions,
+      required this.label})
+      : super(key: key);
 
   final RxDouble currentSliderValue;
   final onChanged;

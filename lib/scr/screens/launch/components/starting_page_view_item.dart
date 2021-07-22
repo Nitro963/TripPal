@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class LaunchScreenWidget extends StatelessWidget {
   const LaunchScreenWidget({
-    Key key,
-    @required this.title,
-    @required this.subTitle,
-    @required this.description,
-    @required this.imagePath,
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.description,
+    required this.imagePath,
   }) : super(key: key);
 
   final String title;

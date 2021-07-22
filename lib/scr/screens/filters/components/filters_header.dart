@@ -4,14 +4,14 @@ import 'package:travel_app/scr/shared/constants.dart';
 
 class FilterSubTitle extends StatelessWidget {
   const FilterSubTitle({
-    Key key, 
-    @required this.filterName,
+    Key? key,
+    required this.filterName,
   }) : super(key: key);
   final String filterName;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:  const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
@@ -25,9 +25,9 @@ class FilterSubTitle extends StatelessWidget {
 
 class FiltersHeader extends StatelessWidget {
   const FiltersHeader({
-    Key key, 
-    @required this.title,
-    @required this.subTitle,
+    Key? key,
+    required this.title,
+    required this.subTitle,
   }) : super(key: key);
   final String title;
   final String subTitle;
@@ -54,9 +54,11 @@ class FiltersHeader extends StatelessWidget {
               )
             ],
           ),
-          Text(subTitle,
-              style: kSeconderyFiltersTitleStyle,
-              textAlign: TextAlign.center,),
+          Text(
+            subTitle,
+            style: kSecondaryFiltersTitleStyle,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

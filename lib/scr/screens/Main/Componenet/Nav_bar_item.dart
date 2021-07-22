@@ -1,13 +1,12 @@
-
 import 'package:flutter/material.dart';
 
 class NavBarItem extends StatelessWidget {
   const NavBarItem({
-    Key key,
-    @required this.title,
-    @required this.icon,
-    @required this.onPressed,
-    @required this.color,
+    Key? key,
+    required this.title,
+    required this.icon,
+    required this.onPressed,
+    required this.color,
   }) : super(key: key);
   final String title;
   final icon;
@@ -28,10 +27,7 @@ class NavBarItem extends StatelessWidget {
           SizedBox(height: 4),
           Text(title,
               style: TextStyle(
-                color: color,
-                fontWeight: FontWeight.bold,
-                fontSize: 14.0
-              ))
+                  color: color, fontWeight: FontWeight.bold, fontSize: 14.0))
         ],
       ),
     );

@@ -3,13 +3,12 @@ import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:travel_app/scr/models/trip.dart';
 import 'package:travel_app/scr/screens/Trip2/trip.dart';
-import 'package:travel_app/scr/screens/trip/trip_result_screen.dart';
 import 'components/custom_appbar.dart';
 import 'components/saved_trips_header.dart';
 import 'components/trip_widget.dart';
 
 class UsersTripsScreen extends StatefulWidget {
-  UsersTripsScreen({Key key, this.content}) : super(key: key);
+  UsersTripsScreen({Key? key, this.content = const []}) : super(key: key);
   final List<Trip> content;
 
   @override
@@ -32,13 +31,12 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
           child: new TripWidget(
-            days: element.days.length,
-            imgPath: 'images/$_city.jpg'.toLowerCase(),
-            tripType: element.type,
-            location: '$_city, $_country',
-            details: element.details,
-            onTap: () => Get.to(TripPlan())
-          ),
+              days: element.days.length,
+              imgPath: 'images/$_city.jpg'.toLowerCase(),
+              tripType: element.type,
+              location: '$_city, $_country',
+              details: element.details,
+              onTap: () => Get.to(TripPlan())),
         ),
       );
     });

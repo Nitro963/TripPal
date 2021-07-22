@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 61.5 * SizeConfig.blockSizeVertical,
+                  height: MySize.getScaledSizeHeight(61.5),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -83,8 +83,7 @@ class _LoginState extends State<Login> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                  height: 8 * SizeConfig.blockSizeVertical),
+                              SizedBox(height: MySize.getScaledSizeHeight(8)),
                               TextFormField(
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
@@ -98,8 +97,7 @@ class _LoginState extends State<Login> {
                                   setState(() => email = val);
                                 },
                               ),
-                              SizedBox(
-                                  height: 3.8 * SizeConfig.blockSizeVertical),
+                              SizedBox(height: MySize.getScaledSizeHeight(3.8)),
                               TextFormField(
                                 style: TextStyle(color: Colors.white),
                                 obscureText: true,
@@ -114,11 +112,10 @@ class _LoginState extends State<Login> {
                                   setState(() => password = val);
                                 },
                               ),
-                              SizedBox(
-                                  height: 6 * SizeConfig.blockSizeVertical),
+                              SizedBox(height: MySize.getScaledSizeHeight(6)),
                               Container(
                                 width: double.infinity,
-                                height: 6.5 * SizeConfig.blockSizeVertical,
+                                height: MySize.getScaledSizeHeight(6.5),
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(10.0),
@@ -140,7 +137,7 @@ class _LoginState extends State<Login> {
                                     onPressed: () async {
                                       FocusScope.of(context)
                                           .requestFocus(FocusNode());
-                                      if (_formKey.currentState.validate()) {
+                                      if (_formKey.currentState!.validate()) {
                                         // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                         // if(result == null) {
                                         // var error =

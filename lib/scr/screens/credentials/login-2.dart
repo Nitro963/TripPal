@@ -78,8 +78,9 @@ class _LoginState extends State<Login2> {
                             Icons.alternate_email_sharp,
                             color: Colors.white,
                           )),
-                      validator: (val) =>
-                          val.isEmpty ? 'Enter your Email Address' : null,
+                      validator: (val) => val == null || val.isEmpty
+                          ? 'Enter your Email Address'
+                          : null,
                       onChanged: (val) {
                         setState(() => email = val);
                       },
@@ -93,7 +94,7 @@ class _LoginState extends State<Login2> {
                             Icons.lock,
                             color: Colors.white,
                           )),
-                      validator: (val) => val.length < 8
+                      validator: (val) => val == null || val.length < 8
                           ? 'Enter a password 8+ chars long'
                           : null,
                       onChanged: (val) {
@@ -121,7 +122,7 @@ class _LoginState extends State<Login2> {
                                   TextStyle(color: Colors.white, fontSize: 19),
                             ),
                             onPressed: () async {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                 // if(result == null) {
                                 //   setState(() {

@@ -1,15 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class RoundedAddButton extends StatelessWidget {
   const RoundedAddButton({
-    Key key,
-    @required this.title,
-    @required this.onTap,
+    Key? key,
+    required this.title,
+    this.onTap,
   }) : super(key: key);
   final String title;
-  final onTap;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,7 +18,7 @@ class RoundedAddButton extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
-            border: Border.all(color: Colors.grey[200]),
+            border: Border.all(color: Colors.grey[200]!),
             color: Colors.white,
             boxShadow: [
               BoxShadow(

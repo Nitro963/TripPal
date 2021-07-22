@@ -8,10 +8,10 @@ class MapPage extends StatefulWidget {
   final longitude;
   final placeName;
   const MapPage(
-      {Key key,
-      @required this.latitude,
-      @required this.longitude,
-      @required this.placeName})
+      {Key? key,
+      required this.latitude,
+      required this.longitude,
+      required this.placeName})
       : super(key: key);
   @override
   State<MapPage> createState() => MapPageState();
@@ -41,8 +41,8 @@ class MapPageState extends State<MapPage> {
           ),
           SafeArea(
             child: Container(
-              height: SizeConfig.screenHeight,
-              width: SizeConfig.screenWidth,
+              height: MySize.screenHeight,
+              width: MySize.screenWidth,
               child: Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(

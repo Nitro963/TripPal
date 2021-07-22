@@ -4,10 +4,10 @@ import 'package:travel_app/scr/shared/Widgets/stars.dart';
 class ReviewCard extends StatelessWidget {
   final bool scrollable;
   final double height;
-  final Function onPressed;
+  final void Function()? onPressed;
 
   const ReviewCard(
-      {Key key, this.scrollable = false, this.height = 190, this.onPressed})
+      {Key? key, this.scrollable = false, this.height = 190, this.onPressed})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class ReviewCard extends StatelessWidget {
         child: TextButton(
           onPressed: onPressed,
           style: ButtonStyle(
-            backgroundColor:  MaterialStateProperty.all<Color>(Colors.white),
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
               overlayColor: MaterialStateProperty.all(Colors.grey.shade200),
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
@@ -70,7 +70,7 @@ class ReviewCard extends StatelessWidget {
 
 class ReviewHeader extends StatelessWidget {
   const ReviewHeader({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -97,8 +97,13 @@ class ReviewHeader extends StatelessWidget {
                       TextStyle(fontSize: 19, color: const Color(0xff24253D)),
                 ),
                 SizedBox(height: 5),
-               //StaticStars(active: 4, starsModel: StarsModel(5, 17)),
-               StarRating(size:17,starCount: 5,rating:4,isStatic: true,),
+                //StaticStars(active: 4, starsModel: StarsModel(5, 17)),
+                StarRating(
+                  size: 17,
+                  starCount: 5,
+                  rating: 4,
+                  isStatic: true,
+                ),
               ],
             ),
           ],

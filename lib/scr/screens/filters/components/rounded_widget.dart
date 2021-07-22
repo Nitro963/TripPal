@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class RoundedWidget extends StatelessWidget {
   const RoundedWidget({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
   final String title;
   @override
@@ -13,7 +13,7 @@ class RoundedWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          border: Border.all(color: Colors.grey[200]),
+          border: Border.all(color: Colors.grey[200]!),
           color: Colors.grey[100],
         ),
         child: Center(

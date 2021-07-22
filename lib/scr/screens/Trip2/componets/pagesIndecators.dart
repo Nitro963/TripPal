@@ -6,19 +6,18 @@ import 'package:intl/intl.dart' as intl;
 
 Rx<int> selectedIndex = 0.obs;
 
-class PagesIndecators extends StatelessWidget {
+class PagesIndicators extends StatelessWidget {
   final PageController controller;
   final int index;
   final List<Day> days;
-  PagesIndecators({this.controller, this.index, this.days});
+  PagesIndicators(
+      {required this.controller, required this.index, required this.days});
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init();
     selectedIndex.value = index;
-
     return Container(
       width: double.infinity,
-      height: SizeConfig.blockSizeVertical * 10,
+      height: MySize.size10,
       child: Stack(children: [
         ListView.builder(
             scrollDirection: Axis.horizontal,
@@ -26,7 +25,7 @@ class PagesIndecators extends StatelessWidget {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Obx(() => PageIndecectorItem(
+                child: Obx(() => PageIndicatorItem(
                     index: index,
                     title: "Day ${days[index].dayIndex}",
                     date: DateTime.now(),
@@ -39,9 +38,9 @@ class PagesIndecators extends StatelessWidget {
                     })),
               );
             }),
-      Align(
+        Align(
           alignment: Alignment.bottomCenter,
-          heightFactor: SizeConfig.blockSizeVertical*14,
+          heightFactor: MySize.getScaledSizeHeight(14),
           child: Divider(),
         ),
         Align(
@@ -55,27 +54,25 @@ class PagesIndecators extends StatelessWidget {
   }
 }
 
-class PageIndecectorItem extends StatelessWidget {
+class PageIndicatorItem extends StatelessWidget {
   final String title;
   final bool isSelected;
-  final TextStyle style;
   final DateTime date;
   final int index;
-  final Function(int) onTapCallBack;
-  PageIndecectorItem(
-      {this.title,
-      this.date,
-      this.isSelected,
-      this.style,
-      this.index,
-      this.onTapCallBack});
+  final void Function(int) onTapCallBack;
+  PageIndicatorItem(
+      {required this.title,
+      required this.date,
+      required this.isSelected,
+      required this.index,
+      required this.onTapCallBack});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       child: SizedBox(
-          width: SizeConfig.blockSizeHorizontal * 25,
-          height: SizeConfig.blockSizeVertical * 10,
+          width: MySize.getScaledSizeWidth(25),
+          height: MySize.size10,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -90,7 +87,6 @@ class PageIndecectorItem extends StatelessWidget {
               Text(intl.DateFormat("MMMM d,y").format(date),
                   style: TextStyle(fontSize: 18, color: Colors.grey)),
               Spacer(),
-             
               SizedBox(
                 height: 2,
                 child: Stack(
@@ -106,7 +102,6 @@ class PageIndecectorItem extends StatelessWidget {
                     ]),
               ),
               Spacer(),
-
             ],
           )),
       onTap: () {

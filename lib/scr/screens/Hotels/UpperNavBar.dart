@@ -7,22 +7,26 @@ import 'package:travel_app/scr/shared/constants.dart';
 
 class UpperNavBar extends StatelessWidget {
   final List<String> list = ["Sort", "Filtters", "Map"];
-  final Function(int) onTapCallBack;
-  UpperNavBar({this.onTapCallBack});
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 10.0),
-      child:
-          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         UpperItem(
             title: "Sort",
             icon: Icons.sort_by_alpha,
             onTapCallBack: () {
               Get.to(HotelSortPage());
             }),
-        UpperItem(title: "Filter", icon: Icons.filter, onTapCallBack: () => Get.to(HotelFiltersPage())),
-        UpperItem(title: "Map", icon: Icons.map, onTapCallBack: () => Get.to(HotelsMapPage())),
+        UpperItem(
+            title: "Filter",
+            icon: Icons.filter,
+            onTapCallBack: () => Get.to(HotelFiltersPage())),
+        UpperItem(
+            title: "Map",
+            icon: Icons.map,
+            onTapCallBack: () => Get.to(HotelsMapPage())),
       ]),
     );
   }
@@ -31,8 +35,9 @@ class UpperNavBar extends StatelessWidget {
 class UpperItem extends StatelessWidget {
   final String title;
   final IconData icon;
-  final Function onTapCallBack;
-  UpperItem({this.title, this.icon, this.onTapCallBack});
+  final void Function()? onTapCallBack;
+  UpperItem(
+      {required this.title, required this.icon, required this.onTapCallBack});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -48,7 +53,7 @@ class UpperItem extends StatelessWidget {
                     icon,
                     color: Colors.blueAccent[700],
                   ),
-                  SizedBox(width: SizeConfig.blockSizeHorizontal * 2),
+                  SizedBox(width: MySize.size2),
                   Text(
                     title,
                     style: TextStyle(

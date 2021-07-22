@@ -8,10 +8,9 @@ import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
 import 'components/rounded_gesture_widget.dart';
 
-class LocationsPage extends StatelessWidget {
-  LocationsPage({Key key}) : super(key: key);
+class LocationsPage extends GetView<FilterController> {
+  LocationsPage({Key? key}) : super(key: key);
 
-  final FilterController controller = Get.find<FilterController>();
   @override
   Widget build(BuildContext context) {
     List<Widget> content = List<Widget>.empty(growable: true).obs;
@@ -20,10 +19,9 @@ class LocationsPage extends StatelessWidget {
       controller.locsContentCheck[city] = false.obs;
       content.add(new RoundedGestWidget(
         title: city,
-        selected: controller.locsContentCheck[city],
+        selected: controller.locsContentCheck[city]!,
         onTap: () {
-          controller.locsContentCheck[city] =
-              controller.locsContentCheck[city].toggle();
+          controller.locsContentCheck[city]!.toggle();
         },
       ));
     }
@@ -34,9 +32,9 @@ class LocationsPage extends StatelessWidget {
           child: ListView(
         children: <Widget>[
           FiltersHeader(
-              title: 'Choose prefered countries',
+              title: 'Choose preferred countries',
               subTitle:
-                  'We\'ll use these countries as base for seaching places for you'),
+                  'We\'ll use these countries as base for searching places for you'),
           SizedBox(
             height: 10.0,
           ),

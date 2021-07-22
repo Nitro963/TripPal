@@ -1,20 +1,21 @@
 class Hotel {
-  int id;
-  String name;
-  double starRating;
-  String guestrating;
-  String address;
-  String street;
-  String price;
-  Coordinate coordinate;
+  int? id;
+  String? name;
+  double? starRating;
+  String? guestRating;
+  String? address;
+  String? street;
+  String? price;
+  Coordinate? coordinate;
   // Deals deals;
-  String imgURL;
-  String features;
+  String? imgURL;
+  String? features;
+
   Hotel._internal(
       this.id,
       this.name,
       this.starRating,
-      this.guestrating,
+      this.guestRating,
       this.address,
       this.street,
       this.price,
@@ -23,27 +24,27 @@ class Hotel {
       this.imgURL,
       this.features);
 
-  static Map<int, Hotel> _cashe = <int, Hotel>{};
+  static Map<int, Hotel> _cache = <int, Hotel>{};
 
   factory Hotel(
-    int id,
-    String name,
-    double starRating,
-    String guestrating,
-    String address,
-    String street,
-    String price,
-    Coordinate coordinate,
+    int? id,
+    String? name,
+    double? starRating,
+    String? guestrating,
+    String? address,
+    String? street,
+    String? price,
+    Coordinate? coordinate,
     // Deals deals,
-    String imgURL,
-    String features,
+    String? imgURL,
+    String? features,
   ) {
-    if (_cashe.containsKey(id)) {
-      return _cashe['id'];
+    if (_cache.containsKey(id)) {
+      return _cache[id]!;
     } else {
       final hotel = Hotel._internal(id, name, starRating, guestrating, address,
           street, price, coordinate, imgURL, features);
-      _cashe[id] = hotel;
+      _cache[id!] = hotel;
       return hotel;
     }
   }
@@ -52,13 +53,13 @@ class Hotel {
     id = json['id'];
     name = json['name'];
     starRating = json['starRating'];
-    guestrating = json['guestrating'];
+    guestRating = json['guestrating'];
     address = json['address'];
     street = json['street'];
     // price = json['price'] != null ? new Price.fromJson(json['price']) : null;
     price = "120\$";
     coordinate = json['coordinate'] != null
-        ? new Coordinate.fromJson(json['coordinate'])
+        ? Coordinate.fromJson(json['coordinate'])
         : null;
     // deals = json['deals'] != null ? new Deals.fromJson(json['deals']) : null;
     imgURL = json['imgURL'];
@@ -73,7 +74,7 @@ class Hotel {
     data['id'] = this.id;
     data['name'] = this.name;
     data['starRating'] = this.starRating;
-    data['guestrating'] = this.guestrating;
+    data['guestrating'] = this.guestRating;
     data['address'] = this.address;
     data['street'] = this.street;
     data['price'] = this.price;
@@ -81,7 +82,7 @@ class Hotel {
     //   data['price'] = this.price.toJson();
     // }
     if (this.coordinate != null) {
-      data['coordinate'] = this.coordinate.toJson();
+      data['coordinate'] = this.coordinate!.toJson();
     }
     // if (this.deals != null) {
     //   data['deals'] = this.deals.toJson();
@@ -93,10 +94,10 @@ class Hotel {
     return data;
   }
 
-  String stringRaitingExp() {
-    double val = double.parse(guestrating);
+  String stringRatingExp() {
+    double val = double.parse(guestRating!);
     if (val < 2.0)
-      return "Teribale";
+      return "Terrible";
     else if (val >= 2.0 && val < 4.0)
       return "Bad";
     else if (val >= 4.0 && val < 6.0)
@@ -131,11 +132,10 @@ class Coordinate {
   double lat;
   double lon;
 
-  Coordinate({this.lat, this.lon});
+  Coordinate({required this.lat, required this.lon});
 
-  Coordinate.fromJson(Map<String, dynamic> json) {
-    lat = json['lat'];
-    lon = json['lon'];
+  static Coordinate fromJson(Map<String, dynamic> json) {
+    return Coordinate(lat: json['lat']!, lon: json['lon']!);
   }
 
   Map<String, dynamic> toJson() {
@@ -159,14 +159,15 @@ class Coordinate {
 // }
 
 class Features {
-  bool paymentPreference;
-  bool noCCRequired;
+  bool? paymentPreference;
+  bool? noCCRequired;
 
   Features({this.paymentPreference, this.noCCRequired});
 
-  Features.fromJson(Map<String, dynamic> json) {
-    paymentPreference = json['paymentPreference'];
-    noCCRequired = json['noCCRequired'];
+  static Features fromJson(Map<String, dynamic> json) {
+    return Features(
+        paymentPreference: json['paymentPreference'],
+        noCCRequired: json['noCCRequired']);
   }
 
   Map<String, dynamic> toJson() {

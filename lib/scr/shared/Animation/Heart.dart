@@ -3,28 +3,28 @@ import 'package:flutter/material.dart';
 class Heart extends StatefulWidget {
   final double size;
   final Color startingColor;
-  final Function tapCallBack;
+  final void Function(bool)? tapCallBack;
   final Color endingColor;
   final IconData startingIcon;
   final IconData endingIcon;
 
-  Heart(
-      {this.size = 25,
-      this.startingColor = Colors.grey,
-      this.tapCallBack,
-      this.endingColor=Colors.red,
-      this.endingIcon,
-      this.startingIcon,
-      });
+  Heart({
+    this.size = 25,
+    this.startingColor = Colors.grey,
+    this.tapCallBack,
+    this.endingColor = Colors.red,
+    required this.endingIcon,
+    required this.startingIcon,
+  });
   @override
   _HeartState createState() => _HeartState();
 }
 
 class _HeartState extends State<Heart> with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Color> _colorAnimation;
-  Animation<double> _sizeAnimation;
-  Animation _curveAnimation;
+  late AnimationController _controller;
+  late Animation<Color?> _colorAnimation;
+  late Animation<double> _sizeAnimation;
+  late Animation<double> _curveAnimation;
   bool _isFav = false;
 
   @override
@@ -34,14 +34,14 @@ class _HeartState extends State<Heart> with TickerProviderStateMixin {
     _curveAnimation =
         CurvedAnimation(parent: _controller, curve: Curves.slowMiddle);
     _colorAnimation =
-        ColorTween(begin: widget.startingColor, end:widget.endingColor)
+        ColorTween(begin: widget.startingColor, end: widget.endingColor)
             .animate(_curveAnimation);
     _sizeAnimation = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem<double>(
           tween: Tween<double>(begin: widget.size, end: widget.size + 25),
           weight: 50),
       TweenSequenceItem<double>(
-          tween: Tween<double>(begin:  widget.size + 25, end: widget.size),
+          tween: Tween<double>(begin: widget.size + 25, end: widget.size),
           weight: 50),
     ]).animate(_curveAnimation);
     _controller.addListener(() {});
@@ -68,15 +68,18 @@ class _HeartState extends State<Heart> with TickerProviderStateMixin {
       animation: _controller,
       builder: (context, _) {
         return IconButton(
-          icon: Icon(
+            icon: Icon(
               _isFav ? widget.endingIcon : widget.startingIcon,
-            color: _colorAnimation.value,
-            size: _sizeAnimation.value,
-          ),
-          onPressed: () {
-            _isFav ? _controller.reverse() : _controller.forward();
-            widget.tapCallBack(!_isFav);
-          });
+              color: _colorAnimation.value,
+              size: _sizeAnimation.value,
+            ),
+            onPressed: () async {
+              await (_isFav ? _controller.reverse() : _controller.forward());
+              _isFav = !_isFav;
+              if (widget.tapCallBack != null) {
+                widget.tapCallBack!(_isFav);
+              }
+            });
       },
     );
   }

@@ -8,28 +8,28 @@ class StarsAnimation extends StatefulWidget {
   final Color endColor;
   final double size;
   StarsAnimation(
-      {this.startWidget,
-      this.beginColor,
-      this.size,
-      this.endColor,
-      this.endWidget});
+      {required this.startWidget,
+      required this.beginColor,
+      required this.size,
+      required this.endColor,
+      required this.endWidget});
   @override
   _StarsAnimationState createState() => _StarsAnimationState();
 }
 
 class _StarsAnimationState extends State<StarsAnimation>
     with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Color> _colorAnimation;
-  Animation<double> _rotationAnimation;
-  Animation _curveAnimation;
-  Animation<double> _sizeAnimation;
+  late AnimationController _controller;
+  late Animation<Color?> _colorAnimation;
+  late Animation<double> _rotationAnimation;
+  late Animation<double> _curveAnimation;
+  late Animation<double> _sizeAnimation;
   bool _isRated = false;
 
   @override
   void initState() {
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 1500));
+    _controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 1500));
     _curveAnimation =
         CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     _colorAnimation = ColorTween(begin: widget.beginColor, end: widget.endColor)
@@ -77,7 +77,7 @@ class _StarsAnimationState extends State<StarsAnimation>
             child: RotationTransition(
               turns: _rotationAnimation,
               child: Icon(
-               _isRated? widget.startWidget:widget.endWidget,
+                _isRated ? widget.startWidget : widget.endWidget,
                 size: _sizeAnimation.value,
                 color: _colorAnimation.value,
               ),

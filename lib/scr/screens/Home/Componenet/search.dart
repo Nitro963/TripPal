@@ -5,15 +5,15 @@ import 'package:travel_app/scr/shared/services/validators.dart';
 
 class SearchWidget extends StatelessWidget {
   final Key _formKey = GlobalKey<FormState>();
+  final _city = ''.obs;
+  final _date = ''.obs;
   @override
   Widget build(BuildContext context) {
-    String _city;
-    String _date;
     return Positioned(
-        top: SizeConfig.blockSizeVertical * 7.5,
+        top: MySize.getScaledSizeHeight(7.5),
         child: Container(
-          height: SizeConfig.blockSizeVertical * 40,
-          width: SizeConfig.blockSizeHorizontal * 100,
+          height: MySize.getScaledSizeHeight(40),
+          width: MySize.getScaledSizeWidth(100),
           color: Colors.white,
           child: Form(
             key: _formKey,
@@ -27,7 +27,7 @@ class SearchWidget extends StatelessWidget {
                         hintText: "City",
                         hintStyle: TextStyle(color: Colors.grey[300])),
                     validator: validateCity,
-                    onSaved: (val) => _city = val,
+                    onSaved: (val) => _city.value = val!,
                   ),
                 ),
                 Flexible(
@@ -36,7 +36,7 @@ class SearchWidget extends StatelessWidget {
                         hintText: "Check In - Check Out",
                         hintStyle: TextStyle(color: Colors.grey[300])),
                     //validator: validateCity,
-                    onSaved: (val) => _date = val,
+                    onSaved: (val) => _date.value = val!,
                   ),
                 ),
                 //   DropdownButtonFormField<String>()

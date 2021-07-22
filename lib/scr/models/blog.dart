@@ -1,8 +1,6 @@
-class Blog
-{
+class Blog {
   String image;
   String city;
   String info;
-  Blog({this.image,this.city,this.info});
-
+  Blog({required this.image, required this.city, required this.info});
 }

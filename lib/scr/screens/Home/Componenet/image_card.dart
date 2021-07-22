@@ -5,13 +5,7 @@ class ImageCard extends StatelessWidget {
   final double width;
   final double height;
   final double borderRadius;
-  final Widget child;
-
-  // ImageCard(
-  //     {@required this.name,
-  //     @required this.days,
-  //     @required this.picture,
-  //     this.place});
+  final Widget? child;
 
   ImageCard(this.picture,
       {this.child,
@@ -40,7 +34,7 @@ class ImageCard extends StatelessWidget {
                 width: width,
                 fit: BoxFit.cover,
               ),
-              child != null ? child : Material(),
+              child != null ? child! : Material(),
             ],
           ),
         ),

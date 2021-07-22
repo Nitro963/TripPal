@@ -16,9 +16,10 @@ class WeatherBuddy extends StatefulWidget {
 
 class _WeatherBuddyState extends State<WeatherBuddy>
     with TickerProviderStateMixin {
-  final controller = Get.find<WeatherBuddyController>();
-  AnimationController animationController;
-  Animation<double> animation;
+  late AnimationController animationController;
+  late Animation<double> animation;
+
+  WeatherBuddyController get controller => Get.find<WeatherBuddyController>();
 
   void initState() {
     animationController = AnimationController(
@@ -141,8 +142,7 @@ class _WeatherBuddyState extends State<WeatherBuddy>
               IconButton(
                   icon: Icon(Icons.remove),
                   onPressed: () async {
-                    await controller
-                        .removePlaceAt(controller.currentPage);
+                    await controller.removePlaceAt(controller.currentPage);
                   }),
             if (controller.isNotEmpty)
               RotationTransition(

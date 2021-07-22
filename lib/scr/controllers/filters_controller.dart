@@ -2,14 +2,13 @@ import 'package:get/get.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 
 class FilterController extends GetxController {
-
   @override
   void onInit() {
     for (var type in _types) {
       placesContentCheck[type] = false.obs;
       contentValues[type] = 5.0.obs;
-      super.onInit();
     }
+    super.onInit();
   }
 
   final List<String> _types = [
@@ -61,8 +60,9 @@ class FilterController extends GetxController {
   List<String> selectedTypes = List<String>.empty(growable: true).obs;
   void selectPlaces() {
     selectedTypes.clear();
-    for (String city in placesContentCheck.keys)
-      if (placesContentCheck[city] == true.obs) selectedTypes.add(city);
+    placesContentCheck.keys.forEach((element) {
+      if (placesContentCheck[element]!.value) selectedTypes.add(element);
+    });
   }
 
   //Trip Filters Page
@@ -76,23 +76,23 @@ class FilterController extends GetxController {
     'Trip Duration'.obs,
     'Count of Places'.obs
   ];
+
   final List<RxString> tripsSortOrder = ['Descending'.obs, 'Ascending'.obs];
+
   void changeTripsSortOrder(value) => sortOrder.value = value;
 
-  void changeTripsSorttype(value) => sortType.value = value;
+  void changeTripsSortType(value) => sortType.value = value;
 
   //Hotels Results Page
   RxString hotelsSortType = 'Best Seller'.obs;
 
   final List<RxString> hotelSortTypes = [
     'Best Seller'.obs,
-    'Star Rating Highest First'.obs,
-    'Star Rating Lowest First'.obs,
+    'Star Rating'.obs,
     'Distance fom Landmark'.obs,
     'Guest Rating'.obs,
-    'Proce Highest First'.obs,
     'Price'.obs
   ];
 
-  void changeHotelsSorttype(value) => hotelsSortType.value = value;
+  void changeHotelsSortType(value) => hotelsSortType.value = value;
 }

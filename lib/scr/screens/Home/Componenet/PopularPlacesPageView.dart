@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'PopularPlaces_card.dart';
 

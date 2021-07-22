@@ -1,19 +1,18 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeDrawerItem extends StatelessWidget {
   const HomeDrawerItem({
-    Key key,
-    @required this.title,
-    @required this.subTitle,
-    @required this.onTap,
-    @required this.iconName,
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    this.onTap,
+    required this.icon,
   }) : super(key: key);
   final String title;
   final String subTitle;
-  final onTap;
-  final IconData iconName;
+  final void Function()? onTap;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -21,14 +20,14 @@ class HomeDrawerItem extends StatelessWidget {
       child: Container(
         height: 70.0,
         padding: EdgeInsets.symmetric(horizontal: 20.0),
-        decoration: BoxDecoration(border: Border.all(color: Colors.grey[200])),
+        decoration: BoxDecoration(border: Border.all(color: Colors.grey[200]!)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Row(
               children: <Widget>[
                 Icon(
-                  iconName,
+                  icon,
                   size: 16.0,
                   color: Colors.lightBlue[900],
                 ),
@@ -40,9 +39,13 @@ class HomeDrawerItem extends StatelessWidget {
                     Text(
                       title,
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 16.0, color: Colors.blueGrey[800]),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                          color: Colors.blueGrey[800]),
                     ),
-                    SizedBox(height: 4.0,),
+                    SizedBox(
+                      height: 4.0,
+                    ),
                     Text(
                       subTitle,
                       style: TextStyle(

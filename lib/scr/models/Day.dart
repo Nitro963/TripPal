@@ -1,7 +1,8 @@
-import 'activites.dart';
-class Day{
+import 'activities.dart';
+
+class Day {
   DateTime date;
   int dayIndex;
-  List<Acitvites> activates;
-  Day({this.dayIndex,this.date,this.activates});
+  List<Activity> activates;
+  Day({required this.dayIndex, required this.date, required this.activates});
 }

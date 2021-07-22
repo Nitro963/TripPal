@@ -35,10 +35,9 @@ class BlogList extends StatelessWidget {
 
 class BlogTile extends StatelessWidget {
   final Blog blog;
-  BlogTile({this.blog});
+  BlogTile({required this.blog});
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init();
     return Stack(children: [
       Card(
         shape: RoundedRectangleBorder(
@@ -94,8 +93,8 @@ class BlogTile extends StatelessWidget {
         ),
       ),
       Positioned(
-          right: SizeConfig.blockSizeHorizontal * 3.5,
-          top: SizeConfig.blockSizeVertical * 3.5,
+          right: MySize.getScaledSizeWidth(3.5),
+          top: MySize.getScaledSizeHeight(3.5),
           child: Center(
             child: Heart(
               size: 34,

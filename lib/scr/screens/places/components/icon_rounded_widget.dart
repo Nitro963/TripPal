@@ -3,15 +3,15 @@ import 'package:get/get.dart';
 
 class RoundedGestWithIconWidget extends StatelessWidget {
   RoundedGestWithIconWidget({
-    Key key,
-    @required this.title,
-    @required this.selected,
-    @required this.onTap,
-    @required this.iconName,
+    Key? key,
+    required this.title,
+    required this.selected,
+    required this.onTap,
+    this.iconName,
   }) : super(key: key);
 
   final String title;
-  final IconData iconName;
+  final IconData? iconName;
   final RxBool selected;
   final onTap;
   @override
@@ -26,7 +26,8 @@ class RoundedGestWithIconWidget extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(12.0),
               border: Border.all(
-                  color: !selected.value ? Colors.grey[100] : Colors.grey[200]),
+                  color:
+                      !selected.value ? Colors.grey[100]! : Colors.grey[200]!),
               color: !selected.value ? Colors.white : Colors.grey[100],
               boxShadow: [
                 BoxShadow(
@@ -39,20 +40,27 @@ class RoundedGestWithIconWidget extends StatelessWidget {
             ),
             child: Row(
               children: <Widget>[
-                iconName != null ?Icon(
-                  iconName,
-                  color: !selected.value ? Colors.blueGrey[900] : Colors.blueGrey[700],
-                  size: 16.0,
-                ): SizedBox(),
+                iconName != null
+                    ? Icon(
+                        iconName,
+                        color: !selected.value
+                            ? Colors.blueGrey[900]
+                            : Colors.blueGrey[700],
+                        size: 16.0,
+                      )
+                    : SizedBox(),
                 SizedBox(
-                  width: iconName != null ?8.0 : 0.0,
+                  width: iconName != null ? 8.0 : 0.0,
                 ),
                 Text(title,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        color: !selected.value ? Colors.black : Colors.blueGrey[700],
-                        fontWeight: !selected.value ? FontWeight.normal : FontWeight.bold
-                        )),
+                        color: !selected.value
+                            ? Colors.black
+                            : Colors.blueGrey[700],
+                        fontWeight: !selected.value
+                            ? FontWeight.normal
+                            : FontWeight.bold)),
               ],
             ))),
       ),

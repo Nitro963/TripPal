@@ -8,7 +8,7 @@ import 'package:travel_app/scr/shared/constants.dart';
 
 class TripsPage extends StatelessWidget {
   const TripsPage({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,8 +16,8 @@ class TripsPage extends StatelessWidget {
     return Stack(
       children: <Widget>[
         Container(
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight,
+          width: MySize.screenWidth,
+          height: MySize.screenHeight,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/trip_3.jpg'),
@@ -29,8 +29,8 @@ class TripsPage extends StatelessWidget {
           color: Colors.black38,
         ),
         Container(
-          width: SizeConfig.screenWidth,
-          height: SizeConfig.screenHeight,
+          width: MySize.screenWidth,
+          height: MySize.screenHeight,
           padding: EdgeInsets.only(bottom: 72.0),
           child: SafeArea(
             child: SingleChildScrollView(
@@ -51,7 +51,7 @@ class TripsPage extends StatelessWidget {
                         horizontal: 30.0, vertical: 10),
                     child: Text(
                       'We\'ll use this type as base for building a great plan for you',
-                      style: kSeconderyFiltersTitleStyle.copyWith(
+                      style: kSecondaryFiltersTitleStyle.copyWith(
                           color: Colors.white),
                       textAlign: TextAlign.center,
                     ),

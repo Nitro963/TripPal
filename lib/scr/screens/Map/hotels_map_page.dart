@@ -11,8 +11,8 @@ class HotelsMapPage extends StatefulWidget {
 }
 
 class HotelsMapPageState extends State<HotelsMapPage> {
-  final controller = Get.put(ProfileContnroller());
-  
+  final controller = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
     List<Marker> markers = List<Marker>.empty(growable: true);
@@ -25,7 +25,7 @@ class HotelsMapPageState extends State<HotelsMapPage> {
             ),
             icon: BitmapDescriptor.defaultMarkerWithHue(
                 BitmapDescriptor.hueAzure),
-            position: LatLng(hotel.coordinate.lat, hotel.coordinate.lon)),
+            position: LatLng(hotel.coordinate!.lat, hotel.coordinate!.lon)),
       );
     }
     return new Scaffold(
@@ -33,18 +33,16 @@ class HotelsMapPageState extends State<HotelsMapPage> {
         children: <Widget>[
           GoogleMap(
             initialCameraPosition: CameraPosition(
-              target: LatLng(controller.availableHotels[0].coordinate.lat,
-                  controller.availableHotels[0].coordinate.lon),
+              target: LatLng(controller.availableHotels[0].coordinate!.lat,
+                  controller.availableHotels[0].coordinate!.lon),
               zoom: 14.4746,
             ),
-            markers: {
-              for(Marker marker in markers) marker
-            },
+            markers: {for (Marker marker in markers) marker},
           ),
           SafeArea(
             child: Container(
-              height: SizeConfig.screenHeight,
-              width: SizeConfig.screenWidth,
+              height: MySize.screenHeight,
+              width: MySize.screenWidth,
               child: Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(

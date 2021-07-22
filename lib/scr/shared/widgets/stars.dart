@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/Animation/StarAnimation.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
-
 typedef void RatingChangeCallback(double rating);
 
 class StarRating extends StatefulWidget {
   final int starCount;
   final double rating;
-  final RatingChangeCallback onRatingChanged;
+  final RatingChangeCallback? onRatingChanged;
   final double size;
-  final Color color;
+  final Color? color;
   final bool isStatic;
   final MainAxisAlignment mainAxisAlignment;
 
@@ -28,7 +27,7 @@ class StarRating extends StatefulWidget {
 }
 
 class _StarRatingState extends State<StarRating> with TickerProviderStateMixin {
-  AnimationController rotationController;
+  late AnimationController rotationController;
   @override
   void initState() {
     rotationController = AnimationController(
@@ -38,17 +37,19 @@ class _StarRatingState extends State<StarRating> with TickerProviderStateMixin {
 
   Widget buildStar(BuildContext context, int index) {
     Widget icon;
-    if (index >= widget.rating) {
+    if (widget.isStatic) {
+      icon = new Icon(
+        Icons.star,
+        size: widget.size,
+        color: widget.color ?? starsActivationColor,
+      );
+    } else if (index >= widget.rating) {
       icon = new Icon(
         Icons.star_border,
         size: widget.size,
         color: Theme.of(context).buttonColor,
       );
     } else if (index > widget.rating - 1 && index < widget.rating) {
-      /* icon = new Icon(
-        Icons.star_half,
-        size: widget.size,
-        color: widget.color ?? starsActivationColor,*/
       icon = StarsAnimation(
           startWidget: Icons.star_half,
           endWidget: Icons.star_border,
@@ -72,10 +73,10 @@ class _StarRatingState extends State<StarRating> with TickerProviderStateMixin {
     return new InkResponse(
         onTap: widget.onRatingChanged == null
             ? null
-            : () => widget.onRatingChanged(index + 1.0),
+            : () => widget.onRatingChanged!(index + 1.0),
         onDoubleTap: widget.onRatingChanged == null
             ? null
-            : () => widget.onRatingChanged(index + .5),
+            : () => widget.onRatingChanged!(index + .5),
         child:
             icon //SizedBox(height: widget.size,width:widget.size,child: icon),
         );

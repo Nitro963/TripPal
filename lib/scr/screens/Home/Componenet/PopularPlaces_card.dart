@@ -7,37 +7,34 @@ import 'package:palette_generator/palette_generator.dart';
 
 class PopularPlacesCard extends StatefulWidget {
   final Place place;
-  PopularPlacesCard({this.place});
+  PopularPlacesCard({required this.place});
   @override
   _PopularPlacesCardState createState() => _PopularPlacesCardState();
 }
 
 class _PopularPlacesCardState extends State<PopularPlacesCard> {
-  double rating;
-  String place;
-  String image;
-  String country;
-  PaletteColor color;
+  late double rating;
+  late String place;
+  late String image;
+  late String country;
+  late PaletteColor paletteColor;
 
   _updatePallettes() async {
     final PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
-        AssetImage(image),
-        size: Size(300,100),
-        );
-        setState(() =>
-                  this.color = generator.darkMutedColor != null
+      AssetImage(image),
+      size: Size(300, 100),
+    );
+    setState(() => this.paletteColor = (generator.darkMutedColor != null
         ? generator.darkMutedColor
-        : PaletteColor(Colors.black54, 2));
-                
-    
+        : PaletteColor(Colors.black54, 2))!);
   }
 
   @override
   void initState() {
-    rating = widget.place.rating;
+    rating = widget.place.rating!;
     place = widget.place.name;
     country = widget.place.country;
-    image = widget.place.image;
+    image = widget.place.image!;
     _updatePallettes();
     super.initState();
   }
@@ -46,7 +43,7 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       Container(
-        width: SizeConfig.screenWidth * 1 / 2,
+        width: MySize.screenWidth * 1 / 2,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(14),
             image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
@@ -56,11 +53,11 @@ class _PopularPlacesCardState extends State<PopularPlacesCard> {
             ]),
       ),
       Container(
-        width: SizeConfig.screenWidth * 1 / 2,
+        width: MySize.screenWidth * 1 / 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(14),
           gradient: LinearGradient(
-              colors: [Colors.transparent, color != null ? color.color : Colors.black38],
+              colors: [Colors.transparent, paletteColor.color],
               begin: FractionalOffset(1.0, 0.0),
               end: FractionalOffset(1.0, 1.0),
               stops: [0.0, 1.0],

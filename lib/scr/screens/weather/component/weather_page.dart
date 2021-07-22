@@ -15,7 +15,7 @@ class WeatherPage extends GetView<WeatherBuddyController> {
 
   final int index;
 
-  WeatherPage({Key key, @required this.index}) : super(key: key);
+  WeatherPage({Key? key, required this.index}) : super(key: key);
 
   String _formatDateTime(WeatherInfo weatherInfo) {
     DateTime dt = DateTime.now().toUtc();
@@ -32,101 +32,101 @@ class WeatherPage extends GetView<WeatherBuddyController> {
           padding: EdgeInsets.all(20),
           child: controller.hasInfo[index]
               ? Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(weatherInfo.cityName, style: textStyle),
-                        Text(_formatDateTime(weatherInfo),
-                            style: textStyle.copyWith(fontSize: 14))
-                      ],
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(weatherInfo.cityName, style: textStyle),
+                              Text(_formatDateTime(weatherInfo),
+                                  style: textStyle.copyWith(fontSize: 14))
+                            ],
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${weatherInfo.temperature.toInt()}\u00B0C',
+                                style: textStyle.copyWith(
+                                    fontSize: 85, fontWeight: FontWeight.w300),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SvgPicture.asset(
+                                    "images/The Weather Buddy/SVG/${weatherInfo.weatherIcon}.svg",
+                                    height: 45,
+                                    color: Colors.white,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Text(
+                                        '${weatherInfo.weatherMainCondition}',
+                                        style: textStyle.copyWith(
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.w500)),
+                                  )
+                                ],
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     ),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '${weatherInfo.temperature.toInt()}\u00B0C',
-                          style: textStyle.copyWith(
-                              fontSize: 85, fontWeight: FontWeight.w300),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SvgPicture.asset(
-                              "images/The Weather Buddy/SVG/${weatherInfo.weatherIcon}.svg",
-                              height: 45,
-                              color: Colors.white,
+                        Container(
+                          margin: EdgeInsets.symmetric(vertical: 40),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.white30,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 15.0),
-                              child: Text(
-                                  '${weatherInfo.weatherMainCondition}',
-                                  style: textStyle.copyWith(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w500)),
-                            )
-                          ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Column(
+                                children: [
+                                  Text('Wind',
+                                      style: textStyle.copyWith(fontSize: 16)),
+                                  Text(
+                                      '${(weatherInfo.windSpeed * 3.6).toStringAsPrecision(2)} km/h',
+                                      style: textStyle.copyWith(fontSize: 24)),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text('Cloudiness',
+                                      style: textStyle.copyWith(fontSize: 16)),
+                                  Text('${weatherInfo.cloudiness} %',
+                                      style: textStyle.copyWith(fontSize: 24)),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text('Humidity',
+                                      style: textStyle.copyWith(fontSize: 16)),
+                                  Text('${weatherInfo.humidity} %',
+                                      style: textStyle.copyWith(fontSize: 24)),
+                                ],
+                              ),
+                            ],
+                          ),
                         )
                       ],
                     )
                   ],
-                ),
-              ),
-              Column(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 40),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.white30,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          children: [
-                            Text('Wind',
-                                style: textStyle.copyWith(fontSize: 16)),
-                            Text(
-                                '${(weatherInfo.windSpeed * 3.6).toStringAsPrecision(2)} km/h',
-                                style: textStyle.copyWith(fontSize: 24)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text('Cloudiness',
-                                style: textStyle.copyWith(fontSize: 16)),
-                            Text('${weatherInfo.cloudiness} %',
-                                style: textStyle.copyWith(fontSize: 24)),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            Text('Humidity',
-                                style: textStyle.copyWith(fontSize: 16)),
-                            Text('${weatherInfo.humidity} %',
-                                style: textStyle.copyWith(fontSize: 24)),
-                          ],
-                        ),
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
-          )
+                )
               : LoadingSpinner())),
     );
   }

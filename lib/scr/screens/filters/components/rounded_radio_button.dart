@@ -3,20 +3,20 @@ import 'package:get/get.dart';
 
 class RoundedRadioButton extends StatelessWidget {
   RoundedRadioButton({
-    Key key,
-    @required this.value,
-    @required this.groupValue,
-    @required this.onChanged,
+    Key? key,
+    required this.value,
+    required this.groupValue,
+    required this.onChanged,
   }) : super(key: key);
 
   final RxString value;
   final RxString groupValue;
-  final onChanged;
+  final void Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 50.0,
-      color: Colors.white,
+      color: Theme.of(context).backgroundColor,
       padding: const EdgeInsets.fromLTRB(26.0, 0.0, 26.0, 0.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,12 +33,11 @@ class RoundedRadioButton extends StatelessWidget {
             child: Obx(
               () => Radio(
                   fillColor: MaterialStateColor.resolveWith(
-                      (states) => Colors.blue[800]),
+                      (states) => Colors.blue[800]!),
                   value: value.value,
                   groupValue: groupValue.value,
-                  onChanged: onChanged
+                  onChanged: onChanged),
             ),
-          ),
           )
         ],
       ),

@@ -64,10 +64,8 @@ class _ReviewsState extends State<Reviews> {
                   duration: Duration(milliseconds: 200),
                   opacity: closeTopContainer ? 0 : 1,
                   child: AnimatedContainer(
-                      width: SizeConfig.screenWidth,
-                      height: closeTopContainer
-                          ? 0
-                          : SizeConfig.blockSizeVertical * 20,
+                      width: MySize.screenWidth,
+                      height: closeTopContainer ? 0 : MySize.size20,
                       alignment: Alignment.topCenter,
                       duration: Duration(milliseconds: 200),
                       child: FittedBox(
@@ -85,7 +83,7 @@ class _ReviewsState extends State<Reviews> {
                                         fontSize: 60)),
                                 Text(
                                   'out of 5',
-                                  style: Get.textTheme.headline3
+                                  style: Get.textTheme.headline3!
                                       .copyWith(color: const Color(0xff8c8c98)),
                                 ),
                               ]),
@@ -94,16 +92,17 @@ class _ReviewsState extends State<Reviews> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Container(
-                                      height: SizeConfig.blockSizeVertical * 15,
-                                      width:
-                                          SizeConfig.blockSizeHorizontal * 60,
+                                      height: MySize.size16,
+                                      width: MySize.size60,
                                       child: ReviewsBarChart.withSampleData()),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text('Total Rating 25',
-                                        style: Get.textTheme.subtitle2.copyWith(
-                                            fontWeight: FontWeight.normal,
-                                            color: const Color(0xff24253d))),
+                                        style: Get.textTheme.subtitle2!
+                                            .copyWith(
+                                                fontWeight: FontWeight.normal,
+                                                color:
+                                                    const Color(0xff24253d))),
                                   ),
                                 ],
                               ),
@@ -158,7 +157,7 @@ class _ReviewsState extends State<Reviews> {
                                                             .symmetric(
                                                         horizontal: 15),
                                                     child: ReviewCard(
-                                                        height: SizeConfig
+                                                        height: MySize
                                                                 .screenHeight *
                                                             0.65,
                                                         scrollable: true,

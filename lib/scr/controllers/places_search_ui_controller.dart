@@ -8,7 +8,7 @@ import 'package:travel_app/scr/models/place.dart';
 class PlacesSearchUIController extends GetxController {
   final TextEditingController editingController = TextEditingController();
   final focusNode = FocusNode();
-  Timer _debounce;
+  Timer? _debounce;
 
   final RxString _query = ''.obs;
   final RxBool _isLoading = false.obs;
@@ -47,12 +47,12 @@ class PlacesSearchUIController extends GetxController {
     super.onClose();
   }
 
-  StreamSubscription<List<Place>> _dataSubscription;
+  StreamSubscription<List<Place>>? _dataSubscription;
 
   void onQueryChanged(String value) async {
     if (_query.value == value) return;
 
-    if (_debounce?.isActive == false) _debounce.cancel();
+    if (_debounce?.isActive == false) _debounce?.cancel();
 
     _dataSubscription?.cancel();
 
@@ -104,10 +104,9 @@ class PlacesSearchUIController extends GetxController {
   }
 
   void clear() {
-    if (_debounce?.isActive == false) _debounce.cancel();
+    if (_debounce?.isActive == false) _debounce?.cancel();
     _dataSubscription?.cancel();
     editingController.text = '';
     _suggestions.clear();
   }
-
 }

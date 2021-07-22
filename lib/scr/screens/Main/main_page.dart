@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/filters_controller.dart';
-import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 import 'package:travel_app/scr/models/places_search_controller.dart';
 import 'package:travel_app/scr/screens/Home/home_page.dart';
 import 'package:travel_app/scr/screens/home_drawer/home_drawer.dart';
@@ -12,15 +11,15 @@ import 'package:travel_app/scr/screens/Trip/trip_types_screen.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  PageController _myPage;
-  var selectedPage;
+  late PageController _myPage;
+  late int selectedPage;
   String img = 'images/1.jpg';
   @override
   void initState() {
@@ -29,7 +28,7 @@ class _MainPageState extends State<MainPage> {
     selectedPage = 1;
     Get.put(PlacesSearchController());
     Get.put(FilterController());
-    SizeConfig.init();
+    MySize.init(Get.context!);
   }
 
   @override

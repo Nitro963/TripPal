@@ -14,8 +14,8 @@ class HotelFiltersPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          height: SizeConfig.screenHeight,
-          width: SizeConfig.screenWidth,
+          height: MySize.screenHeight,
+          width: MySize.screenWidth,
           child: Column(
             children: [
               FiltersHeader(
@@ -23,38 +23,39 @@ class HotelFiltersPage extends StatelessWidget {
                   subTitle:
                       'Let us help you find the perfect hotel that you want'),
               Expanded(
-                  child: ListView(children: <Widget>[
-                FilterSubTitle(filterName: 'Star Rating'),
-                FiltersSlider(
-                    count: controller.selectedStarRating,
-                    label: ' Stars',
-                    divisions: 4,
-                    maxLabel: '5 Stars',
-                    minLabele: '1 star',
-                    maxrange: 5,
-                    onChanged: (newValue) =>
-                        controller.selectedStarRating.value = newValue),
-                FilterSubTitle(filterName: 'Guests Rating'),
-                FiltersSlider(
-                    count: controller.selectedGuestRating,
-                    label: '',
-                    divisions: 9,
-                    maxLabel: 'Excelente',
-                    minLabele: 'Bad',
-                    maxrange: 10,
-                    onChanged: (newValue) =>
-                        controller.selectedGuestRating.value = newValue),
-                FilterSubTitle(filterName: 'Price per Night'),
-                FiltersSlider(
-                    count: controller.selectedPrice,
-                    label: '\$',
-                    divisions: 100,
-                    maxLabel: '500\$',
-                    minLabele: '0\$',
-                    maxrange: 500,
-                    onChanged: (newValue) =>
-                        controller.selectedPrice.value = newValue),
-              ])),
+                child: ListView(children: <Widget>[
+                  FilterSubTitle(filterName: 'Star Rating'),
+                  FiltersSlider(
+                      count: controller.selectedStarRating,
+                      label: ' Stars',
+                      divisions: 4,
+                      maxLabel: '5 Stars',
+                      minLabel: '1 star',
+                      maxRange: 5,
+                      onChanged: (newValue) =>
+                          controller.selectedStarRating.value = newValue),
+                  FilterSubTitle(filterName: 'Guests Rating'),
+                  FiltersSlider(
+                      count: controller.selectedGuestRating,
+                      label: '',
+                      divisions: 9,
+                      maxLabel: 'Excelente',
+                      minLabel: 'Bad',
+                      maxRange: 10,
+                      onChanged: (newValue) =>
+                          controller.selectedGuestRating.value = newValue),
+                  FilterSubTitle(filterName: 'Price per Night'),
+                  FiltersSlider(
+                      count: controller.selectedPrice,
+                      label: '\$',
+                      divisions: 100,
+                      maxLabel: '500\$',
+                      minLabel: '0\$',
+                      maxRange: 500,
+                      onChanged: (newValue) =>
+                          controller.selectedPrice.value = newValue),
+                ]),
+              ),
               RoundedButton(
                   title: 'Apply Filters',
                   onPressed: () => Get.back(),

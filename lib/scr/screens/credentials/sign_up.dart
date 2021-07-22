@@ -38,7 +38,7 @@ class _SignUpState extends State<SignUp> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  height: 47 * SizeConfig.blockSizeVertical,
+                  height: MySize.getScaledSizeHeight(47),
                   width: double.infinity,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -93,9 +93,10 @@ class _SignUpState extends State<SignUp> {
                                           color: Colors.white,
                                         ),
                                       ),
-                                      validator: (val) => val.isEmpty
-                                          ? "Please fill your first name"
-                                          : null,
+                                      validator: (val) =>
+                                          val == null || val.isEmpty
+                                              ? "Please fill your first name"
+                                              : null,
                                       onChanged: (val) {
                                         setState(() => firstName = val);
                                       },
@@ -107,9 +108,10 @@ class _SignUpState extends State<SignUp> {
                                           TextCapitalization.sentences,
                                       decoration: InputDecoration(
                                           hintText: 'Last name'),
-                                      validator: (val) => val.isEmpty
-                                          ? "Please fill your last name"
-                                          : null,
+                                      validator: (val) =>
+                                          val == null || val.isEmpty
+                                              ? "Please fill your last name"
+                                              : null,
                                       onChanged: (val) {
                                         setState(() => lastName = val);
                                       },
@@ -161,7 +163,7 @@ class _SignUpState extends State<SignUp> {
                               ),
                               Container(
                                 width: double.infinity,
-                                height: 7 * SizeConfig.blockSizeVertical,
+                                height: MySize.getScaledSizeHeight(7),
                                 decoration: BoxDecoration(
                                     borderRadius: const BorderRadius.all(
                                       Radius.circular(10.0),
@@ -183,7 +185,7 @@ class _SignUpState extends State<SignUp> {
                                     onPressed: () async {
                                       FocusScope.of(context)
                                           .requestFocus(FocusNode());
-                                      if (_formKey.currentState.validate()) {
+                                      if (_formKey.currentState!.validate()) {
                                         // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                                         // if(result == null) {
                                         //   setState(() {

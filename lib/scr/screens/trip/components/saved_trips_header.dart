@@ -1,10 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
 class SavedTripsHeader extends StatelessWidget {
   const SavedTripsHeader({
-    Key key,@required this.title,@required this.subTitle,
+    Key? key,
+    required this.title,
+    required this.subTitle,
   }) : super(key: key);
 
   final String title;
@@ -12,7 +13,7 @@ class SavedTripsHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top : 20.0, left: 20.0, right: 20.0),
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
       child: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         scrollDirection: Axis.horizontal,
@@ -31,7 +32,7 @@ class SavedTripsHeader extends StatelessWidget {
                   ),
                   Text(
                     subTitle,
-                    style: kSeconderyFiltersTitleStyle,
+                    style: kSecondaryFiltersTitleStyle,
                   ),
                 ],
               ),

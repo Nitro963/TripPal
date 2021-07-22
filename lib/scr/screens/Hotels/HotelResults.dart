@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/profile_controller.dart';
 import 'package:travel_app/scr/screens/Home/place_details.dart';
-import 'package:travel_app/scr/screens/Hotels/Component/UpperNavBar.dart';
+import 'package:travel_app/scr/screens/Hotels/UpperNavBar.dart';
 
-import 'Component/HotelCard.dart';
+import 'HotelCard.dart';
 
 class HotelResult extends StatelessWidget {
   @override
@@ -25,7 +25,7 @@ class HotelResult extends StatelessWidget {
 
 class HotelList extends StatefulWidget {
   const HotelList({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -33,11 +33,12 @@ class HotelList extends StatefulWidget {
 }
 
 class _HotelListState extends State<HotelList> {
+  final controller = Get.put(ProfileController());
+  final _myListKey = GlobalKey<AnimatedListState>();
+  final scrollingController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ProfileContnroller());
-    final _myListKey = GlobalKey<AnimatedListState>();
-    final scrollingController = ScrollController();
     return Expanded(
       child: ListView(
         children: <Widget>[
@@ -55,7 +56,7 @@ class _HotelListState extends State<HotelList> {
                             end: Offset(0, 0))
                         .animate(animation),
                     child: HotelCard(
-                        data: controller.availableHotels[index],
+                        hotel: controller.availableHotels[index],
                         onTap: () => Get.to(PlaceDetails())));
               }),
         ],

@@ -12,8 +12,8 @@ class ReviewBarChartModel {
 
 /// Horizontal bar chart example
 class ReviewsBarChart extends StatelessWidget {
-  final List<charts.Series> seriesList;
-  final bool animate;
+  final List<charts.Series<ReviewBarChartModel, String>> seriesList;
+  final bool? animate;
 
   ReviewsBarChart(this.seriesList, {this.animate});
 

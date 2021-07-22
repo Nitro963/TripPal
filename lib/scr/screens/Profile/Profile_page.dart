@@ -9,16 +9,14 @@ import 'package:travel_app/scr/screens/trip/components/trip_widget.dart';
 import 'Component/profile_appbar.dart';
 import 'Component/profile_card.dart';
 
-Rx<int> selectedIndex = 0.obs;
-PageController controller = PageController();
-final profileController = Get.put(ProfileContnroller());
-
 class ProfilePage extends StatelessWidget {
+  final selectedIndex = 0.obs;
+  final controller = PageController();
+  final profileController = Get.put(ProfileController());
+
   @override
   Widget build(BuildContext context) {
-    List<Map<String, String>> trips = [
-
-  ];
+    // List<Map<String, String>> trips = [];
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.blue[300],
     ));

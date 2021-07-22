@@ -32,7 +32,7 @@ class _PasswordResetState extends State<PasswordReset> {
           setState(() => email = val);
         },
       ),
-      SizedBox(height: SizeConfig.blockSizeVertical * 3),
+      SizedBox(height: MySize.getScaledSizeHeight(3)),
       ElevatedButton(
           child: Text(
             'Next',
@@ -40,7 +40,7 @@ class _PasswordResetState extends State<PasswordReset> {
           ),
           onPressed: () async {
             // FocusScope.of(context).requestFocus(FocusNode());
-            if (_formKey.currentState.validate()) {
+            if (_formKey.currentState!.validate()) {
               // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
               // if(result == null) {
               //   setState(() {
@@ -67,7 +67,7 @@ class _PasswordResetState extends State<PasswordReset> {
           setState(() => verificationCode = val);
         },
       ),
-      SizedBox(height: SizeConfig.blockSizeVertical * 3),
+      SizedBox(height: MySize.getScaledSizeHeight(3)),
       ElevatedButton(
           child: Text(
             'Next',
@@ -75,7 +75,7 @@ class _PasswordResetState extends State<PasswordReset> {
           ),
           onPressed: () async {
             // FocusScope.of(context).requestFocus(FocusNode());
-            if (_formKey.currentState.validate()) {
+            if (_formKey.currentState!.validate()) {
               // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
               // if(result == null) {
               //   setState(() {
@@ -103,7 +103,7 @@ class _PasswordResetState extends State<PasswordReset> {
         },
         validator: validatePassword,
       ),
-      SizedBox(height: SizeConfig.blockSizeVertical * 3),
+      SizedBox(height: MySize.getScaledSizeHeight(3)),
       TextFormField(
         obscureText: true,
         style: TextStyle(color: Colors.white),
@@ -120,7 +120,7 @@ class _PasswordResetState extends State<PasswordReset> {
           return null;
         },
       ),
-      SizedBox(height: SizeConfig.blockSizeVertical * 3),
+      SizedBox(height: MySize.getScaledSizeHeight(3)),
       ElevatedButton(
           child: Text(
             'Finish',
@@ -128,7 +128,7 @@ class _PasswordResetState extends State<PasswordReset> {
           ),
           onPressed: () async {
             // FocusScope.of(context).requestFocus(FocusNode());
-            if (_formKey.currentState.validate()) {
+            if (_formKey.currentState!.validate()) {
               // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
               // if(result == null) {
               //   setState(() {
@@ -182,9 +182,9 @@ class _PasswordResetState extends State<PasswordReset> {
                   Text('Reset your password',
                       style: Theme.of(context)
                           .textTheme
-                          .headline4
+                          .headline4!
                           .copyWith(color: Colors.blueGrey.shade100)),
-                  SizedBox(height: SizeConfig.blockSizeVertical * 2.5),
+                  SizedBox(height: MySize.getScaledSizeHeight(2.5)),
                   Center(
                       child: Form(
                           key: _formKey, child: buildStageInputs(context))),

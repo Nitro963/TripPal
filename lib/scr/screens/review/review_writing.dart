@@ -35,12 +35,11 @@ class _ReviewWritingState extends State<ReviewWriting> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: SizeConfig.blockSizeHorizontal * 6, bottom: 20),
+                    padding: EdgeInsets.only(left: MySize.size6!, bottom: 20),
                     child: Text('Write a Review',
                         style: Theme.of(context)
                             .primaryTextTheme
-                            .headline2
+                            .headline2!
                             .copyWith(color: Colors.white70)),
                   ),
                   Column(
@@ -69,8 +68,8 @@ class _ReviewWritingState extends State<ReviewWriting> {
                           });
                         },
                         size: 784 /
-                            (SizeConfig.blockSizeVertical *
-                                SizeConfig.blockSizeHorizontal),
+                            (MySize.scaleFactorWidth *
+                                MySize.scaleFactorHeight),
                       ),
                       Text(
                         'Tap a star to rate',
@@ -81,8 +80,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
                   Container(
                     clipBehavior: Clip.antiAlias,
                     margin: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.blockSizeHorizontal * 6,
-                        vertical: SizeConfig.blockSizeVertical * 3),
+                        horizontal: MySize.size6!, vertical: MySize.size3),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       gradient: LinearGradient(
@@ -117,10 +115,10 @@ class _ReviewWritingState extends State<ReviewWriting> {
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.blockSizeHorizontal * 6,
-                        vertical: SizeConfig.blockSizeVertical),
+                        horizontal: MySize.size6!,
+                        vertical: MySize.scaleFactorHeight),
                     width: double.infinity,
-                    height: 6.5 * SizeConfig.blockSizeVertical,
+                    height: MySize.getScaledSizeHeight(6.5),
                     child: ElevatedButton(
                       onPressed: () {
                         FocusScope.of(context).requestFocus(FocusNode());

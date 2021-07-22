@@ -8,31 +8,30 @@ import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
 import 'components/rounded_radio_button.dart';
 
-
-class HotelSortPage extends StatelessWidget {
-  HotelSortPage({Key key}) : super(key: key);
-
-  final FilterController controller = Get.find<FilterController>();
+class HotelSortPage extends GetView<FilterController> {
+  HotelSortPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: SizeConfig.screenHeight,
-        width: SizeConfig.screenWidth,
+        height: MySize.screenHeight,
+        width: MySize.screenWidth,
         child: ListView(
           children: [
             FiltersHeader(
                 title: 'Sorting Available Hotels',
-                subTitle: 'Let us help you find the perfect hotel that you want'),
+                subTitle:
+                    'Let us help you find the perfect hotel that you want'),
             FilterSubTitle(filterName: 'Sorting Type'),
-            for (int i = 0; i < controller.hotelSortTypes.length;i++)
+            for (int i = 0; i < controller.hotelSortTypes.length; i++)
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: RoundedRadioButton(
-                  groupValue: controller.hotelsSortType,
-                  value: controller.hotelSortTypes[i],
-                  onChanged: (value) => controller.changeHotelsSorttype(value)),
+                    groupValue: controller.hotelsSortType,
+                    value: controller.hotelSortTypes[i],
+                    onChanged: (value) =>
+                        controller.changeHotelsSortType(value)),
               ),
             RoundedButton(
                 title: 'Save Preferences',
@@ -44,4 +43,4 @@ class HotelSortPage extends StatelessWidget {
       ),
     );
   }
-  }
+}

@@ -8,9 +8,8 @@ import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
 import 'components/rounded_slider.dart';
 
-class AdvancedFiltersPage extends StatelessWidget {
-  AdvancedFiltersPage({Key key}) : super(key: key);
-  final controller = Get.find<FilterController>();
+class AdvancedFiltersPage extends GetView<FilterController> {
+  AdvancedFiltersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +19,13 @@ class AdvancedFiltersPage extends StatelessWidget {
         result.add(FilterSubTitle(
             filterName: 'How interested are you in ' + type + ' places?'));
         result.add(FiltersSlider(
-          count: controller.contentValues[type],
+          count: controller.contentValues[type]!,
           onChanged: (newValue) =>
-              controller.contentValues[type].value = newValue,
+              controller.contentValues[type]!.value = newValue,
           divisions: 9,
           maxLabel: '10',
-          minLabele: '1',
-          maxrange: 10,
+          minLabel: '1',
+          maxRange: 10,
           label: '',
         ));
       }
@@ -38,8 +37,8 @@ class AdvancedFiltersPage extends StatelessWidget {
           onChanged: (newValue) => controller.foods.value = newValue,
           divisions: 9,
           maxLabel: '10',
-          minLabele: '1',
-          maxrange: 10,
+          minLabel: '1',
+          maxRange: 10,
           label: '',
         ));
       }
@@ -51,8 +50,8 @@ class AdvancedFiltersPage extends StatelessWidget {
           onChanged: (newValue) => controller.shops.value = newValue,
           divisions: 9,
           maxLabel: '10',
-          minLabele: '1',
-          maxrange: 10,
+          minLabel: '1',
+          maxRange: 10,
           label: '',
         ));
       }
@@ -63,8 +62,8 @@ class AdvancedFiltersPage extends StatelessWidget {
         onChanged: (newValue) => controller.placesPerDay.value = newValue,
         divisions: 9,
         maxLabel: '10',
-        minLabele: '1',
-        maxrange: 10,
+        minLabel: '1',
+        maxRange: 10,
         label: '',
       ));
       return result;
@@ -73,8 +72,8 @@ class AdvancedFiltersPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
           child: Container(
-        width: SizeConfig.screenWidth,
-        height: SizeConfig.screenHeight,
+        width: MySize.screenWidth,
+        height: MySize.screenHeight,
         child: Column(children: <Widget>[
           FiltersHeader(
             title: 'Preferences Control',

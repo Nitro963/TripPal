@@ -44,7 +44,7 @@ class WeatherBuddyController extends PlacesListController {
     });
   }
 
-  StreamSubscription<WeatherInfo> dataSub;
+  StreamSubscription<WeatherInfo>? dataSub;
 
   void onClose() {
     dataSub?.cancel();
@@ -102,7 +102,8 @@ class WeatherBuddyController extends PlacesListController {
     super.clear();
   }
 
-  void reorder(Place place, int from, int to, List<Place> newPlaces) {
+  void reorder(Place place, int? from, int to, List<Place> newPlaces) {
+    from = from!;
     dynamic objectFrom = _weatherStatus[from];
     dynamic objectTo = _weatherStatus[to];
     dynamic tmp = objectFrom.value;

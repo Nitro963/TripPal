@@ -1,18 +1,18 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:travel_app/scr/models/activites.dart';
+import 'package:travel_app/scr/models/activities.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 import 'componets/pagesIndecators.dart';
 import 'package:travel_app/scr/models/DemoData.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:cron/cron.dart';
 
-Rx<int> selectedIndex = 0.obs;
-PageController controller = PageController();
-Rx<DateTime> time = DateTime.now().obs;
-
 class TripPlan extends StatelessWidget {
+  final RxInt selectedIndex = 0.obs;
+  final PageController controller = PageController();
+  final Rx<DateTime> time = DateTime.now().obs;
+
   @override
   Widget build(BuildContext context) {
     //Toggle Time Event for the date Every 5 minutes
@@ -37,7 +37,7 @@ class TripPlan extends StatelessWidget {
             child: ListView(children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 32, 16, 32),
-            child: Obx(() => PagesIndecators(
+            child: Obx(() => PagesIndicators(
                   controller: controller,
                   index: selectedIndex.value,
                   days: days,
@@ -97,16 +97,16 @@ class TripPlan extends StatelessWidget {
 }
 
 class CustomStepper extends StatelessWidget {
-  final Acitvites plan;
+  final Activity plan;
   final Size size;
   final Color lineColor;
   CustomStepper(
-      {this.plan,
+      {required this.plan,
       this.lineColor = Colors.grey,
       this.size = const Size(100, 100)});
   @override
   Widget build(BuildContext context) {
-    SizeConfig.init();
+    MySize.init(context);
     return SizedBox(
       width: double.infinity,
       height: size.height,
@@ -115,7 +115,7 @@ class CustomStepper extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: SizeConfig.blockSizeHorizontal * 16,
+              width: MySize.size16,
               child: AutoSizeText(intl.DateFormat("hh:mm a").format(plan.time),
                   maxLines: 2,
                   textAlign: TextAlign.center,
@@ -127,12 +127,12 @@ class CustomStepper extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 6, right: 12.0),
               child: CustomPaint(
-                painter: LinePainter(100.0, lineColor),
+                painter: LinePainter(progress: 100.0, color: lineColor),
                 size: Size(2, size.height),
               ),
             ),
             SizedBox(
-              width: SizeConfig.blockSizeHorizontal * 60,
+              width: MySize.getScaledSizeWidth(60),
               height: size.height,
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -161,11 +161,10 @@ class LinePainter extends CustomPainter {
   double progress;
   Color color;
   Paint _paint;
-  LinePainter(progress, color) {
-    this.progress = progress ?? 100.0;
-    this.color = color ?? Colors.grey;
-    this._paint = Paint()
-      ..color = color
+  LinePainter({this.progress = 100, this.color = Colors.grey})
+      : _paint = Paint() {
+    this._paint
+      ..color = this.color
       ..strokeWidth = 4.0
       ..style = PaintingStyle.stroke
       ..strokeJoin = StrokeJoin.round;

@@ -1,15 +1,14 @@
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 class TripCard extends StatelessWidget {
   const TripCard({
-    Key key,
-    @required this.tripType,
-    @required this.tripWriter,
-    @required this.onTap,
-    @required this.img,
+    Key? key,
+    required this.tripType,
+    required this.tripWriter,
+    required this.onTap,
+    required this.img,
   }) : super(key: key);
   final String tripType;
   final String tripWriter;
@@ -21,8 +20,8 @@ class TripCard extends StatelessWidget {
       onTap: onTap,
       child: FittedBox(
         fit: BoxFit.contain,
-              child: Padding(
-          padding:  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(10),
             child: BackdropFilter(
@@ -41,51 +40,48 @@ class TripCard extends StatelessWidget {
                       height: 150.0,
                       width: 130.0,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        image: DecorationImage(
-                          image: AssetImage(img),
-                          fit: BoxFit.cover,
-                          )
-                      ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          image: DecorationImage(
+                            image: AssetImage(img),
+                            fit: BoxFit.cover,
+                          )),
                     ),
                     SizedBox(
                       width: 15.0,
                     ),
                     Expanded(
                       child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            tripType,
-                            overflow: TextOverflow.fade,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Flexible(
+                            flex: 1,
+                            child: Text(
+                              tripType,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                        ),
-                         SizedBox(
-                          height: 12.0,
-                        ),
-                        Flexible(
-                          flex: 1,
-                          child: Text(
-                            tripWriter,
-                            overflow: TextOverflow.fade,
-                            style: TextStyle(
-                              fontSize: 16.0,
-                              color: Colors.white,
+                          SizedBox(
+                            height: 12.0,
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Text(
+                              tripWriter,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                  ),
+                        ],
+                      ),
                     ),
                   ],
-                                
                 ),
               ),
             ),

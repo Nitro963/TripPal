@@ -5,7 +5,7 @@ import 'package:travel_app/scr/screens/filters/trip_filters_page.dart';
 
 class UserTripsAppBar extends StatelessWidget {
   const UserTripsAppBar({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -16,7 +16,7 @@ class UserTripsAppBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
-                onPressed: ()=> Get.back(),
+                onPressed: () => Get.back(),
                 icon: Icon(
                   FontAwesomeIcons.arrowLeft,
                   color: Colors.black,

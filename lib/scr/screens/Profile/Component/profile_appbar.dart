@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
-    Key key,
-    @required this.userName,
-    @required this.userDisc,
-    @required this.image,
+    Key? key,
+    required this.userName,
+    required this.userDisc,
+    required this.image,
   }) : super(key: key);
   final String userName;
   final String userDisc;

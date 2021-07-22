@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard(
-      {Key key,
-      @required this.title,
-      @required this.subtitle,
-      @required this.image})
+      {Key? key,
+      required this.title,
+      required this.subtitle,
+      required this.image})
       : super(key: key);
   final String title;
   final String subtitle;
@@ -16,7 +16,7 @@ class ProfileCard extends StatelessWidget {
       width: 190.0,
       margin: EdgeInsets.only(right: 10.0),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[100]),
+          border: Border.all(color: Colors.grey[100]!),
           color: Colors.grey[100],
           borderRadius: BorderRadius.circular(15.0)),
       child: Column(
@@ -36,7 +36,7 @@ class ProfileCard extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(
               title,
-              overflow:  TextOverflow.ellipsis,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -47,7 +47,7 @@ class ProfileCard extends StatelessWidget {
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(
               subtitle,
-              overflow:  TextOverflow.ellipsis,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.grey[600]),
             ),
@@ -60,14 +60,14 @@ class ProfileCard extends StatelessWidget {
 
 class ProfileBlockTitle extends StatelessWidget {
   const ProfileBlockTitle({
-    Key key,
-    @required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
   final String title;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical : 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Text(
         title,
         style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),

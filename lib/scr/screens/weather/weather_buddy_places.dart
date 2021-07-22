@@ -11,7 +11,7 @@ import 'package:travel_app/scr/controllers/weather_buddy_controller.dart';
 
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/screens/weather/places_search.dart';
-import 'package:travel_app/scr/shared/Widgets/clickable_box.dart';
+import 'package:travel_app/scr/shared/widgets/clickable_box.dart';
 
 class WeatherBuddyPlaces extends GetView<WeatherBuddyController> {
   static const List<String> OPTIONS = ['Clear all', 'Add current trip cities'];
@@ -90,13 +90,13 @@ class PlacesList extends StatelessWidget {
   final bool buildFooter;
 
   PlacesList(
-      {Key key,
-      @required this.scrollController,
-      @required this.controller,
+      {Key? key,
+      required this.scrollController,
+      required this.controller,
       this.buildFooter = true})
       : super(key: key);
 
-  Widget buildReorderable(
+  Reorderable buildReorderable(
     BuildContext context,
     Place place,
     int index,
@@ -130,8 +130,8 @@ class PlacesList extends StatelessWidget {
   Widget _buildTile(BuildContext context, double t, Place place, int index) {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
-    final color = Color.lerp(Colors.white, Colors.grey.shade100, t);
-    final elevation = lerpDouble(0, 8, t);
+    final color = Color.lerp(Colors.white, Colors.grey.shade100, t)!;
+    final elevation = lerpDouble(0, 8, t)!;
 
     final List<Widget> actions = [
       SlideAction(
@@ -151,7 +151,7 @@ class PlacesList extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 'Delete',
-                style: textTheme.bodyText1.copyWith(
+                style: textTheme.bodyText1!.copyWith(
                   color: Colors.white,
                 ),
               ),
@@ -184,7 +184,7 @@ class PlacesList extends StatelessWidget {
             child: Center(
               child: Text(
                 '${index + 1}',
-                style: textTheme.bodyText1.copyWith(
+                style: textTheme.bodyText1!.copyWith(
                   color: theme.accentColor,
                   fontSize: 16,
                 ),
@@ -209,7 +209,7 @@ class PlacesList extends StatelessWidget {
       onTap: controller.places.length < controller.limit
           ? () {
               Get.put(PlacesSearchUIController(), permanent: true);
-              Get.to(() => PlacesSearch()).then((value) {
+              Get.to(() => PlacesSearch())!.then((value) {
                 if (value != null) controller.addPlace(value);
               });
             }

@@ -6,5 +6,10 @@ class Trip {
   String country;
   String details;
   List<Day> days;
-  Trip({this.type, this.details, this.city, this.country, this.days});
+  Trip(
+      {required this.type,
+      required this.details,
+      required this.city,
+      required this.country,
+      required this.days});
 }

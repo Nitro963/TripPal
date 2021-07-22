@@ -15,29 +15,30 @@ enum ShadowDirection {
 }
 
 class Box extends StatelessWidget {
-  final double borderRadius;
-  final double elevation;
-  final double height;
-  final double width;
-  final Border border;
-  final BorderRadius customBorders;
-  final EdgeInsets margin;
-  final EdgeInsets padding;
-  final Widget child;
+  final double? borderRadius;
+  final double? elevation;
+  final double? height;
+  final double? width;
+  final Border? border;
+  final BorderRadius? customBorders;
+  final EdgeInsets? margin;
+  final EdgeInsets? padding;
+  final Widget? child;
   final Color color;
-  final Color shadowColor;
-  final List<BoxShadow> boxShadows;
-  final VoidCallback onTap;
-  final VoidCallback onLongPress;
-  final VoidCallback onDoubleTap;
+  final Color? shadowColor;
+  final List<BoxShadow>? boxShadows;
+  final void Function()? onTap;
+  final void Function()? onLongPress;
+  final void Function()? onDoubleTap;
   final BoxShape boxShape;
-  final AlignmentGeometry alignment;
+  final AlignmentGeometry? alignment;
   final ShadowDirection shadowDirection;
-  final Color splashColor;
-  final Duration duration;
-  final BoxConstraints constraints;
+  final Color? splashColor;
+  final Duration? duration;
+  final BoxConstraints? constraints;
+
   const Box({
-    Key key,
+    Key? key,
     this.child,
     this.border,
     this.color = Colors.transparent,
@@ -72,22 +73,24 @@ class Box extends StatelessWidget {
     final h = height;
     final br = customBorders ??
         BorderRadius.circular(
-          boxShape == BoxShape.rectangle
+          (boxShape == BoxShape.rectangle
               ? borderRadius
               : w != null
                   ? w / 2.0
                   : h != null
                       ? h / 2.0
-                      : 0,
+                      : 0)!,
         );
+    Widget? content = child;
 
-    Widget content = Padding(
-      padding: padding,
-      child: child,
-    );
+    if (padding != null)
+      content = Padding(
+        padding: padding!,
+        child: content,
+      );
 
     if (boxShape == BoxShape.circle ||
-        (customBorders != null || borderRadius > 0.0)) {
+        (customBorders != null || borderRadius! > 0.0)) {
       content = ClipRRect(
         borderRadius: br,
         child: content,
@@ -117,17 +120,17 @@ class Box extends StatelessWidget {
       );
     }
 
-    final List<BoxShadow> boxShadow =
-        boxShadows ?? (elevation > 0 && (shadowColor?.opacity ?? 0) > 0)
-            ? [
-                BoxShadow(
-                  color: shadowColor ?? Colors.black12,
-                  offset: _getShadowOffset(min(elevation / 5.0, 1.0)),
-                  blurRadius: elevation,
-                  spreadRadius: 0,
-                ),
-              ]
-            : null;
+    List<BoxShadow>? boxShadow;
+    if (elevation != null && elevation! > 0) {
+      boxShadow = [
+        BoxShadow(
+          color: shadowColor ?? Colors.black12,
+          offset: _getShadowOffset(min(elevation! / 5.0, 1.0)),
+          blurRadius: elevation!,
+          spreadRadius: 0,
+        ),
+      ];
+    }
 
     final boxDecoration = BoxDecoration(
       color: color,
@@ -143,7 +146,7 @@ class Box extends StatelessWidget {
             width: w,
             margin: margin,
             alignment: alignment,
-            duration: duration,
+            duration: duration!,
             decoration: boxDecoration,
             constraints: constraints,
             child: content,
@@ -165,31 +168,22 @@ class Box extends StatelessWidget {
     switch (shadowDirection) {
       case ShadowDirection.topLeft:
         return Offset(-1 * xm, -1 * ym);
-        break;
       case ShadowDirection.top:
         return Offset(0, -1 * ym);
-        break;
       case ShadowDirection.topRight:
         return Offset(xm, -1 * ym);
-        break;
       case ShadowDirection.right:
         return Offset(xm, 0);
-        break;
       case ShadowDirection.bottomRight:
         return Offset(xm, ym);
-        break;
       case ShadowDirection.bottom:
         return Offset(0, ym);
-        break;
       case ShadowDirection.bottomLeft:
         return Offset(-1 * xm, ym);
-        break;
       case ShadowDirection.left:
         return Offset(-1 * xm, 0);
-        break;
       default:
         return Offset.zero;
-        break;
     }
   }
 }

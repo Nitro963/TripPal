@@ -55,29 +55,29 @@ class PlacesSearchController extends GetxController {
   @override
   void onInit() {
     cameraPosition = CameraPosition(
-      target: LatLng(latitude.value, longitud.value),
+      target: LatLng(latitude.value, longitude.value),
       zoom: 14.4746,
     );
     super.onInit();
   }
 
   RxDouble latitude = 25.1972.obs;
-  RxDouble longitud = 55.2744.obs;
-  CameraPosition cameraPosition;
-  GoogleMapController mapController;
+  RxDouble longitude = 55.2744.obs;
+  late CameraPosition cameraPosition;
+  late GoogleMapController mapController;
   Location currentLocation = Location();
   RxString markerInfoWindowTitle = 'Burj Khalifa'.obs;
 
   void updateLatLan(double lat, double lon) {
     latitude.value = lat;
-    longitud.value = lon;
+    longitude.value = lon;
     updateCameraPosition();
   }
 
   void updateMapView(Place2 newPlace) {
     print(newPlace.name);
-    latitude.value = newPlace.coordinate.lat;
-    longitud.value = newPlace.coordinate.lon;
+    latitude.value = newPlace.coordinate!.lat;
+    longitude.value = newPlace.coordinate!.lon;
     markerInfoWindowTitle.value = newPlace.name;
     updateCameraPosition();
   }
@@ -87,11 +87,11 @@ class PlacesSearchController extends GetxController {
     currentLocation.onLocationChanged.listen((event) {
       if (!_isMyLocation.value &&
           event.latitude != this.latitude.value &&
-          event.longitude != this.longitud.value)
+          event.longitude != this.longitude.value)
         mapController.animateCamera(
           CameraUpdate.newCameraPosition(
             CameraPosition(
-                target: LatLng(event.latitude, event.longitude), zoom: 15),
+                target: LatLng(event.latitude!, event.longitude!), zoom: 15),
           ),
         );
       this._isMyLocation.value = true;
@@ -100,7 +100,7 @@ class PlacesSearchController extends GetxController {
 
   void updateCameraPosition() {
     this.cameraPosition = CameraPosition(
-      target: LatLng(this.latitude.value, this.longitud.value),
+      target: LatLng(this.latitude.value, this.longitude.value),
       zoom: 14.4746,
     );
     mapController

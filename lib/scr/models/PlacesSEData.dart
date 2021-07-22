@@ -4826,35 +4826,35 @@ IconData selectIcon(String type) {
 Color selectPrimaryColor(String place) {
   switch (place) {
     case 'religion':
-      return Colors.purple[900];
+      return Colors.purple[900]!;
     case 'historic':
-      return Colors.yellow[900];
+      return Colors.yellow[900]!;
     case 'cultural':
-      return Colors.blue[900];
+      return Colors.blue[900]!;
     case 'other':
-      return Colors.grey[900];
+      return Colors.grey[900]!;
     case 'natural':
-      return Colors.green[900];
+      return Colors.green[900]!;
     case 'interesting_places':
-      return Colors.red[900];
+      return Colors.red[900]!;
   }
-  return Colors.pink[900];
+  return Colors.pink[900]!;
 }
 
-Color selectSecondartColor(String place) {
+Color selectSecondaryColor(String place) {
   switch (place) {
     case 'religion':
-      return Colors.purple[100];
+      return Colors.purple[100]!;
     case 'historic':
-      return Colors.yellow[100];
+      return Colors.yellow[100]!;
     case 'cultural':
-      return Colors.blue[100];
+      return Colors.blue[100]!;
     case 'other':
-      return Colors.grey[100];
+      return Colors.grey[100]!;
     case 'natural':
-      return Colors.green[100];
+      return Colors.green[100]!;
     case 'interesting_places':
-      return Colors.red[100];
+      return Colors.red[100]!;
   }
-  return Colors.pink[100];
+  return Colors.pink[100]!;
 }

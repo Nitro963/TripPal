@@ -12,87 +12,101 @@ import 'package:travel_app/scr/screens/credentials/login.dart';
 import 'package:travel_app/scr/screens/places/user_saved_places.dart';
 import 'package:travel_app/scr/screens/weather/weather_buddy.dart';
 
-import 'components/home_drawer_item.dart';
+import 'home_drawer_item.dart';
 
 class HomeDrawer extends StatelessWidget {
-  final controller = Get.put(ProfileContnroller());
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        child: ListView(children: [
-      CustomDrawerHeader(controller: controller),
-      HomeDrawerItem(
-          title: 'Account',
-          subTitle: 'Go to your profile',
-          iconName: FontAwesomeIcons.solidUserCircle,
-          onTap: () => Get.to(ProfilePage())),
-      HomeDrawerItem(
-          title: 'Saved Places',
-          subTitle: 'Check out your saved places',
-          iconName: FontAwesomeIcons.solidHeart,
-          onTap: () => Get.to(SavedPlaces())),
-      HomeDrawerItem(
-        title: 'Address',
-        subTitle: 'Add or remove an address',
-        iconName: Icons.location_on,
-        onTap: () {},
-      ),
-      HomeDrawerItem(
-          title: 'AI-Assistant',
-          subTitle: 'Ask questions to our bot',
-          iconName: Icons.message,
-          onTap: () => Get.to(Chat())),
-      HomeDrawerItem(
-          title: 'Weather Service ',
-          subTitle: 'Check the weather condition',
-          iconName: FontAwesomeIcons.cloudRain,
-          onTap: () {
-            Get.put(WeatherBuddyController(10));
-            Get.to(() => WeatherBuddy());
-          }),
-      HomeDrawerItem(
-          title: 'TODO List',
-          subTitle: 'Save your notes',
-          iconName: FontAwesomeIcons.solidCheckCircle,
-          onTap: () {}),
-      HomeDrawerItem(
-        title: 'Privacy policy',
-        subTitle: 'See our privacy policies',
-        iconName: FontAwesomeIcons.lock,
-        onTap: () {},
-      ),
-      HomeDrawerItem(
-        title: 'Log out',
-        subTitle: 'Return to guest mode',
-        iconName: Icons.logout,
-        onTap: () => Get.to(() => Login()),
-      ),
-      Container(
-        padding: EdgeInsets.only(top: 45.0),
-        child: Center(
-          child: TypewriterAnimatedTextKit(
-            speed: Duration(microseconds: 100000),
-            text: ['Trip-Pal  \u00a9'],
-            textStyle: TextStyle(
-                fontSize: 16.0,
-                color: Colors.blueGrey[900].withOpacity(0.4),
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Montserrat'),
+      child: ListView(
+        children: [
+          CustomDrawerHeader(),
+          HomeDrawerItem(
+              title: 'Account',
+              subTitle: 'Go to your profile',
+              icon: FontAwesomeIcons.solidUserCircle,
+              onTap: () => Get.to(ProfilePage())),
+          HomeDrawerItem(
+              title: 'Saved Places',
+              subTitle: 'Check out your saved places',
+              icon: FontAwesomeIcons.solidHeart,
+              onTap: () => Get.to(SavedPlaces())),
+          HomeDrawerItem(
+            title: 'Address',
+            subTitle: 'Add or remove an address',
+            icon: Icons.location_on,
+            onTap: () {},
           ),
-        ),
+          HomeDrawerItem(
+              title: 'AI-Assistant',
+              subTitle: 'Ask questions to our bot',
+              icon: Icons.message,
+              onTap: () => Get.to(Chat())),
+          HomeDrawerItem(
+              title: 'Weather Service ',
+              subTitle: 'Check the weather condition',
+              icon: FontAwesomeIcons.cloudRain,
+              onTap: () {
+                Get.put(WeatherBuddyController(10));
+                Get.to(() => WeatherBuddy());
+              }),
+          HomeDrawerItem(
+              title: 'TODO List',
+              subTitle: 'Save your notes',
+              icon: FontAwesomeIcons.solidCheckCircle,
+              onTap: () {}),
+          HomeDrawerItem(
+            title: 'Privacy policy',
+            subTitle: 'See our privacy policies',
+            icon: FontAwesomeIcons.lock,
+            onTap: () {},
+          ),
+          HomeDrawerItem(
+            title: 'Log out',
+            subTitle: 'Return to guest mode',
+            icon: Icons.logout,
+            onTap: () => Get.to(() => Login()),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 45.0),
+            child: Center(
+              child: AnimatedTextKit(
+                repeatForever: true,
+                animatedTexts: [
+                  TypewriterAnimatedText(
+                    'Trip-Pal',
+                    speed: Duration(microseconds: 100000),
+                    textStyle: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.blueGrey[900]!.withOpacity(0.4),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat'),
+                  ),
+                  TypewriterAnimatedText(
+                    '  \u00a9',
+                    speed: Duration(microseconds: 100000),
+                    textStyle: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.blueGrey[900]!.withOpacity(0.4),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Montserrat'),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
-    ]));
+    );
   }
 }
 
-class CustomDrawerHeader extends StatelessWidget {
+class CustomDrawerHeader extends GetView<ProfileController> {
   const CustomDrawerHeader({
-    Key key,
-    @required this.controller,
+    Key? key,
   }) : super(key: key);
-
-  final ProfileContnroller controller;
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +125,7 @@ class CustomDrawerHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                      image: AssetImage(controller.imgPath),
-                      fit: BoxFit.cover),
+                      image: AssetImage(controller.imgPath), fit: BoxFit.cover),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -125,26 +138,23 @@ class CustomDrawerHeader extends StatelessWidget {
               ),
             ),
           ),
-          ProfileMiniInfo(controller: controller)
+          ProfileMiniInfo()
         ],
       ),
     );
   }
 }
 
-class ProfileMiniInfo extends StatelessWidget {
+class ProfileMiniInfo extends GetView<ProfileController> {
   const ProfileMiniInfo({
-    Key key,
-    @required this.controller,
+    Key? key,
   }) : super(key: key);
-
-  final ProfileContnroller controller;
 
   @override
   Widget build(BuildContext context) {
+    controller;
     return Padding(
-      padding:
-          const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -152,8 +162,7 @@ class ProfileMiniInfo extends StatelessWidget {
             flex: 2,
             child: Text(
               controller.userName,
-              style: TextStyle(
-                  color: Colors.blueGrey[900], fontSize: 20.0),
+              style: TextStyle(color: Colors.blueGrey[900], fontSize: 20.0),
             ),
           ),
           SizedBox(
@@ -163,8 +172,7 @@ class ProfileMiniInfo extends StatelessWidget {
             flex: 1,
             child: Text(
               controller.userSubName,
-              style: TextStyle(
-                  color: Colors.blueGrey[600], fontSize: 12.0),
+              style: TextStyle(color: Colors.blueGrey[600], fontSize: 12.0),
             ),
           ),
           SizedBox(height: 8.0),
@@ -207,9 +215,9 @@ class ProfileMiniInfo extends StatelessWidget {
 
 class InfoItem extends StatelessWidget {
   const InfoItem({
-    Key key,
-    @required this.title,
-    @required this.count,
+    Key? key,
+    required this.title,
+    required this.count,
   }) : super(key: key);
   final String title;
   final int count;

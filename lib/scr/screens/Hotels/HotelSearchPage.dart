@@ -24,7 +24,9 @@ class HotelSearchPage extends GetView {
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('images/hotel_sp.jpg'),
-              fit: BoxFit.cover,))
+              fit: BoxFit.cover,
+            ),
+          ),
         ),
         Container(
           color: Colors.black38,
@@ -125,18 +127,19 @@ class HotelSearchPage extends GetView {
                                     ),
                                   ),
                                   onTap: () async {
-                                    DateTimeRange _tmp =
+                                    DateTimeRange? _tmp =
                                         await showDateRangePicker(
                                             context: context,
                                             firstDate: DateTime.now(),
                                             lastDate: DateTime.now()
                                                 .add(Duration(days: 365)));
-                                    controller.date.value =
-                                        DateFormat(DateFormat.MONTH_DAY)
-                                                .format(_tmp.start) +
-                                            " - " +
-                                            DateFormat(DateFormat.MONTH_DAY)
-                                                .format(_tmp.end);
+                                    if (_tmp != null)
+                                      controller.date.value =
+                                          DateFormat(DateFormat.MONTH_DAY)
+                                                  .format(_tmp.start) +
+                                              " - " +
+                                              DateFormat(DateFormat.MONTH_DAY)
+                                                  .format(_tmp.end);
                                   }),
                             ),
                             SizedBox(height: 28.0),
@@ -166,7 +169,7 @@ class HotelSearchPage extends GetView {
                                   : "please Select",
                               onChanged: (val) {
                                 controller.selectedIndex.value =
-                                    rooms.indexOf(val);
+                                    rooms.indexOf(val!);
                               },
                               items: rooms.map((String item) {
                                 return DropdownMenuItem<String>(
@@ -184,7 +187,13 @@ class HotelSearchPage extends GetView {
                   ),
                 ),
                 SizedBox(height: 30.0),
-                RoundedButton(title: 'Search', onPressed: ()=> Get.to(HotelResult()), icon: Icon(Icons.search, color: Colors.white,)),
+                RoundedButton(
+                    title: 'Search',
+                    onPressed: () => Get.to(HotelResult()),
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    )),
                 SizedBox(
                   height: 60.0,
                 )

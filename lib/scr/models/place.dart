@@ -5,28 +5,26 @@ import 'package:travel_app/scr/shared/services/networking.dart';
 
 class Place {
   final String name;
-  final String state;
+  final String? state;
   final String country;
-  String image;
-  double rating;
-  double lat;
-  double lon;
+  String? image;
+  double? rating;
+  double? lat;
+  double? lon;
 
   Place({
-    @required this.name,
-    @required this.country,
+    required this.name,
+    required this.country,
     this.state,
     this.image,
     this.rating,
     this.lat,
     this.lon,
-  })  : assert(name != null),
-        assert(country != null);
+  }) : assert(country.isNotEmpty & name.isNotEmpty);
 
   bool get hasState => state?.isNotEmpty == true;
-  bool get hasCountry => country?.isNotEmpty == true;
 
-  bool get isCountry => hasCountry && name == country;
+  bool get isCountry => name == country;
   bool get isState => hasState && name == state;
 
   factory Place.fromJson(Map<String, dynamic> map) {
@@ -51,8 +49,8 @@ class Place {
 
   String get level2Address {
     if (isCountry || isState || !hasState) return country;
-    if (!hasCountry) return state;
-    return '$state, $country';
+    if (!hasState) return state!;
+    return '$country';
   }
 
   Future<WeatherInfo> getWeatherInfo() async {

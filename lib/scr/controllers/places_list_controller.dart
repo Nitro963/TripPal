@@ -63,7 +63,7 @@ class PlacesListController extends GetxController {
       ..addAll(newPlaces);
   }
 
-  void reorder(Place place, int from, int to, List<Place> newPlaces) {
+  void reorder(Place place, int? from, int to, List<Place> newPlaces) {
     replaceAll(newPlaces);
   }
 

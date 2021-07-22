@@ -10,7 +10,7 @@ Future<dynamic> sendRequest(http.Request request) async {
   } catch (e) {
     throw e;
   }
-  if (response?.statusCode == 200) return jsonDecode(response.body);
+  if (response.statusCode == 200) return jsonDecode(response.body);
   throw 'Request failed ${response.statusCode}';
 }
 

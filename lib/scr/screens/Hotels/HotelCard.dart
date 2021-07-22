@@ -10,20 +10,20 @@ import 'package:travel_app/scr/shared/Widgets/stars.dart';
 
 class HotelCard extends StatelessWidget {
   const HotelCard({
-    Key key,
-    @required this.data,
-    @required this.onTap,
+    Key? key,
+    required this.hotel,
+    this.onTap,
   }) : super(key: key);
-  final Hotel data;
-  final onTap;
+  final Hotel hotel;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 6.0, vertical: 6.0),
-        width: SizeConfig.screenWidth,
-        height: SizeConfig.blockSizeHorizontal * 50,
+        width: MySize.screenWidth,
+        height: MySize.size50,
         child: Stack(
           children: <Widget>[
             Card(
@@ -31,14 +31,14 @@ class HotelCard extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Container(
-                    height: SizeConfig.blockSizeHorizontal * 55,
+                    height: MySize.getScaledSizeHeight(55),
                     width: 135.0,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(4),
                             bottomLeft: Radius.circular(4)),
                         image: DecorationImage(
-                          image: NetworkImage(data.imgURL),
+                          image: NetworkImage(hotel.imgURL!),
                           fit: BoxFit.cover,
                         )),
                   ),
@@ -54,17 +54,17 @@ class HotelCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           Text(
-                            data.name,
+                            hotel.name!,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
                                 fontSize: 17.0, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(height: 8.0),
                           StarRating(
-                            starCount: data.starRating.toInt() != 0
-                                ? data.starRating.toInt()
+                            starCount: hotel.starRating!.toInt() != 0
+                                ? hotel.starRating!.toInt()
                                 : 5,
-                            rating: data.starRating,
+                            rating: hotel.starRating!,
                             isStatic: false,
                             size: 20,
                             color: starsActivationColor,
@@ -81,26 +81,26 @@ class HotelCard extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(2)),
                                   child: Center(
                                       child: Text(
-                                    data.guestrating.toString(),
+                                    hotel.guestRating.toString(),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 12),
                                     textAlign: TextAlign.center,
                                   ))),
                               SizedBox(
-                                width: SizeConfig.blockSizeHorizontal * 3,
+                                width: MySize.size3,
                               ),
-                              Text(data.stringRaitingExp()),
+                              Text(hotel.stringRatingExp()),
                             ],
                           ),
                           SizedBox(height: 8.0),
                           CardDetail(
                             title: 'Guests Rating',
-                            value: data.guestrating,
+                            value: hotel.guestRating!,
                           ),
                           SizedBox(height: 8.0),
                           CardDetail(
                             title: 'Price pre Night',
-                            value: data.price,
+                            value: hotel.price!,
                           ),
                           SizedBox(height: 8.0),
                           Row(
@@ -111,7 +111,7 @@ class HotelCard extends StatelessWidget {
                                 size: 16,
                               ),
                               Text(
-                                data.address,
+                                hotel.address!,
                                 style: TextStyle(
                                     color: Colors.grey[700],
                                     fontSize: 16,
@@ -127,15 +127,15 @@ class HotelCard extends StatelessWidget {
               ),
             ),
             Positioned(
-                right: SizeConfig.blockSizeHorizontal * 3,
-                top: SizeConfig.blockSizeVertical * 4,
+                right: MySize.size3,
+                top: MySize.size4,
                 child: Heart(
                   startingIcon: Icons.favorite_outline,
                   endingIcon: Icons.favorite,
                 )),
             Positioned(
-              right: SizeConfig.blockSizeHorizontal * 4,
-              bottom: SizeConfig.blockSizeVertical * 2,
+              right: MySize.size4,
+              bottom: MySize.size2,
               child: GestureDetector(
                 child: Row(
                   children: <Widget>[
@@ -155,9 +155,9 @@ class HotelCard extends StatelessWidget {
                   ],
                 ),
                 onTap: () => Get.to(MapPage(
-                    latitude: data.coordinate.lat,
-                    longitude: data.coordinate.lon,
-                    placeName: data.name)),
+                    latitude: hotel.coordinate!.lat,
+                    longitude: hotel.coordinate!.lon,
+                    placeName: hotel.name)),
               ),
             )
           ],
@@ -168,7 +168,7 @@ class HotelCard extends StatelessWidget {
 }
 
 class CardDetail extends StatelessWidget {
-  const CardDetail({Key key, @required this.title, @required this.value})
+  const CardDetail({Key? key, required this.title, required this.value})
       : super(key: key);
 
   final String title;

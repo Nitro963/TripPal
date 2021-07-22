@@ -17,7 +17,7 @@ import 'Componenet/PopularPlacesPageView.dart';
 import 'Componenet/TopCitiesWidget.dart';
 
 class HomePage extends StatelessWidget {
-  HomePage({Key key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
   final searchBarController = FloatingSearchBarController();
   final searchController = Get.find<PlacesSearchController>();
 
@@ -54,7 +54,6 @@ class HomePage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           axisAlignment: 0,
           openAxisAlignment: 0.0,
-          maxWidth: SizeConfig.screenWidth,
           actions: actions,
           progress: searchController.isLoading,
           debounceDelay: const Duration(milliseconds: 500),
@@ -67,7 +66,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget buildExpandableBody() {
-    final profileController = Get.put(ProfileContnroller());
+    final profileController = Get.put(ProfileController());
     return Material(
       color: Colors.grey[100],
       elevation: 4.0,
@@ -83,12 +82,12 @@ class HomePage extends StatelessWidget {
                 animation: animation,
                 child: PlaceCard(
                   activated: false,
-                  data: profileController.placeSearchResult[index],
+                  place: profileController.placeSearchResult[index],
                   onTap: () => Get.to(MapPage(
                       latitude: profileController
-                          .placeSearchResult[index].coordinate.lat,
+                          .placeSearchResult[index].coordinate!.lat,
                       longitude: profileController
-                          .placeSearchResult[index].coordinate.lon,
+                          .placeSearchResult[index].coordinate!.lon,
                       placeName:
                           profileController.placeSearchResult[index].name)),
                 ),
@@ -143,7 +142,7 @@ class HomePage extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         place.level2Address,
-                        style: Get.textTheme.bodyText2
+                        style: Get.textTheme.bodyText2!
                             .copyWith(color: Colors.grey.shade600),
                       ),
                     ],
@@ -161,65 +160,67 @@ class HomePage extends StatelessWidget {
   }
 
   Widget buildBody() {
-    searchController.mapHeight = (SizeConfig.screenHeight / 3).obs;
+    // Why?! use controller.onInit!!!
+    searchController.mapHeight = (MySize.screenHeight / 3).obs;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsetsDirectional.only(bottom: 16),
         child: SafeArea(
-            child: ListView(children: [
-          GestureDetector(
-            onTap: () {
-              if (searchController.mapHeight.value ==
-                  SizeConfig.screenHeight / 3)
-                searchController.updateMapHeight(SizeConfig.screenHeight);
-              else
-                searchController.updateMapHeight(SizeConfig.screenHeight / 3);
-            },
-            child: Obx(() => Container(
-                  width: SizeConfig.screenWidth,
-                  height: searchController.mapHeight.value,
-                  margin: EdgeInsets.only(bottom: 20.0),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom:
-                              BorderSide(color: Colors.grey[350], width: 3.0))),
-                  child: GoogleMap(
-                    myLocationButtonEnabled: false,
-                    trafficEnabled: false,
-                    mapToolbarEnabled: false,
-                    myLocationEnabled: true,
-                    initialCameraPosition: searchController.cameraPosition,
-                    onMapCreated: (controller) {
-                      searchController.mapController = controller;
-                    },
-                    markers: {
-                      Marker(
-                          markerId: const MarkerId('marker1'),
-                          infoWindow: InfoWindow(
-                              title:
-                                  searchController.markerInfoWindowTitle.value),
-                          icon: BitmapDescriptor.defaultMarkerWithHue(
-                              BitmapDescriptor.hueAzure),
-                          position: LatLng(searchController.latitude.value,
-                              searchController.longitud.value))
-                    },
-                  ),
-                )),
-          ),
-          TopCities(),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-            child: Text("Fresh Inspiring Blogs",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                )),
-          ),
-          PopularPlacesPageView(),
-        ])),
+          child: ListView(children: [
+            GestureDetector(
+              onTap: () {
+                // Why?! user getters and setters!!
+                if (searchController.mapHeight.value == MySize.screenHeight / 3)
+                  searchController.updateMapHeight(MySize.screenHeight);
+                else
+                  searchController.updateMapHeight(MySize.screenHeight / 3);
+              },
+              child: Obx(() => Container(
+                    width: MySize.screenWidth,
+                    height: searchController.mapHeight.value,
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    decoration: BoxDecoration(
+                        border: Border(
+                            bottom: BorderSide(
+                                color: Colors.grey[350]!, width: 3.0))),
+                    child: GoogleMap(
+                      myLocationButtonEnabled: false,
+                      trafficEnabled: false,
+                      mapToolbarEnabled: false,
+                      myLocationEnabled: true,
+                      initialCameraPosition: searchController.cameraPosition,
+                      onMapCreated: (controller) {
+                        searchController.mapController = controller;
+                      },
+                      markers: {
+                        Marker(
+                            markerId: const MarkerId('marker1'),
+                            infoWindow: InfoWindow(
+                                title: searchController
+                                    .markerInfoWindowTitle.value),
+                            icon: BitmapDescriptor.defaultMarkerWithHue(
+                                BitmapDescriptor.hueAzure),
+                            position: LatLng(searchController.latitude.value,
+                                searchController.longitude.value))
+                      },
+                    ),
+                  )),
+            ),
+            TopCities(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+              child: Text("Fresh Inspiring Blogs",
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  )),
+            ),
+            PopularPlacesPageView(),
+          ]),
+        ),
       ),
     );
   }
@@ -231,7 +232,7 @@ class HomePage extends StatelessWidget {
       child: Directionality(
           textDirection: TextDirection.ltr,
           child: buildSearchBar(() {
-            Get.off(PlacesSearchEngine());
+            // Get.off(PlacesSearchEngine());
           })),
     );
   }

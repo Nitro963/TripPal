@@ -10,7 +10,7 @@ class AvatarOverFlowView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: SizeConfig.blockSizeHorizontal * 40,
+      width: MySize.getScaledSizeWidth(40),
       child: OverflowView(
         spacing: -5,
         children: <Widget>[

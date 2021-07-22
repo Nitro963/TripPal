@@ -42,7 +42,7 @@ class TopCities extends StatelessWidget {
                     child: Center(
                         child: Text(
                       "Fresh",
-                      style: TextStyle(color: Colors.white,fontFamily:'Lato'),
+                      style: TextStyle(color: Colors.white, fontFamily: 'Lato'),
                       textAlign: TextAlign.center,
                     )),
                   )
@@ -64,7 +64,7 @@ class TopCities extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(right: 8.0),
-                          child: PlaceCard(demoPlaces[index].image,
+                          child: PlaceImageCard(demoPlaces[index].image!,
                               demoPlaces[index].name, 120, 120),
                         );
                       },

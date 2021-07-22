@@ -4,22 +4,23 @@ import 'package:get/get.dart';
 import 'package:travel_app/scr/controllers/profile_controller.dart';
 import 'package:travel_app/scr/shared/constants.dart';
 
-class ProfileAppbar extends StatelessWidget {
+class ProfileAppbar extends GetView<ProfileController> {
   ProfileAppbar({
-    Key key, @required this.title,
+    Key? key,
+    required this.title,
   }) : super(key: key);
 
-  final controller = Get.find<ProfileContnroller>();
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Container(
         margin: const EdgeInsets.only(top: 16.0),
-        width: SizeConfig.screenWidth,
+        width: MySize.screenWidth,
         child: Stack(
           children: <Widget>[
             IconButton(
-                onPressed: ()=> Get.back(),
+                onPressed: () => Get.back(),
                 icon: Icon(
                   FontAwesomeIcons.arrowLeft,
                   color: Colors.black,
@@ -31,7 +32,6 @@ class ProfileAppbar extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
             ),
-            
           ],
         ));
   }

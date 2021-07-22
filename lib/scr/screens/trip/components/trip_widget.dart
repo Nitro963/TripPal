@@ -3,20 +3,20 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TripWidget extends StatelessWidget {
   const TripWidget(
-      {Key key,
-      @required this.imgPath,
-      @required this.tripType,
-      @required this.location,
-      @required this.details,
-      @required this.days,
-      @required this.onTap})
+      {Key? key,
+      required this.imgPath,
+      required this.tripType,
+      required this.location,
+      required this.details,
+      required this.days,
+      this.onTap})
       : super(key: key);
   final String imgPath;
   final String tripType;
   final String location;
   final String details;
   final int days;
-  final onTap;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(

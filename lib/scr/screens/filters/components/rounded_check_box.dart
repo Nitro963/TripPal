@@ -1,16 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class FilterCheckBox extends StatelessWidget {
-  FilterCheckBox({
-    @required this.title,
-    @required this.onTap,
-    @required this.icon,
-    @required this.isChecked
-  });
+  FilterCheckBox(
+      {required this.title,
+      required this.onTap,
+      required this.icon,
+      required this.isChecked});
   final String title;
-  final onTap;
+  final dynamic Function(bool?) onTap;
   final Icon icon;
   final bool isChecked;
   @override
@@ -43,5 +41,3 @@ class FilterCheckBox extends StatelessWidget {
     );
   }
 }
-
-

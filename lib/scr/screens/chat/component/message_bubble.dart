@@ -4,7 +4,7 @@ import 'package:travel_app/scr/models/message.dart';
 class MessageBubble extends StatelessWidget {
   final Message message;
 
-  const MessageBubble({Key key, @required this.message}) : super(key: key);
+  const MessageBubble({Key? key, required this.message}) : super(key: key);
 
   Row buildRow(BuildContext context) {
     var rowChildren = [
@@ -13,7 +13,7 @@ class MessageBubble extends StatelessWidget {
         child: Text(message.sender,
             style: Theme.of(context)
                 .textTheme
-                .bodyText1
+                .bodyText1!
                 .apply(color: Colors.black54)),
       ),
       Material(

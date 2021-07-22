@@ -12,7 +12,7 @@ import 'components/icon_rounded_widget.dart';
 import 'components/place_card.dart';
 
 class PlacesSearchEngine extends StatefulWidget {
-  PlacesSearchEngine({Key key}) : super(key: key);
+  PlacesSearchEngine({Key? key}) : super(key: key);
 
   @override
   _PlacesSearchEngineState createState() => _PlacesSearchEngineState();
@@ -34,12 +34,12 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
   bool _visible = false;
   void updateTypesTaps(String selectedType) {
     setState(() {
-      for (String type in typesCheck.keys) {
+      typesCheck.keys.forEach((type) {
         if (selectedType != type)
-          typesCheck[type].value = false;
+          typesCheck[type]!.value = false;
         else
-          typesCheck[type].toggle();
-      }
+          typesCheck[type]!.toggle();
+      });
       buildSubTypes(selectedType);
     });
   }
@@ -48,26 +48,25 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
     print(selectedType);
     subTypes.clear();
     setState(() {
-      for (String subType in placesDict[selectedType]) {
+      placesDict[selectedType]!.forEach((subType) {
         subTypesCheck[subType] = false.obs;
         subTypes.add(RoundedGestWithIconWidget(
             title: subType,
-            selected: subTypesCheck[subType],
-            onTap: () => updateSubTypesTaps(subType),
-            iconName: null));
-      }
+            selected: subTypesCheck[subType]!,
+            onTap: () => updateSubTypesTaps(subType)));
+      });
     });
     print(subTypes);
   }
 
   void updateSubTypesTaps(String selectedSubType) {
     setState(() {
-      for (String subType in subTypesCheck.keys) {
+      subTypesCheck.keys.forEach((subType) {
         if (selectedSubType != subType)
-          subTypesCheck[subType].value = false;
+          subTypesCheck[subType]!.value = false;
         else
-          subTypesCheck[subType].toggle();
-      }
+          subTypesCheck[subType]!.toggle();
+      });
       _visible = true;
     });
   }
@@ -83,8 +82,8 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Container(
-                width: SizeConfig.screenWidth,
-                height: SizeConfig.screenHeight / 3,
+                width: MySize.screenWidth,
+                height: MySize.screenHeight / 3,
                 margin: EdgeInsets.only(bottom: 20.0),
                 child: GoogleMap(
                   myLocationButtonEnabled: false,
@@ -104,7 +103,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                         icon: BitmapDescriptor.defaultMarkerWithHue(
                             BitmapDescriptor.hueAzure),
                         position: LatLng(searchController.latitude.value,
-                            searchController.longitud.value))
+                            searchController.longitude.value))
                   },
                 ),
               ),
@@ -114,8 +113,11 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
               Container(
                 height: 60.0,
                 // margin: const EdgeInsets.only(top: 65),
-                child:
-                    ListView(scrollDirection: Axis.horizontal, children: types, physics: BouncingScrollPhysics(),),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: types,
+                  physics: BouncingScrollPhysics(),
+                ),
               ),
               subTypes.length > 0
                   ? Divider(color: Colors.blueGrey[200])
@@ -123,7 +125,10 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
               Container(
                 height: 60.0,
                 child: ListView(
-                    scrollDirection: Axis.horizontal, children: subTypes, physics: BouncingScrollPhysics(),),
+                  scrollDirection: Axis.horizontal,
+                  children: subTypes,
+                  physics: BouncingScrollPhysics(),
+                ),
               ),
               subTypes.length > 0
                   ? Divider(color: Colors.blueGrey[200])
@@ -145,7 +150,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
                         for (Place2 place in testingPlaces)
                           if (place != null)
                             PlaceCard(
-                                data: place,
+                                place: place,
                                 activated: false,
                                 onTap: () => setState(() =>
                                     searchController.updateMapView(place)))
@@ -197,7 +202,7 @@ class _PlacesSearchEngineState extends State<PlacesSearchEngine> {
       typesCheck[type] = false.obs;
       types.add(RoundedGestWithIconWidget(
           title: type,
-          selected: typesCheck[type],
+          selected: typesCheck[type]!,
           onTap: () => updateTypesTaps(type),
           iconName: selectIcon(type)));
     }

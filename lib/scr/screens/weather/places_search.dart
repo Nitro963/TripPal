@@ -52,7 +52,7 @@ class PlacesSearch extends GetView<PlacesSearchUIController> {
     );
   }
 
-  Widget _buildAppBar() {
+  PreferredSizeWidget _buildAppBar() {
     var theme = Get.theme;
     var padding = Get.mediaQuery.padding.top;
     return PreferredSize(
@@ -146,17 +146,19 @@ class PlacesSearch extends GetView<PlacesSearchUIController> {
         title: HighlightText(
           query: controller.query,
           text: place.name,
-          style: textTheme.bodyText2,
-          activeStyle: textTheme.bodyText2.copyWith(
+          style: textTheme.bodyText2!,
+          activeStyle: textTheme.bodyText2!.copyWith(
             fontWeight: FontWeight.bold,
           ),
+          textDirection: TextDirection.ltr,
         ),
         subtitle: HighlightText(
+          textDirection: TextDirection.ltr,
           query: controller.query,
           text: place.level2Address,
-          style: textTheme.subtitle1,
+          style: textTheme.subtitle1!,
           activeStyle:
-              textTheme.subtitle1.copyWith(fontWeight: FontWeight.w900),
+              textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w900),
         ),
       ),
     );

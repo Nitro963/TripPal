@@ -7,9 +7,8 @@ import 'components/filters_header.dart';
 import 'components/rounded_button.dart';
 import 'components/rounded_radio_button.dart';
 
-class TripFiltersPage extends StatelessWidget {
-  TripFiltersPage({Key key}) : super(key: key);
-  final FilterController controller = Get.find<FilterController>();
+class TripFiltersPage extends GetView<FilterController> {
+  TripFiltersPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +20,17 @@ class TripFiltersPage extends StatelessWidget {
                 title: 'Sorting User Trip Plans',
                 subTitle: 'Let us help you find the trip plans that you want'),
             FilterSubTitle(filterName: 'Sorting Type'),
-            for (int i = 0; i < controller.tripsSortType.length;i++)
+            for (int i = 0; i < controller.tripsSortType.length; i++)
               RoundedRadioButton(
-                groupValue: controller.sortType,
-                value: controller.tripsSortType[i],
-                onChanged: (value) => controller.changeTripsSorttype(value)),
+                  groupValue: controller.sortType,
+                  value: controller.tripsSortType[i],
+                  onChanged: (value) => controller.changeTripsSortType(value)),
             FilterSubTitle(filterName: 'Sorting By'),
-            for (int i = 0; i < controller.tripsSortOrder.length;i++)
+            for (int i = 0; i < controller.tripsSortOrder.length; i++)
               RoundedRadioButton(
-                groupValue: controller.sortOrder,
-                value: controller.tripsSortOrder[i],
-                onChanged: (value) => controller.changeTripsSortOrder(value)),
+                  groupValue: controller.sortOrder,
+                  value: controller.tripsSortOrder[i],
+                  onChanged: (value) => controller.changeTripsSortOrder(value)),
             RoundedButton(
                 title: 'Save Preferences',
                 icon: Icon(FontAwesomeIcons.solidSave,

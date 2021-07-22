@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_app/scr/Models/tasks.dart';
-import 'package:travel_app/scr/models/activites.dart';
+import 'package:travel_app/scr/models/activities.dart';
 import 'package:travel_app/scr/models/place.dart';
 import 'package:travel_app/scr/models/trip.dart';
 
@@ -32,7 +32,7 @@ List<Blog> blogs = [
       image: "images/4.jpg",
       info: "Good place to start a buisness"),
 ];
-List myTasks = [
+List<Task> myTasks = [
   Task(title: "a", category: TaskCategory.Home),
   Task(title: "b", category: TaskCategory.Airport),
   Task(title: "c", category: TaskCategory.Airport),
@@ -53,43 +53,43 @@ List<Hotel> myHotels = [
   Hotel(
       name: "Hotel",
       image: "images/hotel1.jpg",
-      raiting: 8.4,
+      rating: 8.4,
       stars: 5,
       numReviews: 130,
       location: "London UK",
-      avalibaleRooms: [Room(price: 200, type: "Royal Room")]),
+      availableRooms: [Room(price: 200, type: "Royal Room")]),
   Hotel(
       name: "Kattan Hotel",
       image: "images/hotel3.jpg",
-      raiting: 2.4,
+      rating: 2.4,
       stars: 2,
       numReviews: 70,
       location: "Damas",
-      avalibaleRooms: [Room(price: 10, type: "Single Room")]),
+      availableRooms: [Room(price: 10, type: "Single Room")]),
   Hotel(
       name: "Four Seasons",
       image: "images/hotel3.jpg",
-      raiting: 9.1,
+      rating: 9.1,
       stars: 5,
       numReviews: 200,
       location: "Paris",
-      avalibaleRooms: [Room(price: 1000, type: "Double Room")]),
+      availableRooms: [Room(price: 1000, type: "Double Room")]),
   Hotel(
       name: "Four Seasons",
       image: "images/hotel3.jpg",
-      raiting: 9.1,
+      rating: 9.1,
       stars: 5,
       numReviews: 200,
       location: "Paris",
-      avalibaleRooms: [Room(price: 1000, type: "Double Room")]),
+      availableRooms: [Room(price: 1000, type: "Double Room")]),
   Hotel(
       name: "Four Seasons",
       image: "images/hotel3.jpg",
-      raiting: 9.1,
+      rating: 9.1,
       stars: 5,
       numReviews: 200,
       location: "Paris",
-      avalibaleRooms: [Room(price: 1000, type: "Double Room")])
+      availableRooms: [Room(price: 1000, type: "Double Room")])
 ];
 
 List<Trip> dummyTrips = [
@@ -104,7 +104,7 @@ List<Trip> dummyTrips = [
       country: 'Italy',
       details: 'Malls included',
       type: 'Focused Trip',
-      days:days),
+      days: days),
   Trip(
       city: 'Ankara',
       country: 'Turkey',
@@ -167,40 +167,33 @@ List<String> dummyCities = [
 ];
 
 List<Day> days = [
-  Day(dayIndex: 1, date:DateTime.now(),activates: [
-    Acitvites(
+  Day(dayIndex: 1, date: DateTime.now(), activates: [
+    Activity(
         time: DateTime.now().subtract(Duration(hours: 2)),
         activity: "Leave Home",
         details: "use uber"),
-    Acitvites(
+    Activity(
         time: DateTime.now().subtract(Duration(hours: 1)),
         activity: "Shopping",
         details: "Go to talis"),
-    Acitvites(
-        time: DateTime.now(),
-        activity: "Eat Food",
-        details: "Burger"),
-    Acitvites(
+    Activity(time: DateTime.now(), activity: "Eat Food", details: "Burger"),
+    Activity(
         time: DateTime.now().add(Duration(hours: 1)),
         activity: "Fuck adnan",
         details: "use your dick"),
   ]),
-  Day(dayIndex: 2, date:DateTime.now().add(Duration(hours: 24)),activates: [
-    Acitvites(
+  Day(dayIndex: 2, date: DateTime.now().add(Duration(hours: 24)), activates: [
+    Activity(
         time: DateTime.now().subtract(Duration(hours: 2)),
         activity: "Leave Home",
         details: "use uber"),
-    Acitvites(
-        time: DateTime.now(),
-        activity: "Day 2",
-        details: "Go to talis"),
-    Acitvites(
+    Activity(time: DateTime.now(), activity: "Day 2", details: "Go to talis"),
+    Activity(
         time: DateTime.now().add(Duration(minutes: 1)),
         activity: "Eat Food",
         details: "Burger"),
-    Acitvites(
+    Activity(
         time: DateTime.now().add(Duration(minutes: 5)),
-
         activity: "Fuck adnan",
         details: "use your dick"),
   ]),
