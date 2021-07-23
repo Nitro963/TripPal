@@ -12,7 +12,15 @@ import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_gesture_widget.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_radio_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_widget.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 
+// TODO use dynamic padding
+// TODO convert types to model
+// TODO apply themes
+// TODO wrap tourist facilities containers in a inkwell (i.e activate them even if user click on row/text)
+// TODO use meaningful names for filters (What can I understand from Basic Filters Screen!)
+// TODO header must be static and items go under it on scrolling
+// TODO add a back button in the header or in an appropriate place.
 class FiltersPage extends GetView<FilterController> {
   FiltersPage({Key? key}) : super(key: key);
 
@@ -97,7 +105,9 @@ class FiltersPage extends GetView<FilterController> {
                   color: Colors.white, size: 18.0),
               onPressed: () {
                 // TODO use named routes
-                // Get.to(TripPage());
+                // also never do it like this if it is a must
+                // rather do it like () => TripPage
+                Get.to(TripPlan());
               },
             ),
           ],

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO fix the shitty bug :)
+// on click icon do not change :)
 class GrowingIcon extends StatefulWidget {
   final double size;
   final Color startingColor;

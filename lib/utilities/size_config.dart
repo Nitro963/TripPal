@@ -259,7 +259,7 @@ class Space {
 
   static Widget width(double space) {
     return SizedBox(
-      width: MySize.getScaledSizeHeight(space),
+      width: MySize.getScaledSizeWidth(space),
     );
   }
 }

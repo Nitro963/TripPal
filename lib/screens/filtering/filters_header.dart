@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class FilterSubTitle extends StatelessWidget {
   const FilterSubTitle({
@@ -34,29 +36,31 @@ class FiltersHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: Spacing.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Stack(
+          Row(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 20.0),
-                child: Text(
-                  title,
-                  style: kPrimaryFiltersTitleStyle,
-                ),
-              ),
               Icon(
                 FontAwesomeIcons.rocket,
                 size: 24.0,
+                // TODO use theme
                 color: Colors.blue[900],
-              )
+              ),
+              Space.width(10),
+              Text(
+                title,
+                style: Get.theme.textTheme.headline6,
+              ),
             ],
           ),
+          Space.height(10),
           Text(
             subTitle,
-            style: kSecondaryFiltersTitleStyle,
+            style: Get.theme.textTheme.subtitle2,
             textAlign: TextAlign.center,
           ),
         ],

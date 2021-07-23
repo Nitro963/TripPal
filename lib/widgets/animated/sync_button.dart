@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class AnimatedSyncIconButton extends StatefulWidget {
   final void Function()? onPressed;
   final Duration duration;
+  final Color? color;
 
   const AnimatedSyncIconButton(
       {Key? key,
       this.onPressed,
-      this.duration = const Duration(milliseconds: 1500)})
+      this.duration = const Duration(milliseconds: 1500),
+      this.color})
       : super(key: key);
 
   @override
@@ -37,6 +39,8 @@ class AnimatedSyncIconButtonState extends State<AnimatedSyncIconButton>
   Widget build(BuildContext context) {
     return RotationTransition(
         turns: animation,
-        child: IconButton(icon: Icon(Icons.sync), onPressed: widget.onPressed));
+        child: IconButton(
+            icon: Icon(Icons.sync, color: widget.color),
+            onPressed: widget.onPressed));
   }
 }

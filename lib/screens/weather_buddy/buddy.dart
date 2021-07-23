@@ -124,21 +124,22 @@ class WeatherBuddyState extends State<WeatherBuddy> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
-          // leading: BackButton(),
+          leading: BackButton(color: Colors.white),
           actions: [
             if (controller.isNotEmpty)
               IconButton(
-                  icon: Icon(Icons.remove),
+                  icon: Icon(Icons.remove, color: Colors.white),
                   onPressed: () async {
                     await controller.removePlaceAt(controller.currentPage);
                   }),
             if (controller.isNotEmpty)
               AnimatedSyncIconButton(
                   key: controller.syncButtonState,
+                  color: Colors.white,
                   duration: Duration(milliseconds: 1600),
                   onPressed: controller.onSyncButtonPressed),
             IconButton(
-                icon: Icon(Icons.playlist_add),
+                icon: Icon(Icons.playlist_add, color: Colors.white),
                 onPressed: () {
                   Get.toNamed('/weather-buddy/list');
                 }),

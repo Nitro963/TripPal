@@ -4,7 +4,9 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 
 import 'package:readmore/readmore.dart';
+import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/widgets/simple/avatar_overflow.dart';
 import 'package:trip_pal_null_safe/widgets/simple/image_card.dart';
@@ -30,10 +32,14 @@ class PlaceDetails extends StatelessWidget {
               floating: false,
               pinned: true,
               expandedHeight: MySize.getScaledSizeHeight(350),
+              leading: BackButton(color: Colors.white),
+              backgroundColor: Themes.getDetailsAppBarColorFromThemeMode(
+                  Get.find<AppThemeController>().themeMode),
               flexibleSpace: FlexibleSpaceBar(
                 title: Text(
                   'Bali',
-                  style: Get.theme.primaryTextTheme.headline1,
+                  style: Get.theme.textTheme.headline6!
+                      .copyWith(color: Colors.white),
                 ),
                 centerTitle: true,
                 background: Stack(
@@ -60,7 +66,7 @@ class PlaceDetails extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  icon: Icon(Icons.location_pin),
+                  icon: Icon(Icons.location_pin, color: Colors.white),
                   onPressed: () {
                     // Get.to(
                     //   MapPage(
@@ -111,12 +117,16 @@ class DetailsContainer extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Bali', style: theme.textTheme.headline1),
+              Text('Bali',
+                  style: theme.textTheme.headline6!
+                      .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
               SizedBox(height: 5),
               // StaticStars(active: 3),
               StarRating(isStatic: true, rating: 3),
               SizedBox(height: 20),
-              AvatarOverFlowView(),
+              AvatarOverFlowView(onTap: () {
+                Get.toNamed('/reviews');
+              }),
               SizedBox(height: 20),
               ReadMoreText(
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque scelerisque efficitur posuere. Curabitur tincidunt placerat diam ac efficitur. Cras rutrum egestas nisl vitae pulvinar. Donec id mollis diam, id hendrerit neque. Donec accumsan efficitur libero, vitae feugiat odio fringilla ac. Aliquam a turpis bibendum, varius erat dictum, feugiat libero. Nam et dignissim nibh. Morbi elementum varius elit, at dignissim ex accumsan a',
@@ -154,10 +164,13 @@ class DetailsContainer extends StatelessWidget {
   }
 
   Column buildPropertiesSection(ThemeData theme) {
+    // TODO read from server
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Properties', style: theme.textTheme.headline2),
+        Text('Properties',
+            style: theme.textTheme.headline6!
+                .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -180,10 +193,13 @@ class DetailsContainer extends StatelessWidget {
   }
 
   Column buildSimilarPlacesSection(ThemeData theme) {
+    // TODO read from server
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Places like Bali', style: theme.textTheme.headline2),
+        Text('Places like Bali',
+            style: theme.textTheme.headline6!
+                .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
         Padding(
           padding: Spacing.vertical(20),
           child: Container(
@@ -211,10 +227,13 @@ class DetailsContainer extends StatelessWidget {
   }
 
   Column buildPicturesSection(ThemeData theme) {
+    // TODO read from server
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Pictures', style: theme.textTheme.headline2),
+        Text('Pictures',
+            style: theme.textTheme.headline6!
+                .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
         // Staggered Grid
         Container(
           height: MySize.getScaledSizeHeight(400),

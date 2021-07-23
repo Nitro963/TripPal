@@ -27,6 +27,7 @@ class SearchBarController extends GetxController {
 
   Future<void> onQueryChanged(String query) async {
     if (query == _query.value) return;
+    print('tjjjj');
 
     _query.value = query;
     _isLoading.value = true;
@@ -36,6 +37,7 @@ class SearchBarController extends GetxController {
         ..clear()
         ..addAll(history);
     } else {
+      print('jjjj');
       final res = await _photon.getQuery(query, 6);
       _suggestions
         ..clear()

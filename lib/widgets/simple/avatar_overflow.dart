@@ -18,7 +18,11 @@ class AvatarOverFlowView extends StatelessWidget {
         children: <Widget>[
           for (int i = 0; i < 5; i++)
             CircleAvatar(
-              child: InkWell(onTap: onTap),
+              child: InkWell(
+                onTap: onTap,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
               backgroundImage: AssetImage('assets/images/${data[i]}'),
             ),
         ],
@@ -27,6 +31,8 @@ class AvatarOverFlowView extends StatelessWidget {
             backgroundColor: Colors.black45,
             child: InkWell(
               onTap: onTap,
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
               child: Center(
                 child: Text('$remaining+',
                     style: TextStyle(

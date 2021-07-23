@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/animated/growing_icon.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/widgets/simple/tag.dart';
@@ -16,78 +17,65 @@ class PlaceCard extends StatelessWidget {
   final bool activated;
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 140.0,
+    return Card(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(MySize.size8)),
       margin: EdgeInsets.symmetric(horizontal: 12.0, vertical: 5.0),
-      padding: EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Get.theme.cardColor,
-        borderRadius: BorderRadius.circular(5.0),
-        border: Border.all(color: Colors.grey[200]!),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[100]!,
-            spreadRadius: 1,
-            blurRadius: 1,
-            offset: Offset(1, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          BasicInfo(place: place),
-          SizedBox(
-            height: 10.0,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Flexible(
-                flex: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      place.name,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 19.0,
-                        fontWeight: FontWeight.w600,
+      child: Padding(
+        padding: EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            BasicInfo(place: place),
+            SizedBox(height: MySize.size12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Flexible(
+                  flex: 2,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        place.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 19.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        textAlign: TextAlign.start,
                       ),
-                      textAlign: TextAlign.start,
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        if (place.kinds != null)
-                          for (String kind in place.kinds!.split(' ').take(2))
-                            Tag(
-                              kind: kind,
-                            ),
-                      ],
-                    ),
-                  ],
+                      SizedBox(
+                        height: 8.0,
+                      ),
+                      Row(
+                        children: <Widget>[
+                          if (place.kinds != null)
+                            for (String kind in place.kinds!.split(' ').take(2))
+                              Tag(
+                                kind: kind,
+                              ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              GrowingIcon(
-                startingIcon:
-                    activated ? Icons.favorite : Icons.favorite_border,
-                endingIcon: activated ? Icons.favorite_border : Icons.favorite,
-                startingColor: activated ? Colors.red[600]! : Colors.grey[200]!,
-                endingColor: activated ? Colors.grey[200]! : Colors.red[600]!,
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
-          Expanded(
-            flex: 1,
-            child: Row(
+                GrowingIcon(
+                  startingIcon:
+                      activated ? Icons.favorite : Icons.favorite_border,
+                  endingIcon:
+                      activated ? Icons.favorite_border : Icons.favorite,
+                  startingColor:
+                      activated ? Colors.red[600]! : Colors.grey[200]!,
+                  endingColor: activated ? Colors.grey[200]! : Colors.red[600]!,
+                ),
+              ],
+            ),
+            SizedBox(height: MySize.size12),
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Row(
@@ -128,9 +116,9 @@ class PlaceCard extends StatelessWidget {
                     ),
                     onTap: onTap),
               ],
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -177,19 +165,12 @@ class BasicInfo extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            Text(
-              place.guestRating.toDouble() > 5
-                  ? '5'
-                  : place.guestRating.toString(),
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-            ),
-            SizedBox(width: 4.0),
             StarRating(
               starCount: 5,
               rating: place.guestRating.toDouble() > 5
                   ? 5
                   : place.guestRating.toDouble(),
-              isStatic: false,
+              isStatic: true,
               size: 15,
               color: starsActivationColor,
               onRatingChanged: (i) {},

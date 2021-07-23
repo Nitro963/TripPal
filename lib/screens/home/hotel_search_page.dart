@@ -29,7 +29,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                   margin: Spacing.symmetric(horizontal: 30, vertical: 30),
                   child: Text(
                       'Our Engine let\'s you find the most amazing hotels in the world, easily.',
-                      style: themeData.textTheme.headline1!
+                      style: themeData.textTheme.headline5!
                           .copyWith(color: Colors.white)),
                 ),
                 Container(

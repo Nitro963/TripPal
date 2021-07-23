@@ -90,6 +90,7 @@ class _LoginState extends State<Login> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                       hintText: 'Email Address',
+                      hintStyle: TextStyle(color: Colors.white),
                       errorStyle: TextStyle(color: Colors.orange),
                       errorBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.orange)),
@@ -110,6 +111,7 @@ class _LoginState extends State<Login> {
                   obscureText: true,
                   decoration: InputDecoration(
                       hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.white),
                       errorStyle: TextStyle(color: Colors.orange),
                       errorBorder: UnderlineInputBorder(
                           borderSide: BorderSide(color: Colors.orange)),

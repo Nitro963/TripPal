@@ -3,9 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/widgets/animated/arrangeable_places_list.dart';
-import 'package:trip_pal_null_safe/controllers/places_search_view_controller.dart';
-
-import 'search_view.dart';
 
 class WeatherBuddyPlaces extends GetView<WeatherBuddyController> {
   static const List<String> OPTIONS = ['Clear all', 'Add current trip cities'];
@@ -22,7 +19,7 @@ class WeatherBuddyPlaces extends GetView<WeatherBuddyController> {
     final textTheme = theme.textTheme;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('The Weather Buddy'),
+          title: Text('The Weather Buddy'),
           actions: <Widget>[
             _buildPopupMenuButton(context, textTheme),
           ],

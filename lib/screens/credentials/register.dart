@@ -55,7 +55,7 @@ class _SignUpState extends State<SignUp> {
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
                     hintText: 'First name',
-                    hintStyle: TextStyle(color: Colors.grey[600]),
+                    hintStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(color: Colors.orange),
                     errorBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange)),
@@ -81,8 +81,8 @@ class _SignUpState extends State<SignUp> {
                   style: TextStyle(color: Colors.white),
                   decoration: InputDecoration(
                     errorStyle: TextStyle(color: Colors.orange),
-                    hintStyle: TextStyle(color: Colors.grey[600]),
                     hintText: 'Last name',
+                    hintStyle: TextStyle(color: Colors.white),
                     errorBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.orange)),
                     focusedErrorBorder: UnderlineInputBorder(
@@ -105,6 +105,7 @@ class _SignUpState extends State<SignUp> {
                     borderSide: BorderSide(color: Colors.orange)),
                 focusedErrorBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.orange)),
+                hintStyle: TextStyle(color: Colors.white),
                 hintText: 'Email Address',
                 errorStyle: TextStyle(color: Colors.orange),
                 prefixIcon: Icon(
@@ -126,6 +127,7 @@ class _SignUpState extends State<SignUp> {
                 focusedErrorBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.orange)),
                 hintText: 'Password',
+                hintStyle: TextStyle(color: Colors.white),
                 prefixIcon: Icon(
                   Icons.lock_outlined,
                   color: Colors.white,
@@ -140,6 +142,7 @@ class _SignUpState extends State<SignUp> {
             obscureText: true,
             decoration: InputDecoration(
               hintText: 'Re-type password',
+              hintStyle: TextStyle(color: Colors.white),
               errorStyle: TextStyle(color: Colors.orange),
               prefixIcon: Icon(
                 Icons.lock_outlined,

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,162 +41,164 @@ class Themes {
 
   static int get darkMode => 2;
 
+  /// NAME         SIZE  WEIGHT  SPACING
+  /// headline1    96.0  light   -1.5
+  /// headline2    60.0  light   -0.5
+  /// headline3    48.0  regular  0.0
+  /// headline4    34.0  regular  0.25
+  /// headline5    24.0  regular  0.0
+  /// headline6    20.0  medium   0.15
+  /// subtitle1    16.0  regular  0.15
+  /// subtitle2    14.0  medium   0.1
+  /// body1        16.0  regular  0.5   (bodyText1)
+  /// body2        14.0  regular  0.25  (bodyText2)
+  /// button       14.0  medium   1.25
+  /// caption      12.0  regular  0.4
+  /// overline     10.0  regular  1.5
+
+  static final lightTextTheme = Typography.material2018(
+          platform:
+              Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android)
+      .black
+      .merge(TextTheme(
+        headline1: TextStyle(fontFamily: 'Montserrat'),
+        headline2: TextStyle(fontFamily: 'Montserrat'),
+        headline3: TextStyle(fontFamily: 'Montserrat'),
+        headline4: TextStyle(fontFamily: 'Montserrat'),
+        headline5: TextStyle(fontFamily: 'Montserrat'),
+        headline6: TextStyle(fontFamily: 'Montserrat'),
+        subtitle1: TextStyle(fontFamily: 'Montserrat'),
+        subtitle2: TextStyle(fontFamily: 'Montserrat'),
+        caption: TextStyle(fontFamily: 'Montserrat'),
+        bodyText2: TextStyle(fontFamily: 'Lato'),
+        bodyText1: TextStyle(fontFamily: 'Lato'),
+        button: TextStyle(fontFamily: 'Montserrat'),
+        overline: TextStyle(fontFamily: 'Montserrat'),
+      ));
+
+  static final darkTextTheme = Typography.material2018(
+          platform:
+              Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android)
+      .white
+      .merge(TextTheme(
+        headline1: TextStyle(fontFamily: 'Montserrat'),
+        headline2: TextStyle(fontFamily: 'Montserrat'),
+        headline3: TextStyle(fontFamily: 'Montserrat'),
+        headline4: TextStyle(fontFamily: 'Montserrat'),
+        headline5: TextStyle(fontFamily: 'Montserrat'),
+        headline6: TextStyle(fontFamily: 'Montserrat'),
+        subtitle1: TextStyle(fontFamily: 'Montserrat'),
+        subtitle2: TextStyle(fontFamily: 'Montserrat'),
+        caption: TextStyle(fontFamily: 'Montserrat'),
+        bodyText2: TextStyle(fontFamily: 'Lato'),
+        bodyText1: TextStyle(fontFamily: 'Lato'),
+        button: TextStyle(fontFamily: 'Montserrat'),
+        overline: TextStyle(fontFamily: 'Montserrat'),
+      ));
+
   static ThemeData get lightTheme {
     return ThemeData(
-        brightness: Brightness.light,
-        // canvasColor: const Color(0xffdbe2ef),
-        unselectedWidgetColor: Colors.blue[800],
-        primaryColor: const Color(0xff3f72af),
-        primaryColorLight: const Color(0xffdbe2ef),
-        primaryColorDark: const Color(0xff112d4e),
-        accentColor: Colors.teal[600],
-        shadowColor: Colors.black,
-        dividerColor: const Color(0xffBDBDBD),
-        scaffoldBackgroundColor: Colors.white,
-        backgroundColor: Colors.white,
-        primaryTextTheme: TextTheme(
-            headline1: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 22,
-                fontWeight: FontWeight.bold),
-            headline2: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-            headline3: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
-            headline4: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 16,
-                fontWeight: FontWeight.bold),
-            bodyText1: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 15,
-                fontWeight: FontWeight.bold),
-            bodyText2: TextStyle(
-                fontFamily: 'Montserrat',
-                fontSize: 12,
-                fontWeight: FontWeight.normal)),
-        textTheme: TextTheme(
-            headline1: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 24,
-                fontWeight: FontWeight.bold),
-            headline2: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 20,
-                fontWeight: FontWeight.bold),
-            headline3: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 18,
-                fontWeight: FontWeight.bold),
-            headline4: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 16,
-                fontWeight: FontWeight.bold),
-            bodyText1: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 14,
-                fontWeight: FontWeight.bold),
-            bodyText2: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 16,
-                fontWeight: FontWeight.normal),
-            subtitle1: TextStyle(
-                color: Colors.black,
-                fontFamily: 'Montserrat',
-                fontSize: 12,
-                fontWeight: FontWeight.bold)),
-        inputDecorationTheme: InputDecorationTheme(
-            contentPadding: EdgeInsets.all(12.0),
-            hintStyle: TextStyle(color: Colors.grey[500]),
-            errorBorder: UnderlineInputBorder()),
-        errorColor: const Color(0xffff6d6f),
-        splashColor: Colors.grey.shade300,
-        indicatorColor: Colors.white,
-        disabledColor: Color(0xffdcc7ff),
-        highlightColor: Colors.white,
-        cardColor: Colors.white,
-        colorScheme: ColorScheme.light(
-            primary: const Color(0xff3f72af),
-            onPrimary: Colors.white,
-            secondary: Color(0xff495057),
-            secondaryVariant: Color(0xff3cd278),
-            onSecondary: Colors.white,
-            surface: Color(0xffe2e7f1),
-            background: Colors.white,
-            onBackground: Colors.black87),
-
-        // textButtonTheme: TextButtonThemeData(
-        //     style: ButtonStyle(
-        //       animationDuration: Duration(milliseconds: 300),
-        //       elevation: MaterialStateProperty.all<double>(15.0),
-        //       backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[800]!),
-        //       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //           RoundedRectangleBorder(
-        //               borderRadius: BorderRadius.all(Radius.circular(8.0)))),
-        //     )),
-
-        elevatedButtonTheme: ElevatedButtonThemeData(
+      brightness: Brightness.light,
+      primaryColor: Color(0xff3d63ff),
+      backgroundColor: Colors.white,
+      scaffoldBackgroundColor: Colors.white,
+      navigationRailTheme: NavigationRailThemeData(
+          selectedIconTheme:
+              IconThemeData(color: Color(0xff3d63ff), opacity: 1, size: 24),
+          unselectedIconTheme:
+              IconThemeData(color: Color(0xff495057), opacity: 1, size: 24),
+          backgroundColor: Color(0xffffffff),
+          elevation: 3,
+          selectedLabelTextStyle: TextStyle(color: Color(0xff3d63ff)),
+          unselectedLabelTextStyle: TextStyle(color: Color(0xff495057))),
+      colorScheme: ColorScheme.light(
+          primary: Color(0xff3d63ff),
+          onPrimary: Colors.white,
+          primaryVariant: Color(0xff0055ff),
+          secondary: Color(0xff495057),
+          secondaryVariant: Color(0xff3cd278),
+          onSecondary: Colors.white,
+          surface: Color(0xffe2e7f1),
+          background: Color(0xfff3f4f7),
+          onBackground: Color(0xff495057)),
+      cardTheme: CardTheme(
+        color: Colors.white,
+        shadowColor: Colors.black.withOpacity(0.4),
+        elevation: 1,
+        margin: EdgeInsets.all(0),
+      ),
+      inputDecorationTheme:
+          InputDecorationTheme(hintStyle: TextStyle(color: Color(0xaa495057))),
+      splashColor: Colors.grey.shade300,
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
+      appBarTheme: AppBarTheme(
+        actionsIconTheme: IconThemeData(
+          color: Color(0xff495057),
+        ),
+        color: Color(0xffffffff),
+        iconTheme: IconThemeData(color: Color(0xff495057), size: 24),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            animationDuration: Duration(milliseconds: 300),
-            elevation: MaterialStateProperty.all<double>(15.0),
-            backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xff3f72af)),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0)))),
-          ),
+        animationDuration: Duration(milliseconds: 300),
+        elevation: MaterialStateProperty.all<double>(15.0),
+        backgroundColor:
+            MaterialStateProperty.all<Color>(const Color(0xff3f72af)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0)))),
+      )),
+      primaryTextTheme: lightTextTheme,
+      textTheme: lightTextTheme,
+      fontFamily: 'Montserrat',
+      indicatorColor: Colors.white,
+      disabledColor: Color(0xffdcc7ff),
+      highlightColor: Colors.white,
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Color(0xff3d63ff),
+          splashColor: Colors.white.withAlpha(100),
+          highlightElevation: 8,
+          elevation: 4,
+          focusColor: Color(0xff3d63ff),
+          hoverColor: Color(0xff3d63ff),
+          foregroundColor: Colors.white),
+      dividerColor: Color(0xffd1d1d1),
+      errorColor: Color(0xfff0323c),
+      cardColor: Colors.white,
+      accentColor: Color(0xff3d63ff),
+      popupMenuTheme: PopupMenuThemeData(
+        color: Color(0xffffffff),
+        textStyle: lightTextTheme.bodyText2!
+            .merge(TextStyle(color: Color(0xff495057))),
+      ),
+      bottomAppBarTheme:
+          BottomAppBarTheme(color: Color(0xffffffff), elevation: 2),
+      tabBarTheme: TabBarTheme(
+        unselectedLabelColor: Color(0xff495057),
+        labelColor: Color(0xff3d63ff),
+        indicatorSize: TabBarIndicatorSize.label,
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: Color(0xff3d63ff), width: 2.0),
         ),
-        appBarTheme: AppBarTheme(color: const Color(0xff3f72af)),
-        tabBarTheme: TabBarTheme(
-          unselectedLabelColor: Color(0xff495057),
-          labelColor: Color(0xff3d63ff),
-          indicatorSize: TabBarIndicatorSize.label,
-          indicator: UnderlineTabIndicator(
-            borderSide: BorderSide(color: Color(0xff3d63ff), width: 2.0),
-          ),
-        ),
-        cardTheme: CardTheme(
+      ),
+      sliderTheme: SliderThemeData(
+        activeTrackColor: Color(0xff3d63ff),
+        inactiveTrackColor: Color(0xff3d63ff).withAlpha(140),
+        trackShape: RoundedRectSliderTrackShape(),
+        trackHeight: 4.0,
+        thumbColor: Color(0xff3d63ff),
+        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
+        overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
+        tickMarkShape: RoundSliderTickMarkShape(),
+        inactiveTickMarkColor: Colors.red[100],
+        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
+        valueIndicatorTextStyle: TextStyle(
           color: Colors.white,
-          shadowColor: Colors.black.withOpacity(0.4),
-          elevation: 1,
-          margin: EdgeInsets.all(0),
         ),
-        iconTheme: IconThemeData(
-          color: Colors.white,
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Color(0xff3d63ff),
-            splashColor: Colors.white.withAlpha(100),
-            highlightElevation: 8,
-            elevation: 4,
-            focusColor: Color(0xff3d63ff),
-            hoverColor: Color(0xff3d63ff),
-            foregroundColor: Colors.white),
-        sliderTheme: SliderThemeData(
-          activeTrackColor: Color(0xff3d63ff),
-          inactiveTrackColor: Color(0xff3d63ff).withAlpha(140),
-          trackShape: RoundedRectSliderTrackShape(),
-          trackHeight: 4.0,
-          thumbColor: Color(0xff3d63ff),
-          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 10.0),
-          overlayShape: RoundSliderOverlayShape(overlayRadius: 24.0),
-          tickMarkShape: RoundSliderTickMarkShape(),
-          inactiveTickMarkColor: Colors.red[100],
-          valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-          valueIndicatorTextStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ));
+      ),
+    );
   }
 
   static ThemeData get darkTheme {
@@ -231,57 +235,16 @@ class Themes {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
-        primaryTextTheme: TextTheme(
-          headline1: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 22,
-              fontWeight: FontWeight.bold),
-          headline2: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 20,
-              fontWeight: FontWeight.bold),
-          headline3: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 18,
-              fontWeight: FontWeight.bold),
-          headline4: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-          bodyText1: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 15,
-              fontWeight: FontWeight.bold),
-          bodyText2: TextStyle(
-              fontFamily: 'Montserrat',
-              fontSize: 12,
-              fontWeight: FontWeight.normal),
-        ),
-        textTheme: TextTheme(
-            headline1: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            headline2: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            headline3: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            headline4: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            bodyText1: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-            bodyText2: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-            subtitle1: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+        primaryTextTheme: darkTextTheme,
+        textTheme: darkTextTheme,
         fontFamily: 'Montserrat',
         indicatorColor: Colors.white,
         disabledColor: Color(0xffa3a3a3),
-        highlightColor: Colors.white,
+        highlightColor: Colors.grey.shade600,
         inputDecorationTheme: InputDecorationTheme(
             contentPadding: EdgeInsets.all(12.0),
             hintStyle: TextStyle(color: Colors.white),
             errorBorder: UnderlineInputBorder()),
-        // textButtonTheme: TextButtonThemeData(
-        //     style: ButtonStyle(
-        //   animationDuration: Duration(milliseconds: 300),
-        //   elevation: MaterialStateProperty.all<double>(15.0),
-        //   backgroundColor: MaterialStateProperty.all<Color>(Colors.blue[800]!),
-        //   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        //       RoundedRectangleBorder(
-        //           borderRadius: BorderRadius.all(Radius.circular(8.0)))),
-        // )),
         elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
           animationDuration: Duration(milliseconds: 300),
@@ -341,6 +304,15 @@ class Themes {
         return darkTheme;
       default:
         return lightTheme;
+    }
+  }
+
+  static getDetailsAppBarColorFromThemeMode(int themeMode) {
+    switch (themeMode) {
+      case 1:
+        return const Color(0xff3f72af);
+      case 2:
+        return const Color(0xff2e343b);
     }
   }
 }

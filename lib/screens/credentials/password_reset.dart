@@ -24,6 +24,7 @@ class _PasswordResetState extends State<PasswordReset> {
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 2),
+          hintStyle: TextStyle(color: Colors.white),
           hintText: 'Email Address',
         ),
         validator: validateEmail,
@@ -60,6 +61,7 @@ class _PasswordResetState extends State<PasswordReset> {
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 2),
+          hintStyle: TextStyle(color: Colors.white),
           hintText: 'Verification code',
         ),
         onChanged: (val) {
@@ -95,6 +97,7 @@ class _PasswordResetState extends State<PasswordReset> {
         style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 2),
+          hintStyle: TextStyle(color: Colors.white),
           hintText: 'New password',
         ),
         onChanged: (val) {
@@ -159,6 +162,7 @@ class _PasswordResetState extends State<PasswordReset> {
       resizeToAvoidBottomInset: false,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: BackButton(color: Colors.white),
         backgroundColor: Colors.transparent,
         shadowColor: Colors.transparent,
       ),
