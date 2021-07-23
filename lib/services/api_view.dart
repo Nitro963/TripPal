@@ -2,10 +2,20 @@ import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/services/network_service.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
-class ApiView<T extends IModel> extends NetworkService {
+abstract class ApiView<T extends IModel> {
+  Future<List<T>> getAllElements(
+      {Map<String, String?> queryParameters = const {}});
+
+  Future<T> getItem(int id);
+
+  Future<T> patchItem(int id, Map<String, dynamic> json);
+}
+
+class NetworkApiView<T extends IModel> extends NetworkService
+    implements ApiView {
   final String _path;
 
-  ApiView(String baseUrl, String path, Decoder<T> itemBuilder,
+  NetworkApiView(String baseUrl, String path, Decoder<T> itemBuilder,
       {String httpScheme = 'https', int connectTimeout = 8000})
       : _path = path,
         super(
@@ -16,7 +26,7 @@ class ApiView<T extends IModel> extends NetworkService {
   }
 
   Future<List<T>> getAllElements(
-      {Map<String, String> queryParameters = const {}}) async {
+      {Map<String, String?> queryParameters = const {}}) async {
     final response = await this
         .get<List<T>>(_path, queryParameters: queryParameters, decoder: (data) {
       return List<T>.from(data.map((item) => defaultDecoder(item)));

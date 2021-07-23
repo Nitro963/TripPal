@@ -6,7 +6,6 @@ import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 import 'reviews_bar_chart.dart';
 import 'review_card.dart';
-import 'review_writing.dart';
 
 class Reviews extends StatefulWidget {
   @override
@@ -81,7 +80,7 @@ class _ReviewsState extends State<Reviews> {
                                         fontSize: 60)),
                                 Text(
                                   'out of 5',
-                                  style: Get.textTheme.headline3!
+                                  style: Get.textTheme.headline6!
                                       .copyWith(color: const Color(0xff8c8c98)),
                                 ),
                               ]),

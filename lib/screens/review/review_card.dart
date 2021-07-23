@@ -4,6 +4,7 @@ import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 
+// TODO extend to read from a model
 class ReviewCard extends StatelessWidget {
   final bool scrollable;
   final double height;

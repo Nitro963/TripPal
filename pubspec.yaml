@@ -50,6 +50,7 @@ dependencies:
   palette_generator: ^0.3.0
   cron: ^0.3.0
   auto_size_text: ^2.1.0
+  recase: ^4.0.0
 
 dev_dependencies:
   flutter_test:

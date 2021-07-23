@@ -19,6 +19,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
+          leading: BackButton(color: Colors.white),
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
         ),
@@ -39,8 +40,10 @@ class _ReviewWritingState extends State<ReviewWriting> {
                     child: Text('Write a Review',
                         style: Theme.of(context)
                             .primaryTextTheme
-                            .headline2!
-                            .copyWith(color: Colors.white70)),
+                            .headline5!
+                            .copyWith(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold)),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,

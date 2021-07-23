@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/pages.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/home/home_page.dart';
+import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
@@ -15,6 +16,8 @@ import 'package:trip_pal_null_safe/screens/weather_buddy/buddy.dart';
 import 'package:trip_pal_null_safe/services/weather_service.dart';
 import 'package:trip_pal_null_safe/screens/review/reviews_list.dart';
 import 'package:trip_pal_null_safe/screens/home/hotel_search_page.dart';
+import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
 
 import 'controllers/app_theme_controller.dart';
 import 'controllers/filters_controller.dart';
@@ -50,7 +53,7 @@ Future<bool> initServices() async {
     await box.write('boarding', false);
   }
 
-  // Get.lazyPut(() => BackendService());
+  Get.lazyPut(() => BackendService());
   return boarding;
 }
 
@@ -114,19 +117,22 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // var x = GetStorage().read<bool>('boarding');
           // print(x);
           // Get.toNamed('/login');
-          // Get.toNamed('/reviews');
+          Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
           // Get.lazyPut(() => SearchBarController());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(() => PlaceDetails());
-          Get.put(HotelSearchController());
-          Get.put(FilterController());
-          Get.to(() => Scaffold(
-              appBar: AppBar(),
-              drawer: HomeDrawer(),
-              resizeToAvoidBottomInset: false,
-              body: HotelSearchPage()));
-          // Get.toNamed('/login');
+          // Get.put(HotelSearchController());
+          // Get.put(FilterController());
+          // Get.to(() => Scaffold(
+          //     appBar: AppBar(),
+          //     drawer: HomeDrawer(),
+          //     resizeToAvoidBottomInset: false,
+          //     body: HotelSearchPage()));
+          // Get.to(() => PlacesSearchEngine());
+          // Get.toNamed('/reviews');
+          // Get.to(() => SavedPlaces());
+          // Get.to(() => Scaffold(body: TripsPage()));
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

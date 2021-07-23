@@ -46,7 +46,7 @@ abstract class NetworkService {
   }
 
   Future<Response<T>> get<T>(String path,
-      {Map<String, String> queryParameters = const {},
+      {Map<String, String?> queryParameters = const {},
       Map<String, String> headers = const {},
       Decoder<T>? decoder}) async {
     var request = dio.RequestOptions(
