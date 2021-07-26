@@ -24,35 +24,35 @@ class HotelFiltersPage extends StatelessWidget {
               Expanded(
                   child: ListView(children: <Widget>[
                 FilterSubTitle(filterName: 'Star Rating'),
-                FiltersSlider(
-                    count: controller.selectedStarRating,
+                Obx(()=>FiltersSlider(
+                    count: controller.selectedStarRating.value,
                     label: ' Stars',
                     divisions: 4,
                     maxLabel: '5 Stars',
                     minLabel: '1 star',
                     maxRange: 5,
                     onChanged: (newValue) =>
-                        controller.selectedStarRating.value = newValue),
+                        controller.selectedStarRating.value = newValue)),
                 FilterSubTitle(filterName: 'Guests Rating'),
-                FiltersSlider(
-                    count: controller.selectedGuestRating,
+                Obx(()=>FiltersSlider(
+                    count: controller.selectedGuestRating.value,
                     label: '',
                     divisions: 9,
                     maxLabel: 'Excelente',
                     minLabel: 'Bad',
                     maxRange: 10,
                     onChanged: (newValue) =>
-                        controller.selectedGuestRating.value = newValue),
+                        controller.selectedGuestRating.value = newValue)),
                 FilterSubTitle(filterName: 'Price per Night'),
-                FiltersSlider(
-                    count: controller.selectedPrice,
+                Obx(()=>FiltersSlider(
+                    count: controller.selectedPrice.value,
                     label: '\$',
                     divisions: 100,
                     maxLabel: '500\$',
                     minLabel: '0\$',
                     maxRange: 500,
                     onChanged: (newValue) =>
-                        controller.selectedPrice.value = newValue),
+                        controller.selectedPrice.value = newValue)),
               ])),
               RoundedButton(
                   title: 'Apply Filters',

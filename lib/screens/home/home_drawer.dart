@@ -135,7 +135,6 @@ class CustomDrawerHeader extends GetView<ProfileController> {
   }
 }
 
-// TODO apply themes
 class ProfileMiniInfo extends GetView<ProfileController> {
   const ProfileMiniInfo({
     Key? key,
@@ -153,7 +152,7 @@ class ProfileMiniInfo extends GetView<ProfileController> {
             flex: 2,
             child: Text(
               controller.userName,
-              style: TextStyle(color: Colors.blueGrey[900], fontSize: 20.0),
+              style: Get.theme.textTheme.headline6
             ),
           ),
           SizedBox(
@@ -163,7 +162,7 @@ class ProfileMiniInfo extends GetView<ProfileController> {
             flex: 1,
             child: Text(
               controller.userSubName,
-              style: TextStyle(color: Colors.blueGrey[600], fontSize: 12.0),
+              style:  Get.theme.textTheme.subtitle2
             ),
           ),
           SizedBox(height: 8.0),
@@ -173,7 +172,7 @@ class ProfileMiniInfo extends GetView<ProfileController> {
               padding: EdgeInsets.all(10.0),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.grey[200]),
+                  color: Get.theme.cardColor),
               child: Row(
                 children: <Widget>[
                   InfoItem(
@@ -220,14 +219,15 @@ class InfoItem extends StatelessWidget {
           flex: 2,
           child: Text(
             title,
-            style: TextStyle(color: Colors.grey, fontSize: 10.0),
+            style: Get.theme.textTheme.bodyText1!.copyWith(fontSize: 10),
+            // style: TextStyle(color: Colors.grey, fontSize: 10.0),
           ),
         ),
         Flexible(
           flex: 3,
           child: Text(
             count.toString(),
-            style: TextStyle(fontSize: 18.0),
+            style: Get.theme.textTheme.bodyText2!.copyWith(fontSize: 15),
           ),
         )
       ],

@@ -19,15 +19,15 @@ class TripFiltersPage extends GetView<FilterController> {
                 title: 'Sorting User Trip Plans',
                 subTitle: 'Let us help you find the trip plans that you want'),
             FilterSubTitle(filterName: 'Sorting Type'),
-            ...controller.tripsSortType.map((e) => RoundedRadioButton(
-                groupValue: controller.sortType,
-                value: e,
-                onChanged: (value) => controller.changeTripsSortType(value))),
+            ...controller.tripsSortType.map((e) => Obx(()=>RoundedRadioButton(
+                groupValue: controller.sortType.value,
+                value: e.value,
+                onChanged: (value) => controller.changeTripsSortType(value)))),
             FilterSubTitle(filterName: 'Sorting By'),
-            ...controller.tripsSortOrder.map((e) => RoundedRadioButton(
-                groupValue: controller.sortOrder,
-                value: e,
-                onChanged: (value) => controller.changeTripsSortOrder(value))),
+            ...controller.tripsSortOrder.map((e) => Obx(()=>RoundedRadioButton(
+                groupValue: controller.sortOrder.value,
+                value: e.value,
+                onChanged: (value) => controller.changeTripsSortOrder(value)))),
             RoundedButton(
                 title: 'Save Preferences',
                 icon: Icon(FontAwesomeIcons.solidSave,

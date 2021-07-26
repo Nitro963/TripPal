@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 
 class FilterCheckBox extends StatelessWidget {
@@ -14,7 +15,6 @@ class FilterCheckBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
       padding: const EdgeInsets.fromLTRB(26.0, 0.0, 40.0, 0.0),
       height: 50.0,
       child: Row(
@@ -23,16 +23,13 @@ class FilterCheckBox extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-            ),
+            style: Get.theme.textTheme.subtitle2!.copyWith(fontSize: 19.0)
           ),
           RoundCheckBox(
-            borderColor: Colors.blue[800],
+            borderColor: Get.theme.toggleableActiveColor,
             isChecked: isChecked,
             size: 25.0,
-            checkedColor: Colors.blue[800],
+            checkedColor: Get.theme.toggleableActiveColor,
             onTap: onTap,
             checkedWidget: icon,
           ),

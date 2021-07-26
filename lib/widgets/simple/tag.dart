@@ -15,13 +15,12 @@ class Tag extends StatelessWidget {
         margin: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.0),
-            color: Colors.lightBlue[50]),
+            color: Get.theme.canvasColor
+            ),
         child: Text(
           kind.capitalizeFirst!,
-          style: TextStyle(
-              color: Colors.lightBlue[400],
-              fontSize: 14.0,
-              fontWeight: FontWeight.bold),
+          style: Get.theme.textTheme.subtitle2!.copyWith(color: Get.theme.colorScheme.onSecondary, fontWeight: FontWeight.bold),
         ));
   }
 }
+

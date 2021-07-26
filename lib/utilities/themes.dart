@@ -98,6 +98,7 @@ class Themes {
 
   static ThemeData get lightTheme {
     return ThemeData(
+      // canvasColor: Colors.lightBlue[50],
       brightness: Brightness.light,
       primaryColor: Color(0xff3d63ff),
       backgroundColor: Colors.white,
@@ -117,7 +118,7 @@ class Themes {
           primaryVariant: Color(0xff0055ff),
           secondary: Color(0xff495057),
           secondaryVariant: Color(0xff3cd278),
-          onSecondary: Colors.white,
+          onSecondary: Colors.lightBlue[800]!,
           surface: Color(0xffe2e7f1),
           background: Color(0xfff3f4f7),
           onBackground: Color(0xff495057)),
@@ -131,7 +132,7 @@ class Themes {
           InputDecorationTheme(hintStyle: TextStyle(color: Color(0xaa495057))),
       splashColor: Colors.grey.shade300,
       iconTheme: IconThemeData(
-        color: Colors.white,
+        color:  Color(0xff3d63ff),
       ),
       appBarTheme: AppBarTheme(
         actionsIconTheme: IconThemeData(
@@ -183,6 +184,7 @@ class Themes {
           borderSide: BorderSide(color: Color(0xff3d63ff), width: 2.0),
         ),
       ),
+      
       sliderTheme: SliderThemeData(
         activeTrackColor: Color(0xff3d63ff),
         inactiveTrackColor: Color(0xff3d63ff).withAlpha(140),
@@ -204,7 +206,7 @@ class Themes {
   static ThemeData get darkTheme {
     return ThemeData(
         brightness: Brightness.dark,
-        // canvasColor: Color(0xff464c52),
+        // canvasColor: Color(0xff3d63ff),
         primaryColor: Color(0xff3d63ff),
         scaffoldBackgroundColor: Color(0xff464c52),
         backgroundColor: Color(0xff464c52),
@@ -233,7 +235,7 @@ class Themes {
           margin: EdgeInsets.all(0),
         ),
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: Color(0xffffffff),
         ),
         primaryTextTheme: darkTextTheme,
         textTheme: darkTextTheme,

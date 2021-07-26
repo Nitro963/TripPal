@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class HomeDrawerItem extends StatelessWidget {
   const HomeDrawerItem({
@@ -33,7 +34,6 @@ class HomeDrawerItem extends StatelessWidget {
                 Icon(
                   icon,
                   size: 16.0,
-                  color: Colors.lightBlue[900],
                 ),
                 SizedBox(width: 16.0),
                 Column(
@@ -42,29 +42,21 @@ class HomeDrawerItem extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       title,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16.0,
-                          color: Colors.blueGrey[800]),
+                      style: Get.theme.textTheme.subtitle1
                     ),
                     SizedBox(
                       height: 4.0,
                     ),
                     Text(
                       subTitle,
-                      style: TextStyle(
-                          color: Colors.blueGrey[200],
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12.0),
+                      style:Get.theme.textTheme.subtitle2
                     ),
                   ],
                 )
               ],
             ),
             Icon(
-              // FontAwesomeIcons.caretRight,
               FontAwesomeIcons.angleRight,
-              color: Colors.blueGrey[300],
               size: 16.0,
             )
           ],

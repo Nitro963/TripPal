@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
 import 'package:trip_pal_null_safe/pages.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
+import 'package:trip_pal_null_safe/screens/filtering/basic_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/home/home_page.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
@@ -23,6 +24,7 @@ import 'controllers/app_theme_controller.dart';
 import 'controllers/filters_controller.dart';
 import 'controllers/hotel_search_controller.dart';
 import 'dialogs/change_theme_dialog.dart';
+import 'screens/planing/places_search_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -117,18 +119,20 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // var x = GetStorage().read<bool>('boarding');
           // print(x);
           // Get.toNamed('/login');
-          Get.toNamed('/reviews');
+          // Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
-          // Get.lazyPut(() => SearchBarController());
+          Get.lazyPut(() => SearchBarController());
           // Get.to(() => Scaffold(body: HomePage()));
+          // Get.to(HomeDrawer());
           // Get.to(() => PlaceDetails());
-          // Get.put(HotelSearchController());
-          // Get.put(FilterController());
-          // Get.to(() => Scaffold(
-          //     appBar: AppBar(),
-          //     drawer: HomeDrawer(),
-          //     resizeToAvoidBottomInset: false,
-          //     body: HotelSearchPage()));
+          Get.put(HotelSearchController());
+          Get.put(FilterController());
+          // Get.to(FiltersPage());
+          Get.to(() => Scaffold(
+              appBar: AppBar(),
+              drawer: HomeDrawer(),
+              resizeToAvoidBottomInset: false,
+              body: HotelSearchPage()));
           // Get.to(() => PlacesSearchEngine());
           // Get.toNamed('/reviews');
           // Get.to(() => SavedPlaces());

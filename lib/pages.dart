@@ -35,4 +35,5 @@ List<GetPage> pages = [
       page: () => PlacesSearch(),
       binding: BindingsBuilder.put(() => PlacesSearchViewController(),
           permanent: true)),
+          
 ];

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
+import 'package:trip_pal_null_safe/screens/filtering/trip_filters_page.dart';
 import '../../../dummy_data.dart';
-import 'custom_appbar.dart';
 import 'saved_trips_header.dart';
 import 'trip_widget.dart';
 
@@ -53,14 +54,21 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        // TODO remove this dummy bar :)
-        // use actions, title, leading instead
-        // please use themes!
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.white,
-        title: UserTripsAppBar(),
+        elevation: 0.0,
+        centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () => Get.to(TripFiltersPage()),
+              icon: Icon(
+                FontAwesomeIcons.slidersH,
+                size: 16,
+              )),
+        ],
+        automaticallyImplyLeading: true,
+        title: Text(
+          'Trips',
+        ),
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,

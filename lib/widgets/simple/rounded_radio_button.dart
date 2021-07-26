@@ -9,14 +9,14 @@ class RoundedRadioButton extends StatelessWidget {
     required this.onChanged,
   }) : super(key: key);
 
-  final RxString value;
-  final RxString groupValue;
+  final String value;
+  final String groupValue;
   final void Function(String?)? onChanged;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (onChanged != null) onChanged!(value.value);
+        if (onChanged != null) onChanged!(value);
       },
       child: Container(
         height: 50.0,
@@ -26,23 +26,16 @@ class RoundedRadioButton extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              value.value,
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            value,
+            style: Get.theme.textTheme.subtitle2!.copyWith(fontSize: 19.0)
+          ),
             Transform.scale(
               scale: 1.4,
-              child: Obx(
-                () => Radio(
-                    fillColor: MaterialStateColor.resolveWith(
-                        (states) => Colors.blue[800]!),
-                    value: value.value,
-                    groupValue: groupValue.value,
-                    onChanged: onChanged),
-              ),
-            )
+              child: Radio(
+                  value: value,
+                  groupValue: groupValue,
+                  onChanged: onChanged),
+            ),
           ],
         ),
       ),

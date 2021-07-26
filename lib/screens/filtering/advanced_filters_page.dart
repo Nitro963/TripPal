@@ -16,56 +16,56 @@ class AdvancedFiltersPage extends GetView<FilterController> {
     controller.selectedTypes.forEach((type) {
       result.add(FilterSubTitle(
           filterName: 'How interested are you in ' + type + ' places?'));
-      result.add(FiltersSlider(
-        count: controller.contentValues[type]!,
-        onChanged: (newValue) =>
-            controller.contentValues[type]!.value = newValue,
-        divisions: 9,
-        maxLabel: '10',
-        minLabel: '1',
-        maxRange: 10,
-        label: '',
-      ));
+      result.add(Obx(() => FiltersSlider(
+            count: controller.contentValues[type]!.value,
+            onChanged: (newValue) =>
+                controller.contentValues[type]!.value = newValue,
+            divisions: 9,
+            maxLabel: '10',
+            minLabel: '1',
+            maxRange: 10,
+            label: '',
+          )));
     });
     if (controller.foodsChecked.value) {
       result.add(FilterSubTitle(
           filterName: 'How interested are you in Foods & Drinks?'));
-      result.add(FiltersSlider(
-        count: controller.foods,
-        onChanged: (newValue) => controller.foods.value = newValue,
-        divisions: 9,
-        maxLabel: '10',
-        minLabel: '1',
-        maxRange: 10,
-        label: '',
-      ));
+      result.add(Obx(() => FiltersSlider(
+            count: controller.foods.value,
+            onChanged: (newValue) => controller.foods.value = newValue,
+            divisions: 9,
+            maxLabel: '10',
+            minLabel: '1',
+            maxRange: 10,
+            label: '',
+          )));
     }
     if (controller.shopsChecked.value) {
       result.add(
           FilterSubTitle(filterName: 'How interested are you in Shopping?'));
-      result.add(FiltersSlider(
-        count: controller.shops,
-        onChanged: (newValue) => controller.shops.value = newValue,
-        divisions: 9,
-        maxLabel: '10',
-        minLabel: '1',
-        maxRange: 10,
-        label: '',
-      ));
+      result.add(Obx(() => FiltersSlider(
+            count: controller.shops.value,
+            onChanged: (newValue) => controller.shops.value = newValue,
+            divisions: 9,
+            maxLabel: '10',
+            minLabel: '1',
+            maxRange: 10,
+            label: '',
+          )));
     }
 
     result.add(FilterSubTitle(
         filterName: 'How many places would you visit in a single day?'));
 
-    result.add(FiltersSlider(
-      count: controller.placesPerDay,
-      onChanged: (newValue) => controller.placesPerDay.value = newValue,
-      divisions: 9,
-      maxLabel: '10',
-      minLabel: '1',
-      maxRange: 10,
-      label: '',
-    ));
+    result.add(Obx(() => FiltersSlider(
+          count: controller.placesPerDay.value,
+          onChanged: (newValue) => controller.placesPerDay.value = newValue,
+          divisions: 9,
+          maxLabel: '10',
+          minLabel: '1',
+          maxRange: 10,
+          label: '',
+        )));
     return result;
   }
 

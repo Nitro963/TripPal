@@ -14,23 +14,12 @@ class LocationsPage extends GetView<FilterController> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> content = List<Widget>.empty(growable: true).obs;
     // never make a observable list of widget. Make a model and read from it dynamically.
     // TODO use onInit and polymorphism never ever do this (i.e extends filter controller for each screen and override the property)
     // TODO use binding to ensure the controller is initialized and in memory.
-    for (String city in controller.cities) {
-      controller.locsContentCheck[city] = false.obs;
-      content.add(new RoundedGestWidget(
-        title: city,
-        selected: controller.locsContentCheck[city]!,
-        onTap: () {
-          controller.locsContentCheck[city]!.toggle();
-        },
-      ));
-    }
+    
     // TODO apply themes
     return Scaffold(
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
           children: <Widget>[
@@ -52,7 +41,16 @@ class LocationsPage extends GetView<FilterController> {
                   spacing: 10.0,
                   alignment: WrapAlignment.center,
                   runSpacing: 20.0,
-                  children: content),
+                  children: [
+                    for (String city in controller.cities)
+                      new Obx(() => RoundedGestWidget(
+                            title: city,
+                            selected: controller.locsContentCheck[city]!.value,
+                            onTap: () {
+                              controller.locsContentCheck[city]!.toggle();
+                            },
+                          ))
+                  ]),
             ),
             RoundedButton(
                 title: 'Add Places',

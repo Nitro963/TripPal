@@ -13,7 +13,7 @@ class FiltersSlider extends StatelessWidget {
     required this.label,
   }) : super(key: key);
 
-  final RxDouble count;
+  final double count;
   final onChanged;
   final int maxRange;
   final int divisions;
@@ -59,7 +59,7 @@ class CustomSliderTheme extends StatelessWidget {
       required this.label})
       : super(key: key);
 
-  final RxDouble currentSliderValue;
+  final double currentSliderValue;
   final onChanged;
   final int minRange;
   final int maxRange;
@@ -68,33 +68,13 @@ class CustomSliderTheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: SliderTheme(
-        data: SliderTheme.of(context).copyWith(
-          activeTrackColor: Colors.blue[700],
-          inactiveTrackColor: Colors.blue[100],
-          trackShape: RoundedRectSliderTrackShape(),
-          trackHeight: 4.0,
-          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 8.0),
-          thumbColor: Colors.blue[900],
-          overlayColor: Colors.blueAccent.withAlpha(32),
-          overlayShape: RoundSliderOverlayShape(overlayRadius: 8.0),
-          tickMarkShape: RoundSliderTickMarkShape(),
-          activeTickMarkColor: Colors.blue[700],
-          inactiveTickMarkColor: Colors.blue[100],
-          valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-          valueIndicatorColor: Colors.blueAccent,
-          valueIndicatorTextStyle: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        child: Obx(() => Slider(
-            value: currentSliderValue.value,
-            min: minRange.toDouble(),
-            max: maxRange.toDouble(),
-            divisions: divisions,
-            label: currentSliderValue.value.round().toString() + label,
-            onChanged: onChanged)),
-      ),
+      child: Slider(
+          value: currentSliderValue,
+          min: minRange.toDouble(),
+          max: maxRange.toDouble(),
+          divisions: divisions,
+          label: currentSliderValue.round().toString() + label,
+          onChanged: onChanged),
     );
   }
 }

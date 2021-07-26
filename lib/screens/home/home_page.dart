@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorderable_list.dart';
@@ -158,48 +159,65 @@ class HomePage extends StatelessWidget {
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: [
-              GestureDetector(
-                onTap: () {
-                  // Why?! user getters and setters!!
-                  // Map not working in full screen mode!
-                  if (searchController.mapHeight.value >
-                      MySize.screenHeight / 3)
-                    searchController.updateMapHeight(MySize.screenHeight / 3);
-                  else
-                    searchController.updateMapHeight(MySize.screenHeight);
-                },
-                child: Obx(
-                  () => Container(
-                    width: MySize.screenWidth,
-                    height: searchController.mapHeight.value,
-                    margin: EdgeInsets.only(bottom: 20.0),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Colors.grey[350]!, width: 3.0))),
-                    child: GoogleMap(
-                      myLocationButtonEnabled: false,
-                      trafficEnabled: false,
-                      mapToolbarEnabled: false,
-                      myLocationEnabled: true,
-                      initialCameraPosition: searchController.cameraPosition,
-                      onMapCreated: (controller) {
-                        searchController.mapController = controller;
-                      },
-                      markers: {
-                        Marker(
-                            markerId: const MarkerId('marker1'),
-                            infoWindow: InfoWindow(
-                                title: searchController
-                                    .markerInfoWindowTitle.value),
-                            icon: BitmapDescriptor.defaultMarkerWithHue(
-                                BitmapDescriptor.hueAzure),
-                            position: LatLng(searchController.latitude.value,
-                                searchController.longitude.value))
-                      },
+              Stack(
+                children: <Widget>[
+                  Obx(
+                    () => Container(
+                      width: MySize.screenWidth,
+                      height: searchController.mapHeight.value - 40,
+                      margin: EdgeInsets.only(bottom: 20.0),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(
+                                  color: Colors.grey[350]!, width: 3.0))),
+                      child: GoogleMap(
+                        myLocationButtonEnabled: false,
+                        trafficEnabled: false,
+                        mapToolbarEnabled: false,
+                        myLocationEnabled: true,
+                        zoomControlsEnabled: false,
+                        initialCameraPosition:
+                            searchController.cameraPosition,
+                        onMapCreated: (controller) {
+                          searchController.mapController = controller;
+                        },
+                        markers: {
+                          Marker(
+                              markerId: const MarkerId('marker1'),
+                              infoWindow: InfoWindow(
+                                  title: searchController
+                                      .markerInfoWindowTitle.value),
+                              icon: BitmapDescriptor.defaultMarkerWithHue(
+                                  BitmapDescriptor.hueAzure),
+                              position: LatLng(
+                                  searchController.latitude.value,
+                                  searchController.longitude.value))
+                        },
+                      ),
                     ),
                   ),
-                ),
+                  Positioned(
+                    right: 15,
+                    bottom: 30,
+                    child: InkWell(
+                      onTap: () {
+                if (searchController.mapHeight.value >
+                    MySize.screenHeight / 3)
+                  searchController.updateMapHeight(MySize.screenHeight / 3);
+                else
+                  searchController.updateMapHeight(MySize.screenHeight);
+              },
+                      child: Container(
+                        color: Get.theme.cardColor,
+                        padding: Spacing.all(4),
+                        child: Icon(
+                          FontAwesomeIcons.expandAlt,
+                          size: 15.0,
+                        ),
+                      ),
+                    )
+                  )
+                ],
               ),
               // TopCities(),
               Padding(

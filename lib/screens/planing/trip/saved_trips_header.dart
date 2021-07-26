@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:trip_pal_null_safe/utilities/constants.dart';
+import 'package:get/get.dart';
 
 class SavedTripsHeader extends StatelessWidget {
   const SavedTripsHeader({
@@ -12,27 +12,22 @@ class SavedTripsHeader extends StatelessWidget {
   final String subTitle;
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
       padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-      child: Container(
-        child: FittedBox(
-          fit: BoxFit.fill,
-          alignment: Alignment.topCenter,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                title,
-                style: kPrimaryFiltersTitleStyle.copyWith(color: Colors.black),
-              ),
-              Text(
-                subTitle,
-                style:
-                    kSecondaryFiltersTitleStyle.copyWith(color: Colors.black),
-              ),
-            ],
-          ),
+      child: FittedBox(
+        fit: BoxFit.fill,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              title,
+              style: Get.textTheme.headline4!.copyWith(fontWeight: FontWeight.bold)
+            ),
+            Text(
+              subTitle,
+              style: Get.textTheme.headline5!
+            ),
+          ],
         ),
       ),
     );

@@ -102,15 +102,11 @@ class PlaceCard extends StatelessWidget {
                         Icon(
                           FontAwesomeIcons.solidMap,
                           size: 15.0,
-                          color: Colors.blueGrey[700],
                         ),
                         SizedBox(width: 6.0),
                         Text(
                           'Map',
-                          style: TextStyle(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.blueGrey[600]),
+                          style: Get.theme.textTheme.subtitle2
                         ),
                       ],
                     ),

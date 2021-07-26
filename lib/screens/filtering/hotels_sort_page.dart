@@ -26,12 +26,12 @@ class HotelSortPage extends GetView<FilterController> {
             ...controller.hotelSortTypes.map(
               (e) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: RoundedRadioButton(
-                    groupValue: controller.hotelsSortType,
-                    value: e,
+                child: Obx(()=>RoundedRadioButton(
+                    groupValue: controller.hotelsSortType.value,
+                    value: e.value,
                     onChanged: (value) =>
                         controller.changeHotelsSortType(value)),
-              ),
+              )),
             ),
             RoundedButton(
                 title: 'Save Preferences',

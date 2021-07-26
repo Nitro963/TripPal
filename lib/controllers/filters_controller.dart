@@ -8,6 +8,9 @@ class FilterController extends GetxController {
       placesContentCheck[type] = false.obs;
       contentValues[type] = 5.0.obs;
     }
+    for (String city in this.cities) 
+      this.locsContentCheck[city] = false.obs;
+
     super.onInit();
   }
 
