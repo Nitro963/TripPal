@@ -128,15 +128,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Get.put(HotelSearchController());
           Get.put(FilterController());
           // Get.to(FiltersPage());
-          Get.to(() => Scaffold(
-              appBar: AppBar(),
-              drawer: HomeDrawer(),
-              resizeToAvoidBottomInset: false,
-              body: HotelSearchPage()));
+          // Get.to(() => Scaffold(
+          //     appBar: AppBar(),
+          //     drawer: HomeDrawer(),
+          //     resizeToAvoidBottomInset: false,
+          //     body: HotelSearchPage()));
           // Get.to(() => PlacesSearchEngine());
           // Get.toNamed('/reviews');
           // Get.to(() => SavedPlaces());
-          // Get.to(() => Scaffold(body: TripsPage()));
+          Get.to(() => Scaffold(body: TripsPage()));
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

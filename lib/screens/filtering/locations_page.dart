@@ -14,11 +14,6 @@ class LocationsPage extends GetView<FilterController> {
 
   @override
   Widget build(BuildContext context) {
-    // never make a observable list of widget. Make a model and read from it dynamically.
-    // TODO use onInit and polymorphism never ever do this (i.e extends filter controller for each screen and override the property)
-    // TODO use binding to ensure the controller is initialized and in memory.
-    
-    // TODO apply themes
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -28,7 +23,6 @@ class LocationsPage extends GetView<FilterController> {
                 subTitle:
                     'We\'ll use these countries as base for searching places for you'),
             Space.height(10),
-            // TODO convert to dynamic wrap (i.e read from observable list in a GetxController)
             // search for places using a floating search bar and photon api
             // expandable body is a simple implicitly animated list
             // user can add, disable and delete location

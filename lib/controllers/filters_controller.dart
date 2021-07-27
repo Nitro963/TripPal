@@ -34,8 +34,8 @@ class FilterController extends GetxController {
   RxDouble daysCount = 3.0.obs;
 
   RxDouble placesPerDay = 3.0.obs;
-  RxDouble foods = 5.0.obs;
-  RxDouble shops = 5.0.obs;
+  RxDouble foods = 2.0.obs;
+  RxDouble shops = 2.0.obs;
   RxDouble selectedPrice = 150.0.obs;
   RxDouble selectedStarRating = 3.0.obs;
   RxDouble selectedGuestRating = 5.0.obs;

@@ -50,7 +50,6 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
     });
   }
 
-  // TODO apply themes
   @override
   Widget build(BuildContext context) {
     return Scaffold(

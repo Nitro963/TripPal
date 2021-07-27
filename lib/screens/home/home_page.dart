@@ -161,8 +161,7 @@ class HomePage extends StatelessWidget {
             children: [
               Stack(
                 children: <Widget>[
-                  Obx(
-                    () => Container(
+                 Container(
                       width: MySize.screenWidth,
                       height: searchController.mapHeight.value - 40,
                       margin: EdgeInsets.only(bottom: 20.0),
@@ -194,7 +193,7 @@ class HomePage extends StatelessWidget {
                                   searchController.longitude.value))
                         },
                       ),
-                    ),
+                     
                   ),
                   Positioned(
                     right: 15,

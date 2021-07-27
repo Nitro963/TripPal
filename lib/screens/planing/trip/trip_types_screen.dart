@@ -65,7 +65,7 @@ class TripsPage extends StatelessWidget {
                   tripWriter:
                       'Find the places you want to visit and let us organize the trip accordingly',
                   onTap: () => Get.to(SavedPlaces()),
-                  img: 'assets/images/2.jpg',
+                  img: 'assets/images/Small Widget Images/self_planning.png',
                 ),
                 TripCard(
                   tripType: 'Trips planned by users',

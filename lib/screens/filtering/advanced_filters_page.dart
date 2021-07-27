@@ -12,6 +12,7 @@ class AdvancedFiltersPage extends GetView<FilterController> {
   AdvancedFiltersPage({Key? key}) : super(key: key);
 
   List<Widget> buildSliders() {
+    print(controller.selectedTypes);
     List<Widget> result = List<Widget>.empty(growable: true);
     controller.selectedTypes.forEach((type) {
       result.add(FilterSubTitle(
@@ -33,10 +34,10 @@ class AdvancedFiltersPage extends GetView<FilterController> {
       result.add(Obx(() => FiltersSlider(
             count: controller.foods.value,
             onChanged: (newValue) => controller.foods.value = newValue,
-            divisions: 9,
-            maxLabel: '10',
+            divisions: 2,
+            maxLabel: '3',
             minLabel: '1',
-            maxRange: 10,
+            maxRange: 3,
             label: '',
           )));
     }
@@ -46,10 +47,10 @@ class AdvancedFiltersPage extends GetView<FilterController> {
       result.add(Obx(() => FiltersSlider(
             count: controller.shops.value,
             onChanged: (newValue) => controller.shops.value = newValue,
-            divisions: 9,
-            maxLabel: '10',
+            divisions: 2,
+            maxLabel: '3',
             minLabel: '1',
-            maxRange: 10,
+            maxRange: 3,
             label: '',
           )));
     }

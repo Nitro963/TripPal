@@ -1,7 +1,7 @@
 name: trip_pal_null_safe
 description: A new Flutter project.
 
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 version: 1.0.0+1
 
@@ -57,12 +57,12 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-
   uses-material-design: true
 
   assets:
     - assets/images/
     - assets/images/The Weather Buddy/
+    - assets/images/Small Widget Images/
     - assets/images/The Weather Buddy/SVG/
 
   fonts:

@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-// import 'package:travel_app/scr/screens/trip/trip_result_screen.dart';
 import 'package:trip_pal_null_safe/controllers/filters_controller.dart';
 import 'package:trip_pal_null_safe/screens/filtering/advanced_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
-import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
@@ -16,7 +14,6 @@ import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 
 // TODO use dynamic padding
 // TODO convert types to model
-// TODO use meaningful names for filters (What can I understand from Basic Filters Screen!)
 class FiltersPage extends GetView<FilterController> {
   FiltersPage({Key? key}) : super(key: key);
 
@@ -25,6 +22,7 @@ class FiltersPage extends GetView<FilterController> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        backgroundColor: Colors.transparent,
         toolbarHeight: 80,
         titleSpacing: 0,
         elevation: 0,
@@ -43,7 +41,10 @@ class FiltersPage extends GetView<FilterController> {
                           FontAwesomeIcons.slidersH,
                           size: 18.0,
                         ),
-                        onPressed: () => Get.to(AdvancedFiltersPage()))))
+                        onPressed: () {
+                          controller.selectPlaces();
+                          Get.to(AdvancedFiltersPage());
+                        })))
           ],
         ),
       ),
@@ -69,21 +70,24 @@ class FiltersPage extends GetView<FilterController> {
                     })),
             FilterSubTitle(filterName: 'Tourist Facilities'),
             FilterCheckBox(
-                title: 'Foods Included',
+                title: 'Foods & Drinks Included',
                 icon: Icon(Icons.check, color: Colors.white, size: 18.0),
                 isChecked: controller.foodsChecked.value,
                 onTap: (selected) => controller.foodsChecked.toggle()),
             FilterCheckBox(
-                title: 'Shops Included',
+                title: 'Shopping Included',
                 icon: Icon(Icons.check, color: Colors.white, size: 18.0),
                 isChecked: controller.shopsChecked.value,
                 onTap: (selected) => controller.shopsChecked.toggle()),
             FilterSubTitle(filterName: 'Trip Mode'),
             Obx(() => RoundedRadioButton(
+                description: 'Visit as much as possible places',
                 groupValue: controller.tripMode.value,
                 value: controller.tripModes[0].value,
                 onChanged: (value) => controller.onClickRadioButton(value))),
             Obx(() => RoundedRadioButton(
+                description:
+                    'Visit couple places and really get to explore them',
                 groupValue: controller.tripMode.value,
                 value: controller.tripModes[1].value,
                 onChanged: (value) => controller.onClickRadioButton(value))),

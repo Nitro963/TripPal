@@ -23,6 +23,7 @@ class FilterCheckBox extends StatelessWidget {
         children: <Widget>[
           Text(
             title,
+            overflow: TextOverflow.ellipsis,
             style: Get.theme.textTheme.subtitle2!.copyWith(fontSize: 19.0)
           ),
           RoundCheckBox(
