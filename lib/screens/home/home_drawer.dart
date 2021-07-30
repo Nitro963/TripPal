@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
+import 'package:trip_pal_null_safe/dialogs/change_theme_dialog.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 import 'home_drawer_item.dart';
@@ -56,6 +57,12 @@ class HomeDrawer extends StatelessWidget {
               icon: FontAwesomeIcons.solidCheckCircle,
               onTap: () {}),
           HomeDrawerItem(
+            title: 'Appearance',
+            subTitle: 'Light and dark mode',
+            icon: FontAwesomeIcons.glasses,
+            onTap: () => Get.dialog(SelectThemeDialog())
+          ),    
+          HomeDrawerItem(
             title: 'Privacy policy',
             subTitle: 'See our privacy policies',
             icon: FontAwesomeIcons.lock,
@@ -78,7 +85,7 @@ class HomeDrawer extends StatelessWidget {
                     speed: Duration(microseconds: 100000),
                     textStyle: TextStyle(
                         fontSize: 16.0,
-                        color: Colors.blueGrey[900]!.withOpacity(0.4),
+                        color : Get.theme.textTheme.headline2!.color,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Montserrat'),
                   ),

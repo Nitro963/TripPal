@@ -19,6 +19,7 @@ class LocationsPage extends GetView<FilterController> {
         child: ListView(
           children: <Widget>[
             FiltersHeader(
+              backButton: true,
                 title: 'Choose preferred countries',
                 subTitle:
                     'We\'ll use these countries as base for searching places for you'),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/screens/filtering/hotels_filters_page.dart';
-import 'package:trip_pal_null_safe/screens/filtering/hotels_sort_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class UpperNavBar extends StatelessWidget {
@@ -16,7 +15,7 @@ class UpperNavBar extends StatelessWidget {
             title: "Sort",
             icon: Icons.sort_by_alpha,
             onTapCallBack: () {
-              Get.to(HotelSortPage());
+              // Get.to(HotelSortPage());
             }),
         UpperItem(
             title: "Filter",

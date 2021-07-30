@@ -29,6 +29,7 @@ class FiltersPage extends GetView<FilterController> {
         title: Stack(
           children: <Widget>[
             FiltersHeader(
+              backButton: true,
                 title: 'Tell us your preferences',
                 subTitle:
                     'And we will help to build best trips special for you'),

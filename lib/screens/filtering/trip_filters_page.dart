@@ -6,16 +6,19 @@ import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_radio_button.dart';
 
-class TripFiltersPage extends GetView<FilterController> {
-  TripFiltersPage({Key? key}) : super(key: key);
+class SortTripsWidget extends GetView<FilterController> {
+  const SortTripsWidget({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: ListView(
+    return Container(
+      color: Get.theme.backgroundColor,
+      child: ListView(
           children: [
             FiltersHeader(
+              backButton: true,
                 title: 'Sorting User Trip Plans',
                 subTitle: 'Let us help you find the trip plans that you want'),
             FilterSubTitle(filterName: 'Sorting Type'),
@@ -35,7 +38,6 @@ class TripFiltersPage extends GetView<FilterController> {
                 onPressed: () => Get.back()),
           ],
         ),
-      ),
     );
   }
 }

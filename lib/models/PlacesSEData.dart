@@ -4465,48 +4465,48 @@ List dummyHotels = [
     "coordinate": {"lat": 48.838548, "lon": 2.320186},
     "deals": {}
   },
-  // {
-  //   "id": 1212544,
-  //   "name": "Four Seasons Hotel George V",
-  //   "starRating": 5.0,
-  //   "guestrating": "10.0",
-  //   "address": "Paris",
-  //   "street": "Paris",
-  //   "price": {"old_price": 1078.9, "new_price": "\$1,079"},
-  //   "features": {"paymentPreference": false, "noCCRequired": false},
-  //   "imgURL":
-  //       "https://thumbnails.trvl-media.com/E-mMsniXmJzCWnvw2qZDxEtpIFQ=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/1000000/10000/6700/6642/34c77dfa_z.jpg",
-  //   "coordinate": {"lat": 48.868744, "lon": 2.300932},
-  //   "deals": {}
-  // },
-  // {
-  //   "id": 1239959872,
-  //   "name": "Beausoleil Studio",
-  //   "starRating": 0.0,
-  //   "guestrating": "10.0",
-  //   "address": "Le Kremlin-Bicetre",
-  //   "street": "Le Kremlin-Bicetre",
-  //   "price": "",
-  //   "features": "",
-  //   "imgURL":
-  //       "https://thumbnails.trvl-media.com/i7s3HIwn_uewU4CydL9KDCQaXcA=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/39000000/38720000/38717500/38717496/a7d42487_z.jpg",
-  //   "coordinate": {"lat": 48.808885, "lon": 2.362368},
-  //   "deals": {}
-  // },
-  // {
-  //   "id": 1446475392,
-  //   "name": "Suite Vetiver great Apt  best loc",
-  //   "starRating": 0.0,
-  //   "guestrating": "10.0",
-  //   "address": "Paris",
-  //   "street": "Paris",
-  //   "price": "",
-  //   "features": "",
-  //   "imgURL":
-  //       "https://thumbnails.trvl-media.com/8FLOpgVuAoY0I1sHb9Y77-uExuQ=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/46000000/45180000/45171200/45171106/a80779c3_z.jpg",
-  //   "coordinate": {"lat": 48.880125, "lon": 2.297378},
-  //   "deals": {}
-  // },
+  {
+    "id": 1212544,
+    "name": "Four Seasons Hotel George V",
+    "starRating": 5.0,
+    "guestrating": "10.0",
+    "address": "Paris",
+    "street": "Paris",
+    "price": {"old_price": 1078.9, "new_price": "\$1,079"},
+    "features": {"paymentPreference": false, "noCCRequired": false},
+    "imgURL":
+        "https://thumbnails.trvl-media.com/E-mMsniXmJzCWnvw2qZDxEtpIFQ=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/1000000/10000/6700/6642/34c77dfa_z.jpg",
+    "coordinate": {"lat": 48.868744, "lon": 2.300932},
+    "deals": {}
+  },
+  {
+    "id": 1239959872,
+    "name": "Beausoleil Studio",
+    "starRating": 0.0,
+    "guestrating": "10.0",
+    "address": "Le Kremlin-Bicetre",
+    "street": "Le Kremlin-Bicetre",
+    "price": "",
+    "features": "",
+    "imgURL":
+        "https://thumbnails.trvl-media.com/i7s3HIwn_uewU4CydL9KDCQaXcA=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/39000000/38720000/38717500/38717496/a7d42487_z.jpg",
+    "coordinate": {"lat": 48.808885, "lon": 2.362368},
+    "deals": {}
+  },
+  {
+    "id": 1446475392,
+    "name": "Suite Vetiver great Apt  best loc",
+    "starRating": 0.0,
+    "guestrating": "10.0",
+    "address": "Paris",
+    "street": "Paris",
+    "price": "",
+    "features": "",
+    "imgURL":
+        "https://thumbnails.trvl-media.com/8FLOpgVuAoY0I1sHb9Y77-uExuQ=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/46000000/45180000/45171200/45171106/a80779c3_z.jpg",
+    "coordinate": {"lat": 48.880125, "lon": 2.297378},
+    "deals": {}
+  },
   // {
   //   "id": 1254648672,
   //   "name": "La Maison de Robinson",

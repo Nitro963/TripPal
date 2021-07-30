@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
+import 'package:trip_pal_null_safe/screens/credentials/Profile_page.dart';
+import 'package:trip_pal_null_safe/screens/home/main_page.dart';
 import 'package:trip_pal_null_safe/pages.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
 import 'package:trip_pal_null_safe/screens/filtering/basic_filters_page.dart';
@@ -23,6 +26,7 @@ import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
 import 'controllers/app_theme_controller.dart';
 import 'controllers/filters_controller.dart';
 import 'controllers/hotel_search_controller.dart';
+import 'controllers/main_page_controller.dart';
 import 'dialogs/change_theme_dialog.dart';
 import 'screens/planing/places_search_page.dart';
 
@@ -122,6 +126,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
           Get.lazyPut(() => SearchBarController());
+          Get.lazyPut(() => MainPageController());
+          Get.lazyPut(() => ProfileController());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
           // Get.to(() => PlaceDetails());
@@ -136,7 +142,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.to(() => PlacesSearchEngine());
           // Get.toNamed('/reviews');
           // Get.to(() => SavedPlaces());
-          Get.to(() => Scaffold(body: TripsPage()));
+          // Get.to(() => Scaffold(body: TripsPage()));
+          Get.to(() => MainPage());
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

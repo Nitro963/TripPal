@@ -18,6 +18,7 @@ class HotelFiltersPage extends StatelessWidget {
           child: Column(
             children: [
               FiltersHeader(
+                backButton: true,
                   title: 'Filtering Available Hotels',
                   subTitle:
                       'Let us help you find the perfect hotel that you want'),

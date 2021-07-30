@@ -2,19 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
+import 'package:trip_pal_null_safe/screens/filtering/hotels_sort_page.dart';
 
-import 'UpperNavBar.dart';
 import 'HotelCard.dart';
 
-class HotelResult extends StatelessWidget {
+class HotelResult extends StatelessWidget{
+
+  void _sortResults(){
+    Get.bottomSheet(
+      HotelSortWidget(),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title: Text('Available Hotels'),
+        centerTitle: true,
+        actions: [
+          IconButton(icon: Icon(Icons.filter), onPressed: () =>_sortResults())
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            UpperNavBar(),
             HotelList(),
           ],
         ),
@@ -22,6 +34,7 @@ class HotelResult extends StatelessWidget {
     );
   }
 }
+
 
 class HotelList extends StatefulWidget {
   const HotelList({

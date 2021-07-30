@@ -29,9 +29,11 @@ class FiltersHeader extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subTitle,
+    required this.backButton
   }) : super(key: key);
   final String title;
   final String subTitle;
+  final bool backButton;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -46,7 +48,8 @@ class FiltersHeader extends StatelessWidget {
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Icon(FontAwesomeIcons.rocket, color: Get.theme.toggleableActiveColor),
+                  Icon(FontAwesomeIcons.rocket,
+                      color: Get.theme.toggleableActiveColor),
                   Space.width(10),
                   Text(
                     title,
@@ -63,13 +66,12 @@ class FiltersHeader extends StatelessWidget {
             ],
           ),
         ),
-        Padding(
+         backButton ? Padding(
           padding: Spacing.vertical(8),
           child: IconButton(
-              icon: Icon(Icons.arrow_back,
-                  color: Get.theme.iconTheme.color),
+              icon: Icon(Icons.arrow_back, color: Get.theme.iconTheme.color),
               onPressed: () => Get.back()),
-        )
+        ) : SizedBox()
       ],
     );
   }

@@ -50,6 +50,10 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
     });
   }
 
+  void _sortTrips() {
+    Get.bottomSheet(SortTripsWidget());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,7 +62,7 @@ class _UsersTripsScreenState extends State<UsersTripsScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () => Get.to(TripFiltersPage()),
+              onPressed: () => _sortTrips(),
               icon: Icon(
                 FontAwesomeIcons.slidersH,
                 size: 16,

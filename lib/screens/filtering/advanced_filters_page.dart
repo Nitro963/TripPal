@@ -79,6 +79,7 @@ class AdvancedFiltersPage extends GetView<FilterController> {
           height: MySize.screenHeight,
           child: Column(children: <Widget>[
             FiltersHeader(
+              backButton: true,
               title: 'Preferences Control',
               subTitle:
                   'Tell us more about your preferences, and we\'ll build a trip specialized for you',
