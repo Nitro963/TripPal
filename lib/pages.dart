@@ -4,6 +4,7 @@ import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/main.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
+import 'package:trip_pal_null_safe/screens/boarding/loading.dart';
 import 'package:trip_pal_null_safe/screens/credentials/login.dart';
 import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
 import 'package:trip_pal_null_safe/screens/credentials/register.dart';
@@ -12,28 +13,49 @@ import 'package:trip_pal_null_safe/screens/weather_buddy/buddy.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/places_list.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/search_view.dart';
 import 'package:trip_pal_null_safe/screens/review/reviews_list_1.dart';
+import 'package:trip_pal_null_safe/utilities/routes_middleware.dart';
 
 List<GetPage> pages = [
-  GetPage(name: '/boarding', page: () => BoardingScreen()),
-  GetPage(name: '/home', page: () => MyHomePage(title: 'TripPal')),
+  GetPage(
+      name: '/loading',
+      page: () => LoadingScreen(),
+      middlewares: [GlobalMiddleWare()],
+      binding: BindingsBuilder.put(() => LoadController())),
+  GetPage(
+    name: '/boarding',
+    page: () => BoardingScreen(),
+    binding: BindingsBuilder.put(() => BoardingController()),
+  ),
+  GetPage(
+      name: '/home',
+      page: () => MyHomePage(title: 'TripPal'),
+      middlewares: [GlobalMiddleWare()]),
   GetPage(name: '/login', page: () => Login()),
   GetPage(name: '/register', page: () => SignUp()),
   GetPage(name: '/password-reset', page: () => PasswordReset()),
   GetPage(
       name: '/reviews',
       page: () => ReviewList(),
-      binding: BindingsBuilder.put(() => ReviewsListController())),
-  GetPage(name: '/review-writing', page: () => ReviewWriting()),
+      binding: BindingsBuilder.put(() => ReviewsListController()),
+      middlewares: [GlobalMiddleWare()]),
+  GetPage(
+      name: '/review-writing',
+      page: () => ReviewWriting(),
+      middlewares: [GlobalMiddleWare()]),
   GetPage(
       name: '/weather-buddy',
       page: () => WeatherBuddy(),
       // TODO store places locally.
-      binding: BindingsBuilder.put(() => WeatherBuddyController(6))),
-  GetPage(name: '/weather-buddy/list', page: () => WeatherBuddyPlaces()),
+      binding: BindingsBuilder.put(() => WeatherBuddyController(6)),
+      middlewares: [GlobalMiddleWare()]),
+  GetPage(
+      name: '/weather-buddy/list',
+      page: () => WeatherBuddyPlaces(),
+      middlewares: [GlobalMiddleWare()]),
   GetPage(
       name: '/weather-buddy/list/search',
       page: () => PlacesSearch(),
       binding: BindingsBuilder.put(() => PlacesSearchViewController(),
-          permanent: true)),
-          
+          permanent: true),
+      middlewares: [GlobalMiddleWare()]),
 ];

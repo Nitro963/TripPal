@@ -151,9 +151,9 @@ class Spacing {
     if (withResponsive) {
       return EdgeInsets.only(
           left: MySize.getScaledSizeHeight(left),
-          right: MySize.getScaledSizeHeight(right),
+          right: MySize.getScaledSizeWidth(right),
           top: MySize.getScaledSizeHeight(top),
-          bottom: MySize.getScaledSizeHeight(bottom));
+          bottom: MySize.getScaledSizeWidth(bottom));
     } else {
       return EdgeInsets.only(
           left: left, right: right, top: top, bottom: bottom);
@@ -285,6 +285,19 @@ class Shape {
     BorderRadius borderRadius = BorderRadius.only(
         topLeft: Radius.circular(MySize.getScaledSizeHeight(radius)),
         topRight: Radius.circular(MySize.getScaledSizeHeight(radius)));
+    switch (shapeTypeFor) {
+      case ShapeTypeFor.container:
+        return borderRadius;
+      case ShapeTypeFor.button:
+        return RoundedRectangleBorder(borderRadius: borderRadius);
+    }
+  }
+
+  static dynamic circularBottom(double radius,
+      {ShapeTypeFor shapeTypeFor = ShapeTypeFor.container}) {
+    BorderRadius borderRadius = BorderRadius.only(
+        bottomLeft: Radius.circular(MySize.getScaledSizeHeight(radius)),
+        bottomRight: Radius.circular(MySize.getScaledSizeHeight(radius)));
     switch (shapeTypeFor) {
       case ShapeTypeFor.container:
         return borderRadius;

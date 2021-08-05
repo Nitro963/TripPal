@@ -7,10 +7,16 @@ import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
 import 'package:trip_pal_null_safe/screens/credentials/Profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/main_page.dart';
 import 'package:trip_pal_null_safe/pages.dart';
+import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
+import 'package:trip_pal_null_safe/screens/details/blog_details.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
 import 'package:trip_pal_null_safe/screens/filtering/basic_filters_page.dart';
+import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
+import 'package:trip_pal_null_safe/screens/home/blogs_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/home/home_page.dart';
+import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -32,48 +38,46 @@ import 'screens/planing/places_search_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final boarding = await initServices();
+  await initMemory();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
-    runApp(buildApp(boarding: boarding));
+    runApp(buildApp());
   });
 }
 
-Future<bool> initServices() async {
+Future<void> initMemory() async {
   // await PushNotificationService.init();
   await GetStorage.init();
 
-  Get.lazyPut(() => OpenWeatherMap());
-  Get.lazyPut(() => GeoCodingService());
-
   final box = GetStorage();
-
   box.writeIfNull('themeMode', 1);
   box.writeIfNull('language', 'en');
   box.writeIfNull('country', 'US');
-
-  var boarding = box.read('boarding');
-
-  if (boarding == null) {
-    boarding = true;
-    await box.write('boarding', false);
-  }
-
-  Get.lazyPut(() => BackendService());
-  return boarding;
+  box.writeIfNull('boarding', true);
+  BoardingController.boarding = box.read('boarding');
 }
 
-GetMaterialApp buildApp({required bool boarding}) {
+class InitialBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.lazyPut(() => OpenWeatherMap());
+    Get.lazyPut(() => GeoCodingService());
+    Get.lazyPut(() => BackendService());
+    Get.lazyPut(() => AuthControl());
+  }
+}
+
+GetMaterialApp buildApp() {
   final box = GetStorage();
   final controller = Get.put(AppThemeController(box.read('themeMode')));
   final themeMode = controller.themeMode;
   final language = box.read('language')!;
   final country = box.read('country')!;
-
   return GetMaterialApp(
     debugShowCheckedModeBanner: false,
     theme: Themes.fromThemeMode(themeMode),
-    initialRoute: boarding ? '/boarding' : '/home',
+    initialRoute: '/loading',
+    initialBinding: InitialBindings(),
     locale: Locale(language, country),
     // translations: AppTranslations(),
     getPages: pages,
@@ -125,14 +129,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/login');
           // Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
-          Get.lazyPut(() => SearchBarController());
-          Get.lazyPut(() => MainPageController());
-          Get.lazyPut(() => ProfileController());
+          // Get.lazyPut(() => SearchBarController());
+          // Get.lazyPut(() => MainPageController());
+          // Get.lazyPut(() => ProfileController());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
           // Get.to(() => PlaceDetails());
-          Get.put(HotelSearchController());
-          Get.put(FilterController());
+          // Get.put(HotelSearchController());
+          // Get.put(FilterController());
           // Get.to(FiltersPage());
           // Get.to(() => Scaffold(
           //     appBar: AppBar(),
@@ -143,7 +147,12 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/reviews');
           // Get.to(() => SavedPlaces());
           // Get.to(() => Scaffold(body: TripsPage()));
-          Get.to(() => MainPage());
+          // Get.put(HotelsViewController());
+          // Get.to(() => HotelsView());
+          // Get.put(BlogViewController());
+          // Get.to(() => Blog());
+          // Get.to(() => EditProfileScreen());
+          // Get.to(() => MainPage());
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

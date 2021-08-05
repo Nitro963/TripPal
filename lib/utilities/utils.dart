@@ -1,7 +1,11 @@
 import 'dart:ui';
+import 'dart:developer' as developer;
 
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 TextDirection appCurrentTextDirection() {
   if (isRTL(Get.locale!.languageCode)) return TextDirection.rtl;
@@ -12,19 +16,105 @@ bool isRTL(String languageCode) {
   return rtlLanguages.contains(languageCode);
 }
 
-GetBar<Object> buildErrorSnackBar(String error) {
+GetBar<Object> buildErrorSnackBar(String error,
+    {SnackPosition position = SnackPosition.BOTTOM,
+    SnackDismissDirection snackDismissDirection =
+        SnackDismissDirection.HORIZONTAL,
+    margin: const EdgeInsets.only(bottom: 20),
+    duration: const Duration(seconds: 2)}) {
   return GetBar(
-    duration: new Duration(seconds: 3),
+    snackPosition: position,
+    duration: duration,
     messageText: new Text(
       error,
       style: TextStyle(color: Colors.red),
     ),
     icon: Icon(Icons.error, color: Colors.red),
     maxWidth: Get.width * 0.95,
-    margin: EdgeInsets.only(bottom: 20),
+    margin: margin,
     borderRadius: 10,
-    dismissDirection: SnackDismissDirection.HORIZONTAL,
+    dismissDirection: snackDismissDirection,
     leftBarIndicatorColor: Colors.red,
+  );
+}
+
+class ErrorHandlerModel {
+  final String header;
+  final String message;
+  final IconData headerIcon;
+  final String buttonTitle;
+  final Function()? callback;
+  ErrorHandlerModel(
+      {required this.header,
+      required this.message,
+      required this.headerIcon,
+      this.callback,
+      this.buttonTitle = 'TRY AGAIN'});
+
+  factory ErrorHandlerModel.fromError(error, callback) {
+    developer.log('Something happened!', name: 'HANDLER', error: error);
+    if (error is dio.DioError) {
+      if (error.type == dio.DioErrorType.connectTimeout) {
+        return ErrorHandlerModel(
+            header: "No Internet!",
+            message: "Please check your internet connection",
+            headerIcon: MdiIcons.wifiOff,
+            callback: callback);
+      }
+    }
+    return ErrorHandlerModel(
+        header: 'Something happened!',
+        message: 'Please try again later.',
+        headerIcon: MdiIcons.alert,
+        callback: callback);
+  }
+}
+
+Widget buildErrorContent(ErrorHandlerModel handlerModel) {
+  final themeData = Get.theme;
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: <Widget>[
+      Container(
+        child: Center(
+            child: Icon(
+          handlerModel.headerIcon,
+          size: 40,
+          color: themeData.colorScheme.onBackground.withAlpha(220),
+        )),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 16),
+        child: Center(
+          child: Text(
+            handlerModel.header,
+            style: themeData.textTheme.subtitle1!
+                .copyWith(fontWeight: FontWeight.w700),
+          ),
+        ),
+      ),
+      Container(
+        margin: EdgeInsets.only(top: 16),
+        child: Center(
+            child: Text(handlerModel.message,
+                style: themeData.textTheme.caption!
+                    .copyWith(fontWeight: FontWeight.w500))),
+      ),
+      if (handlerModel.callback != null)
+        Container(
+          margin: Spacing.only(top: 16),
+          child: Center(
+            child: ElevatedButton(
+                onPressed: handlerModel.callback,
+                child: Text(handlerModel.buttonTitle,
+                    style: themeData.textTheme.caption!.copyWith(
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.3,
+                        color: themeData.colorScheme.onPrimary))),
+          ),
+        )
+    ],
   );
 }
 

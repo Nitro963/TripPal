@@ -31,3 +31,10 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontFamily: 'Lato',
   fontSize: 18.0,
 );
+
+const LOCAL_SERVER_END_POINT = '127.0.0.1:8000';
+const BASE_URL = '/api';
+const JSON_HEADERS = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+};

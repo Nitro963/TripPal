@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:trip_pal_null_safe/models/boarding_model.dart';
 
 class BoardingPage extends StatelessWidget {
   const BoardingPage({
     Key? key,
-    required this.title,
-    required this.subTitle,
-    required this.description,
-    required this.imagePath,
+    required this.data,
   }) : super(key: key);
-
-  final String title;
-  final String subTitle;
-  final String description;
-  final String imagePath;
+  final BoardingModel data;
   @override
   Widget build(BuildContext context) {
     return Hero(
@@ -20,7 +14,7 @@ class BoardingPage extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(imagePath),
+            image: AssetImage(data.imagePath),
             fit: BoxFit.fill,
           ),
         ),
@@ -34,7 +28,7 @@ class BoardingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    subTitle,
+                    data.subTitle,
                     style: TextStyle(
                         fontSize: 25.0,
                         color: Colors.white.withOpacity(0.60),
@@ -44,7 +38,7 @@ class BoardingPage extends StatelessWidget {
                     height: 8.0,
                   ),
                   Text(
-                    title,
+                    data.title,
                     style: TextStyle(
                         fontSize: 70.0,
                         color: Colors.white.withOpacity(0.60),
@@ -56,7 +50,7 @@ class BoardingPage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 80.0),
                     child: Text(
-                      description,
+                      data.description,
                       style: TextStyle(
                           fontSize: 20.0,
                           color: Colors.white.withOpacity(0.60),
