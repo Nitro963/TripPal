@@ -16,13 +16,13 @@ class AvatarOverFlowView extends StatelessWidget {
       child: OverflowView(
         spacing: -5,
         children: <Widget>[
+          // TODO convert to shimmer image
           for (int i = 0; i < 5; i++)
             CircleAvatar(
               child: InkWell(
-                onTap: onTap,
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-              ),
+                  onTap: onTap,
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent),
               backgroundImage: AssetImage('assets/images/${data[i]}'),
             ),
         ],

@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
-import 'package:trip_pal_null_safe/services/network_service.dart';
+import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
-class PhotonApi extends NetworkService {
-  PhotonApi() : super(baseUrl: 'photon.komoot.io') {
-    requestModifiers.add((options) {
+class PhotonApi {
+  final _client = DioConnect(baseUrl: 'photon.komoot.io');
+  final _path = '/api';
+
+  PhotonApi() {
+    _client.requestModifiers.add((options) {
       // TODO internationalization
       options.queryParameters
           .update('lang', (value) => 'en', ifAbsent: () => 'en');
@@ -12,10 +15,8 @@ class PhotonApi extends NetworkService {
     });
   }
 
-  final _path = '/api';
-
   Future<List<Place>> getQuery(String query, int limit) async {
-    var res = await this.get<List<Place>>(_path,
+    var res = await _client.get<List<Place>>(_path,
         queryParameters: {'q': query, 'limit': limit.toString()},
         decoder: (dynamic data) {
       var features = data['features'] as List;

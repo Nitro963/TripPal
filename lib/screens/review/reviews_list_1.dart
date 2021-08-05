@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
-import 'package:trip_pal_null_safe/models/review.dart';
 import 'package:trip_pal_null_safe/screens/review/review_card.dart';
 import 'package:trip_pal_null_safe/screens/review/reviews_bar_chart.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
-import 'package:trip_pal_null_safe/widgets/abstract/animated_list_view.dart';
+import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
 import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
 
 class ReviewList extends AnimatedIModelListView {
@@ -122,7 +121,12 @@ class ReviewList extends AnimatedIModelListView {
           onPressed: () {
             Get.toNamed('/review-writing');
           },
-        )
+        ),
+        IconButton(
+            icon: Icon(Icons.tune_outlined),
+            onPressed: () {
+              // TODO show filtering dialog
+            }),
       ],
     );
   }

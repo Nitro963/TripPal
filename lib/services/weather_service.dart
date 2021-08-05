@@ -2,18 +2,17 @@ import 'dart:async';
 
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/weather_info.dart';
-import 'package:trip_pal_null_safe/services/network_service.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
+import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
-class WeatherInfoService extends NetworkService {
+class WeatherInfoService {
+  final _client = DioConnect(baseUrl: 'api.openweathermap.org');
   final weatherPath = '/data/2.5/weather';
-
   final String apiKey;
 
-  WeatherInfoService({this.apiKey = 'd136f87331b0bd808daa2fe6de21e662'})
-      : super(baseUrl: 'api.openweathermap.org') {
-    defaultDecoder = WeatherInfo.fromOpenWeatherMapJson;
-    requestModifiers.add((request) {
+  WeatherInfoService({this.apiKey = 'd136f87331b0bd808daa2fe6de21e662'}) {
+    _client.defaultDecoder = WeatherInfo.fromOpenWeatherMapJson;
+    _client.requestModifiers.add((request) {
       request.queryParameters
           .update('appid', (value) => apiKey, ifAbsent: () => apiKey);
       request.queryParameters
@@ -23,14 +22,14 @@ class WeatherInfoService extends NetworkService {
   }
 
   Future<WeatherInfo> getWeatherByCityName(String name) async {
-    final response =
-        await this.get<WeatherInfo>(weatherPath, queryParameters: {'q': name});
+    final response = await _client
+        .get<WeatherInfo>(weatherPath, queryParameters: {'q': name});
     return response.decodedBody;
   }
 
   Future<WeatherInfo> getWeatherByGeographicCoordinates(
       double lon, double lat) async {
-    final response = await this.get<WeatherInfo>(weatherPath,
+    final response = await _client.get<WeatherInfo>(weatherPath,
         queryParameters: {'lat': lat.toString(), 'lon': lon.toString()});
     return response.decodedBody;
   }

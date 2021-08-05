@@ -1,9 +1,12 @@
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Decoder;
+import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
+import 'package:trip_pal_null_safe/utilities/constants.dart';
+import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
-class ReviewsApi extends ApiView<Review> {
+class ReviewsApi implements ApiView<Review> {
   @override
   Future<Review> getItem(int id) async {
     // TODO: implement getItem
@@ -27,15 +30,14 @@ class ReviewsApi extends ApiView<Review> {
 }
 
 class BackendService extends GetxService {
-  final baseUrl = '127.0.0.1:8000';
-  final httpScheme = 'http';
+  final backendServerEndPoint = LOCAL_SERVER_END_POINT;
+  final basePath = BASE_URL;
 
-  late final NetworkApiView<Hotel> hotelsApi;
+  late final ApiView<Hotel> hotelsApi;
   late final ApiView<Review> reviewsApi;
 
   void onInit() {
-    hotelsApi = NetworkApiView<Hotel>(baseUrl, '/api/hotels', Hotel.fromJson,
-        httpScheme: httpScheme);
+    hotelsApi = DummyApiView<Hotel>(data: dummyHotels, decoder: Hotel.fromJson);
     reviewsApi = ReviewsApi();
     super.onInit();
   }
