@@ -2,39 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-final starsActivationColor = const Color(0xffffaa00);
-
-final starsDeactivationColor = const Color(0xff8C8C98);
-
-final activationColor = const Color(0xFF0288D1);
-
-final deactivatedColor = const Color(0xFF757575);
-
-final kCardTitle = TextStyle(
-  fontSize: 26.0,
-  fontWeight: FontWeight.bold,
-  color: Colors.black,
-  fontFamily: 'Patrick',
-);
-
-final kFiltersSubTitle =
-    TextStyle(fontSize: 16, fontFamily: 'Lato', fontWeight: FontWeight.bold);
-
-final kFieldTitle = TextStyle(
-    fontFamily: 'Patrick',
-    fontSize: 18,
-    color: Colors.black.withOpacity(0.8),
-    fontWeight: FontWeight.bold);
-
-final kPrimaryFiltersTitleStyle =
-    TextStyle(fontFamily: 'Lato', fontSize: 25.0, fontWeight: FontWeight.bold);
-
-final kSecondaryFiltersTitleStyle = TextStyle(
-  fontFamily: 'Lato',
-  fontSize: 18.0,
-);
 
 class Themes {
   static int get lightMode => 1;
@@ -70,8 +37,10 @@ class Themes {
         subtitle1: TextStyle(fontFamily: 'Montserrat'),
         subtitle2: TextStyle(fontFamily: 'Montserrat'),
         caption: TextStyle(fontFamily: 'Montserrat'),
-        bodyText2: TextStyle(fontFamily: 'Lato'),
-        bodyText1: TextStyle(fontFamily: 'Lato'),
+        bodyText2:
+            TextStyle(fontFamily: 'Lato', fontSize: 14, letterSpacing: 0.25),
+        bodyText1:
+            TextStyle(fontFamily: 'Lato', fontSize: 16, letterSpacing: 0.5),
         button: TextStyle(fontFamily: 'Montserrat'),
         overline: TextStyle(fontFamily: 'Montserrat'),
       ));
@@ -90,8 +59,10 @@ class Themes {
         subtitle1: TextStyle(fontFamily: 'Montserrat'),
         subtitle2: TextStyle(fontFamily: 'Montserrat'),
         caption: TextStyle(fontFamily: 'Montserrat'),
-        bodyText2: TextStyle(fontFamily: 'Lato'),
-        bodyText1: TextStyle(fontFamily: 'Lato'),
+        bodyText2:
+            TextStyle(fontFamily: 'Lato', fontSize: 14, letterSpacing: 0.25),
+        bodyText1:
+            TextStyle(fontFamily: 'Lato', fontSize: 16, letterSpacing: 0.5),
         button: TextStyle(fontFamily: 'Montserrat'),
         overline: TextStyle(fontFamily: 'Montserrat'),
       ));
@@ -317,4 +288,141 @@ class Themes {
         return const Color(0xff2e343b);
     }
   }
+
+  static CustomAppTheme getCustomAppTheme(int themeMode) {
+    if (themeMode == lightMode) {
+      return CustomAppTheme.lightCustomAppTheme;
+    } else if (themeMode == darkMode) {
+      return CustomAppTheme.darkCustomAppTheme;
+    }
+    return CustomAppTheme.darkCustomAppTheme;
+  }
+
+  static NavigationBarTheme getNavigationThemeFromMode(int themeMode) {
+    NavigationBarTheme navigationBarTheme = NavigationBarTheme();
+    if (themeMode == lightMode) {
+      navigationBarTheme.backgroundColor = Colors.white;
+      navigationBarTheme.selectedItemColor = Color(0xff3d63ff);
+      navigationBarTheme.unselectedItemColor = Color(0xff495057);
+      navigationBarTheme.selectedOverlayColor = Color(0x383d63ff);
+    } else if (themeMode == darkMode) {
+      navigationBarTheme.backgroundColor = Color(0xff37404a);
+      navigationBarTheme.selectedItemColor = Color(0xff37404a);
+      navigationBarTheme.unselectedItemColor = Color(0xffd1d1d1);
+      navigationBarTheme.selectedOverlayColor = Color(0xffffffff);
+    }
+    return navigationBarTheme;
+  }
+}
+
+class CustomAppTheme {
+  final Color bgLayer1,
+      bgLayer2,
+      bgLayer3,
+      bgLayer4,
+      disabledColor,
+      onDisabled,
+      colorInfo,
+      colorWarning,
+      colorSuccess,
+      colorError,
+      shadowColor,
+      onInfo,
+      onWarning,
+      onSuccess,
+      onError;
+
+  final Color groceryPrimaryColor,
+      onGroceryPrimaryColor,
+      groceryBg1,
+      groceryBg2;
+
+  final Color lightBlack, red, green, yellow, orange, blue, purple, pink, brown;
+
+  CustomAppTheme({
+    this.bgLayer1 = const Color(0xffffffff),
+    this.bgLayer2 = const Color(0xfff8faff),
+    this.bgLayer3 = const Color(0xfff8f8f8),
+    this.bgLayer4 = const Color(0xffdcdee3),
+    this.disabledColor = const Color(0xffdcc7ff),
+    this.onDisabled = const Color(0xffffffff),
+    this.colorWarning = const Color(0xffffc837),
+    this.colorInfo = const Color(0xffff784b),
+    this.colorSuccess = const Color(0xff3cd278),
+    this.shadowColor = const Color(0xff1f1f1f),
+    this.onInfo = const Color(0xffffffff),
+    this.onWarning = const Color(0xffffffff),
+    this.onSuccess = const Color(0xffffffff),
+    this.colorError = const Color(0xfff0323c),
+    this.onError = const Color(0xffffffff),
+
+    //Grocery color scheme
+    this.groceryPrimaryColor = const Color(0xff10bb6b),
+    this.onGroceryPrimaryColor = const Color(0xffffffff),
+    this.groceryBg1 = const Color(0xfffbfbfb),
+    this.groceryBg2 = const Color(0xfff5f5f5),
+
+    //Color
+    this.lightBlack = const Color(0xffa7a7a7),
+    this.red = const Color(0xffFF0000),
+    this.green = const Color(0xff008000),
+    this.yellow = const Color(0xfffff44f),
+    this.orange = const Color(0xffFFA500),
+    this.blue = const Color(0xff0000ff),
+    this.purple = const Color(0xff800080),
+    this.pink = const Color(0xffFFC0CB),
+    this.brown = const Color(0xffA52A2A),
+  });
+
+  //--------------------------------------  Custom App Theme ----------------------------------------//
+
+  static final CustomAppTheme lightCustomAppTheme = CustomAppTheme(
+    bgLayer1: Color(0xffffffff),
+    bgLayer2: Color(0xfff9f9f9),
+    bgLayer3: Color(0xffe8ecf4),
+    bgLayer4: Color(0xffdcdee3),
+    disabledColor: Color(0xff636363),
+    onDisabled: Color(0xffffffff),
+    colorInfo: Color(0xffff784b),
+    colorWarning: Color(0xffffc837),
+    colorSuccess: Color(0xff3cd278),
+    shadowColor: Color(0xffeaeaea),
+    onInfo: Color(0xffffffff),
+    onSuccess: Color(0xffffffff),
+    onWarning: Color(0xffffffff),
+    colorError: Color(0xfff0323c),
+    onError: Color(0xffffffff),
+  );
+
+  static final CustomAppTheme darkCustomAppTheme = CustomAppTheme(
+      bgLayer1: Color(0xff212429),
+      bgLayer2: Color(0xff282930),
+      bgLayer3: Color(0xff303138),
+      bgLayer4: Color(0xff383942),
+      disabledColor: Color(0xffbababa),
+      onDisabled: Color(0xff000000),
+      colorInfo: Color(0xffff784b),
+      colorWarning: Color(0xffffc837),
+      colorSuccess: Color(0xff3cd278),
+      shadowColor: Color(0xff1a1a1a),
+      onInfo: Color(0xffffffff),
+      onSuccess: Color(0xffffffff),
+      onWarning: Color(0xffffffff),
+      colorError: Color(0xfff0323c),
+      onError: Color(0xffffffff),
+
+      //Grocery Dark
+      groceryBg1: Color(0xff212429),
+      groceryBg2: Color(0xff282930));
+}
+
+class NavigationBarTheme {
+  Color? backgroundColor,
+      selectedItemIconColor,
+      selectedItemTextColor,
+      selectedItemColor,
+      selectedOverlayColor,
+      unselectedItemIconColor,
+      unselectedItemTextColor,
+      unselectedItemColor;
 }
