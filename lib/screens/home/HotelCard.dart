@@ -92,7 +92,7 @@ class HotelCard extends StatelessWidget {
                           SizedBox(height: 8.0),
                           CardDetail(
                             title: 'Price pre Night',
-                            value: hotel.price!,
+                            value: hotel.price!.toString(),
                           ),
                           SizedBox(height: 8.0),
                           Row(

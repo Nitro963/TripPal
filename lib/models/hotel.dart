@@ -8,7 +8,7 @@ class Hotel extends IModel {
   String? guestRating;
   String? address;
   String? street;
-  String? price;
+  int? price;
   Coordinate? coordinate;
   String? image;
   String? features;
@@ -39,7 +39,7 @@ class Hotel extends IModel {
       address: json['address'],
       street: json['street'],
       image: json['imgURL'],
-      price: '120\$',
+      price: 120,
       coordinate: coordinate,
     );
   }

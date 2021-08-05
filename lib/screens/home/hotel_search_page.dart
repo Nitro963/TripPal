@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/hotel_search_controller.dart';
 import 'package:trip_pal_null_safe/screens/home/HotelResults.dart';
+import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 
@@ -98,7 +99,9 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                       // _key.currentState!.validate();
                       // TODO results as a page route
                       // wait server response :)
-                      Get.to(() => HotelResult());
+                      // Get.to(() => HotelResult());
+                      Get.put(HotelsViewController());
+                      Get.to(() => HotelsView());
                     },
                     icon: Icon(
                       Icons.search,

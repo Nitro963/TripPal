@@ -4450,7 +4450,7 @@ List dummyJson = [
   }
 ];
 
-List dummyHotels = [
+List<Map<String, dynamic>> dummyHotels = [
   {
     "id": 114754,
     "name": "PULLMAN PARIS MONTPARNASSE Hotel (opening soon)",
@@ -4482,7 +4482,7 @@ List dummyHotels = [
   {
     "id": 1239959872,
     "name": "Beausoleil Studio",
-    "starRating": 0.0,
+    "starRating": 2.0,
     "guestrating": "10.0",
     "address": "Le Kremlin-Bicetre",
     "street": "Le Kremlin-Bicetre",
@@ -4493,20 +4493,20 @@ List dummyHotels = [
     "coordinate": {"lat": 48.808885, "lon": 2.362368},
     "deals": {}
   },
-  {
-    "id": 1446475392,
-    "name": "Suite Vetiver great Apt  best loc",
-    "starRating": 0.0,
-    "guestrating": "10.0",
-    "address": "Paris",
-    "street": "Paris",
-    "price": "",
-    "features": "",
-    "imgURL":
-        "https://thumbnails.trvl-media.com/8FLOpgVuAoY0I1sHb9Y77-uExuQ=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/46000000/45180000/45171200/45171106/a80779c3_z.jpg",
-    "coordinate": {"lat": 48.880125, "lon": 2.297378},
-    "deals": {}
-  },
+  // {
+  //   "id": 1446475392,
+  //   "name": "Suite Vetiver great Apt  best loc",
+  //   "starRating": 0.0,
+  //   "guestrating": "10.0",
+  //   "address": "Paris",
+  //   "street": "Paris",
+  //   "price": "",
+  //   "features": "",
+  //   "imgURL":
+  //       "https://thumbnails.trvl-media.com/8FLOpgVuAoY0I1sHb9Y77-uExuQ=/250x140/smart/filters:quality(60)/images.trvl-media.com/hotels/46000000/45180000/45171200/45171106/a80779c3_z.jpg",
+  //   "coordinate": {"lat": 48.880125, "lon": 2.297378},
+  //   "deals": {}
+  // },
   // {
   //   "id": 1254648672,
   //   "name": "La Maison de Robinson",
