@@ -5,12 +5,8 @@ import 'package:trip_pal_null_safe/screens/maps/map_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/place_card.dart';
 
-class SavedPlaces extends StatelessWidget {
+class SavedPlaces extends GetView<ProfileController> {
   SavedPlaces({Key? key}) : super(key: key);
-  // TODO convert to get view and use named routes with bindings!
-  // never ever do this shit!
-  final controller = Get.put(ProfileController());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

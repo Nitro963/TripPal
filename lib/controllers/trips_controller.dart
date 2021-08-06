@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/dummy_data.dart';
+import 'package:trip_pal_null_safe/models/sort_policy.dart';
 
-class FilterController extends GetxController {
+class TripsController extends GetxController {
   @override
   void onInit() {
     for (var type in _types) {
@@ -44,6 +46,10 @@ class FilterController extends GetxController {
 
   final List<RxString> tripModes = ["Extended Trip".obs, "Focused Trip".obs];
 
+
+  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
+      
   RxString tripMode = 'Extended Trip'.obs;
   void onClickRadioButton(value) {
     tripMode.value = value;
@@ -68,6 +74,28 @@ class FilterController extends GetxController {
     });
   }
 
+
+
+  List<SortPolicy> get sortPolices => [
+  SortPolicy('Most Resent', '', 1, 'most_resent'),
+  SortPolicy('Most Popular', '', 2, 'most_popular'),  
+  SortPolicy('Trip Duration', '', 3, 'trip_duration'),  
+  SortPolicy('Count of Places', '', 4, 'count_of_places'),   
+];
+
+int get sortPolicy => _sortPolicy.value;
+
+set sortPolicy(int? value) {
+  if (value != null) {
+    _sortPolicy.value = value;
+    refreshIndicatorKey.currentState!.show();
+  }
+}
+
+var _sortPolicy = 0.obs;
+
+
+
   //Trip Filters Page
   RxString sortType = 'Most Resent'.obs;
 
@@ -86,16 +114,10 @@ class FilterController extends GetxController {
 
   void changeTripsSortType(value) => sortType.value = value;
 
-  //Hotels Results Page
-  RxString hotelsSortType = 'Best Seller'.obs;
 
-  final List<RxString> hotelSortTypes = [
-    'Best Seller'.obs,
-    'Star Rating'.obs,
-    'Distance fom Landmark'.obs,
-    'Guest Rating'.obs,
-    'Price'.obs
-  ];
+  //shared trips page
 
-  void changeHotelsSortType(value) => hotelsSortType.value = value;
+  ScrollController _scrollcontroller = ScrollController();
+  RxBool closeHeader = false.obs;
+  RxDouble topContainer = 0.0.obs;
 }

@@ -12,8 +12,8 @@ import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
 import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
 
 class ReviewList extends AnimatedIModelListView {
-  ReviewsListController get controller => Get.find<ReviewsListController>();
-
+  // ReviewsListController get controller => Get.find<ReviewsListController>();
+  ReviewsListController controller =  Get.put(ReviewsListController());
   // TODO read statistics from server (i.e extend the controller)
   @override
   Widget buildHeader() {

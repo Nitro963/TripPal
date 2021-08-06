@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
-import 'package:trip_pal_null_safe/screens/planing/trip/trip_widget.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/trip_card.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 import 'profile_appbar.dart';
@@ -29,7 +29,7 @@ class ProfilePage extends GetView<ProfileController> {
             physics: BouncingScrollPhysics(),
             children: <Widget>[
               ProfileBlockTitle(title: 'Ongoing Trip'),
-              TripWidget(
+              TripCard(
                   imgPath: 'assets/images/dubai.jpg',
                   tripType: 'Extended Trip',
                   location: 'Dubai, UAE',
@@ -78,7 +78,7 @@ class ProfilePage extends GetView<ProfileController> {
                     ...controller.availableHotels.map((e) => ProfileCard(
                       title: e.name!,
                       subtitle: e.address! + ', ' + e.street!,
-                      image: AssetImage(e.image!),
+                      image: NetworkImage(e.image!),
                     ),)
 
                   ],

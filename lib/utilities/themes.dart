@@ -301,13 +301,13 @@ class Themes {
   static NavigationBarTheme getNavigationThemeFromMode(int themeMode) {
     NavigationBarTheme navigationBarTheme = NavigationBarTheme();
     if (themeMode == lightMode) {
-      navigationBarTheme.backgroundColor = Colors.white;
+      navigationBarTheme.backgroundColor = Colors.grey[100];
       navigationBarTheme.selectedItemColor = Color(0xff3d63ff);
       navigationBarTheme.unselectedItemColor = Color(0xff495057);
       navigationBarTheme.selectedOverlayColor = Color(0x383d63ff);
     } else if (themeMode == darkMode) {
       navigationBarTheme.backgroundColor = Color(0xff37404a);
-      navigationBarTheme.selectedItemColor = Color(0xff37404a);
+      navigationBarTheme.selectedItemColor = Colors.white;
       navigationBarTheme.unselectedItemColor = Color(0xffd1d1d1);
       navigationBarTheme.selectedOverlayColor = Color(0xffffffff);
     }

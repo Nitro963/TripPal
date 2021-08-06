@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/hotel_search_controller.dart';
-import 'package:trip_pal_null_safe/screens/home/HotelResults.dart';
+import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
@@ -12,106 +12,112 @@ class HotelSearchPage extends GetView<HotelSearchController> {
   @override
   Widget build(BuildContext context) {
     final themeData = Get.theme;
-    return Stack(
-      children: <Widget>[
-        Image.asset('assets/images/hotel_sp.jpg',
-            fit: BoxFit.cover,
-            color: Colors.black38,
-            colorBlendMode: BlendMode.darken,
-            height: double.infinity,
-            width: double.infinity),
-        SafeArea(
-          child: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  margin: Spacing.symmetric(horizontal: 30, vertical: 30),
-                  child: Text(
-                      'Our Engine let\'s you find the most amazing hotels in the world, easily.',
-                      style: themeData.textTheme.headline5!
-                          .copyWith(color: Colors.white)),
-                ),
-                Container(
-                  margin: Spacing.symmetric(horizontal: 20, vertical: 30),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: themeData.cardColor.withOpacity(0.86),
-                  ),
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-                  child: Form(
-                    key: _key,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        buildCityFormField(),
-                        buildDateTimeFormField(themeData, context),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            buildDropdownButtonFormField(
-                              'Adults',
-                              '2',
-                              Icons.person,
-                              (int? val) {
-                                controller.adults = val!;
-                              },
-                            ),
-                            buildDropdownButtonFormField(
-                              'Children',
-                              '2',
-                              MdiIcons.humanMaleChild,
-                              (int? val) {
-                                controller.children = val!;
-                              },
-                            ),
-                          ]
-                              .map(
-                                (e) => Container(
-                                    margin: Spacing.only(bottom: 10),
-                                    width: MySize.getScaledSizeWidth(150),
-                                    child: e),
-                              )
-                              .toList(),
-                        ),
-                        Container(
-                          margin: Spacing.only(bottom: 10),
-                          width: MySize.getScaledSizeWidth(150),
-                          child: buildDropdownButtonFormField(
-                            'Rooms',
-                            '2',
-                            MdiIcons.door,
-                            (int? val) {
-                              controller.rooms = val!;
-                            },
-                          ),
-                        ),
-                      ],
+    return Scaffold(
+      drawer: HomeDrawer(),
+      body: Container(
+        child: Stack(
+          children: <Widget>[
+            Image.asset('assets/images/hotel_sp.jpg',
+                fit: BoxFit.cover,
+                color: Colors.black38,
+                colorBlendMode: BlendMode.darken,
+                height: double.infinity,
+                width: double.infinity),
+            SafeArea(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30,),
+                    Container(
+                      margin: Spacing.symmetric(horizontal: 30, vertical: 30),
+                      child: Text(
+                          'Our Engine let\'s you find the most amazing hotels in the world, easily.',
+                          style: themeData.textTheme.headline5!
+                              .copyWith(color: Colors.white)),
                     ),
-                  ),
+                    Container(
+                      margin: Spacing.symmetric(horizontal: 20, vertical: 30),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: themeData.cardColor.withOpacity(0.86),
+                      ),
+                      padding:
+                          EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+                      child: Form(
+                        key: _key,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            buildCityFormField(),
+                            buildDateTimeFormField(themeData, context),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buildDropdownButtonFormField(
+                                  'Adults',
+                                  '2',
+                                  Icons.person,
+                                  (int? val) {
+                                    controller.adults = val!;
+                                  },
+                                ),
+                                buildDropdownButtonFormField(
+                                  'Children',
+                                  '2',
+                                  MdiIcons.humanMaleChild,
+                                  (int? val) {
+                                    controller.children = val!;
+                                  },
+                                ),
+                              ]
+                                  .map(
+                                    (e) => Container(
+                                        margin: Spacing.only(bottom: 10),
+                                        width: MySize.getScaledSizeWidth(150),
+                                        child: e),
+                                  )
+                                  .toList(),
+                            ),
+                            Container(
+                              margin: Spacing.only(bottom: 10),
+                              width: MySize.getScaledSizeWidth(150),
+                              child: buildDropdownButtonFormField(
+                                'Rooms',
+                                '2',
+                                MdiIcons.door,
+                                (int? val) {
+                                  controller.rooms = val!;
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    RoundedButton(
+                        title: 'Search',
+                        onPressed: () {
+                          // _key.currentState!.validate();
+                          // TODO results as a page route
+                          // wait server response :)
+                          // Get.to(() => HotelResult());
+                          Get.put(HotelsViewController());
+                          Get.to(() => HotelsView());
+                        },
+                        icon: Icon(
+                          Icons.search,
+                          color: Colors.white,
+                        )),
+                  ],
                 ),
-                RoundedButton(
-                    title: 'Search',
-                    onPressed: () {
-                      // _key.currentState!.validate();
-                      // TODO results as a page route
-                      // wait server response :)
-                      // Get.to(() => HotelResult());
-                      Get.put(HotelsViewController());
-                      Get.to(() => HotelsView());
-                    },
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                    )),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 

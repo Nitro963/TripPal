@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/controllers/filters_controller.dart';
+import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
@@ -9,7 +9,7 @@ import 'package:trip_pal_null_safe/widgets/simple/rounded_gesture_widget.dart';
 
 import 'basic_filters_page.dart';
 
-class LocationsPage extends GetView<FilterController> {
+class LocationsPage extends GetView<TripsController> {
   LocationsPage({Key? key}) : super(key: key);
 
   @override

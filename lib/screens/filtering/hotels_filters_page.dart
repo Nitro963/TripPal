@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/controllers/filters_controller.dart';
+import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 
 class HotelFiltersPage extends StatelessWidget {
-  final FilterController controller = Get.find<FilterController>();
+  final TripsController controller = Get.find<TripsController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
