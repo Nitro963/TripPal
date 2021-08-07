@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 import 'abstract_filters_controllers.dart';
+import 'base_controller.dart';
 
-abstract class IModelViewController<T extends IModel> extends GetxController {
+abstract class IModelViewController<T extends IModel> extends Controller {
   ApiView<T> get api;
 
   final _items = List<T>.empty(growable: true).obs;
@@ -86,6 +88,8 @@ abstract class IModelViewController<T extends IModel> extends GetxController {
   }
 
   Future<void> onRefresh() async {
+    hasError = false;
+    _empty.value = false;
     try {
       if (scrollController.hasClients) scrollController.jumpTo(0);
       var res = await api.getAllElements(
@@ -99,9 +103,8 @@ abstract class IModelViewController<T extends IModel> extends GetxController {
       else
         _empty.value = false;
     } catch (e) {
-      // TODO handel errors
-      print(e);
-      // errorHandler(e, onRefresh);
+      hasError = true;
+      errorModel = ErrorHandlerModel.fromError(e, onRefresh);
     }
   }
 

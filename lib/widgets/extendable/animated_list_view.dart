@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/animated_list_view_controller.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 abstract class AnimatedIModelListView
     extends GetView<AnimatedListViewController> {
@@ -40,123 +41,132 @@ abstract class AnimatedIModelListView
                     )),
                 Expanded(
                   child: Obx(() {
-                    var items = controller.items;
-                    return AnimatedSwitcher(
-                      duration: Duration(milliseconds: 350),
-                      child: items.isEmpty && !controller.emptyList
-                          ? Center(
-                              key: ValueKey(1),
-                              child: CircularProgressIndicator(),
-                            )
-                          : RefreshIndicator(
-                              key: controller.refreshIndicatorKey,
-                              backgroundColor: Get.theme.cardColor,
-                              onRefresh: controller.onRefresh,
-                              child: !controller.emptyList
-                                  ? Column(
-                                      children: [
-                                        Expanded(
-                                          child: ListView.builder(
-                                              controller:
-                                                  controller.scrollController,
-                                              physics: BouncingScrollPhysics(),
-                                              itemCount: items.length,
-                                              itemBuilder: (context, index) {
-                                                return Obx(() {
-                                                  var scale = calcScale(index);
-                                                  return Opacity(
-                                                    opacity: scale,
-                                                    child: Transform(
-                                                      transform:
-                                                          Matrix4.identity()
-                                                            ..scale(
-                                                                scale, scale),
-                                                      alignment: Alignment
-                                                          .bottomCenter,
-                                                      child: buildItem(
-                                                          items[index],
-                                                          index,
-                                                          scale,
-                                                          context),
-                                                    ),
-                                                  );
-                                                });
-                                              }),
-                                        ),
-                                        Obx(() => AnimatedOpacity(
-                                              opacity:
-                                                  controller.isLoading ? 1 : 0,
-                                              duration:
-                                                  Duration(milliseconds: 350),
-                                              child: Visibility(
-                                                visible: controller.isLoading,
-                                                child: Container(
-                                                  margin: Spacing.only(
-                                                      left: 16,
-                                                      right: 16,
-                                                      bottom: 16),
-                                                  decoration: BoxDecoration(
-                                                    color: Get
-                                                        .theme.cardTheme.color,
-                                                    borderRadius:
-                                                        BorderRadius.only(
-                                                            bottomRight:
-                                                                Radius.circular(
-                                                                    MySize
-                                                                        .size8),
-                                                            bottomLeft: Radius
-                                                                .circular(MySize
-                                                                    .size8)),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: Get
-                                                            .theme
-                                                            .cardTheme
-                                                            .shadowColor!
-                                                            .withAlpha(26),
-                                                        blurRadius: 5,
-                                                        offset: Offset(0,
-                                                            2), // changes position of shadow
+                    if (!controller.hasError) {
+                      var items = controller.items;
+                      return AnimatedSwitcher(
+                        duration: Duration(milliseconds: 350),
+                        child: items.isEmpty && !controller.emptyList
+                            ? Center(
+                                key: ValueKey(1),
+                                child: CircularProgressIndicator(),
+                              )
+                            : RefreshIndicator(
+                                key: controller.refreshIndicatorKey,
+                                backgroundColor: Get.theme.cardColor,
+                                onRefresh: controller.onRefresh,
+                                child: !controller.emptyList
+                                    ? Column(
+                                        children: [
+                                          Expanded(
+                                            child: ListView.builder(
+                                                controller:
+                                                    controller.scrollController,
+                                                physics:
+                                                    BouncingScrollPhysics(),
+                                                itemCount: items.length,
+                                                itemBuilder: (context, index) {
+                                                  return Obx(() {
+                                                    var scale =
+                                                        calcScale(index);
+                                                    return Opacity(
+                                                      opacity: scale,
+                                                      child: Transform(
+                                                        transform:
+                                                            Matrix4.identity()
+                                                              ..scale(
+                                                                  scale, scale),
+                                                        alignment: Alignment
+                                                            .bottomCenter,
+                                                        child: buildItem(
+                                                            items[index],
+                                                            index,
+                                                            scale,
+                                                            context),
                                                       ),
-                                                    ],
-                                                  ),
-                                                  padding:
-                                                      const EdgeInsets.all(15),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      CircularProgressIndicator(),
-                                                      SizedBox(
-                                                          width: MySize.size30),
-                                                      Text(
-                                                          'Loading more items...')
-                                                    ],
+                                                    );
+                                                  });
+                                                }),
+                                          ),
+                                          Obx(() => AnimatedOpacity(
+                                                opacity: controller.isLoading
+                                                    ? 1
+                                                    : 0,
+                                                duration:
+                                                    Duration(milliseconds: 350),
+                                                child: Visibility(
+                                                  visible: controller.isLoading,
+                                                  child: Container(
+                                                    margin: Spacing.only(
+                                                        left: 16,
+                                                        right: 16,
+                                                        bottom: 16),
+                                                    decoration: BoxDecoration(
+                                                      color: Get.theme.cardTheme
+                                                          .color,
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomRight: Radius
+                                                                  .circular(MySize
+                                                                      .size8),
+                                                              bottomLeft: Radius
+                                                                  .circular(MySize
+                                                                      .size8)),
+                                                      boxShadow: [
+                                                        BoxShadow(
+                                                          color: Get
+                                                              .theme
+                                                              .cardTheme
+                                                              .shadowColor!
+                                                              .withAlpha(26),
+                                                          blurRadius: 5,
+                                                          offset: Offset(0,
+                                                              2), // changes position of shadow
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            15),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        CircularProgressIndicator(),
+                                                        SizedBox(
+                                                            width:
+                                                                MySize.size30),
+                                                        Text(
+                                                            'Loading more items...')
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            )),
-                                      ],
-                                    )
-                                  : Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(itemIcon,
-                                              color: Get.theme.colorScheme
-                                                  .onBackground,
-                                              size: MySize.size100),
-                                          Text('No items!'.tr,
-                                              style:
-                                                  Get.theme.textTheme.headline5)
+                                              )),
                                         ],
+                                      )
+                                    : Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Icon(itemIcon,
+                                                color: Get.theme.colorScheme
+                                                    .onBackground,
+                                                size: MySize.size100),
+                                            Text('No items!'.tr,
+                                                style: Get
+                                                    .theme.textTheme.headline5)
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                            ),
-                    );
+                              ),
+                      );
+                    }
+                    return Center(
+                        child: buildErrorContent(controller.errorModel!));
                   }),
                 )
               ]),

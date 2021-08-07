@@ -7,18 +7,11 @@ class User implements IModel {
   String? name;
   String? email;
   String? password;
-  String? authToken;
   String? createdAt;
   String? updatedAt;
   String? emailVerifiedAt;
   String? profilePicture;
-  User(
-      {this.id,
-      this.name,
-      this.email,
-      this.password,
-      this.authToken,
-      this.profilePicture});
+  User({this.id, this.name, this.email, this.password, this.profilePicture});
 
   static User fromJson(dynamic json) {
     return User(

@@ -31,7 +31,6 @@ class DummyApiView<T extends IModel> implements ApiView<T> {
 
       if (parsedSkip + parsedTake > data.length)
         parsedTake = max(data.length - parsedSkip, 0);
-
       return Iterable.generate(
           parsedTake, (index) => decoder(data[index + parsedSkip])).toList();
     });

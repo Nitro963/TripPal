@@ -4,7 +4,6 @@ import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
-import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
 class ReviewsApi implements ApiView<Review> {
   @override

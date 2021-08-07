@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/validators.dart';
 
@@ -175,7 +177,10 @@ class _LoginState extends State<Login> {
           ),
           CupertinoButton(
             onPressed: () async {
-              // guest mode
+              // TODO add role based auth
+              Get.find<AuthControl>().currentUser =
+                  User(name: 'Guest', email: 'guest@trippal.com');
+              Get.offAllNamed('/home');
             },
             child: Text('Login as Guest?',
                 style: TextStyle(

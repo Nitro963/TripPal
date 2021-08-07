@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:readmore/readmore.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
+import 'package:trip_pal_null_safe/controllers/details_controller.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
@@ -12,6 +13,7 @@ import 'package:trip_pal_null_safe/widgets/simple/avatar_overflow.dart';
 import 'package:trip_pal_null_safe/widgets/simple/image_card.dart';
 import 'package:trip_pal_null_safe/widgets/simple/place_image_card.dart';
 
+// TODO add a details controller to read data from the server based on navigation parameters passed from Get
 class PlaceDetails extends StatelessWidget {
   final placesFigures = [
     'assets/images/5.jpg',
@@ -31,7 +33,7 @@ class PlaceDetails extends StatelessWidget {
             SliverAppBar(
               floating: false,
               pinned: true,
-              expandedHeight: MySize.getScaledSizeHeight(350),
+              expandedHeight: 2.5 * MySize.screenHeight / 5,
               leading: BackButton(color: Colors.white),
               backgroundColor: Themes.getDetailsAppBarColorFromThemeMode(
                   Get.find<AppThemeController>().themeMode),

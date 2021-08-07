@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:trip_pal_null_safe/controllers/details_controller.dart';
 import 'package:trip_pal_null_safe/models/blog.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/generator.dart';
 import 'package:trip_pal_null_safe/widgets/simple/image_dominant_color_cover.dart';
 
-class BlogViewController extends GetxController {
+class BlogViewController extends DetailsController {
   late final Blog _blog;
   final _progress = 0.0.obs;
   final scrollController = ScrollController();
@@ -25,6 +26,10 @@ class BlogViewController extends GetxController {
       }
     });
     super.onInit();
+  }
+
+  void onReady() {
+    // TODO read from api using blog id passed by get navigation parameters
   }
 }
 
@@ -89,6 +94,7 @@ class BlogView extends GetView<BlogViewController> {
           MySize.screenHeight / 2 + 2 * MediaQuery.of(Get.context!).padding.top,
       child: Stack(
         children: [
+          // TODO convert to shimmer image
           Container(
             decoration: BoxDecoration(
               borderRadius: Shape.circularBottom(40),

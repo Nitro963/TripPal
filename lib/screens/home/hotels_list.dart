@@ -149,6 +149,12 @@ class HotelsView extends IModelView {
   }
 
   @override
+  PreferredSizeWidget? buildAppBar() {
+    // TODO: implement buildAppBar
+    return super.buildAppBar();
+  }
+
+  @override
   IconData get tileIcon => Icons.hotel_rounded;
 
   @override

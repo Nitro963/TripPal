@@ -134,7 +134,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.lazyPut(() => ProfileController());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
-          // Get.to(() => PlaceDetails());
+          Get.to(() => PlaceDetails());
           // Get.put(HotelSearchController());
           // Get.put(FilterController());
           // Get.to(FiltersPage());

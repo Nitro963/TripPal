@@ -55,7 +55,6 @@ class AuthControl extends GetxService {
       // currentUser = User();
       // return res.decodedBody;
     }
-    currentUser = User();
   }
 
   void onUnauthorizedError() {

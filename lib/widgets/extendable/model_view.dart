@@ -6,8 +6,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:trip_pal_null_safe/controllers/model_list_view_controller.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 
-// TODO handle errors
 abstract class IModelView extends GetView<IModelViewController> {
   IconData get tileIcon;
   String get title;
@@ -31,8 +31,8 @@ abstract class IModelView extends GetView<IModelViewController> {
     return Column(
       children: [
         Expanded(
-          child: Obx(
-            () {
+          child: Obx(() {
+            if (!controller.hasError) {
               var items = controller.items;
               return AnimatedSwitcher(
                 duration: Duration(milliseconds: 350),
@@ -110,8 +110,9 @@ abstract class IModelView extends GetView<IModelViewController> {
                               ),
                       ),
               );
-            },
-          ),
+            }
+            return Center(child: buildErrorContent(controller.errorModel!));
+          }),
         ),
       ],
     );
