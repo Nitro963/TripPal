@@ -69,45 +69,38 @@ class MainPage extends StatelessWidget {
       return Scaffold(
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
+        extendBody: true,
         drawer: HomeDrawer(),
+        bottomNavigationBar: RoundedNavBar(
+          color: Themes.getNavigationThemeFromMode(_controller.themeMode)
+              .backgroundColor!,
+          size: Size(MySize.screenWidth, MySize.screenHeight),
+          actions: actions,
+          centerFloatingButton: FloatingActionButton(
+            onPressed: () {
+              controller.changeTabIndex(2);
+            },
+            child: Icon(
+              FontAwesomeIcons.streetView,
+              color: Themes.getNavigationThemeFromMode(_controller.themeMode)
+                  .backgroundColor!,
+            ),
+            elevation: 0.1,
+            backgroundColor: selected,
+          ),
+        ),
         body: SizedBox.expand(
-          child: Stack(
-            children: [
-              Obx(
-                () => IndexedStack(
-                  index: controller.tabIndex.value,
-                  children: [
-                    TripsPage(),
-                    HotelSearchPage(),
-                    MainMapPage(),
-                    BlogPage(),
-                    ProfilePage(),
-                  ],
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-              child: RoundedNavBar(
-                color: Themes.getNavigationThemeFromMode(_controller.themeMode)
-                    .backgroundColor!,
-                size: Size(MySize.screenWidth, MySize.screenHeight),
-                actions: actions,
-                centerFloatingButton: FloatingActionButton(
-                  onPressed: () {
-                    controller.changeTabIndex(2);
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.streetView,
-                    color: Themes.getNavigationThemeFromMode(
-                            _controller.themeMode)
-                        .backgroundColor!,
-                  ),
-                  elevation: 0.1,
-                  backgroundColor: selected,
-                ),
-              ),
-              ),
-            ],
+          child: Obx(
+            () => IndexedStack(
+              index: controller.tabIndex.value,
+              children: [
+                TripsPage(),
+                HotelSearchPage(),
+                MainMapPage(),
+                BlogPage(),
+                ProfilePage(),
+              ],
+            ),
           ),
         ),
       );

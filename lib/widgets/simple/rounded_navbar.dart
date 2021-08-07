@@ -15,6 +15,7 @@ class RoundedNavBar extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return CustomPaint(
       size: Size(size.width, 80),
       painter: BNBCustomPainter(this.color),
@@ -31,6 +32,22 @@ class RoundedNavBar extends StatelessWidget {
           Center(heightFactor: 0.6, child: centerFloatingButton),
         ],
       ),
+=======
+    return Stack(
+      children: [
+        CustomPaint(
+            size: Size(size.width, 80), painter: BNBCustomPainter(this.color)),
+        Center(heightFactor: 0.6, child: centerFloatingButton),
+        Container(
+          width: size.width,
+          height: 80,
+          color: Colors.transparent,
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: actions),
+        )
+      ],
+>>>>>>> 901816bc16c63feb0bd2dc28e6b11a26cee59cc1
     );
   }
 }
