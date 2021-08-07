@@ -8,6 +8,7 @@ import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class MainMapPage extends StatelessWidget {
@@ -100,8 +101,6 @@ class MainMapPage extends StatelessWidget {
               const Duration(milliseconds: 500),
               () => searchController.clear(),
             );
-            // WHY!!!
-            // searchController.updateMapView(place);
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -192,9 +191,7 @@ class MainMapPage extends StatelessWidget {
     return Directionality(
       textDirection: TextDirection.ltr,
       child: buildSearchBar(
-        () {
-          // Get.off(PlacesSearchEngine());
-        },
+        () => Get.to(PlacesSearchPage()),
       ),
     );
   }

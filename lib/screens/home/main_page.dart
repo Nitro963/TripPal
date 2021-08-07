@@ -66,10 +66,7 @@ class MainPage extends StatelessWidget {
               textStyle: labelStyle(4),
             )),
       ];
-      // final GlobalKey<ScaffoldState> _scaffoldKey =
-      //     new GlobalKey<ScaffoldState>();
       return Scaffold(
-        // key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
         extendBodyBehindAppBar: true,
         drawer: HomeDrawer(),
@@ -90,26 +87,25 @@ class MainPage extends StatelessWidget {
               ),
               Align(
                 alignment: Alignment.bottomCenter,
-                child: RoundedNavBar(
-                  color:
-                      Themes.getNavigationThemeFromMode(_controller.themeMode)
-                          .backgroundColor!,
-                  size: Size(MySize.screenWidth, MySize.screenHeight),
-                  actions: actions,
-                  centerFloatingButton: FloatingActionButton(
-                    onPressed: () {
-                      controller.changeTabIndex(2);
-                    },
-                    child: Icon(
-                      FontAwesomeIcons.streetView,
-                      color: Themes.getNavigationThemeFromMode(
-                              _controller.themeMode)
-                          .backgroundColor!,
-                    ),
-                    elevation: 0.1,
-                    backgroundColor: selected,
+              child: RoundedNavBar(
+                color: Themes.getNavigationThemeFromMode(_controller.themeMode)
+                    .backgroundColor!,
+                size: Size(MySize.screenWidth, MySize.screenHeight),
+                actions: actions,
+                centerFloatingButton: FloatingActionButton(
+                  onPressed: () {
+                    controller.changeTabIndex(2);
+                  },
+                  child: Icon(
+                    FontAwesomeIcons.streetView,
+                    color: Themes.getNavigationThemeFromMode(
+                            _controller.themeMode)
+                        .backgroundColor!,
                   ),
+                  elevation: 0.1,
+                  backgroundColor: selected,
                 ),
+              ),
               ),
             ],
           ),

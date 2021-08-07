@@ -54,7 +54,7 @@ List<GetPage> pages = [
   ),
   GetPage(
     name: '/places_page',
-    page: () => (PlacesSearchEngine()),
+    page: () => (PlacesSearchPage()),
     binding: BindingsBuilder.put(() => SearchBarController()),
   ),
   GetPage(

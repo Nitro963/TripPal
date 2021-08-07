@@ -3,8 +3,10 @@ import 'dart:collection';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/models/place_type.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
@@ -13,6 +15,7 @@ class SearchBarController extends GetxController {
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
   RxString _query = ''.obs;
+  List<Place2> _testingPlaces = List<Place2>.empty(growable: true);
 
   bool get isLoading => _isLoading.value;
 
@@ -66,6 +69,11 @@ class SearchBarController extends GetxController {
     );
     _photon = Get.find<GeoCodingService>().photon;
     mapHeight.value = MySize.screenHeight / 3;
+
+    for (var place in dummyJson) {
+      _testingPlaces.add(Place2.fromJson(place));
+    }
+
     super.onInit();
   }
 
@@ -114,6 +122,35 @@ class SearchBarController extends GetxController {
     mapController
         .animateCamera(CameraUpdate.newCameraPosition(this.cameraPosition));
   }
+
+  List<String> getSubtypes(String type) {
+    List<String> result = List<String>.empty(growable: true);
+    _placeTypes.forEach((element) {
+      if (element.type == type) {
+        result = element.subTypes;
+      }
+    });
+    return result;
+  }
+
+  List<String> getTypes() {
+    List<String> result = List<String>.empty(growable: true);
+    _placeTypes.forEach((element) {
+      result.add(element.type);
+    });
+    return result;
+  }
+
+  RxString _selectedType = ''.obs;
+  RxString _selectedSubtype = ''.obs;
+
+  String get selectedType => _selectedType.value;
+  String get selectedSubtype => _selectedSubtype.value;
+
+  void updateSelectedType(String newType) => _selectedType.value = newType;
+  void updateSelectedSubtype(String newSubType) =>
+      _selectedSubtype.value = newSubType;
+  List<Place2> get somePlaces => _testingPlaces;
 }
 
 List<Place> history = [
@@ -139,4 +176,96 @@ List<Place> history = [
     name: 'Zahle',
     country: 'Lebanon',
   ),
+];
+
+List<PlaceType> _placeTypes = [
+  PlaceType(type: 'Attractions & Culture', subTypes: [
+    'All Attractions & Culture',
+    'Museums',
+    'Theaters',
+    'Urban Environment',
+    'Towers',
+    'Skyscrapers',
+    'Bridges',
+    'Lightouses',
+  ]),
+  PlaceType(type: 'Food & Drink', subTypes: [
+    'All Foods & drinks',
+    'Cafes',
+    'Restaurants',
+    'Fast Foods',
+    'Food Courts',
+    'Picnic Sites',
+    'Biergartens',
+    'Bars',
+    'Pubs',
+  ]),
+  PlaceType(type: 'Shopping', subTypes: [
+    'All Shoppings',
+    'Bakeries',
+    'Conveniences',
+    'Fish Stores',
+    'Malls',
+    'marketplaces',
+    'Outdoor',
+    'Supermarkets',
+  ]),
+  PlaceType(type: 'Sports', subTypes: [
+    'All Sports',
+    'Climbing',
+    'Diving',
+    'Kitesurfing',
+    'Pools',
+    'Stadiums',
+    'Surfing',
+    'Winter Sports',
+  ]),
+  PlaceType(type: 'OutDoors', subTypes: [
+    'All Outdoors',
+    'Beaches',
+    'Glaciers',
+    'Islands',
+    'Natural Springs',
+    'Natural Reserves',
+    'Water',
+    'Geological Formations'
+  ]),
+  PlaceType(type: 'Points of Interest', subTypes: [
+    'All Points of Interest',
+    'Archaeology',
+    'Burial Places',
+    'Fortifications',
+    'Historical Places',
+    'Monuments and Memorials',
+    'Industrial facilities',
+  ]),
+  PlaceType(type: 'Motoring', subTypes: [
+    'All Motoring',
+    'Bicycle Rental',
+    'boat Sharing',
+    'Car Rental',
+    'Car Sharing',
+    'Car Wash',
+    'Sharging Station',
+    'Fuel',
+  ]),
+  PlaceType(type: 'Entertainment', subTypes: [
+    'All Entertainment',
+    'Water Parks',
+    'Roller Coasters',
+    'Miniature Parks',
+    'Amusement Parks',
+    'BathHouses',
+    'Sauns',
+    'Thermal bath',
+  ]),
+  PlaceType(type: 'Accomodations', subTypes: [
+    'Apartments',
+    'Villas and Chalet',
+    'Resorts',
+    'Motels',
+    "Guest Houses",
+    'Campsites',
+    'Alpine Huts'
+  ])
 ];

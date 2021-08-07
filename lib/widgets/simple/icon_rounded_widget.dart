@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class RoundedGestWithIconWidget extends StatelessWidget {
-  RoundedGestWithIconWidget({
+class RoundedTypeCard extends StatelessWidget {
+  RoundedTypeCard({
     Key? key,
     required this.title,
     required this.selected,

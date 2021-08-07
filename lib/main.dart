@@ -37,6 +37,7 @@ import 'controllers/main_page_controller.dart';
 import 'controllers/trips_list_controller.dart';
 import 'dialogs/change_theme_dialog.dart';
 import 'screens/planing/places_search_page.dart';
+import 'screens/planing/places_search_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -142,7 +143,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Get.lazyPut(() => HotelSearchController());
           // Get.put(TripsController());
           // Get.to(() => PlaceDetails());
-          // Get.put(HotelSearchController());
+          Get.put(HotelSearchController());
           // Get.put(FilterController());
           // Get.to(FiltersPage());
           // Get.to(() => Scaffold(
@@ -150,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           //     drawer: HomeDrawer(),
           //     resizeToAvoidBottomInset: false,
           //     body: HotelSearchPage()));
-          // Get.to(() => PlacesSearchEngine());
+          // Get.to(() => PlacesSearchPage());
           // Get.toNamed('/reviews');
           // Get.to(() => SavedPlaces());
           // Get.to(() => Scaffold(body: TripsPage()));
