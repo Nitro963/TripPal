@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-class ProfileAppBar extends StatelessWidget {
-  const ProfileAppBar({
+class ProfileHeader extends StatelessWidget {
+  const ProfileHeader({
     Key? key,
     required this.userName,
     required this.userDisc,
@@ -17,39 +17,52 @@ class ProfileAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
+        Expanded(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              ClipOval(
+                child: FancyShimmerImage(
+                    imageUrl:
+                        'https://loremflickr.com/320/320/person?random=86',
+                    width: MySize.getScaledSizeHeight(50),
+                    height: MySize.getScaledSizeHeight(50),
+                    boxFit: BoxFit.fill),
+              ),
+              SizedBox(width: 8.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Text>[
+                  Text(
+                    userName,
+                  ),
+                  Text(
+                    userDisc,
+                    style: Get.theme.textTheme.bodyText2,
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
         Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ClipOval(
-              child: FancyShimmerImage(
-                  imageUrl: 'https://loremflickr.com/320/320/person?random=86',
-                  width: MySize.getScaledSizeHeight(50),
-                  height: MySize.getScaledSizeHeight(50),
-                  boxFit: BoxFit.fill),
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.settings,
+              ),
+              // TODO use named routes
+              onPressed: () => Get.to(EditProfileScreen()),
             ),
-            SizedBox(width: 8.0),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Text>[
-                Text(
-                  userName,
-                ),
-                Text(
-                  userDisc,
-                  style: Get.theme.textTheme.bodyText2,
-                )
-              ],
+            IconButton(
+              icon: Icon(Icons.menu, size: MySize.size24),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
             ),
           ],
         ),
-        IconButton(
-          icon: Icon(
-            Icons.settings,
-          ),
-          onPressed: () => Get.to(EditProfileScreen()),
-        )
       ],
     );
   }

@@ -49,7 +49,7 @@ List<GetPage> pages = [
   ),
   GetPage(
     name: '/blogs_page',
-    page: () => Blog(),
+    page: () => BlogPage(),
     binding: BindingsBuilder.put(() => BlogViewController()),
   ),
   GetPage(

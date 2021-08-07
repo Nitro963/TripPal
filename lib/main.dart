@@ -131,15 +131,15 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/login');
           // Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
-          // Get.lazyPut(() => SearchBarController());
-          // Get.lazyPut(() => MainPageController());
-          // Get.lazyPut(() => ProfileController());
-          // Get.lazyPut(() => TripsListController());
+          Get.lazyPut(() => SearchBarController());
+          Get.lazyPut(() => MainPageController());
+          Get.lazyPut(() => ProfileController());
+          Get.lazyPut(() => TripsListController());
           // Get.to(() => ProfilePage());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
           // Get.to(() => PlaceDetails());
-          // Get.put(HotelSearchController());
+          Get.lazyPut(() => HotelSearchController());
           // Get.put(TripsController());
           // Get.to(() => PlaceDetails());
           // Get.put(HotelSearchController());
@@ -159,7 +159,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.put(BlogViewController());
           // Get.to(() => BlogView());
           // Get.to(() => EditProfileScreen());
-          // Get.to(MainPage());
+          Get.to(() => MainPage());
           // Get.to(() => SharedTripsPage());
         },
         tooltip: 'Increment',

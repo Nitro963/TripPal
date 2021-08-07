@@ -15,28 +15,21 @@ class RoundedNavBar extends StatelessWidget {
   final Color color;
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      child: Container(
-        width: size.width,
-        height: 80,
-        child: Stack(
-          children: <Widget>[
-            CustomPaint(
-              size: Size(size.width, 80),
-              painter: BNBCustomPainter(this.color),
-            ),
-            Center(heightFactor: 0.6, child: centerFloatingButton),
-            Container(
-              width: size.width,
-              height: 80,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: actions),
-            )
-          ],
-        ),
+    return CustomPaint(
+      size: Size(size.width, 80),
+      painter: BNBCustomPainter(this.color),
+      child: Stack(
+        children: [
+          Center(heightFactor: 0.6, child: centerFloatingButton),
+          Container(
+            width: size.width,
+            height: 80,
+            color: Colors.transparent,
+            child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: actions),
+          )
+        ],
       ),
     );
   }
@@ -70,26 +63,25 @@ class BNBCustomPainter extends CustomPainter {
   }
 }
 
-
 class RoundedNavBarItem extends StatelessWidget {
   const RoundedNavBarItem({
     Key? key,
     required this.itemColor,
-    required this.ontap,
+    required this.onTap,
     required this.textStyle,
     required this.label,
     required this.iconData,
   }) : super(key: key);
 
   final Color itemColor;
-  final ontap;
+  final onTap;
   final TextStyle textStyle;
   final String label;
   final iconData;
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        onTap: ontap,
+        onTap: onTap,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

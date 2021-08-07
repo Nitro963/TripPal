@@ -1,10 +1,8 @@
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/screens/credentials/Profile_page.dart';
-import 'package:trip_pal_null_safe/screens/details/blog_details.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -42,14 +40,14 @@ class MainPage extends StatelessWidget {
               label: 'Planning',
               iconData: FontAwesomeIcons.mapMarked,
               itemColor: controller.tabIndex.value == 0 ? selected : unselected,
-              ontap: () => controller.changeTabIndex(0),
+              onTap: () => controller.changeTabIndex(0),
               textStyle: labelStyle(0),
             )),
         Obx(() => RoundedNavBarItem(
               label: 'BOOKING',
               iconData: FontAwesomeIcons.hotel,
               itemColor: controller.tabIndex.value == 1 ? selected : unselected,
-              ontap: () => controller.changeTabIndex(1),
+              onTap: () => controller.changeTabIndex(1),
               textStyle: labelStyle(1),
             )),
         SizedBox(width: MySize.screenWidth * 0.2),
@@ -57,14 +55,14 @@ class MainPage extends StatelessWidget {
               label: 'BLOG',
               iconData: FontAwesomeIcons.newspaper,
               itemColor: controller.tabIndex.value == 3 ? selected : unselected,
-              ontap: () => controller.changeTabIndex(3),
+              onTap: () => controller.changeTabIndex(3),
               textStyle: labelStyle(3),
             )),
         Obx(() => RoundedNavBarItem(
               label: 'PROFILE',
               iconData: FontAwesomeIcons.solidUserCircle,
               itemColor: controller.tabIndex.value == 4 ? selected : unselected,
-              ontap: () => controller.changeTabIndex(4),
+              onTap: () => controller.changeTabIndex(4),
               textStyle: labelStyle(4),
             )),
       ];
@@ -73,46 +71,46 @@ class MainPage extends StatelessWidget {
       return Scaffold(
         // key: _scaffoldKey,
         resizeToAvoidBottomInset: false,
+        extendBodyBehindAppBar: true,
         drawer: HomeDrawer(),
-        body: SafeArea(
+        body: SizedBox.expand(
           child: Stack(
-            children: <Widget>[
-              Obx(() => IndexedStack(
-                    index: controller.tabIndex.value,
-                    children: [
-                      TripsPage(),
-                      HotelSearchPage(),
-                      MainMapPage(),
-                      Blog(),
-                      ProfilePage()
-                    ],
-                  )),
-              RoundedNavBar(
-                color: Themes.getNavigationThemeFromMode(_controller.themeMode)
-                    .backgroundColor!,
-                size: Size(MySize.screenWidth, MySize.screenHeight),
-                actions: actions,
-                centerFloatingButton: FloatingActionButton(
-                  onPressed: () {
-                    controller.changeTabIndex(2);
-                  },
-                  child: Icon(
-                    FontAwesomeIcons.streetView,
-                    color:
-                        Themes.getNavigationThemeFromMode(_controller.themeMode)
-                            .backgroundColor!,
-                  ),
-                  elevation: 0.1,
-                  backgroundColor: selected,
+            children: [
+              Obx(
+                () => IndexedStack(
+                  index: controller.tabIndex.value,
+                  children: [
+                    TripsPage(),
+                    HotelSearchPage(),
+                    MainMapPage(),
+                    BlogPage(),
+                    ProfilePage(),
+                  ],
                 ),
               ),
-              // Positioned(
-              //     top: 10,
-              //     left: 10,
-              //     child: IconButton(
-              //       icon: Icon(Icons.menu),
-              //       onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-              //     ))
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: RoundedNavBar(
+                  color:
+                      Themes.getNavigationThemeFromMode(_controller.themeMode)
+                          .backgroundColor!,
+                  size: Size(MySize.screenWidth, MySize.screenHeight),
+                  actions: actions,
+                  centerFloatingButton: FloatingActionButton(
+                    onPressed: () {
+                      controller.changeTabIndex(2);
+                    },
+                    child: Icon(
+                      FontAwesomeIcons.streetView,
+                      color: Themes.getNavigationThemeFromMode(
+                              _controller.themeMode)
+                          .backgroundColor!,
+                    ),
+                    elevation: 0.1,
+                    backgroundColor: selected,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

@@ -2,26 +2,37 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
-import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
-import 'package:trip_pal_null_safe/utilities/themes.dart';
 
 typedef ItemBuilder = Widget Function(BuildContext context, int index);
 
-class Blog extends StatelessWidget {
+class BlogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SizedBox.expand(
-        child: ListView(
-          physics: BouncingScrollPhysics(),
-          children: [
-            buildSectionOne(),
-            buildSectionTwo(),
-            buildTagSection(),
-          ],
-        ),
+    return SafeArea(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconButton(
+                  icon: Icon(Icons.menu, size: MySize.size24),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  }),
+            ],
+          ),
+          Expanded(
+            child: ListView(
+              physics: BouncingScrollPhysics(),
+              children: [
+                buildSectionOne(),
+                buildSectionTwo(),
+                buildTagSection(),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -51,7 +62,7 @@ class Blog extends StatelessWidget {
     final themeData = Get.theme;
     return Container(
       height: MySize.getScaledSizeHeight(190),
-      padding: Spacing.fromLTRB(0, 24, 0, 0),
+      padding: Spacing.fromLTRB(0, 8, 0, 0),
       child: buildHorizontalSection(
         Padding(
           padding: Spacing.fromLTRB(24, 0, 0, 0),

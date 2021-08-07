@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class ProfileCard extends StatelessWidget {
   const ProfileCard(
-      {Key ?key,
+      {Key? key,
       required this.title,
       required this.subtitle,
       required this.image})
       : super(key: key);
   final String title;
   final String subtitle;
-  final image;
+  // TODO convert to network path
+  final ImageProvider image;
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 190.0,
+      width: MySize.getScaledSizeWidth(200),
       margin: EdgeInsets.only(right: 10.0),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey[100]!),
@@ -23,33 +25,32 @@ class ProfileCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            height: 175.0,
-            margin: EdgeInsets.only(bottom: 8.0),
-            decoration: BoxDecoration(
-                image: DecorationImage(image: image, fit: BoxFit.cover),
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(14.0),
-                    topRight: Radius.circular(14.0))),
-          ),
-          // SizedBox(height: 8.0),
+          ClipRRect(
+              // TODO convert to shimmer image
+              child: Image(
+                image: image,
+                fit: BoxFit.fill,
+                height: MySize.getScaledSizeHeight(200),
+              ),
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(14.0),
+                  topRight: Radius.circular(14.0))),
+          SizedBox(height: 8.0),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(
               title,
-              overflow:  TextOverflow.ellipsis,
-              style: Get.theme.textTheme.subtitle1!.copyWith(fontWeight: FontWeight.bold),
-              
+              overflow: TextOverflow.ellipsis,
+              style: Get.theme.textTheme.subtitle1!
+                  .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(height: 8.0),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              subtitle,
-              overflow:  TextOverflow.ellipsis,
-              style: Get.theme.textTheme.bodyText2
-            ),
+            child: Text(subtitle,
+                overflow: TextOverflow.ellipsis,
+                style: Get.theme.textTheme.bodyText2),
           ),
         ],
       ),
@@ -66,7 +67,7 @@ class ProfileBlockTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical : 12.0),
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Text(
         title,
         style: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
