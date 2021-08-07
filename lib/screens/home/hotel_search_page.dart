@@ -68,15 +68,13 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                                 (int? val) {
                                   controller.adults = val!;
                                 },
+                                Spacing.horizontal(12),
                               ),
                               buildDropdownButtonFormField(
-                                'Children',
-                                '2',
-                                MdiIcons.humanMaleChild,
-                                (int? val) {
-                                  controller.children = val!;
-                                },
-                              ),
+                                  'Children', '2', MdiIcons.humanMaleChild,
+                                  (int? val) {
+                                controller.children = val!;
+                              }, Spacing.only(right: 8)),
                             ]
                                 .map(
                                   (e) => Container(
@@ -96,6 +94,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                               (int? val) {
                                 controller.rooms = val!;
                               },
+                              Spacing.horizontal(12),
                             ),
                           ),
                         ],
@@ -219,8 +218,8 @@ class HotelSearchPage extends GetView<HotelSearchController> {
     );
   }
 
-  Widget buildDropdownButtonFormField(
-      String label, String hint, IconData icon, void Function(int?) onChanged) {
+  Widget buildDropdownButtonFormField(String label, String hint, IconData icon,
+      void Function(int?) onChanged, EdgeInsetsGeometry padding) {
     return DropdownButtonFormField<int>(
       decoration: InputDecoration(
           prefixIcon: Icon(icon),
@@ -232,7 +231,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
           enabledBorder: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(),
           focusedErrorBorder: OutlineInputBorder(),
-          contentPadding: EdgeInsets.all(12)),
+          contentPadding: padding),
       icon: const Icon(Icons.keyboard_arrow_down),
       iconSize: 24,
       elevation: 16,
