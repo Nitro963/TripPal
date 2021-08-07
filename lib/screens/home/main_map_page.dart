@@ -8,15 +8,16 @@ import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-class MainMapPage extends StatelessWidget {
-  MainMapPage({Key? key}) : super(key: key);
+class MainMapScreen extends StatelessWidget {
+  MainMapScreen({Key? key}) : super(key: key);
   final searchBarController = FloatingSearchBarController();
   final searchController = Get.find<SearchBarController>();
 
-  Widget buildSearchBar(onTap) {
+  Widget buildSearchBar() {
     final actions = [
       FloatingSearchBarAction.icon(
         showIfOpened: false,
@@ -29,35 +30,31 @@ class MainMapPage extends StatelessWidget {
         icon: Icons.my_location,
         onTap: () => searchController.getMyLocation(),
       ),
-      FloatingSearchBarAction.icon(
-        showIfOpened: false,
-        icon: Icons.not_listed_location_outlined,
-        onTap: onTap,
-      ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,
       ),
     ];
 
-    return Obx(() => FloatingSearchBar(
-          backgroundColor: Get.theme.colorScheme.background,
-          controller: searchBarController,
-          clearQueryOnClose: true,
-          iconColor: Colors.grey,
-          transitionDuration: const Duration(milliseconds: 800),
-          transitionCurve: Curves.easeInOutCubic,
-          physics: const BouncingScrollPhysics(),
-          axisAlignment: 0,
-          openAxisAlignment: 0.0,
-          actions: actions,
-          progress: searchController.isLoading,
-          debounceDelay: const Duration(milliseconds: 500),
-          onQueryChanged: searchController.onQueryChanged,
-          transition: CircularFloatingSearchBarTransition(),
-          accentColor: Colors.blueAccent,
-          builder: (context, _) => buildExpandableBody(),
-          body: buildBody(),
-        ));
+    return Scaffold(
+        body: Obx(() => FloatingSearchBar(
+              backgroundColor: Get.theme.colorScheme.background,
+              controller: searchBarController,
+              clearQueryOnClose: true,
+              iconColor: Get.theme.appBarTheme.iconTheme!.color,
+              transitionDuration: const Duration(milliseconds: 800),
+              transitionCurve: Curves.easeInOutCubic,
+              physics: const BouncingScrollPhysics(),
+              axisAlignment: 0,
+              openAxisAlignment: 0.0,
+              actions: actions,
+              progress: searchController.isLoading,
+              debounceDelay: const Duration(milliseconds: 500),
+              onQueryChanged: searchController.onQueryChanged,
+              transition: CircularFloatingSearchBarTransition(),
+              accentColor: Colors.blueAccent,
+              builder: (context, _) => buildExpandableBody(),
+              body: buildBody(),
+            )));
   }
 
   Widget buildExpandableBody() {
@@ -65,28 +62,28 @@ class MainMapPage extends StatelessWidget {
       color: Get.theme.colorScheme.background,
       elevation: 4.0,
       borderRadius: BorderRadius.circular(8),
-      child: 
-      // Obx(() => 
-      ImplicitlyAnimatedList<Place>(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            items: searchController.suggestions,
-            areItemsTheSame: (a, b) => a == b,
-            itemBuilder: (_, animation, place, i) {
-              return SizeFadeTransition(
-                animation: animation,
-                child: buildItem(place),
-              );
-            },
-            updateItemBuilder: (_, animation, place) {
-              return FadeTransition(
-                opacity: animation,
-                child: buildItem(place),
-              );
-            },
-          // )
-          ),
+      child:
+          // Obx(() =>
+          ImplicitlyAnimatedList<Place>(
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        items: searchController.suggestions,
+        areItemsTheSame: (a, b) => a == b,
+        itemBuilder: (_, animation, place, i) {
+          return SizeFadeTransition(
+            animation: animation,
+            child: buildItem(place),
+          );
+        },
+        updateItemBuilder: (_, animation, place) {
+          return FadeTransition(
+            opacity: animation,
+            child: buildItem(place),
+          );
+        },
+        // )
+      ),
     );
   }
 
@@ -154,34 +151,30 @@ class MainMapPage extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Container(
-             width: MySize.screenWidth,
-             height: MySize.screenHeight,
-             child: GoogleMap(
-               myLocationButtonEnabled: false,
-               trafficEnabled: false,
-               mapToolbarEnabled: false,
-               myLocationEnabled: true,
-               zoomControlsEnabled: false,
-               initialCameraPosition:
-                   searchController.cameraPosition,
-               onMapCreated: (controller) {
-                 searchController.mapController = controller;
-               },
-               markers: {
-                 Marker(
-                     markerId: const MarkerId('marker1'),
-                     infoWindow: InfoWindow(
-                         title: searchController
-                             .markerInfoWindowTitle.value),
-                     icon: BitmapDescriptor.defaultMarkerWithHue(
-                         BitmapDescriptor.hueAzure),
-                     position: LatLng(
-                         searchController.latitude.value,
-                         searchController.longitude.value))
-               },
-             ),
-            
-         ),
+          width: MySize.screenWidth,
+          height: MySize.screenHeight,
+          child: GoogleMap(
+            myLocationButtonEnabled: false,
+            trafficEnabled: false,
+            mapToolbarEnabled: false,
+            myLocationEnabled: true,
+            zoomControlsEnabled: false,
+            initialCameraPosition: searchController.cameraPosition,
+            onMapCreated: (controller) {
+              searchController.mapController = controller;
+            },
+            markers: {
+              Marker(
+                  markerId: const MarkerId('marker1'),
+                  infoWindow: InfoWindow(
+                      title: searchController.markerInfoWindowTitle.value),
+                  icon: BitmapDescriptor.defaultMarkerWithHue(
+                      BitmapDescriptor.hueAzure),
+                  position: LatLng(searchController.latitude.value,
+                      searchController.longitude.value))
+            },
+          ),
+        ),
       ),
     );
   }
@@ -190,9 +183,7 @@ class MainMapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: buildSearchBar(
-        () => Get.to(PlacesSearchPage()),
-      ),
+      child: buildSearchBar(),
     );
   }
 }

@@ -46,7 +46,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                 style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center),
             Container(
-                height: MySize.getScaledSizeHeight(60),
+                height: MySize.getScaledSizeHeight(70),
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
@@ -63,7 +63,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                 ? Divider(color: Colors.blueGrey[200])
                 : SizedBox()),
             Container(
-                height: MySize.getScaledSizeHeight(60),
+                height: MySize.getScaledSizeHeight(70),
                 child: Obx(() => ListView(
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
@@ -100,6 +100,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
 
   Widget buildFloatingSearchBar() {
     final actions = [
+      // TODO add on tap action
       FloatingSearchBarAction.icon(
           showIfOpened: false, icon: Icons.location_on, onTap: () {}),
       FloatingSearchBarAction.searchToClear(
@@ -110,7 +111,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
     return FloatingSearchBar(
       hint: 'Search Location...',
       backgroundColor: Get.theme.backgroundColor,
-      iconColor: Get.theme.colorScheme.onBackground,
+      iconColor: Get.theme.appBarTheme.iconTheme!.color,
       scrollPadding: const EdgeInsets.only(top: 16, bottom: 56),
       transitionDuration: const Duration(milliseconds: 800),
       transitionCurve: Curves.easeInOut,

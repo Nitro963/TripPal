@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
+import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
+import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
@@ -10,8 +12,7 @@ import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_navbar.dart';
 
 import '../../controllers/main_page_controller.dart';
-import 'blogs_page.dart';
-import 'main_map_page.dart';
+import 'blog_page.dart';
 import 'hotel_search_page.dart';
 
 class MainPage extends StatelessWidget {
@@ -36,35 +37,43 @@ class MainPage extends StatelessWidget {
       }
 
       List<Widget> actions = [
-        Obx(() => RoundedNavBarItem(
-              label: 'Planning',
-              iconData: FontAwesomeIcons.mapMarked,
-              itemColor: controller.tabIndex.value == 0 ? selected : unselected,
-              onTap: () => controller.changeTabIndex(0),
-              textStyle: labelStyle(0),
-            )),
-        Obx(() => RoundedNavBarItem(
-              label: 'BOOKING',
-              iconData: FontAwesomeIcons.hotel,
-              itemColor: controller.tabIndex.value == 1 ? selected : unselected,
-              onTap: () => controller.changeTabIndex(1),
-              textStyle: labelStyle(1),
-            )),
+        Obx(
+          () => RoundedNavBarItem(
+            label: 'Planning',
+            iconData: FontAwesomeIcons.mapMarked,
+            itemColor: controller.tabIndex.value == 0 ? selected : unselected,
+            onTap: () => controller.changeTabIndex(0),
+            textStyle: labelStyle(0),
+          ),
+        ),
+        Obx(
+          () => RoundedNavBarItem(
+            label: 'BOOKING',
+            iconData: FontAwesomeIcons.hotel,
+            itemColor: controller.tabIndex.value == 1 ? selected : unselected,
+            onTap: () => controller.changeTabIndex(1),
+            textStyle: labelStyle(1),
+          ),
+        ),
         SizedBox(width: MySize.screenWidth * 0.2),
-        Obx(() => RoundedNavBarItem(
-              label: 'BLOG',
-              iconData: FontAwesomeIcons.newspaper,
-              itemColor: controller.tabIndex.value == 3 ? selected : unselected,
-              onTap: () => controller.changeTabIndex(3),
-              textStyle: labelStyle(3),
-            )),
-        Obx(() => RoundedNavBarItem(
-              label: 'PROFILE',
-              iconData: FontAwesomeIcons.solidUserCircle,
-              itemColor: controller.tabIndex.value == 4 ? selected : unselected,
-              onTap: () => controller.changeTabIndex(4),
-              textStyle: labelStyle(4),
-            )),
+        Obx(
+          () => RoundedNavBarItem(
+            label: 'BLOG',
+            iconData: FontAwesomeIcons.newspaper,
+            itemColor: controller.tabIndex.value == 2 ? selected : unselected,
+            onTap: () => controller.changeTabIndex(2),
+            textStyle: labelStyle(3),
+          ),
+        ),
+        Obx(
+          () => RoundedNavBarItem(
+            label: 'PROFILE',
+            iconData: FontAwesomeIcons.solidUserCircle,
+            itemColor: controller.tabIndex.value == 3 ? selected : unselected,
+            onTap: () => controller.changeTabIndex(3),
+            textStyle: labelStyle(3),
+          ),
+        ),
       ];
       return Scaffold(
         resizeToAvoidBottomInset: false,
@@ -78,7 +87,9 @@ class MainPage extends StatelessWidget {
           actions: actions,
           centerFloatingButton: FloatingActionButton(
             onPressed: () {
-              controller.changeTabIndex(2);
+              // controller.changeTabIndex(2);
+              Get.lazyPut(() => SearchBarController());
+              Get.to(() => MainMapScreen());
             },
             child: Icon(
               FontAwesomeIcons.streetView,
@@ -96,7 +107,7 @@ class MainPage extends StatelessWidget {
               children: [
                 TripsPage(),
                 HotelSearchPage(),
-                MainMapPage(),
+                // MainMapScreen(),
                 BlogPage(),
                 ProfilePage(),
               ],

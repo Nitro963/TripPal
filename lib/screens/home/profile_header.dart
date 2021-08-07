@@ -49,9 +49,9 @@ class ProfileHeader extends StatelessWidget {
         Row(
           children: [
             IconButton(
-              icon: Icon(
-                Icons.settings,
-              ),
+              icon: Icon(Icons.settings,
+                  size: MySize.size24,
+                  color: Get.theme.appBarTheme.iconTheme!.color),
               // TODO use named routes
               onPressed: () => Get.to(EditProfileScreen()),
             ),

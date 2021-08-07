@@ -9,6 +9,7 @@ import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'profile_card.dart';
 import 'profile_header.dart';
 
+// TODO add saved places
 class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {

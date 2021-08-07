@@ -29,7 +29,8 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                   Row(
                     children: [
                       IconButton(
-                          icon: Icon(Icons.menu, size: MySize.size24),
+                          icon: Icon(Icons.menu,
+                              size: MySize.size24, color: Colors.white),
                           onPressed: () {
                             Scaffold.of(context).openDrawer();
                           }),

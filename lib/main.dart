@@ -12,7 +12,7 @@ import 'package:trip_pal_null_safe/screens/details/blog_details.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
 import 'package:trip_pal_null_safe/screens/filtering/basic_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
-import 'package:trip_pal_null_safe/screens/home/blogs_page.dart';
+import 'package:trip_pal_null_safe/screens/home/blog_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
@@ -132,10 +132,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/login');
           // Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
-          Get.lazyPut(() => SearchBarController());
-          Get.lazyPut(() => MainPageController());
           Get.lazyPut(() => ProfileController());
           Get.lazyPut(() => TripsListController());
+          Get.lazyPut(() => MainPageController());
           // Get.to(() => ProfilePage());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
@@ -143,7 +142,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           Get.lazyPut(() => HotelSearchController());
           // Get.put(TripsController());
           // Get.to(() => PlaceDetails());
-          Get.put(HotelSearchController());
           // Get.put(FilterController());
           // Get.to(FiltersPage());
           // Get.to(() => Scaffold(

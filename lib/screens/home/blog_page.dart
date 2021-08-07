@@ -16,7 +16,9 @@ class BlogPage extends StatelessWidget {
           Row(
             children: [
               IconButton(
-                  icon: Icon(Icons.menu, size: MySize.size24),
+                  icon: Icon(Icons.menu,
+                      size: MySize.size24,
+                      color: Get.theme.appBarTheme.iconTheme!.color),
                   onPressed: () {
                     Scaffold.of(context).openDrawer();
                   }),

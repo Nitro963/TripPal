@@ -13,7 +13,7 @@ import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/credentials/login.dart';
 import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
 import 'package:trip_pal_null_safe/screens/credentials/register.dart';
-import 'package:trip_pal_null_safe/screens/home/blogs_page.dart';
+import 'package:trip_pal_null_safe/screens/home/blog_page.dart';
 import 'package:trip_pal_null_safe/screens/home/hotel_search_page.dart';
 import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
