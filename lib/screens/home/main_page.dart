@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
-import 'package:trip_pal_null_safe/screens/credentials/Profile_page.dart';
+import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';

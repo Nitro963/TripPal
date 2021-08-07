@@ -9,7 +9,7 @@ import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/main.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
 import 'package:trip_pal_null_safe/screens/boarding/loading.dart';
-import 'package:trip_pal_null_safe/screens/credentials/Profile_page.dart';
+import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/credentials/login.dart';
 import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
 import 'package:trip_pal_null_safe/screens/credentials/register.dart';

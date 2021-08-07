@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
-import 'package:trip_pal_null_safe/screens/credentials/Profile_page.dart';
+import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/main_page.dart';
 import 'package:trip_pal_null_safe/pages.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';

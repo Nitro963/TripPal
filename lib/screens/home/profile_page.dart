@@ -6,8 +6,8 @@ import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_card.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-import 'profile_appbar.dart';
 import 'profile_card.dart';
+import 'profile_header.dart';
 
 class ProfilePage extends GetView<ProfileController> {
   @override
