@@ -19,24 +19,32 @@ class HomeDrawer extends StatelessWidget {
       child: ListView(
         children: [
           CustomDrawerHeader(),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0 , horizontal: 14.0),
+            child: Text('Personal', style: Get.theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold)),
+          ), 
           HomeDrawerItem(
-            title: 'Account',
+            title: 'Manage account',
             subTitle: 'Go to your profile',
             icon: FontAwesomeIcons.solidUserCircle,
-            // onTap: () => Get.to(ProfilePage()),
+            onTap: () => Get.toNamed('/profile_page')
           ),
           HomeDrawerItem(
             title: 'Saved Places',
             subTitle: 'Check out your saved places',
             icon: FontAwesomeIcons.solidHeart,
-            // onTap: () => Get.to(SavedPlaces()),
+            // onTap: () => Get.toNamed()
           ),
           HomeDrawerItem(
             title: 'Address',
             subTitle: 'Add or remove an address',
             icon: Icons.location_on,
             onTap: () {},
-          ),
+          ),     
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0 , horizontal: 14.0),
+            child: Text('Useful Features', style: Get.theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold)),
+          ),       
           HomeDrawerItem(
             title: 'AI-Assistant',
             subTitle: 'Ask questions to our bot',
@@ -58,7 +66,7 @@ class HomeDrawer extends StatelessWidget {
               onTap: () {}),
           HomeDrawerItem(
             title: 'Appearance',
-            subTitle: 'Light and dark mode',
+            subTitle: 'Try our creative modes',
             icon: FontAwesomeIcons.glasses,
             onTap: () => Get.dialog(SelectThemeDialog())
           ),    
@@ -122,7 +130,7 @@ class CustomDrawerHeader extends GetView<ProfileController> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                      image: AssetImage(controller.imgPath), fit: BoxFit.cover),
+                      image: AssetImage('assets/images/profile.jpg'), fit: BoxFit.cover),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),

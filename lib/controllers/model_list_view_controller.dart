@@ -3,6 +3,7 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
@@ -108,21 +109,24 @@ abstract class IModelViewController<T extends IModel> extends Controller {
     }
   }
 
-  // List<SortPolicy> get sortPolices => [
-//   SortPolicy('Name', 1, 'name'),
-//   SortPolicy('Price', 2, 'price'),
-// ];
-//
-// int get sortPolicy => _sortPolicy.value;
-//
-// set sortPolicy(int? value) {
-//   if (value != null) {
-//     _sortPolicy.value = value;
-//     refreshIndicatorKey.currentState!.show();
-//   }
-// }
-//
-// var _sortPolicy = 0.obs;
+  List<SortPolicy> get sortPolices => [
+  SortPolicy('Best Seller', '', 1, 'best_seller'),
+  SortPolicy('Star Rating', '', 2, 'star_rating'),  
+  SortPolicy('Distance fom Landmark', '', 3, 'dist_landmarks'),  
+  SortPolicy('Guest Rating', '', 4, 'guest_rating'),  
+  SortPolicy('Price', '', 5, 'price'),    
+];
+
+int get sortPolicy => _sortPolicy.value;
+
+set sortPolicy(int? value) {
+  if (value != null) {
+    _sortPolicy.value = value;
+    refreshIndicatorKey.currentState!.show();
+  }
+}
+
+var _sortPolicy = 0.obs;
 
 // Map<String, dynamic> get _sortingParameters {
 //   if (sortPolices.isEmpty) return {};

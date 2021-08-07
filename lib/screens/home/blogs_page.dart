@@ -12,12 +12,8 @@ typedef ItemBuilder = Widget Function(BuildContext context, int index);
 class Blog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('TripPal'),
-      ),
-      drawer: HomeDrawer(),
-      body: SizedBox.expand(
+    return Container(
+      child: SizedBox.expand(
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: [

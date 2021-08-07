@@ -1,90 +1,105 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TripCard extends StatelessWidget {
-  const TripCard({
-    Key? key,
-    required this.tripType,
-    required this.tripWriter,
-    required this.onTap,
-    required this.img,
-  }) : super(key: key);
+  const TripCard(
+      {Key? key,
+      required this.imgPath,
+      required this.tripType,
+      required this.location,
+      required this.details,
+      required this.days,
+      this.onTap})
+      : super(key: key);
+  final String imgPath;
   final String tripType;
-  final String tripWriter;
-  final onTap;
-  final String img;
+  final String location;
+  final String details;
+  final int days;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: FittedBox(
-        fit: BoxFit.contain,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 9, sigmaY: 9),
-              child: Container(
-                padding: EdgeInsets.all(15.0),
-                height: 160.0,
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  color: Colors.white.withOpacity(0.4),
-                ),
+    return Container(
+      // margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+      height: 160.0,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12.0),
+        image: DecorationImage(
+          image: AssetImage(imgPath),
+          fit: BoxFit.cover,
+        ),
+      ),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.all(25.0),
+          height: 150.0,
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.0),
+            color: Colors.black38,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                tripType,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6.0),
                 child: Row(
                   children: <Widget>[
-                    Container(
-                      height: 150.0,
-                      width: 130.0,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          image: DecorationImage(
-                            image: AssetImage(img),
-                            fit: BoxFit.cover,
-                          )),
+                    Icon(
+                      FontAwesomeIcons.locationArrow,
+                      color: Colors.white,
+                      size: 16.0,
                     ),
                     SizedBox(
-                      width: 15.0,
+                      width: 12.0,
                     ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Flexible(
-                            flex: 1,
-                            child: Text(
-                              tripType,
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                  fontSize: 20.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 12.0,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            child: Text(
-                              tripWriter,
-                              overflow: TextOverflow.fade,
-                              style: TextStyle(
-                                fontSize: 16.0,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    Text(
+                      location,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26.0),
                     ),
                   ],
                 ),
               ),
-            ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    details,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Icon(
+                        FontAwesomeIcons.solidCalendarAlt,
+                        size: 14.0,
+                        color: Colors.white,
+                      ),
+                      SizedBox(
+                        width: 3.0,
+                      ),
+                      Text(
+                        days.toString(),
+                        style: TextStyle(color: Colors.white, fontSize: 15),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),

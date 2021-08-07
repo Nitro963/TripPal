@@ -11,7 +11,7 @@ class ProfileController extends GetxController {
   String userName = 'Rita Ora';
   String userSubName = 'Great Planner';
   // TODO read from server
-  String imgPath = 'assets/images/user_.jpg';
+  String imgPath = 'https://loremflickr.com/320/320/person?random=86';
 
   List<Place2> userSavedPlaces = List<Place2>.empty(growable: true);
   List<Hotel> availableHotels = List<Hotel>.empty(growable: true);

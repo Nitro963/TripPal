@@ -107,6 +107,78 @@ List<Trip> dummyTrips = [
       details: 'Foods included',
       type: 'Extended Trip',
       days: days),
+      Trip(
+      city: 'Dubai',
+      country: 'UAE',
+      details: 'Foods, malls & shops included',
+      type: 'Extended Trip',
+      days: days),
+  Trip(
+      city: 'Milan',
+      country: 'Italy',
+      details: 'Malls included',
+      type: 'Focused Trip',
+      days: days),
+  Trip(
+      city: 'Ankara',
+      country: 'Turkey',
+      details: 'Foods & Shops included',
+      type: 'Focused Trip',
+      days: days),
+  Trip(
+      city: 'Barcelona',
+      country: 'Spain',
+      details: 'Foods included',
+      type: 'Extended Trip',
+      days: days),
+  Trip(
+      city: 'Dubai',
+      country: 'UAE',
+      details: 'Foods, malls & shops included',
+      type: 'Extended Trip',
+      days: days),
+  Trip(
+      city: 'Milan',
+      country: 'Italy',
+      details: 'Malls included',
+      type: 'Focused Trip',
+      days: days),
+      Trip(
+      city: 'Dubai',
+      country: 'UAE',
+      details: 'Foods, malls & shops included',
+      type: 'Extended Trip',
+      days: days),
+  Trip(
+      city: 'Milan',
+      country: 'Italy',
+      details: 'Malls included',
+      type: 'Focused Trip',
+      days: days),
+  Trip(
+      city: 'Ankara',
+      country: 'Turkey',
+      details: 'Foods & Shops included',
+      type: 'Focused Trip',
+      days: days),
+  Trip(
+      city: 'Barcelona',
+      country: 'Spain',
+      details: 'Foods included',
+      type: 'Extended Trip',
+      days: days),
+  Trip(
+      city: 'Dubai',
+      country: 'UAE',
+      details: 'Foods, malls & shops included',
+      type: 'Extended Trip',
+      days: days),
+  Trip(
+      city: 'Milan',
+      country: 'Italy',
+      details: 'Malls included',
+      type: 'Focused Trip',
+      days: days),
 ];
 
 List<String> dummyCities = [

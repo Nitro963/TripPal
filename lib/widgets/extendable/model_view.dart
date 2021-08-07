@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/controllers/model_list_view_controller.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
+import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
 
 abstract class IModelView extends GetView<IModelViewController> {
   IconData get tileIcon;
@@ -142,10 +143,10 @@ abstract class IModelView extends GetView<IModelViewController> {
           child: InkWell(
             onTap: () async {
               Future.delayed(Duration(milliseconds: 150), () async {
-                // final res = await Get.bottomSheet(SortBottomSheet(
-                //     policies: controller.sortPolices,
-                //     initialValue: controller.sortPolicy));
-                // controller.sortPolicy = res;
+                final res = await Get.bottomSheet(SortBottomSheet(
+                    policies: controller.sortPolices,
+                    initialValue: controller.sortPolicy));
+                controller.sortPolicy = res;
               });
             },
             child: Icon(

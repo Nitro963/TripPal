@@ -1,6 +1,8 @@
-
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class ProfileAppBar extends StatelessWidget {
   const ProfileAppBar({
@@ -20,19 +22,23 @@ class ProfileAppBar extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            CircleAvatar(
-              backgroundImage: image,
-              radius: 24.0,
+            ClipOval(
+              child: FancyShimmerImage(
+                  imageUrl: 'https://loremflickr.com/320/320/person?random=86',
+                  width: MySize.getScaledSizeHeight(50),
+                  height: MySize.getScaledSizeHeight(50),
+                  boxFit: BoxFit.fill),
             ),
             SizedBox(width: 8.0),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Text>[
-                Text(userName,
-                   ),
+                Text(
+                  userName,
+                ),
                 Text(
                   userDisc,
-                 style: Get.theme.textTheme.bodyText2,
+                  style: Get.theme.textTheme.bodyText2,
                 )
               ],
             ),
@@ -42,7 +48,7 @@ class ProfileAppBar extends StatelessWidget {
           icon: Icon(
             Icons.settings,
           ),
-          onPressed: () {},
+          onPressed: () => Get.to(EditProfileScreen()),
         )
       ],
     );

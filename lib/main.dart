@@ -14,8 +14,9 @@ import 'package:trip_pal_null_safe/screens/filtering/basic_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
 import 'package:trip_pal_null_safe/screens/home/blogs_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
-import 'package:trip_pal_null_safe/screens/home/home_page.dart';
+import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
@@ -30,9 +31,10 @@ import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
 
 import 'controllers/app_theme_controller.dart';
-import 'controllers/filters_controller.dart';
+import 'controllers/trips_controller.dart';
 import 'controllers/hotel_search_controller.dart';
 import 'controllers/main_page_controller.dart';
+import 'controllers/trips_list_controller.dart';
 import 'dialogs/change_theme_dialog.dart';
 import 'screens/planing/places_search_page.dart';
 
@@ -132,9 +134,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.lazyPut(() => SearchBarController());
           // Get.lazyPut(() => MainPageController());
           // Get.lazyPut(() => ProfileController());
+          // Get.lazyPut(() => TripsListController());
+          // Get.to(() => ProfilePage());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
-          Get.to(() => PlaceDetails());
+          // Get.to(() => PlaceDetails());
+          // Get.put(HotelSearchController());
+          // Get.put(TripsController());
+          // Get.to(() => PlaceDetails());
           // Get.put(HotelSearchController());
           // Get.put(FilterController());
           // Get.to(FiltersPage());
@@ -150,9 +157,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.put(HotelsViewController());
           // Get.to(() => HotelsView());
           // Get.put(BlogViewController());
-          // Get.to(() => Blog());
+          // Get.to(() => BlogView());
           // Get.to(() => EditProfileScreen());
-          // Get.to(() => MainPage());
+          // Get.to(MainPage());
+          // Get.to(() => SharedTripsPage());
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

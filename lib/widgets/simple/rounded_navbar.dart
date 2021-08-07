@@ -69,3 +69,34 @@ class BNBCustomPainter extends CustomPainter {
     return false;
   }
 }
+
+
+class RoundedNavBarItem extends StatelessWidget {
+  const RoundedNavBarItem({
+    Key? key,
+    required this.itemColor,
+    required this.ontap,
+    required this.textStyle,
+    required this.label,
+    required this.iconData,
+  }) : super(key: key);
+
+  final Color itemColor;
+  final ontap;
+  final TextStyle textStyle;
+  final String label;
+  final iconData;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: ontap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(iconData, size: 20.0, color: itemColor),
+            SizedBox(height: 4.0),
+            Text(label, style: textStyle)
+          ],
+        ));
+  }
+}
