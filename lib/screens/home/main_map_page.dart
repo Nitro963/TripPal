@@ -147,6 +147,7 @@ class MainMapScreen extends StatelessWidget {
   }
 
   Widget buildBody() {
+    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

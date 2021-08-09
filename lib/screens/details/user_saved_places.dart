@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
+import 'package:trip_pal_null_safe/models/day_item.dart';
 import 'package:trip_pal_null_safe/screens/maps/map_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/place_card.dart';
@@ -24,13 +26,18 @@ class SavedPlaces extends GetView<ProfileController> {
             return PlaceCard(
               activated: true,
               place: controller.userSavedPlaces[index],
-              onTap: () => Get.to(
-                MapPage(
-                    latitude: controller.userSavedPlaces[index].coordinate!.lat,
-                    longitude:
-                        controller.userSavedPlaces[index].coordinate!.lon,
-                    placeName: controller.userSavedPlaces[index].name),
-              ),
+              onTap: () => Get.to(MapPage(
+                points: [
+                  Item(
+                      type: controller.userSavedPlaces[index].kinds!,
+                      id: controller.userSavedPlaces[index].id,
+                      coordinate: LatLng(
+                          controller.userSavedPlaces[index].coordinate!.lat,
+                          controller.userSavedPlaces[index].coordinate!.lon),
+                      name: controller.userSavedPlaces[index].name,
+                      rate: controller.userSavedPlaces[index].guestRating)
+                ],
+              )),
             );
           },
         ),
