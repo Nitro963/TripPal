@@ -398,6 +398,8 @@ class _TransformerPageViewState extends State<TransformerPageView> {
           itemCount: widget.itemCount,
           loop: widget.loop,
           reverse: widget.transformer.reverse);
+    } else {
+      _pageController = widget.pageController!;
     }
     // int initPage = _getRealIndexFromRenderIndex(index);
     // _pageController = new PageController(initialPage: initPage,viewportFraction: widget.viewportFraction);
