@@ -1,28 +1,16 @@
-// TODO either migrate the library to null safety or use other solutions
-// import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
-import 'package:cron/cron.dart';
+import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
 import 'package:trip_pal_null_safe/models/activities.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import '../../../dummy_data.dart';
 import 'trip_plan_pages_indecators.dart';
 
-// TODO never make an observable datetime. Convert to GetView and user the same logic in HotelSearchPage
-class TripPlan extends StatelessWidget {
-  final RxInt selectedIndex = 0.obs;
-  final PageController controller = PageController();
-  final Rx<DateTime> time = DateTime.now().obs;
-
+class TripPlan extends GetView<TripPlanningController> {
   @override
   Widget build(BuildContext context) {
-    // What the hell is this?!
-    //Toggle Time Event for the date Every 5 minutes
-    final cron = Cron()
-      ..schedule(Schedule.parse('*/5 * * * *'), () async {
-        time.value = DateTime.now();
-      });
+    MySize.init(context);
     return Scaffold(
       appBar: AppBar(
         title: Text("Trip Plan Details"),
@@ -40,61 +28,45 @@ class TripPlan extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 32),
-              child: Obx(() => PagesIndicators(
-                    controller: controller,
-                    index: selectedIndex.value,
-                    days: days,
-                  )),
+              child: PagesIndicators(
+                index: controller.selectedIndex.value,
+                days: days,
+              ),
             ),
             SingleChildScrollView(
               child: SizedBox(
-                width: double.infinity,
-                height: 800,
-                child: Obx(
-                  () => PageView(
-                    controller: controller,
-                    physics: BouncingScrollPhysics(),
-                    onPageChanged: (index) {
-                      selectedIndex.value = index;
-                    },
-                    children: [
-                      // WHY WHY WHY
-                      // Use Page builder :)
-                      ListView.builder(
-                          itemCount: days[selectedIndex.value].activates.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: index == 0
-                                  ? const EdgeInsets.only(top: 8)
-                                  : const EdgeInsets.only(top: 2.5),
-                              child: CustomStepper(
-                                  plan: days[selectedIndex.value]
+                  width: double.infinity,
+                  height: 800,
+                  child: PageView.builder(
+                      controller: controller.pageController,
+                      physics: BouncingScrollPhysics(),
+                      itemCount: days.length,
+                      onPageChanged: (index) {
+                        controller.selectedIndex.value = index;
+                      },
+                      itemBuilder: (context, pageIndex) {
+                        return ListView.builder(
+                            itemCount: days[pageIndex].activates.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: index == 0
+                                    ? const EdgeInsets.only(top: 8)
+                                    : const EdgeInsets.only(top: 2.5),
+                                child: CustomStepper(
+                                  plan: days[controller.selectedIndex.value]
                                       .activates[index],
-                                  lineColor: days[selectedIndex.value]
-                                          .activates[index]
-                                          .time
-                                          .isBefore(time.value)
-                                      ? Get.theme.primaryColor
-                                      : Colors.grey),
-                            );
-                          }),
-                      ListView.builder(
-                          itemCount: days[selectedIndex.value].activates.length,
-                          itemBuilder: (context, index) {
-                            return CustomStepper(
-                                plan:
-                                    days[selectedIndex.value].activates[index],
-                                lineColor: days[selectedIndex.value]
-                                        .activates[index]
-                                        .time
-                                        .isBefore(time.value)
-                                    ? Get.theme.primaryColor
-                                    : Colors.grey);
-                          }),
-                    ],
-                  ),
-                ),
-              ),
+                                  lineColor:
+                                      days[controller.selectedIndex.value]
+                                              .activates[index]
+                                              .time
+                                              .isBefore(controller.time.value)
+                                          ? Get.theme.primaryColor
+                                          : Colors.grey,
+                                  size: Size(double.infinity, MySize.size100),
+                                ),
+                              );
+                            });
+                      })),
             ),
           ],
         ),
@@ -106,55 +78,60 @@ class TripPlan extends StatelessWidget {
 // Bad implantation!
 class CustomStepper extends StatelessWidget {
   final Activity plan;
-  final Size size;
+  late final Size size;
   final Color lineColor;
+
   CustomStepper(
-      {required this.plan,
-      this.lineColor = Colors.grey,
-      this.size = const Size(100, 100)});
+      {required this.plan, this.lineColor = Colors.grey, required this.size});
   @override
   Widget build(BuildContext context) {
     MySize.init(context);
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
-        children: [
-          Text(intl.DateFormat("hh:mm a").format(plan.time),
-              maxLines: 2,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
-              )),
-          Padding(
-            padding: const EdgeInsets.only(left: 6, right: 12.0),
-            child: CustomPaint(
-              painter: LinePainter(progress: 100.0, color: lineColor),
-              size: Size(2, size.height),
+    return SizedBox(
+      height: size.height,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Row(
+          children: [
+            SizedBox(
+              width: MySize.size100,
+              child: Text(intl.DateFormat("hh:mm a").format(plan.time),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Get.theme.accentColor,
+                    fontWeight: FontWeight.w300,
+                  )),
             ),
-          ),
-          SizedBox(
-            width: MySize.getScaledSizeWidth(220),
-            height: size.height,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(plan.activity,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        color: Colors.grey[600],
-                        fontSize: 24)),
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(plan.details,
+            Padding(
+              padding: const EdgeInsets.only(left: 12, right: 12.0),
+              child: CustomPaint(
+                painter: LinePainter(progress: 100.0, color: lineColor),
+                size: Size(2, size.height),
+              ),
+            ),
+            SizedBox(
+              width: MySize.getScaledSizeWidth(220),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(plan.activity,
                       style: TextStyle(
-                          color: Get.theme.shadowColor,
-                          fontWeight: FontWeight.w300)),
-                ),
-              ],
-            ),
-          )
-        ],
+                          fontWeight: FontWeight.w600,
+                          color: Colors.grey[600],
+                          fontSize: 24)),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Text(plan.details,
+                        style: TextStyle(
+                            color: Get.theme.shadowColor,
+                            fontWeight: FontWeight.w300)),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
