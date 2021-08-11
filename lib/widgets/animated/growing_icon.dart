@@ -47,7 +47,6 @@ class _GrowingIconState extends State<GrowingIcon>
           tween: Tween<double>(begin: widget.size + 25, end: widget.size),
           weight: 50),
     ]).animate(_curveAnimation);
-    _controller.addListener(() {});
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed)
         setState(() {
