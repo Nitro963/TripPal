@@ -71,7 +71,7 @@ class WeatherBuddyController extends PlacesMiniListController {
       var animationController =
           syncButtonState.currentState!.animationController;
 
-      animationController.removeListener(_animationListener);
+      animationController.removeStatusListener(_animationListener);
 
       animationController.reset();
 
@@ -84,9 +84,9 @@ class WeatherBuddyController extends PlacesMiniListController {
     });
   }
 
-  Future<void> _animationListener() async {
+  Future<void> _animationListener(status) async {
     var animationController = syncButtonState.currentState!.animationController;
-    if (animationController.isCompleted) {
+    if (status == AnimationStatus.completed) {
       animationController.reset();
       await animationController.forward();
     }
@@ -97,7 +97,7 @@ class WeatherBuddyController extends PlacesMiniListController {
         name: 'WEATHER_BUDDY');
     var animationController = syncButtonState.currentState!.animationController;
     if (!animationController.isAnimating) {
-      animationController.addListener(_animationListener);
+      animationController.addStatusListener(_animationListener);
       await animationController.forward();
     }
     await _refreshCurrentPageWeatherInfo();
