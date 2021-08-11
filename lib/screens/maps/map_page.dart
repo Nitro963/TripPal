@@ -1,61 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/controllers/maps_controller.dart';
+import 'package:trip_pal_null_safe/models/day_item.dart';
 
-class MapPage extends StatefulWidget {
-  final latitude;
-  final longitude;
-  final placeName;
-  const MapPage(
-      {Key? key,
-      required this.latitude,
-      required this.longitude,
-      required this.placeName})
-      : super(key: key);
-  @override
-  State<MapPage> createState() => MapPageState();
-}
-
-class MapPageState extends State<MapPage> {
+class MapPage extends GetView<MapController> {
+  MapPage({required this.points, Key? key}) : super(key: key);
+  final List<Item> points;
+  
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: Stack(
-        children: <Widget>[
-          GoogleMap(
-            initialCameraPosition: CameraPosition(
-              target: LatLng(widget.latitude, widget.longitude),
-              zoom: 14.4746,
-            ),
-            markers: {
-              Marker(
-                  markerId: const MarkerId('placeMarker'),
-                  infoWindow: InfoWindow(
-                    title: widget.placeName,
-                  ),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueAzure),
-                  position: LatLng(widget.latitude, widget.longitude)),
-            },
+    controller.addMarkers(points);
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.blueGrey[700],
           ),
-          SafeArea(
-            child: Container(
-              height: MySize.screenHeight,
-              width: MySize.screenWidth,
-              child: Align(
-                  alignment: Alignment.topLeft,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 25,
-                      color: Colors.blueGrey[800],
-                    ),
-                    onPressed: () => Get.back(),
-                  )),
-            ),
-          ),
-        ],
+          onPressed: () => Get.back(),
+        ),
+      ),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
+      body: Container(
+        child: GoogleMap(
+          myLocationButtonEnabled: false,
+          trafficEnabled: false,
+          mapToolbarEnabled: false,
+          myLocationEnabled: true,
+          zoomControlsEnabled: false,
+          initialCameraPosition: CameraPosition(
+        target: LatLng(
+            points[0].coordinate.latitude, points[0].coordinate.longitude),
+        zoom: 11.5),
+          onMapCreated: (mapController) {
+            controller.mapController = mapController;
+          },
+          markers: controller.markers.toSet(),
+        ),
       ),
     );
   }
