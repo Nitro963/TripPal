@@ -1,137 +1,140 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
 import 'package:trip_pal_null_safe/models/activities.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/themes.dart';
+import 'package:trip_pal_null_safe/utilities/transformers.dart';
+import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
 import '../../../dummy_data.dart';
-import 'trip_plan_pages_indecators.dart';
+import 'trip_plan_pages_indicators.dart';
 
 class TripPlan extends GetView<TripPlanningController> {
-  @override
-  Widget build(BuildContext context) {
-    MySize.init(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Trip Plan Details"),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.edit_location_outlined),
-              onPressed: () {
-                // TODO edit mode
-              })
-        ],
-      ),
-      body: Center(
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 32, 16, 32),
+  PreferredSizeWidget buildAppBar() {
+    return PreferredSize(
+      preferredSize: Size(MySize.screenWidth, MySize.getScaledSizeHeight(180)),
+      child: Column(
+        children: [
+          AppBar(
+            title: Text("Trip Plan Details"),
+            centerTitle: true,
+            elevation: 0,
+            actions: [
+              IconButton(
+                  icon: Icon(Icons.edit_location_outlined),
+                  onPressed: () {
+                    // TODO edit mode
+                  })
+            ],
+          ),
+          Expanded(
+            child: Padding(
+              padding: Spacing.fromLTRB(16, 4, 16, 32),
               child: PagesIndicators(
-                index: controller.selectedIndex.value,
+                index: controller.selectedIndex,
                 days: days,
               ),
             ),
-            SingleChildScrollView(
-              child: SizedBox(
-                  width: double.infinity,
-                  height: 800,
-                  child: PageView.builder(
-                      controller: controller.pageController,
-                      physics: BouncingScrollPhysics(),
-                      itemCount: days.length,
-                      onPageChanged: (index) {
-                        controller.selectedIndex.value = index;
-                      },
-                      itemBuilder: (context, pageIndex) {
-                        return ListView.builder(
-                            itemCount: days[pageIndex].activates.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: index == 0
-                                    ? const EdgeInsets.only(top: 8)
-                                    : const EdgeInsets.only(top: 2.5),
-                                child: CustomStepper(
-                                  plan: days[controller.selectedIndex.value]
-                                      .activates[index],
-                                  lineColor:
-                                      days[controller.selectedIndex.value]
-                                              .activates[index]
-                                              .time
-                                              .isBefore(controller.time.value)
-                                          ? Get.theme.primaryColor
-                                          : Colors.grey,
-                                  size: Size(double.infinity, MySize.size100),
-                                ),
-                              );
-                            });
-                      })),
-            ),
-          ],
-        ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final customTheme =
+        Themes.getCustomAppTheme(Get.find<AppThemeController>().themeMode);
+    return Scaffold(
+      appBar: buildAppBar(),
+      body: Column(
+        children: [
+          Expanded(
+            child: TransformerPageView(
+                pageController: controller.pageController,
+                physics: BouncingScrollPhysics(),
+                itemCount: days.length,
+                duration: Duration(seconds: 1),
+                onPageChanged: (index) {
+                  controller.selectedIndex = index;
+                },
+                transformer: ZoomInPageTransformer(),
+                itemBuilder: (context, pageIndex) {
+                  return ListView.builder(
+                      itemCount: days[pageIndex].activates.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: index == 0
+                              ? Spacing.only(top: 8)
+                              : Spacing.only(top: 2.5),
+                          child: CustomStepper(
+                            plan:
+                                days[controller.selectedIndex].activates[index],
+                            lineColor: days[controller.selectedIndex]
+                                    .activates[index]
+                                    .time
+                                    .isBefore(DateTime.now())
+                                ? customTheme.colorInfo
+                                : customTheme.disabledColor,
+                          ),
+                        );
+                      });
+                }),
+          ),
+        ],
       ),
     );
   }
 }
 
-// Bad implantation!
 class CustomStepper extends StatelessWidget {
   final Activity plan;
-  late final Size size;
   final Color lineColor;
-
-  CustomStepper(
-      {required this.plan, this.lineColor = Colors.grey, required this.size});
+  final timeFormatter = intl.DateFormat("hh:mm a");
+  CustomStepper({required this.plan, this.lineColor = Colors.grey});
   @override
   Widget build(BuildContext context) {
-    MySize.init(context);
-    return SizedBox(
-      height: size.height,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Row(
-          children: [
-            SizedBox(
-              width: MySize.size100,
-              child: Text(intl.DateFormat("hh:mm a").format(plan.time),
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Get.theme.accentColor,
-                    fontWeight: FontWeight.w300,
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 12, right: 12.0),
-              child: CustomPaint(
-                painter: LinePainter(progress: 100.0, color: lineColor),
-                size: Size(2, size.height),
-              ),
-            ),
-            SizedBox(
-              width: MySize.getScaledSizeWidth(220),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text(plan.activity,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.grey[600],
-                          fontSize: 24)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: Text(plan.details,
-                        style: TextStyle(
-                            color: Get.theme.shadowColor,
-                            fontWeight: FontWeight.w300)),
+    final themeData = Get.theme;
+    return Padding(
+      padding: Spacing.symmetric(horizontal: 24.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: MySize.size80,
+            child: Text(timeFormatter.format(plan.time),
+                maxLines: 1,
+                textAlign: TextAlign.center,
+                style:
+                    themeData.textTheme.subtitle2!.copyWith(color: lineColor)),
+          ),
+          SizedBox(width: 10),
+          CustomPaint(
+            painter: LinePainter(progress: 100.0, color: lineColor),
+            size: Size(2, MySize.screenHeight / 7),
+          ),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  plan.activity,
+                  style: themeData.textTheme.headline5!.copyWith(
+                    fontWeight: FontWeight.w600,
                   ),
-                ],
-              ),
-            )
-          ],
-        ),
+                ),
+                Text(
+                  plan.details,
+                  style: themeData.textTheme.subtitle1,
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/maps_controller.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
+import 'package:trip_pal_null_safe/dummy_data.dart';
 import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/main_page.dart';
 import 'package:trip_pal_null_safe/pages.dart';
@@ -19,6 +20,7 @@ import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
@@ -33,6 +35,7 @@ import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
 
 import 'controllers/app_theme_controller.dart';
+import 'controllers/trip_planning_controller.dart';
 import 'controllers/trips_controller.dart';
 import 'controllers/hotel_search_controller.dart';
 import 'controllers/main_page_controller.dart';
@@ -40,7 +43,6 @@ import 'controllers/trips_list_controller.dart';
 import 'dialogs/change_theme_dialog.dart';
 import 'models/day_item.dart';
 import 'screens/maps/map_page.dart';
-import 'screens/planing/places_search_page.dart';
 import 'screens/planing/places_search_page.dart';
 
 void main() async {
@@ -180,16 +182,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/login');
           // Get.toNamed('/reviews');
           // Get.toNamed('/weather-buddy');
-          Get.lazyPut(() => ProfileController());
-          Get.lazyPut(() => TripsListController());
-          Get.lazyPut(() => MainPageController());
-          Get.lazyPut(() => SearchBarController());
-          Get.put(MapController());
+          // Get.lazyPut(() => ProfileController());
+          // Get.lazyPut(() => TripsListController());
+          // Get.lazyPut(() => MainPageController());
+          // Get.lazyPut(() => SearchBarController());
+          // Get.put(MapController());
           // Get.to(() => ProfilePage());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
           // Get.to(() => PlaceDetails());
-          Get.lazyPut(() => HotelSearchController());
+          // Get.lazyPut(() => HotelSearchController());
           // Get.put(TripsController());
           // Get.to(() => PlaceDetails());
           // Get.put(FilterController());
@@ -211,7 +213,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.to(() => MainPage());
           // Get.to(() => SharedTripsPage());
 
-          Get.to(MapPage(points: points));
+          // Get.to(MapPage(points: points));
+          Get.put(TripPlanningController(days.length));
+          Get.to(() => TripPlan());
         },
         tooltip: 'Increment',
         child: Icon(Icons.add),

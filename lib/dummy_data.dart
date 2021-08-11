@@ -107,7 +107,7 @@ List<Trip> dummyTrips = [
       details: 'Foods included',
       type: 'Extended Trip',
       days: days),
-      Trip(
+  Trip(
       city: 'Dubai',
       country: 'UAE',
       details: 'Foods, malls & shops included',
@@ -143,7 +143,7 @@ List<Trip> dummyTrips = [
       details: 'Malls included',
       type: 'Focused Trip',
       days: days),
-      Trip(
+  Trip(
       city: 'Dubai',
       country: 'UAE',
       details: 'Foods, malls & shops included',
