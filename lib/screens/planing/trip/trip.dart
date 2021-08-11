@@ -20,6 +20,7 @@ class TripPlan extends GetView<TripPlanningController> {
           AppBar(
             title: Text("Trip Plan Details"),
             centerTitle: true,
+            backgroundColor: Get.theme.backgroundColor,
             elevation: 0,
             actions: [
               IconButton(
