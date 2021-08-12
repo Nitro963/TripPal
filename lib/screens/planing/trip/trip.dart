@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
-import 'package:trip_pal_null_safe/models/activities.dart';
+import 'package:trip_pal_null_safe/models/day_item.dart';
+import 'package:trip_pal_null_safe/screens/maps/map_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/utilities/transformers.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
 import '../../../dummy_data.dart';
-import 'trip_plan_pages_indicators.dart';
+import 'trip_planning_widgets.dart';
 
 class TripPlan extends GetView<TripPlanningController> {
   PreferredSizeWidget buildAppBar() {
     return PreferredSize(
-      preferredSize: Size(MySize.screenWidth, MySize.getScaledSizeHeight(180)),
+      preferredSize: Size(MySize.screenWidth, MySize.getScaledSizeHeight(140)),
       child: Column(
         children: [
           AppBar(
@@ -30,13 +33,11 @@ class TripPlan extends GetView<TripPlanningController> {
                   })
             ],
           ),
-          Expanded(
-            child: Padding(
-              padding: Spacing.fromLTRB(16, 4, 16, 32),
-              child: PagesIndicators(
-                index: controller.selectedIndex,
-                days: days,
-              ),
+          Container(
+            height: MySize.getScaledSizeHeight(60),
+            child: PagesIndicators(
+              index: controller.selectedIndex,
+              daysCount: londonTrip['days']!.length,
             ),
           ),
         ],
@@ -56,7 +57,7 @@ class TripPlan extends GetView<TripPlanningController> {
             child: TransformerPageView(
                 pageController: controller.pageController,
                 physics: BouncingScrollPhysics(),
-                itemCount: days.length,
+                itemCount: londonTrip['days']!.length,
                 duration: Duration(seconds: 1),
                 onPageChanged: (index) {
                   controller.selectedIndex = index;
@@ -64,18 +65,28 @@ class TripPlan extends GetView<TripPlanningController> {
                 transformer: ZoomInPageTransformer(),
                 itemBuilder: (context, pageIndex) {
                   return ListView.builder(
-                      itemCount: days[pageIndex].activates.length,
+                      itemCount:
+                          (londonTrip['days']![pageIndex]['items'] as List)
+                                  .length -
+                              1,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: index == 0
                               ? Spacing.only(top: 8)
                               : Spacing.only(top: 2.5),
                           child: CustomStepper(
-                            plan:
-                                days[controller.selectedIndex].activates[index],
-                            lineColor: days[controller.selectedIndex]
-                                    .activates[index]
-                                    .time
+                            subType: controller.generateSubType(
+                                (londonTrip['days']![pageIndex]['items']
+                                    as List))[index],
+                            plan: (londonTrip['days']![pageIndex]['items']
+                                as List)[index],
+                            time: controller.generateTime(
+                                (londonTrip['days']![pageIndex]['items']
+                                    as List))[index],
+                            lineColor: controller
+                                    .generateTime(
+                                        (londonTrip['days']![pageIndex]['items']
+                                            as List))[index]
                                     .isBefore(DateTime.now())
                                 ? customTheme.colorInfo
                                 : customTheme.disabledColor,
@@ -86,94 +97,24 @@ class TripPlan extends GetView<TripPlanningController> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class CustomStepper extends StatelessWidget {
-  final Activity plan;
-  final Color lineColor;
-  final timeFormatter = intl.DateFormat("hh:mm a");
-  CustomStepper({required this.plan, this.lineColor = Colors.grey});
-  @override
-  Widget build(BuildContext context) {
-    final themeData = Get.theme;
-    return Padding(
-      padding: Spacing.symmetric(horizontal: 24.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: MySize.size80,
-            child: Text(timeFormatter.format(plan.time),
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                style:
-                    themeData.textTheme.subtitle2!.copyWith(color: lineColor)),
-          ),
-          SizedBox(width: 10),
-          CustomPaint(
-            painter: LinePainter(progress: 100.0, color: lineColor),
-            size: Size(2, MySize.screenHeight / 7),
-          ),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  plan.activity,
-                  style: themeData.textTheme.headline5!.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                Text(
-                  plan.details,
-                  style: themeData.textTheme.subtitle1,
-                ),
-              ],
-            ),
-          )
-        ],
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          List<Item> mapPoint = List<Item>.empty(growable: true);
+          londonTrip['days']!.forEach((element) {
+            (element['items'] as List).forEach((element) {
+              mapPoint.add(Item(
+                  type: element['item_type'].toString(),
+                  id: ['item_id'].toString(),
+                  coordinate: LatLng(element['coordinate']['lat'], element['coordinate']['lon']),
+                  name: element['name'].toString(),
+                  rate: element['rate'].toString()));
+            });
+          });
+          print(mapPoint.length);
+          Get.to(MapPage(points: mapPoint));
+        },
+        child: Icon(FontAwesomeIcons.mapMarkedAlt, size: 20),
       ),
     );
-  }
-}
-
-class LinePainter extends CustomPainter {
-  double progress;
-  Color color;
-  Paint _paint;
-  LinePainter({this.progress = 100, this.color = Colors.grey})
-      : _paint = Paint() {
-    this._paint
-      ..color = this.color
-      ..strokeWidth = 4.0
-      ..style = PaintingStyle.stroke
-      ..strokeJoin = StrokeJoin.round;
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    var path = Path();
-    path.moveTo(25, 20);
-    path.addOval(Rect.fromCircle(
-      center: Offset(0, 0),
-      radius: 5.0,
-    ));
-    path.moveTo(0, 2.5);
-    path.lineTo(0, size.height);
-    path.moveTo(0, size.height + 2.5);
-    path.addOval(Rect.fromCircle(
-      center: Offset(0, size.height + 2.5),
-      radius: 5.0,
-    ));
-    canvas.drawPath(path, _paint);
-  }
-
-  @override
-  bool shouldRepaint(LinePainter oldDelegate) {
-    return oldDelegate.progress != progress;
   }
 }
