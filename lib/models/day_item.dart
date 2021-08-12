@@ -4,7 +4,7 @@ class Item {
   final String type;
   final String id;
   final String name;
-  final int rate;
+  final String rate;
   final LatLng coordinate;
 
   Item(

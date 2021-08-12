@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
+import 'package:trip_pal_null_safe/models/day_item.dart';
+import 'package:trip_pal_null_safe/screens/maps/map_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/utilities/transformers.dart';
@@ -64,7 +67,8 @@ class TripPlan extends GetView<TripPlanningController> {
                   return ListView.builder(
                       itemCount:
                           (londonTrip['days']![pageIndex]['items'] as List)
-                                  .length - 1,
+                                  .length -
+                              1,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: index == 0
@@ -94,7 +98,21 @@ class TripPlan extends GetView<TripPlanningController> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          List<Item> mapPoint = List<Item>.empty(growable: true);
+          londonTrip['days']!.forEach((element) {
+            (element['items'] as List).forEach((element) {
+              mapPoint.add(Item(
+                  type: element['item_type'].toString(),
+                  id: ['item_id'].toString(),
+                  coordinate: LatLng(element['coordinate']['lat'], element['coordinate']['lon']),
+                  name: element['name'].toString(),
+                  rate: element['rate'].toString()));
+            });
+          });
+          print(mapPoint.length);
+          Get.to(MapPage(points: mapPoint));
+        },
         child: Icon(FontAwesomeIcons.mapMarkedAlt, size: 20),
       ),
     );

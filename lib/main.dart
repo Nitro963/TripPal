@@ -110,43 +110,43 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           id: '0',
           coordinate: LatLng(51.54, -0.125847),
           name: "St. Pancras Renaissance Hotel London",
-          rate: 8),
+          rate: '8'),
       Item(
           type: 'food',
           id: '1',
           coordinate: LatLng(51.530228, -0.12801),
           name: "British Library restaurant",
-          rate: 7),
+          rate: '7'),
       Item(
           type: 'architecture',
           id: '2',
           coordinate: LatLng(51.532394, -0.125386),
           name: "German Gymnasium",
-          rate: 7),
+          rate: '7'),
       Item(
           type: 'cultural',
           id: '3',
           coordinate: LatLng(51.526623, -0.131859),
           name: "Friends House Garden",
-          rate: 7),
+          rate: '7'),
       Item(
           type: 'food',
           id: '4',
           coordinate: LatLng(51.528236, -0.128996),
           name: "The Rocket",
-          rate: 7),
+          rate: '7'),
       Item(
           type: 'historic',
           id: '5',
           coordinate: LatLng(51.527199, -0.1326),
           name: "London and North Western Railway War Memorial",
-          rate: 7),
+          rate: '7'),
       Item(
           type: 'food',
           id: '6',
           coordinate: LatLng(51.526886, -0.137008),
           name: "Crown & Anchor",
-          rate: 7),
+          rate: '7'),
     ];
     MySize.init(context);
     return Scaffold(
@@ -184,9 +184,9 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.toNamed('/weather-buddy');
           // Get.lazyPut(() => ProfileController());
           // Get.lazyPut(() => TripsListController());
-          // Get.lazyPut(() => MainPageController());
-          // Get.lazyPut(() => SearchBarController());
-          // Get.put(MapController());
+          Get.lazyPut(() => MainPageController());
+          Get.lazyPut(() => SearchBarController());
+          Get.put(MapController());
           // Get.to(() => ProfilePage());
           // Get.to(() => Scaffold(body: HomePage()));
           // Get.to(HomeDrawer());
