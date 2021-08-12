@@ -214,7 +214,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           // Get.to(() => SharedTripsPage());
 
           // Get.to(MapPage(points: points));
-          Get.put(TripPlanningController(days.length));
+          Get.put(TripPlanningController(londonTrip['days']!.length));
           Get.to(() => TripPlan());
         },
         tooltip: 'Increment',
