@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
-// TODO fix the shitty bug :)
-// on click icon do not change :)
+
 class GrowingIcon extends StatefulWidget {
   final double size;
   final Color startingColor;
-  final void Function(bool)? tapCallBack;
+  final void Function(bool) tapCallBack;
   final Color endingColor;
   final IconData startingIcon;
   final IconData endingIcon;
@@ -13,7 +12,7 @@ class GrowingIcon extends StatefulWidget {
   GrowingIcon({
     this.size = 25,
     this.startingColor = Colors.grey,
-    this.tapCallBack,
+    required this.tapCallBack,
     this.endingColor = Colors.red,
     required this.endingIcon,
     required this.startingIcon,
@@ -51,9 +50,14 @@ class _GrowingIconState extends State<GrowingIcon>
       if (status == AnimationStatus.completed)
         setState(() {
           _isFav = true;
+          widget.tapCallBack(_isFav);
         });
       else if (status == AnimationStatus.dismissed)
-        setState(() => _isFav = false);
+        setState(() { 
+          _isFav = false;
+          widget.tapCallBack(_isFav);
+        }
+        );
     });
     super.initState();
   }
@@ -75,12 +79,9 @@ class _GrowingIconState extends State<GrowingIcon>
               color: _colorAnimation.value,
               size: _sizeAnimation.value,
             ),
-            onPressed: () async {
-              await (_isFav ? _controller.reverse() : _controller.forward());
-              _isFav = !_isFav;
-              if (widget.tapCallBack != null) {
-                widget.tapCallBack!(_isFav);
-              }
+            onPressed: ()  {
+               (_isFav ? _controller.reverse() : _controller.forward());
+             
             });
       },
     );
