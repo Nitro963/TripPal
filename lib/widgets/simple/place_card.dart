@@ -71,9 +71,7 @@ class PlaceCard extends StatelessWidget {
                   startingColor:
                       activated ? Colors.red[600]! : Colors.grey[200]!,
                   endingColor: activated ? Colors.grey[200]! : Colors.red[600]!,
-                  tapCallBack: (value) async {
-
-                  },
+                  tapCallBack: (value) async {},
                 ),
               ],
             ),
@@ -107,10 +105,7 @@ class PlaceCard extends StatelessWidget {
                           size: 15.0,
                         ),
                         SizedBox(width: 6.0),
-                        Text(
-                          'Map',
-                          style: Get.theme.textTheme.subtitle2
-                        ),
+                        Text('Map', style: Get.theme.textTheme.subtitle2),
                       ],
                     ),
                     onTap: onTap),
