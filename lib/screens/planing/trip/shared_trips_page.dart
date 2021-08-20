@@ -13,24 +13,6 @@ import 'trip_card.dart';
 class SharedTripsPage extends AnimatedIModelListView {
   TripsListController get controller => Get.find<TripsListController>();
   TripsController get tripController => Get.find<TripsController>();
-  @override
-  Widget buildHeader() {
-    return Container(
-      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text('Most Popular Plans',
-          overflow: TextOverflow.clip,
-              style: Get.textTheme.headline4!
-                  .copyWith(fontWeight: FontWeight.bold)),
-          Text('See some trips planned Manualy by other users',
-          overflow: TextOverflow.clip,
-              style: Get.textTheme.headline5!),
-        ],
-      ),
-    );
-  }
 
   @override
   Widget buildItem(IModel item, int index, double scale, BuildContext context) {
@@ -61,6 +43,24 @@ class SharedTripsPage extends AnimatedIModelListView {
       } else if (scale > 1) scale = 1;
     }
     return scale;
+  }
+
+  @override
+  Widget buildHeader() {
+    return Container(
+      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Most Popular Plans',
+              overflow: TextOverflow.clip,
+              style: Get.textTheme.headline4!
+                  .copyWith(fontWeight: FontWeight.bold)),
+          Text('See some trips planned Manualy by other users',
+              overflow: TextOverflow.clip, style: Get.textTheme.headline5!),
+        ],
+      ),
+    );
   }
 
   @override

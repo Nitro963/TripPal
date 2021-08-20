@@ -8,14 +8,17 @@ import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
-import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
-import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-class MainMapScreen extends StatelessWidget {
-  MainMapScreen({Key? key}) : super(key: key);
+// TODO update to show nearby places
+class MainMapScreen extends StatefulWidget {
+  @override
+  _MainMapScreenState createState() => _MainMapScreenState();
+}
+
+class _MainMapScreenState extends State<MainMapScreen> {
   final searchBarController = FloatingSearchBarController();
-  final searchController = Get.find<SearchBarController>();
+  SearchBarController get searchController => Get.find<SearchBarController>();
 
   Widget buildSearchBar() {
     final actions = [
@@ -147,7 +150,6 @@ class MainMapScreen extends StatelessWidget {
   }
 
   Widget buildBody() {
-    
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

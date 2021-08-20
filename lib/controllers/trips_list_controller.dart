@@ -6,7 +6,8 @@ import 'package:trip_pal_null_safe/models/review.dart';
 
 class TripsListController extends AnimatedListViewController {
   @override
-  ApiView<Review> get api => Get.find<BackendService>().reviewsApi;
+  ApiView<Review> get api =>
+      Get.find<BackendService>().getApiView(name: 'trips');
 
   @override
   double get closingThreshold => 20.0;

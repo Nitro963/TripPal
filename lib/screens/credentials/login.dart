@@ -177,9 +177,8 @@ class _LoginState extends State<Login> {
           ),
           CupertinoButton(
             onPressed: () async {
-              // TODO add role based auth
               Get.find<AuthControl>().currentUser =
-                  User(name: 'Guest', email: 'guest@trippal.com');
+                  User(firstName: 'Guest', email: 'guest@trippal.com');
               Get.offAllNamed('/home');
             },
             child: Text('Login as Guest?',

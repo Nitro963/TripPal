@@ -10,6 +10,7 @@ import 'profile_card.dart';
 import 'profile_header.dart';
 
 // TODO add saved places
+// TODO read from auth controller
 class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {

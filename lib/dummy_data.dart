@@ -2,7 +2,6 @@ import 'package:trip_pal_null_safe/models/tasks.dart';
 import 'package:trip_pal_null_safe/models/activities.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
-import 'package:trip_pal_null_safe/models/blog.dart';
 import 'package:trip_pal_null_safe/models/day.dart';
 
 List<Place> demoPlaces = [
@@ -27,20 +26,20 @@ List<Place> demoPlaces = [
       image: "assets/images/4.jpg",
       rating: 3.5),
 ];
-List<Blog> blogs = [
-  Blog(
-      city: "Damascus syria",
-      image: "assets/images/1.jpg",
-      info: "Nice prices ,good people"),
-  Blog(
-      city: "Paris France",
-      image: "assets/images/2.jpg",
-      info: "It has amaizing weather and amizing buildings"),
-  Blog(
-      city: "NewYork USA",
-      image: "assets/images/4.jpg",
-      info: "Good place to start a buisness"),
-];
+// List<Blog> blogs = [
+//   Blog(
+//       city: "Damascus syria",
+//       image: "assets/images/1.jpg",
+//       info: "Nice prices ,good people"),
+//   Blog(
+//       city: "Paris France",
+//       image: "assets/images/2.jpg",
+//       info: "It has amaizing weather and amizing buildings"),
+//   Blog(
+//       city: "NewYork USA",
+//       image: "assets/images/4.jpg",
+//       info: "Good place to start a buisness"),
+// ];
 List<Task> myTasks = [
   Task(title: "a", category: TaskCategory.Home),
   Task(title: "b", category: TaskCategory.Airport),

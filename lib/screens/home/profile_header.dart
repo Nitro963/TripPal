@@ -53,10 +53,12 @@ class ProfileHeader extends StatelessWidget {
                   size: MySize.size24,
                   color: Get.theme.appBarTheme.iconTheme!.color),
               // TODO use named routes
-              onPressed: () => Get.to(EditProfileScreen()),
+              onPressed: () => Get.to(() => EditProfileScreen()),
             ),
             IconButton(
-              icon: Icon(Icons.menu, size: MySize.size24),
+              icon: Icon(Icons.menu,
+                  color: Get.theme.appBarTheme.iconTheme!.color,
+                  size: MySize.size24),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },

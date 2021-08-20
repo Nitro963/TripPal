@@ -3,8 +3,26 @@ import 'dart:math';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
+class PaginationInfo<T> {
+  final int? count;
+  final String? next;
+  final String? prv;
+  final List<T> results;
+
+  PaginationInfo(
+      {this.count = 0, this.next, this.prv, this.results = const []});
+
+  static PaginationInfo<T> fromJson<T>(dynamic json, Decoder itemBuilder) {
+    return PaginationInfo(
+        count: json['count'],
+        next: json['next'],
+        prv: json['previous'],
+        results: List<T>.from(json['results'].map(itemBuilder)));
+  }
+}
+
 abstract class ApiView<T extends IModel> {
-  Future<List<T>> getAllElements(
+  Future<PaginationInfo<T>> getAllElements(
       {Map<String, String?> queryParameters = const {}});
 
   Future<T> getItem(int id);
@@ -19,7 +37,7 @@ class DummyApiView<T extends IModel> implements ApiView<T> {
   DummyApiView({required this.data, required this.decoder});
 
   @override
-  Future<List<T>> getAllElements(
+  Future<PaginationInfo<T>> getAllElements(
       {Map<String, String?> queryParameters = const {}}) async {
     return await Future.delayed(Duration(seconds: 2), () {
       String? take = queryParameters['take'];
@@ -27,12 +45,17 @@ class DummyApiView<T extends IModel> implements ApiView<T> {
       String? skip = queryParameters['skip'];
       var parsedSkip = skip == null ? 0 : int.parse(skip);
 
-      if (parsedSkip > data.length) return [];
+      if (parsedSkip > data.length) return PaginationInfo<T>();
 
       if (parsedSkip + parsedTake > data.length)
         parsedTake = max(data.length - parsedSkip, 0);
-      return Iterable.generate(
-          parsedTake, (index) => decoder(data[index + parsedSkip])).toList();
+      return PaginationInfo<T>(
+          count: 1000,
+          next: null,
+          prv: null,
+          results: Iterable.generate(
+                  parsedTake, (index) => decoder(data[index + parsedSkip]))
+              .toList());
     });
   }
 
@@ -58,9 +81,8 @@ class DummyApiView<T extends IModel> implements ApiView<T> {
 class NetworkApiView<T extends IModel> implements ApiView<T> {
   final String _path;
   final DioConnect _client;
-
   NetworkApiView(String baseUrl, String path, Decoder<T> itemBuilder,
-      {HttpScheme httpScheme = HttpScheme.https, int connectTimeout = 8000})
+      {HttpScheme httpScheme = HttpScheme.http, int connectTimeout = 8000})
       : _path = path,
         _client = DioConnect(
             baseUrl: baseUrl,
@@ -69,22 +91,22 @@ class NetworkApiView<T extends IModel> implements ApiView<T> {
     _client.defaultDecoder = itemBuilder;
   }
 
-  Future<List<T>> getAllElements(
+  Future<PaginationInfo<T>> getAllElements(
       {Map<String, String?> queryParameters = const {}}) async {
-    final response = await _client
-        .get<List<T>>(_path, queryParameters: queryParameters, decoder: (data) {
-      return List<T>.from(data.map((item) => _client.defaultDecoder(item)));
+    final response = await _client.get<PaginationInfo<T>>(_path,
+        queryParameters: queryParameters, decoder: (data) {
+      return PaginationInfo.fromJson<T>(data, _client.defaultDecoder);
     });
     return response.decodedBody;
   }
 
   Future<T> getItem(int id) async {
-    final response = await _client.get<T>(_path + '/$id');
+    final response = await _client.get<T>(_path + '$id/');
     return response.decodedBody;
   }
 
   Future<T> patchItem(int id, Map<String, dynamic> json) async {
-    final response = await _client.patch<T>(_path + '/$id', json);
+    final response = await _client.patch<T>(_path + '$id/', json);
     return response.decodedBody;
   }
 }

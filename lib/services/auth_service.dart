@@ -101,4 +101,6 @@ class AuthControl extends GetxService {
     //     .putIfAbsent('Authorization', () => 'Bearer ${user.authToken}');
     // // var responseBody = await sendRequest(request);
   }
+
+  bool get isGuest => true;
 }

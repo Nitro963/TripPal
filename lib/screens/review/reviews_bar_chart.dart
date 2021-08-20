@@ -26,6 +26,21 @@ class ReviewsBarChart extends StatelessWidget {
     );
   }
 
+  factory ReviewsBarChart.fromJson(Map<String, dynamic> json) {
+    final data = json.entries
+        .map((entry) => ReviewBarChartModel(entry.value, int.parse(entry.key),
+            charts.ColorUtil.fromDartColor(starsActivationColor)))
+        .toList();
+    return ReviewsBarChart([
+      new charts.Series<ReviewBarChartModel, String>(
+        id: 'Reviews',
+        domainFn: (ReviewBarChartModel reviews, _) => reviews.rate.toString(),
+        measureFn: (ReviewBarChartModel reviews, _) => reviews.count,
+        colorFn: (ReviewBarChartModel reviews, _) => reviews.chartColor,
+        data: data,
+      )
+    ], animate: true);
+  }
   @override
   Widget build(BuildContext context) {
     // For horizontal bar charts, set the [vertical] flag to false.

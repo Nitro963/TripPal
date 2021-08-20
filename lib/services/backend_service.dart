@@ -1,43 +1,42 @@
 import 'package:get/get.dart' hide Decoder;
-import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
+import 'package:trip_pal_null_safe/models/abstract_model.dart';
+import 'package:trip_pal_null_safe/models/blog.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
-import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
+import 'package:trip_pal_null_safe/models/tag.dart';
+import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
 
-class ReviewsApi implements ApiView<Review> {
-  @override
-  Future<Review> getItem(int id) async {
-    // TODO: implement getItem
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Review> patchItem(int id, Map<String, dynamic> json) async {
-    // TODO: implement patchItem
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<List<Review>> getAllElements(
-      {Map<String, String?> queryParameters = const {}}) async {
-    return await Future.delayed(Duration(seconds: 2), () {
-      return Iterable.generate(
-          10, (_) => Review(placeID: 1, text: '', userID: 1)).toList();
-    });
-  }
-}
-
 class BackendService extends GetxService {
-  final backendServerEndPoint = LOCAL_SERVER_END_POINT;
-  final basePath = BASE_URL;
+  final Map<String, NetworkApiView> _netViews = {};
 
-  late final ApiView<Hotel> hotelsApi;
-  late final ApiView<Review> reviewsApi;
+  ApiView<T> getApiView<T extends IModel>({required String name}) {
+    var api = _netViews[name];
+    try {
+      return api as ApiView<T>;
+    } catch (e) {}
+    throw UnimplementedError('$name ApiView<$T> does not exist yet!');
+  }
 
   void onInit() {
-    hotelsApi = DummyApiView<Hotel>(data: dummyHotels, decoder: Hotel.fromJson);
-    reviewsApi = ReviewsApi();
+    _netViews['users'] = NetworkApiView<User>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/users/', User.fromJson);
+    _netViews['tags'] = NetworkApiView<Tag>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/tags/', Tag.fromJson);
+    _netViews['blog'] = NetworkApiView<Blog>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/blogs/', Blog.fromJson);
+    _netViews['blogger-of-week'] = NetworkApiView<User>(LOCAL_SERVER_END_POINT,
+        BASE_URL + '/blogs/blogger-of-week/', User.fromJson);
+    _netViews['places'] = NetworkApiView<Place>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/places-db/', Place.fromJson);
+    _netViews['hotels'] = NetworkApiView<Place>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/hotels-db/', Place.fromJson);
+    _netViews['reviews'] = NetworkApiView<Review>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/places-review/', Review.fromJson);
+    // TODO update decoder to trip.fromJson
+    _netViews['trips'] =
+        NetworkApiView(LOCAL_SERVER_END_POINT, BASE_URL, Review.fromJson);
     super.onInit();
   }
 }
