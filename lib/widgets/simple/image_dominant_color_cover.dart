@@ -32,7 +32,7 @@ class ImageDominantColorCover extends StatelessWidget {
                 colors: [gradient, Colors.transparent],
                 begin: begin,
                 end: end,
-                stops: [0.0, 1.0],
+                stops: [0.0, 1],
                 tileMode: TileMode.clamp),
           ),
         );

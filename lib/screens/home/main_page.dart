@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
-import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
-import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_types_screen.dart';
@@ -62,7 +60,7 @@ class MainPage extends StatelessWidget {
             iconData: FontAwesomeIcons.newspaper,
             itemColor: controller.tabIndex.value == 2 ? selected : unselected,
             onTap: () => controller.changeTabIndex(2),
-            textStyle: labelStyle(3),
+            textStyle: labelStyle(2),
           ),
         ),
         Obx(
@@ -87,9 +85,7 @@ class MainPage extends StatelessWidget {
           actions: actions,
           centerFloatingButton: FloatingActionButton(
             onPressed: () {
-              // controller.changeTabIndex(2);
-              Get.lazyPut(() => SearchBarController());
-              Get.to(() => MainMapScreen());
+              Get.toNamed('/map');
             },
             child: Icon(
               FontAwesomeIcons.streetView,
@@ -107,7 +103,6 @@ class MainPage extends StatelessWidget {
               children: [
                 TripsPage(),
                 HotelSearchPage(),
-                // MainMapScreen(),
                 BlogPage(),
                 ProfilePage(),
               ],

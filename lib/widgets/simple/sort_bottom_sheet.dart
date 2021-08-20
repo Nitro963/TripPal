@@ -39,7 +39,6 @@ class SortBottomSheet extends StatelessWidget {
                           onTap: () {
                             _radio.value = e.index;
                             Future.delayed(Duration(milliseconds: 300), () {
-                              // TODO return order policy (i.e ascending)
                               Get.back(result: e.index);
                             });
                           },
@@ -61,6 +60,10 @@ class SortBottomSheet extends StatelessWidget {
                               Text("${e.displayName}",
                                   style: themeData.textTheme.subtitle2!
                                       .copyWith(fontWeight: FontWeight.w600)),
+                              if (e.message != null)
+                                Text(' - ' + e.message!.tr,
+                                    style: themeData.textTheme.subtitle2!
+                                        .copyWith(fontWeight: FontWeight.w600)),
                             ],
                           ),
                         )),

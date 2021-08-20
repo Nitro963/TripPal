@@ -3,18 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:trip_pal_null_safe/controllers/model_list_view_controller.dart';
+import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
-import 'package:trip_pal_null_safe/services/api_view.dart';
-import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_view.dart';
-
-class HotelsViewController extends IModelViewController {
-  @override
-  ApiView<Hotel> get api => Get.find<BackendService>().hotelsApi;
-}
 
 class HotelsView extends IModelView {
   @override
@@ -23,11 +16,10 @@ class HotelsView extends IModelView {
   @override
   Widget buildViewTile(int index, IModel model, BuildContext context) {
     final themeData = Get.theme;
-    final hotel = model as Hotel;
+    final hotel = model as Place;
     return InkWell(
       onTap: () {
-        // TODO go to details
-        print('pressed card');
+        Get.toNamed('/home/place-details?type=2&place_id=${hotel.id}');
       },
       borderRadius: BorderRadius.all(Radius.circular(MySize.size16)),
       child: Container(
@@ -82,58 +74,60 @@ class HotelsView extends IModelView {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Icon(
-                                  MdiIcons.mapMarker,
-                                  color: themeData.colorScheme.onBackground,
-                                  size: MySize.size14,
-                                ),
-                                SizedBox(width: MySize.size2),
-                                Text(hotel.address!,
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: themeData.textTheme.caption!
-                                        .copyWith(fontWeight: FontWeight.w500)),
-                              ],
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: MySize.size2),
-                              child: Row(
+                        Expanded(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
-                                  Icon(MdiIcons.star,
-                                      color: themeData.colorScheme.onBackground,
-                                      size: 14),
-                                  Container(
-                                    margin: EdgeInsets.only(left: 4),
-                                    child: Text(
-                                      hotel.starRating.toString() + " Ratings",
-                                      style: themeData.textTheme.caption!
-                                          .copyWith(
-                                              fontWeight: FontWeight.w500),
-                                    ),
-                                  )
+                                  Icon(
+                                    MdiIcons.mapMarker,
+                                    color: themeData.colorScheme.onBackground,
+                                    size: MySize.size14,
+                                  ),
+                                  SizedBox(width: MySize.size2),
+                                  Expanded(
+                                    child: Text(hotel.address!,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: themeData.textTheme.caption!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w500)),
+                                  ),
                                 ],
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin: EdgeInsets.only(top: MySize.size2),
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(MdiIcons.star,
+                                        color:
+                                            themeData.colorScheme.onBackground,
+                                        size: 14),
+                                    Container(
+                                      margin: EdgeInsets.only(left: 4),
+                                      child: Text(
+                                        "${hotel.guestRating ?? 0} Ratings",
+                                        style: themeData.textTheme.caption!
+                                            .copyWith(
+                                                fontWeight: FontWeight.w500),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         TextButton(
-                          onPressed: () {
-                            Get.defaultDialog(
-                                middleText: 'Not supported yet!',
-                                radius: MySize.size12);
-                          },
+                          onPressed: null,
                           child: Text(
                             'Book now',
                             style: themeData.textTheme.caption!.copyWith(
-                                color: themeData.primaryColor,
-                                fontWeight: FontWeight.w600),
+                                color: themeData.disabledColor,
+                                fontWeight: FontWeight.w700),
                           ),
                         ),
                       ],

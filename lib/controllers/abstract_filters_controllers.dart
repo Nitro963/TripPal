@@ -114,10 +114,10 @@ class DateFilterWidgetController extends FilterWidgetController {
     Map<String, String> ret = {};
     if (startDate != null)
       ret.addAll(
-          {'min_${filter.attribute}': filter.formatter.format(startDate!)});
+          {'${filter.attribute}_after': filter.formatter.format(startDate!)});
     if (endDate != null)
       ret.addAll(
-          {'max_${filter.attribute}': filter.formatter.format(endDate!)});
+          {'${filter.attribute}_before': filter.formatter.format(endDate!)});
     return ret;
   }
 

@@ -103,7 +103,7 @@ class Themes {
           InputDecorationTheme(hintStyle: TextStyle(color: Color(0xaa495057))),
       splashColor: Colors.grey.shade300,
       iconTheme: IconThemeData(
-        color:  Color(0xff3d63ff),
+        color: Color(0xff3d63ff),
       ),
       appBarTheme: AppBarTheme(
         actionsIconTheme: IconThemeData(
@@ -155,7 +155,7 @@ class Themes {
           borderSide: BorderSide(color: Color(0xff3d63ff), width: 2.0),
         ),
       ),
-      
+
       sliderTheme: SliderThemeData(
         activeTrackColor: Color(0xff3d63ff),
         inactiveTrackColor: Color(0xff3d63ff).withAlpha(140),

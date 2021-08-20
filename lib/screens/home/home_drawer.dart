@@ -20,15 +20,17 @@ class HomeDrawer extends StatelessWidget {
         children: [
           CustomDrawerHeader(),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0 , horizontal: 14.0),
-            child: Text('Personal', style: Get.theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold)),
-          ), 
-          HomeDrawerItem(
-            title: 'Manage account',
-            subTitle: 'Go to your profile',
-            icon: FontAwesomeIcons.solidUserCircle,
-            onTap: () => Get.toNamed('/profile_page')
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+            child: Text('Personal',
+                style: Get.theme.textTheme.bodyText2!
+                    .copyWith(fontWeight: FontWeight.bold)),
           ),
+          HomeDrawerItem(
+              title: 'Manage account',
+              subTitle: 'Go to your profile',
+              icon: FontAwesomeIcons.solidUserCircle,
+              onTap: () => Get.toNamed('/profile_page')),
           HomeDrawerItem(
             title: 'Saved Places',
             subTitle: 'Check out your saved places',
@@ -40,11 +42,14 @@ class HomeDrawer extends StatelessWidget {
             subTitle: 'Add or remove an address',
             icon: Icons.location_on,
             onTap: () {},
-          ),     
+          ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10.0 , horizontal: 14.0),
-            child: Text('Useful Features', style: Get.theme.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold)),
-          ),       
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+            child: Text('Useful Features',
+                style: Get.theme.textTheme.bodyText2!
+                    .copyWith(fontWeight: FontWeight.bold)),
+          ),
           HomeDrawerItem(
             title: 'AI-Assistant',
             subTitle: 'Ask questions to our bot',
@@ -56,8 +61,7 @@ class HomeDrawer extends StatelessWidget {
               subTitle: 'Check the weather condition',
               icon: FontAwesomeIcons.cloudRain,
               onTap: () {
-                // Get.put(WeatherBuddyController(10));
-                // Get.to(() => WeatherBuddy());
+                Get.toNamed('/weather-buddy');
               }),
           HomeDrawerItem(
               title: 'TODO List',
@@ -65,11 +69,10 @@ class HomeDrawer extends StatelessWidget {
               icon: FontAwesomeIcons.solidCheckCircle,
               onTap: () {}),
           HomeDrawerItem(
-            title: 'Appearance',
-            subTitle: 'Try our creative modes',
-            icon: FontAwesomeIcons.glasses,
-            onTap: () => Get.dialog(SelectThemeDialog())
-          ),    
+              title: 'Appearance',
+              subTitle: 'Try our creative modes',
+              icon: FontAwesomeIcons.glasses,
+              onTap: () => Get.dialog(SelectThemeDialog())),
           HomeDrawerItem(
             title: 'Privacy policy',
             subTitle: 'See our privacy policies',
@@ -93,7 +96,7 @@ class HomeDrawer extends StatelessWidget {
                     speed: Duration(microseconds: 100000),
                     textStyle: TextStyle(
                         fontSize: 16.0,
-                        color : Get.theme.textTheme.headline2!.color,
+                        color: Get.theme.textTheme.headline2!.color,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'Montserrat'),
                   ),
@@ -130,7 +133,8 @@ class CustomDrawerHeader extends GetView<ProfileController> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12.0),
                   image: DecorationImage(
-                      image: AssetImage('assets/images/profile.jpg'), fit: BoxFit.cover),
+                      image: AssetImage('assets/images/profile.jpg'),
+                      fit: BoxFit.cover),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -165,20 +169,16 @@ class ProfileMiniInfo extends GetView<ProfileController> {
         children: <Widget>[
           Flexible(
             flex: 2,
-            child: Text(
-              controller.userName,
-              style: Get.theme.textTheme.headline6
-            ),
+            child:
+                Text(controller.userName, style: Get.theme.textTheme.headline6),
           ),
           SizedBox(
             height: 6.0,
           ),
           Flexible(
             flex: 1,
-            child: Text(
-              controller.userSubName,
-              style:  Get.theme.textTheme.subtitle2
-            ),
+            child: Text(controller.userSubName,
+                style: Get.theme.textTheme.subtitle2),
           ),
           SizedBox(height: 8.0),
           Flexible(

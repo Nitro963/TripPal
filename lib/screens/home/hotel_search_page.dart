@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/hotel_search_controller.dart';
-import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 
@@ -105,12 +104,11 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                   RoundedButton(
                       title: 'Search',
                       onPressed: () {
-                        // _key.currentState!.validate();
-                        // TODO results as a page route
-                        // wait server response :)
-                        // Get.to(() => HotelResult());
-                        Get.put(HotelsViewController());
-                        Get.to(() => HotelsView());
+                        Get.toNamed('/home/hotels');
+                        // if (_key.currentState!.validate()) {
+                        //   // TODO send argument
+                        //   Get.toNamed('/home/hotels');
+                        // }
                       },
                       icon: Icon(
                         Icons.search,
@@ -192,8 +190,9 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                         SizedBox(width: 8),
                         Text(
                           state.errorText!,
-                          style: themeData.textTheme.caption!
-                              .copyWith(color: themeData.errorColor),
+                          style: themeData.textTheme.caption!.copyWith(
+                              color: themeData.errorColor,
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -204,7 +203,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
             onTap: () async {
               DateTimeRange? _tmp = await showDateRangePicker(
                   context: context,
-                  initialEntryMode: DatePickerEntryMode.input,
+                  initialEntryMode: DatePickerEntryMode.inputOnly,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(Duration(days: 365)),
                   initialDateRange: controller.checkOutDate != null
@@ -221,18 +220,23 @@ class HotelSearchPage extends GetView<HotelSearchController> {
 
   Widget buildDropdownButtonFormField(String label, String hint, IconData icon,
       void Function(int?) onChanged, EdgeInsetsGeometry padding) {
+    final themeData = Get.theme;
     return DropdownButtonFormField<int>(
       decoration: InputDecoration(
           prefixIcon: Icon(icon),
           labelText: label,
           hintText: hint,
           labelStyle: TextStyle(fontWeight: FontWeight.bold),
+          errorStyle: themeData.textTheme.caption!.copyWith(
+              color: themeData.errorColor, fontWeight: FontWeight.w600),
           alignLabelWithHint: true,
           border: OutlineInputBorder(),
           enabledBorder: OutlineInputBorder(),
           errorBorder: OutlineInputBorder(),
           focusedErrorBorder: OutlineInputBorder(),
           contentPadding: padding),
+      style:
+          themeData.textTheme.bodyText2!.copyWith(fontWeight: FontWeight.w600),
       icon: const Icon(Icons.keyboard_arrow_down),
       iconSize: 24,
       elevation: 16,

@@ -1,42 +1,46 @@
-import 'dart:convert';
-
 import 'abstract_model.dart';
 
 class User implements IModel {
   int? id;
-  String? name;
+  String? firstName;
+  String? lastName;
   String? email;
   String? password;
-  String? createdAt;
-  String? updatedAt;
-  String? emailVerifiedAt;
   String? profilePicture;
-  User({this.id, this.name, this.email, this.password, this.profilePicture});
+  User(
+      {this.id,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.password,
+      this.profilePicture});
 
   static User fromJson(dynamic json) {
     return User(
       id: json['id'],
-      name: json['name'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
       email: json['email'],
-      profilePicture: json['image'],
+      profilePicture: json['profile_picture'],
     );
   }
 
-  // static User fromAuthJson(dynamic json) {
-  //   return User(
-  //     id: json['user']['id'],
-  //     name: json['user']['name'],
-  //     email: json['user']['email'],
-  //     authToken: json['token'],
-  //   );
-  // }
-
-  String toJson() {
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
+    data['first_name'] = this.firstName;
+    data['last_name'] = this.lastName;
     data['email'] = this.email;
     data['password'] = this.password;
-    return json.encode(data);
+    return data;
   }
+
+  @override
+  int get hashCode => email.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is User && runtimeType == other.runtimeType && email == other.email;
+  String get name => '$firstName $lastName';
 }

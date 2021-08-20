@@ -1,9 +1,7 @@
-import 'dart:convert';
-
 import 'abstract_model.dart';
 import 'day.dart';
 
-class Trip extends IModel{
+class Trip extends IModel {
   String type;
   String city;
   String country;
@@ -15,16 +13,21 @@ class Trip extends IModel{
       required this.details,
       required this.city,
       required this.country,
-      required this.days}) : super(0);
+      required this.days})
+      : super(0);
 
-
-      @override
-  String toJson() {
-    return json
-        .encode({'type': type, 'city': city, 'country': country, 'days': days, 'details' : details});
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      'type': type,
+      'city': city,
+      'country': country,
+      'days': days,
+      'details': details
+    };
   }
 
-    static Trip fromJson(dynamic json) {
+  static Trip fromJson(dynamic json) {
     return Trip(
       type: json['type'],
       city: json['city'],
@@ -33,6 +36,4 @@ class Trip extends IModel{
       days: json['days'],
     );
   }
-
 }
-

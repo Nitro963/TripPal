@@ -7,6 +7,10 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
+bool canPop() {
+  return Navigator.of(Get.context!).canPop();
+}
+
 TextDirection appCurrentTextDirection() {
   if (isRTL(Get.locale!.languageCode)) return TextDirection.rtl;
   return TextDirection.ltr;
@@ -52,8 +56,9 @@ class ErrorHandlerModel {
       this.buttonTitle = 'TRY AGAIN'});
 
   factory ErrorHandlerModel.fromError(error, callback) {
-    developer.log('Something happened!', name: 'HANDLER', error: error);
+    developer.log('Something happened!', name: 'ERROR_MODEL', error: error);
     if (error is dio.DioError) {
+      // TODO describe other errors
       if (error.type == dio.DioErrorType.connectTimeout) {
         return ErrorHandlerModel(
             header: "No Internet!",

@@ -3,5 +3,5 @@ abstract class IModel {
 
   IModel(this.id);
 
-  String toJson();
+  Map<String, dynamic> toJson();
 }

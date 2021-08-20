@@ -3,9 +3,11 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/filter.dart';
 import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
+import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 import 'abstract_filters_controllers.dart';
@@ -15,28 +17,29 @@ abstract class IModelViewController<T extends IModel> extends Controller {
   ApiView<T> get api;
 
   final _items = List<T>.empty(growable: true).obs;
-
+  int? _currentCount;
   final _isLoading = false.obs;
 
   ScrollController _scrollController = ScrollController();
 
-  final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
   final _empty = false.obs;
 
-  // List<Filter> filteringPolices = [];
-  // TODO add them in onInit
-  // override this property for each screen
-  // late List<FilterWidgetController> filtersControllers;
-  //
-  // Map<String, String> get _userFilters {
-  //   Map<String, String> ret = {};
-  //   filtersControllers.forEach((element) {
-  //     ret.addAll(element.buildQueryParameters());
-  //   });
-  //   return ret;
-  // }
+  late final Map<String, String?> _navigationFilters;
+
+  List<Filter> get filteringPolices => [];
+
+  List<FilterWidgetController> filtersControllers = [];
+
+  Map<String, String> get _userFilters {
+    Map<String, String> ret = {};
+    filtersControllers.forEach((element) {
+      ret.addAll(element.buildQueryParameters());
+    });
+    return ret;
+  }
 
   UnmodifiableListView<T> get items => UnmodifiableListView(_items);
 
@@ -65,6 +68,15 @@ abstract class IModelViewController<T extends IModel> extends Controller {
       if (_scrollController.position
           .atEdge) if (_scrollController.position.pixels != 0) onReachedEnd();
     });
+    _navigationFilters = Get.parameters;
+    filtersControllers = filteringPolices.map((filter) {
+      if (filter is RangeFilter) return RangeFilterWidgetController(filter);
+      if (filter is QuantityFilter)
+        return QuantityFilterWidgetController(filter);
+      if (filter is CategoricalFilter)
+        return CategoricalFilterWidgetController(filter);
+      return DateFilterWidgetController(filter as DateFilter);
+    }).toList();
     super.onInit();
   }
 
@@ -73,32 +85,37 @@ abstract class IModelViewController<T extends IModel> extends Controller {
   }
 
   Future<void> onReachedEnd() async {
+    if (_currentCount == _items.length) return;
     _isLoading.value = true;
     try {
       var res = await api.getAllElements(
           queryParameters: {
-        'skip': _items.length.toString(),
-        'take': '10',
+        'offset': _items.length.toString(),
+        'limit': '10',
       }..addAll(Get.parameters));
       _isLoading.value = false;
-      _items.addAll(res);
+      _items.addAll(res.results);
     } catch (e) {
-      // TODO handel errors
-      // errorHandler(e, onReachedEnd);
+      handelError(e, onReachedEnd);
     }
   }
 
   Future<void> onRefresh() async {
     hasError = false;
-    _empty.value = false;
     try {
       if (scrollController.hasClients) scrollController.jumpTo(0);
       var res = await api.getAllElements(
-          queryParameters: {'skip': '0', 'take': '10'}..addAll(Get.parameters));
+          queryParameters: {'offset': '0', 'limit': '10'}
+            ..addIf(_searchQuery.isNotEmpty, 'q', _searchQuery)
+            ..addAll(_navigationFilters)
+            ..addAll(_sortingParameters)
+            ..addAll(_userFilters));
+
       developer.log('cleared list', name: 'MODEL_CONTROLLER');
+      _currentCount = res.count;
       _items
         ..clear()
-        ..addAll(res);
+        ..addAll(res.results);
       if (_items.isEmpty)
         _empty.value = true;
       else
@@ -110,32 +127,34 @@ abstract class IModelViewController<T extends IModel> extends Controller {
   }
 
   List<SortPolicy> get sortPolices => [
-  SortPolicy('Best Seller', '', 1, 'best_seller'),
-  SortPolicy('Star Rating', '', 2, 'star_rating'),  
-  SortPolicy('Distance fom Landmark', '', 3, 'dist_landmarks'),  
-  SortPolicy('Guest Rating', '', 4, 'guest_rating'),  
-  SortPolicy('Price', '', 5, 'price'),    
-];
+        SortPolicy('None', null, 0, 'null'),
+        SortPolicy('Name', 'A to Z', 1, 'name'),
+        SortPolicy('Name', 'Z to A', 2, '-name'),
+      ];
 
-int get sortPolicy => _sortPolicy.value;
+  int get sortPolicy => _sortPolicy.value;
 
-set sortPolicy(int? value) {
-  if (value != null) {
-    _sortPolicy.value = value;
+  set sortPolicy(int? value) {
+    if (value != null) {
+      _sortPolicy.value = value;
+      refreshIndicatorKey.currentState!.show();
+    }
+  }
+
+  var _sortPolicy = 0.obs;
+
+  Map<String, String> get _sortingParameters {
+    if (sortPolices.isEmpty) return {};
+    var policy = sortPolices[sortPolicy];
+    return sortPolicy != 0 ? {'ordering': policy.attribute} : {};
+  }
+
+  var searchFocusNode = FocusNode();
+
+  String _searchQuery = '';
+
+  set searchQuery(String value) {
+    _searchQuery = value;
     refreshIndicatorKey.currentState!.show();
   }
-}
-
-var _sortPolicy = 0.obs;
-
-// Map<String, dynamic> get _sortingParameters {
-//   if (sortPolices.isEmpty) return {};
-//   var policy = sortPolices[sortPolicy];
-//   return sortPolicy != 0
-//       ? {
-//     'sort': policy.isAscending ? 'asc' : 'desc',
-//     'sortBy': policy.attribute
-//   }
-//       : {};
-// }
 }

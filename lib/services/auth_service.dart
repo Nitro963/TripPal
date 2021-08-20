@@ -65,7 +65,7 @@ class AuthControl extends GetxService {
 
   Future<User> login({required String email, required String password}) async {
     var res = await _client.post<User>(
-        _loginPath, {'email': email, 'password': password}, decoder: (data) {
+        _loginPath, {'username': email, 'password': password}, decoder: (data) {
       _token = data['token'];
       return User.fromJson(data['user']);
     });
@@ -101,4 +101,6 @@ class AuthControl extends GetxService {
     //     .putIfAbsent('Authorization', () => 'Bearer ${user.authToken}');
     // // var responseBody = await sendRequest(request);
   }
+
+  bool get isGuest => true;
 }

@@ -28,10 +28,10 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
                   ? LinearProgressIndicator(
                       value: null,
                       backgroundColor: Get.theme.backgroundColor,
-                      minHeight: 5)
+                      minHeight: 3)
                   : Container(
                       constraints: BoxConstraints(
-                          minHeight: 5, minWidth: double.infinity)))),
+                          minHeight: 3, minWidth: double.infinity)))),
           Expanded(
             child: Obx(() => AnimatedSwitcher(
                 duration: const Duration(milliseconds: 350),
@@ -74,7 +74,7 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   BackButton(
-                    color: Colors.white,
+                    color: Get.theme.appBarTheme.iconTheme!.color,
                     onPressed: () {
                       controller.clear();
                       Get.back();
@@ -97,13 +97,13 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
                   )),
                   Obx(
                     () => AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 350),
+                      duration: const Duration(milliseconds: 250),
                       child: controller.showClearAction
                           ? IconButton(
                               key: ValueKey(1),
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.clear,
-                                color: Colors.white,
+                                color: Get.theme.appBarTheme.iconTheme!.color,
                               ),
                               onPressed: () {
                                 if (controller.query.isNotEmpty) {
@@ -114,8 +114,9 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
                             )
                           : IconButton(
                               key: ValueKey(2),
-                              icon:
-                                  const Icon(Icons.search, color: Colors.white),
+                              icon: Icon(Icons.search,
+                                  color:
+                                      Get.theme.appBarTheme.iconTheme!.color),
                               onPressed: () {
                                 controller.focusNode.requestFocus();
                               },
@@ -149,8 +150,8 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
         title: HighlightText(
           query: controller.query,
           text: place.name,
-          style: textTheme.bodyText2!,
-          activeStyle: textTheme.bodyText2!.copyWith(
+          style: textTheme.subtitle1!,
+          activeStyle: textTheme.subtitle2!.copyWith(
             fontWeight: FontWeight.bold,
           ),
           textDirection: TextDirection.ltr,
@@ -159,9 +160,9 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
           textDirection: TextDirection.ltr,
           query: controller.query,
           text: place.level2Address,
-          style: textTheme.subtitle1!,
-          activeStyle:
-              textTheme.subtitle1!.copyWith(fontWeight: FontWeight.w900),
+          style: textTheme.caption!.copyWith(fontSize: 14),
+          activeStyle: textTheme.caption!
+              .copyWith(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ),
     );

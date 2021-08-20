@@ -9,6 +9,7 @@ import 'constants.dart';
 typedef Decoder<T> = T Function(dynamic data);
 typedef Encoder = dynamic Function(dynamic data);
 typedef RequestModifier = dio.RequestOptions Function(dio.RequestOptions);
+typedef ResponseModifier = dio.Response Function(dio.Response);
 
 dio.RequestOptions addJsonHeaders(dio.RequestOptions request) {
   JSON_HEADERS.entries.forEach((element) {
@@ -31,6 +32,8 @@ class DioConnect {
   final HttpScheme _httpScheme;
   final dio.Dio client;
   final List<RequestModifier> requestModifiers = [];
+  final List<ResponseModifier> responseModifiers = [];
+
   final int connectTimeout;
   final _watch = Stopwatch();
 
