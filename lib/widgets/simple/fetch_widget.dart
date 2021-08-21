@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../simple/splash_widget.dart';
-import '../../utilities/size_config.dart';
-import '../../controllers/base_controller.dart';
-import '../../utilities/utils.dart';
+import 'package:trip_pal_null_safe/controllers/base_controller.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
+import 'package:trip_pal_null_safe/widgets/simple/splash_widget.dart';
 
 class FetchController<T> extends Controller {
   final Future<T> Function() buildFetcher;
   final Function(T value) onSuccess;
-  FetchController(this.buildFetcher, {required this.onSuccess});
+  final Function(dynamic error, dynamic stackTrace)? onError;
+  FetchController(this.buildFetcher, {required this.onSuccess, this.onError});
 
   void onReady() {
     hasError = false;
-    buildFetcher().then(onSuccess).onError((error, stackTrace) {
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
-      hasError = true;
-    });
+    buildFetcher().then(onSuccess).onError(onError ??
+        (error, stackTrace) {
+          errorModel = ErrorHandlerModel.fromError(error, onReady);
+          hasError = true;
+        });
   }
 }
 

@@ -2,6 +2,7 @@ import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
@@ -49,13 +50,14 @@ class ProfileHeader extends StatelessWidget {
         ),
         Row(
           children: [
-            IconButton(
-              icon: Icon(Icons.settings,
-                  size: MySize.size24,
-                  color: Get.theme.appBarTheme.iconTheme!.color),
-              // TODO use named routes
-              onPressed: () => Get.to(() => EditProfileScreen()),
-            ),
+            if (!Get.find<AuthControl>().isGuest)
+              IconButton(
+                icon: Icon(Icons.settings,
+                    size: MySize.size24,
+                    color: Get.theme.appBarTheme.iconTheme!.color),
+                // TODO use named routes
+                onPressed: () => Get.to(() => EditProfileScreen()),
+              ),
             IconButton(
               icon: Icon(Icons.menu,
                   color: Get.theme.appBarTheme.iconTheme!.color,

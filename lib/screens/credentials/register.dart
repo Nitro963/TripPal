@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
+import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/utilities/validators.dart';
+import 'package:intl/intl.dart' as intl;
+import 'package:dio/dio.dart' as dio;
+import 'dart:developer' as developer;
 
 class SignUp extends StatefulWidget {
   @override
@@ -16,9 +24,13 @@ class _SignUpState extends State<SignUp> {
   var password = '';
   var firstName = '';
   var lastName = '';
+  DateTime? birthday;
+  int gender = 1;
   var error = '';
+  var formattedDate = 'Birth Date';
+  final _formatter = intl.DateFormat(intl.DateFormat.YEAR_ABBR_MONTH_DAY);
   final _formKey = GlobalKey<FormState>();
-
+  bool inAsyncCall = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,10 +43,13 @@ class _SignUpState extends State<SignUp> {
             children: [
               buildBackground(),
               SafeArea(
-                child: Container(
-                    margin: Spacing.only(left: 30.0, right: 30.0),
-                    alignment: Alignment.center,
-                    child: buildForm(context)),
+                child: ModalProgressHUD(
+                  inAsyncCall: inAsyncCall,
+                  child: Container(
+                      margin: Spacing.only(left: 30.0, right: 30.0),
+                      alignment: Alignment.center,
+                      child: buildForm(context)),
+                ),
               ),
             ],
           ),
@@ -117,6 +132,7 @@ class _SignUpState extends State<SignUp> {
               setState(() => email = val);
             },
           ),
+          buildDateTimeFormField(Get.theme, context),
           TextFormField(
             obscureText: true,
             style: TextStyle(color: Colors.white),
@@ -182,22 +198,57 @@ class _SignUpState extends State<SignUp> {
                   'Sign Up',
                   style: TextStyle(color: Colors.white, fontSize: 19),
                 ),
-                onPressed: () async {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                  if (_formKey.currentState!.validate()) {
-                    // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-                    // if(result == null) {
-                    //   setState(() {
-                    //     error = 'Could not sign in with those credentials';
-                    //   });
-                    // }
-                  }
-                }),
+                onPressed: onSignUpPressed),
           ),
           buildFormFooter(),
         ],
       ),
     );
+  }
+
+  Future<void> onSignUpPressed() async {
+    setState(() {
+      inAsyncCall = true;
+    });
+    FocusScope.of(Get.context!).unfocus();
+    if (_formKey.currentState!.validate()) {
+      try {
+        await Get.find<AuthControl>().register(User(
+          email: email,
+          password: password,
+          firstName: firstName,
+          lastName: lastName,
+          birthDate: birthday,
+          gender: gender == 1 ? 'M' : 'F',
+        ));
+        Get.offAllNamed('/home');
+      } on dio.DioError catch (e) {
+        if (e.type == dio.DioErrorType.response) {
+          switch (e.response!.statusCode) {
+            case 400:
+              {
+                developer.log(e.response.toString(), name: '[LOGIN]');
+                Get.showSnackbar(
+                  buildErrorSnackBar(
+                    'Wrong email or password. Try again or click Forgot Password to reset it.',
+                    position: SnackPosition.TOP,
+                    margin: EdgeInsets.only(top: 20),
+                    duration: Duration(seconds: 4),
+                  ),
+                );
+                setState(() {
+                  inAsyncCall = false;
+                });
+                return;
+              }
+          }
+        }
+        handelError(e, onSignUpPressed);
+      }
+    }
+    setState(() {
+      inAsyncCall = false;
+    });
   }
 
   Widget buildFormFooter() {
@@ -296,5 +347,76 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     ]);
+  }
+
+  Widget buildDateTimeFormField(ThemeData themeData, BuildContext context) {
+    return FormField(
+      validator: (_) {
+        if (birthday == null) return 'Please select';
+        return null;
+      },
+      builder: (state) {
+        return GestureDetector(
+            child: Container(
+              margin: Spacing.only(top: 24, bottom: 24),
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: Colors.white,
+                    width: 2,
+                  ),
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(width: 8),
+                      Icon(
+                        Icons.calendar_today_outlined,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 10),
+                      Text(formattedDate,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 16)),
+                    ],
+                  ),
+                  if (state.hasError) ...[
+                    SizedBox(height: 5),
+                    Row(
+                      children: [
+                        SizedBox(width: 8),
+                        Text(
+                          state.errorText!,
+                          style: themeData.textTheme.caption!.copyWith(
+                              color: themeData.errorColor,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ],
+                    ),
+                  ]
+                ],
+              ),
+            ),
+            onTap: () async {
+              DateTime? _tmp = await showDatePicker(
+                  initialEntryMode: DatePickerEntryMode.inputOnly,
+                  context: context,
+                  firstDate: DateTime.utc(1970),
+                  lastDate: DateTime.now(),
+                  initialDate: birthday != null ? birthday! : DateTime.now());
+              if (_tmp != null) {
+                setState(() {
+                  birthday = _tmp;
+                  formattedDate = _formatter.format(birthday!);
+                });
+              }
+            });
+      },
+    );
   }
 }

@@ -28,6 +28,11 @@ abstract class ApiView<T extends IModel> {
   Future<T> getItem(int id);
 
   Future<T> patchItem(int id, Map<String, dynamic> json);
+
+  Future<T> putItem(int id, T item);
+
+  Future<E> postItem<E>(Map<String, dynamic> json, Decoder<E> decoder,
+      {String pathSuffix = ''});
 }
 
 class DummyApiView<T extends IModel> implements ApiView<T> {
@@ -76,6 +81,19 @@ class DummyApiView<T extends IModel> implements ApiView<T> {
       return decoder(element);
     });
   }
+
+  @override
+  Future<E> postItem<E>(Map<String, dynamic> json, Decoder<E> decoder,
+      {String pathSuffix = ''}) {
+    // TODO: implement postItem
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<T> putItem(int id, T item) {
+    // TODO: implement putItem
+    throw UnimplementedError();
+  }
 }
 
 class NetworkApiView<T extends IModel> implements ApiView<T> {
@@ -107,6 +125,24 @@ class NetworkApiView<T extends IModel> implements ApiView<T> {
 
   Future<T> patchItem(int id, Map<String, dynamic> json) async {
     final response = await _client.patch<T>(_path + '$id/', json);
+    return response.decodedBody;
+  }
+
+  @override
+  Future<T> putItem(int id, T item) async {
+    final response = await _client.put<T>(_path + '/$id', item);
+    return response.decodedBody;
+  }
+
+  void addRequestModifier(RequestModifier modifier) {
+    _client.requestModifiers.add(modifier);
+  }
+
+  @override
+  Future<E> postItem<E>(Map<String, dynamic> json, Decoder<E> decoder,
+      {String pathSuffix = ''}) async {
+    final response =
+        await _client.patch(_path + pathSuffix, json, decoder: decoder);
     return response.decodedBody;
   }
 }

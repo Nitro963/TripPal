@@ -1,50 +1,49 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:trip_pal_null_safe/controllers/base_controller.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
-import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:dio/dio.dart' as dio;
+import 'package:trip_pal_null_safe/services/notification_service.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
+import 'package:trip_pal_null_safe/widgets/simple/fetch_widget.dart';
 
-class LoadController extends Controller {
+class SplashBindings extends Bindings {
   @override
-  void onReady() {
-    hasError = false;
-    Get.find<AuthControl>().checkUserToken().then((_) {
-      Future.delayed(Duration(seconds: 1), () {
+  void dependencies() {
+    Get.lazyPut(() => FetchController<void>(buildFetcher,
+        onSuccess: onSuccess, onError: onError));
+  }
+
+  Future<void> buildFetcher() => Get.find<AuthControl>().checkUserToken();
+
+  void onSuccess(_) {
+    Future.delayed(Duration(seconds: 1), () async {
+      var notificationAppLaunchDetails =
+          NotificationService.instance.notificationAppLaunchDetails;
+      if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
+        if (notificationAppLaunchDetails!.payload != null)
+          NotificationService.instance.selectNotificationSubject
+              .add(notificationAppLaunchDetails.payload);
+        else {
+          Get.offAllNamed('/home');
+        }
+      } else {
         Get.offAllNamed('/home');
-      });
-    }).onError((error, stackTrace) {
-      // TODO handel server response errors
-      hasError = true;
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
+      }
     });
   }
-}
 
-// TODO add logo
-class LoadingScreen extends GetView<LoadController> {
-  @override
-  Widget build(BuildContext context) {
-    MySize.init(context);
-    return Scaffold(
-      body: Obx(() => !controller.hasError
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  child: FlutterLogo(size: MySize.size120),
-                  margin: Spacing.bottom(12),
-                ),
-                Container(
-                  margin: Spacing.left(45),
-                  child: SpinKitThreeBounce(
-                      color: Get.theme.colorScheme.onSurface,
-                      size: MySize.size34),
-                ),
-              ],
-            )
-          : Center(child: buildErrorContent(controller.errorModel!))),
-    );
+  void onError(error, stackTrace) {
+    if (error is dio.DioError) {
+      var controller = Get.find<FetchController<void>>();
+      if (error.type == dio.DioErrorType.response) {
+        switch (error.response!.statusCode) {
+          case 401:
+            Get.find<AuthControl>().onUnauthorizedError();
+            return;
+        }
+      }
+      controller.errorModel =
+          ErrorHandlerModel.fromError(error, controller.onReady);
+      controller.hasError = true;
+    }
   }
 }

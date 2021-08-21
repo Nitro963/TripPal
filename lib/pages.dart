@@ -27,6 +27,7 @@ import 'package:trip_pal_null_safe/screens/weather_buddy/places_list.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/search_view.dart';
 import 'package:trip_pal_null_safe/screens/review/reviews_list_1.dart';
 import 'package:trip_pal_null_safe/utilities/routes_middleware.dart';
+import 'package:trip_pal_null_safe/widgets/simple/fetch_widget.dart';
 
 import 'controllers/apps_controllers.dart';
 import 'controllers/blog_view_controller.dart';
@@ -36,9 +37,9 @@ List<GetPage> pages = [
   // boarding and loading
   GetPage(
     name: '/loading',
-    page: () => LoadingScreen(),
+    page: () => FetchScreen<void>(),
+    binding: SplashBindings(),
     middlewares: [GlobalMiddleWare()],
-    binding: BindingsBuilder.put(() => LoadController()),
   ),
 
   GetPage(

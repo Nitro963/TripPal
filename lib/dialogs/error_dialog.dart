@@ -4,21 +4,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 
-class TimeoutDialog extends StatelessWidget {
-  const TimeoutDialog({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ErrorDialog(
-        handlerModel: ErrorHandlerModel(
-            header: "No Internet!",
-            message: "Please check your internet connection",
-            headerIcon: MdiIcons.wifiOff));
-  }
-}
-
 class ErrorDialog extends StatelessWidget {
   final ErrorHandlerModel handlerModel;
   const ErrorDialog({Key? key, required this.handlerModel}) : super(key: key);

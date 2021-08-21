@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
+import 'package:trip_pal_null_safe/services/notification_service.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/services/weather_service.dart';
 
@@ -16,8 +17,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initMemory();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(buildApp());
+      .then((_) async {
+    runApp(await buildApp());
   });
 }
 
@@ -43,7 +44,9 @@ class InitialBindings extends Bindings {
   }
 }
 
-GetMaterialApp buildApp() {
+Future<GetMaterialApp> buildApp() async {
+  await NotificationService.initialize();
+  // FCMService.initialize();
   final box = GetStorage();
   final controller = Get.put(AppThemeController(box.read('themeMode')));
   final themeMode = controller.themeMode;

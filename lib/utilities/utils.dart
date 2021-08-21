@@ -45,6 +45,7 @@ GetBar<Object> buildErrorSnackBar(String error,
 class ErrorHandlerModel {
   final String header;
   final String message;
+  final Map<String, dynamic> problems;
   final IconData headerIcon;
   final String buttonTitle;
   final Function()? callback;
@@ -53,18 +54,36 @@ class ErrorHandlerModel {
       required this.message,
       required this.headerIcon,
       this.callback,
-      this.buttonTitle = 'TRY AGAIN'});
+      this.buttonTitle = 'TRY AGAIN',
+      this.problems = const {}});
 
-  factory ErrorHandlerModel.fromError(error, callback) {
-    developer.log('Something happened!', name: 'ERROR_MODEL', error: error);
+  factory ErrorHandlerModel.fromError(error, callback, {closeCallBack: false}) {
+    developer.log('Something happened!', name: 'HANDLER_MODEL', error: error);
+    // developer.log(error.response.toString(), name: 'HANDLER_MODEL');
     if (error is dio.DioError) {
-      // TODO describe other errors
       if (error.type == dio.DioErrorType.connectTimeout) {
         return ErrorHandlerModel(
             header: "No Internet!",
             message: "Please check your internet connection",
             headerIcon: MdiIcons.wifiOff,
             callback: callback);
+      }
+      if (error.type == dio.DioErrorType.response &&
+          400 <= error.response!.statusCode! &&
+          error.response!.statusCode! < 500) {
+        if (error.response!.statusCode != 404)
+          return ErrorHandlerModel(
+            header: 'Error',
+            headerIcon: MdiIcons.alertCircleOutline,
+            message: error.response!.data['message'] ?? '',
+            problems: error.response!.data,
+            callback: closeCallBack
+                ? () {
+                    Get.back();
+                  }
+                : null,
+            buttonTitle: closeCallBack ? 'CLOSE' : 'TRY AGAIN',
+          );
       }
     }
     return ErrorHandlerModel(
@@ -105,6 +124,23 @@ Widget buildErrorContent(ErrorHandlerModel handlerModel) {
             child: Text(handlerModel.message,
                 style: themeData.textTheme.caption!
                     .copyWith(fontWeight: FontWeight.w500))),
+      ),
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: handlerModel.problems.entries.map((entry) {
+          return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(entry.key.capitalizeFirst!.tr + ":",
+                    style: themeData.textTheme.subtitle2!
+                        .copyWith(fontWeight: FontWeight.w600)),
+                Text(entry.value.toString().tr,
+                    style: themeData.textTheme.caption!
+                        .copyWith(fontWeight: FontWeight.w500)),
+              ]);
+        }).toList(),
       ),
       if (handlerModel.callback != null)
         Container(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
@@ -12,6 +13,12 @@ class ReviewWriting extends StatefulWidget {
 class _ReviewWritingState extends State<ReviewWriting> {
   String reviewText = '';
   double rate = 0;
+  late final int place;
+  @override
+  void initState() {
+    place = int.parse(Get.parameters['place']!);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,6 +121,13 @@ class _ReviewWritingState extends State<ReviewWriting> {
                           if (reviewText.isEmpty)
                             Get.showSnackbar(buildErrorSnackBar(
                                 'Review text can\'t be empty.'));
+                          else {
+                            Get.find<BackendService>()
+                                .getApiView(name: 'reviews')
+                                .postItem<dynamic>(
+                                    {'review_text': reviewText, 'place': place},
+                                    (data) => data);
+                          }
                           // TODO send a post request to TripPal servers.
                         }
                       },

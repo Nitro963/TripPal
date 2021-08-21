@@ -2,10 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
+import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/utilities/validators.dart';
+import 'package:dio/dio.dart' as dio;
+import 'dart:developer' as developer;
 
 class Login extends StatefulWidget {
   @override
@@ -67,9 +72,12 @@ class _LoginState extends State<Login> {
             children: [
               buildBackground(context),
               SafeArea(
-                child: Container(
-                    margin: Spacing.symmetric(horizontal: 30),
-                    child: buildForm(context)),
+                child: ModalProgressHUD(
+                  inAsyncCall: inAsyncCall,
+                  child: Container(
+                      margin: Spacing.symmetric(horizontal: 30),
+                      child: buildForm(context)),
+                ),
               ),
             ],
           ),
@@ -179,6 +187,7 @@ class _LoginState extends State<Login> {
             onPressed: () async {
               Get.find<AuthControl>().currentUser =
                   User(firstName: 'Guest', email: 'guest@trippal.com');
+              Get.find<AuthControl>().activateGuestMode();
               Get.offAllNamed('/home');
             },
             child: Text('Login as Guest?',
@@ -233,24 +242,43 @@ class _LoginState extends State<Login> {
     );
   }
 
+  bool inAsyncCall = false;
   void onLoginPressed() async {
-    FocusScope.of(Get.context!).requestFocus(FocusNode());
+    setState(() {
+      inAsyncCall = true;
+    });
+    FocusScope.of(Get.context!).unfocus();
     if (_formKey.currentState!.validate()) {
-      // dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-      // if(result == null) {
-      // var error =
-      //     'Could not login with those credentials';
-      // _scaffoldKey.currentState
-      //     .showSnackBar(SnackBar(
-      //   duration: new Duration(seconds: 2),
-      //   content: new Text(
-      //     error,
-      //     style: TextStyle(color: Colors.red),
-      //   ),
-      // ));
-      // }
-      // Get.to(() => PlaceDetails());
+      try {
+        await Get.find<AuthControl>().login(email: email, password: password);
+        Get.offAllNamed('/home');
+      } on dio.DioError catch (e) {
+        if (e.type == dio.DioErrorType.response) {
+          switch (e.response!.statusCode) {
+            case 400:
+              {
+                developer.log(e.response.toString(), name: '[LOGIN]');
+                Get.showSnackbar(
+                  buildErrorSnackBar(
+                    'Wrong email or password. Try again or click Forgot Password to reset it.',
+                    position: SnackPosition.TOP,
+                    margin: EdgeInsets.only(top: 20),
+                    duration: Duration(seconds: 4),
+                  ),
+                );
+                setState(() {
+                  inAsyncCall = false;
+                });
+                return;
+              }
+          }
+        }
+        handelError(e, onLoginPressed);
+      }
     }
+    setState(() {
+      inAsyncCall = false;
+    });
   }
 
   Container buildFormHeader() {
