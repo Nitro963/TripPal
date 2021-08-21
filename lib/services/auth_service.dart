@@ -9,7 +9,7 @@ class AuthControl extends GetxService {
   final box = GetStorage();
   final _client = DioConnect(
       baseUrl: LOCAL_SERVER_END_POINT,
-      httpScheme: HttpScheme.http,
+      httpScheme: DEFAULT_CONNECTION_PROTOCOL,
       connectTimeout: 8000);
 
   final _loginPath = BASE_URL + '/login/';
@@ -18,9 +18,9 @@ class AuthControl extends GetxService {
 
   final _logoutPath = BASE_URL + '/logout/';
 
-  final _logoutAllPath = BASE_URL + '/logout-all';
+  final _logoutAllPath = BASE_URL + '/logout-all/';
 
-  final String _devicesPath = BASE_URL + '/devices';
+  final String _devicesPath = BASE_URL + '/devices/';
 
   User? currentUser;
 
@@ -43,7 +43,7 @@ class AuthControl extends GetxService {
 
   Future<User> _updateUserDeviceInfo() async {
     var res = await _client.put<User>(
-        _devicesPath + '/update/', await DeviceInfo.fromPlatform(),
+        _devicesPath + 'update/', await DeviceInfo.fromPlatform(),
         headers: {'Authorization': 'Token $token'}, decoder: (data) {
       return User.fromJson(data['user']);
     });

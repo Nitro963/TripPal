@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+
+import 'networking_utils.dart';
 
 final starsActivationColor = const Color(0xffffaa00);
 
@@ -33,6 +37,7 @@ final kSecondaryFiltersTitleStyle = TextStyle(
 );
 
 const LOCAL_SERVER_END_POINT = '192.168.43.19:8000';
+const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.http;
 const BASE_URL = '/api';
 const JSON_HEADERS = {
   'Accept': 'application/json',

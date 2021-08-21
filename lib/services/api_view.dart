@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
+import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
 class PaginationInfo<T> {
@@ -100,7 +101,8 @@ class NetworkApiView<T extends IModel> implements ApiView<T> {
   final String _path;
   final DioConnect _client;
   NetworkApiView(String baseUrl, String path, Decoder<T> itemBuilder,
-      {HttpScheme httpScheme = HttpScheme.http, int connectTimeout = 8000})
+      {HttpScheme httpScheme = DEFAULT_CONNECTION_PROTOCOL,
+      int connectTimeout = 8000})
       : _path = path,
         _client = DioConnect(
             baseUrl: baseUrl,
