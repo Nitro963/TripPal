@@ -68,13 +68,13 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                                 (int? val) {
                                   controller.adults = val!;
                                 },
-                                Spacing.horizontal(12),
+                                Spacing.horizontal(5),
                               ),
                               buildDropdownButtonFormField(
                                   'Children', '2', MdiIcons.humanMaleChild,
                                   (int? val) {
                                 controller.children = val!;
-                              }, Spacing.only(right: 8)),
+                              }, Spacing.only(right: 2)),
                             ]
                                 .map(
                                   (e) => Container(
@@ -94,7 +94,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                               (int? val) {
                                 controller.rooms = val!;
                               },
-                              Spacing.horizontal(12),
+                              Spacing.horizontal(5),
                             ),
                           ),
                         ],
@@ -104,11 +104,11 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                   RoundedButton(
                       title: 'Search',
                       onPressed: () {
-                        Get.toNamed('/home/hotels');
-                        // if (_key.currentState!.validate()) {
-                        //   // TODO send argument
-                        //   Get.toNamed('/home/hotels');
-                        // }
+                        if (_key.currentState!.validate()) {
+                          // TODO send argument
+                          Get.toNamed(
+                              '/home/hotels?city_name__contains=${controller.cityName}');
+                        }
                       },
                       icon: Icon(
                         Icons.search,
@@ -124,6 +124,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
   }
 
   TextFormField buildCityFormField() {
+    final themeData = Get.theme;
     return TextFormField(
         validator: (val) => val?.isEmpty == null || val?.isEmpty == true
             ? 'Please Enter a City'
@@ -142,6 +143,8 @@ class HotelSearchPage extends GetView<HotelSearchController> {
             errorBorder: OutlineInputBorder(),
             focusedErrorBorder: OutlineInputBorder(),
             hintText: "London",
+            errorStyle: themeData.textTheme.caption!.copyWith(
+                color: themeData.errorColor, fontWeight: FontWeight.w600),
             prefixIcon: Icon(Icons.search),
             hintStyle: TextStyle(
                 fontSize: 17, color: Colors.grey, fontWeight: FontWeight.w500)),
@@ -202,8 +205,8 @@ class HotelSearchPage extends GetView<HotelSearchController> {
             ),
             onTap: () async {
               DateTimeRange? _tmp = await showDateRangePicker(
-                  context: context,
                   initialEntryMode: DatePickerEntryMode.inputOnly,
+                  context: context,
                   firstDate: DateTime.now(),
                   lastDate: DateTime.now().add(Duration(days: 365)),
                   initialDateRange: controller.checkOutDate != null

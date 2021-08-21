@@ -9,6 +9,7 @@ import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/generator.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_details_view.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 import 'package:trip_pal_null_safe/widgets/simple/image_dominant_color_cover.dart';
 
 class BlogView extends DetailsScaffold {
@@ -33,7 +34,7 @@ class BlogView extends DetailsScaffold {
             ),
             child: ClipRRect(
               borderRadius: Shape.circularBottom(40),
-              child: FancyShimmerImage(
+              child: BlendShimmerImage(
                 imageUrl: controller.blog.image!,
                 // color: Colors.,
                 // colorBlendMode: BlendMode.darken,

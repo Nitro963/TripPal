@@ -44,6 +44,7 @@ class AvatarOverFlowView extends StatelessWidget {
             )
             .toList(),
         builder: (context, remaining) {
+          int took = min(5, reviews.length) - remaining;
           return CircleAvatar(
             backgroundColor: Colors.black45,
             child: InkWell(
@@ -54,7 +55,7 @@ class AvatarOverFlowView extends StatelessWidget {
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               child: Center(
-                child: Text('${count + min(5, reviews.length) - remaining}+',
+                child: Text('${count - took}+',
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w500)),
               ),

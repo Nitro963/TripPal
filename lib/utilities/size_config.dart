@@ -150,10 +150,10 @@ class Spacing {
       bool withResponsive = true}) {
     if (withResponsive) {
       return EdgeInsets.only(
-          left: MySize.getScaledSizeHeight(left),
+          left: MySize.getScaledSizeWidth(left),
           right: MySize.getScaledSizeWidth(right),
           top: MySize.getScaledSizeHeight(top),
-          bottom: MySize.getScaledSizeWidth(bottom));
+          bottom: MySize.getScaledSizeHeight(bottom));
     } else {
       return EdgeInsets.only(
           left: left, right: right, top: top, bottom: bottom);

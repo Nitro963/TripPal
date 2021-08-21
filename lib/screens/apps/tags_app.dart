@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/tag.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_view.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class TagsListView extends IModelView {
   @override
@@ -26,7 +27,7 @@ class TagsListView extends IModelView {
           borderRadius: BorderRadius.all(Radius.circular(MySize.size16)),
           child: Stack(
             children: <Widget>[
-              FancyShimmerImage(
+              BlendShimmerImage(
                 imageUrl: category.image!,
                 height: MySize.getScaledSizeHeight(160),
                 boxFit: BoxFit.cover,

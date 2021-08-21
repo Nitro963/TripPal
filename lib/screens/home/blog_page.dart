@@ -1,4 +1,3 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -33,7 +32,7 @@ class BlogPage extends GetView<BloggerPageController> {
             () => Expanded(
               child: controller.hasData
                   ? RefreshIndicator(
-                      onRefresh: controller.fetch,
+                      onRefresh: controller.onRefresh,
                       child: Obx(
                         () => AnimatedSwitcher(
                           duration: Duration(milliseconds: 300),
@@ -138,7 +137,7 @@ class BlogPage extends GetView<BloggerPageController> {
                                   MySize.getScaledSizeHeight(80)),
                               child: Stack(
                                 children: [
-                                  FancyShimmerImage(
+                                  BlendShimmerImage(
                                     imageUrl: item.profilePicture!,
                                     width: MySize.getScaledSizeHeight(80),
                                     height: MySize.getScaledSizeHeight(80),

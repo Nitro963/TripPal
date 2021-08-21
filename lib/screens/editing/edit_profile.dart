@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 // TODO change to GetView
 class EditProfileScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Stack(
                     children: <Widget>[
                       ClipOval(
-                        child: FancyShimmerImage(
+                        child: BlendShimmerImage(
                             imageUrl:
                                 'https://loremflickr.com/320/320/person?random=86',
                             width: MySize.getScaledSizeHeight(150),

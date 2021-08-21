@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fancy_shimmer_image/defaults.dart';
-import 'package:fancy_shimmer_image/widgets/default_error_widget.dart';
 import 'package:fancy_shimmer_image/widgets/image_shimmer_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 
 ///Widget that uses chached network image and Shimmer widgets to create
@@ -40,29 +40,38 @@ class BlendShimmerImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeData = Theme.of(context);
     return CachedNetworkImage(
-      color: color,
-      colorBlendMode: blendMode,
-      imageUrl: imageUrl,
-      fit: boxFit,
-      width: width,
-      height: height,
-      placeholder: (context, url) => ImageShimmerWidget(
+        color: color,
+        colorBlendMode: blendMode,
+        imageUrl: imageUrl,
+        fit: boxFit,
         width: width,
         height: height,
-        shimmerDirection: shimmerDirection,
-        shimmerDuration: shimmerDuration,
-        baseColor: shimmerBaseColor ?? defaultShimmerBaseColor,
-        highlightColor: shimmerHighlightColor ?? defaultShimmerHighlightColor,
-        backColor: shimmerBackColor ?? defaultShimmerBackColor,
-        boxDecoration: boxDecoration,
-      ),
-      errorWidget: (context, url, error) =>
-          errorWidget ??
-          DefaultErrorWidget(
-            width: width,
-            height: height,
-          ),
-    );
+        placeholder: (context, url) => ImageShimmerWidget(
+              width: width,
+              height: height,
+              shimmerDirection: shimmerDirection,
+              shimmerDuration: shimmerDuration,
+              baseColor: shimmerBaseColor ?? defaultShimmerBaseColor,
+              highlightColor:
+                  shimmerHighlightColor ?? defaultShimmerHighlightColor,
+              backColor: shimmerBackColor ?? defaultShimmerBackColor,
+              boxDecoration: boxDecoration,
+            ),
+        errorWidget: (context, url, error) =>
+            errorWidget ??
+            Container(
+              color: themeData.colorScheme.surface,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(MdiIcons.alert, color: themeData.errorColor),
+                  Text('Error',
+                      style: themeData.textTheme.caption!
+                          .copyWith(color: themeData.errorColor))
+                ],
+              ),
+            ));
   }
 }

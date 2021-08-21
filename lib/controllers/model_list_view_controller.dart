@@ -121,8 +121,9 @@ abstract class IModelViewController<T extends IModel> extends Controller {
       else
         _empty.value = false;
     } catch (e) {
-      hasError = true;
+      _items.clear();
       errorModel = ErrorHandlerModel.fromError(e, onRefresh);
+      hasError = true;
     }
   }
 
@@ -137,7 +138,7 @@ abstract class IModelViewController<T extends IModel> extends Controller {
   set sortPolicy(int? value) {
     if (value != null) {
       _sortPolicy.value = value;
-      refreshIndicatorKey.currentState!.show();
+      if (!hasError) refreshIndicatorKey.currentState!.show();
     }
   }
 

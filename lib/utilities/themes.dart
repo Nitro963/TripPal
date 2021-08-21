@@ -126,7 +126,7 @@ class Themes {
       textTheme: lightTextTheme,
       fontFamily: 'Montserrat',
       indicatorColor: Colors.white,
-      disabledColor: Color(0xffdcc7ff),
+      disabledColor: Colors.grey.shade500,
       highlightColor: Colors.white,
       floatingActionButtonTheme: FloatingActionButtonThemeData(
           backgroundColor: Color(0xff3d63ff),

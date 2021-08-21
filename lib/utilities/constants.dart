@@ -32,7 +32,7 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const LOCAL_SERVER_END_POINT = '192.168.1.103:8000';
+const LOCAL_SERVER_END_POINT = '192.168.43.19:8000';
 const BASE_URL = '/api';
 const JSON_HEADERS = {
   'Accept': 'application/json',

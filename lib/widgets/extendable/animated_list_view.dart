@@ -17,10 +17,15 @@ abstract class AnimatedIModelListView
 
   PreferredSizeWidget? buildAppBar();
 
+  Widget? buildFloatingActionButton() {
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: buildAppBar(),
+        floatingActionButton: buildFloatingActionButton(),
         body: SafeArea(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +67,9 @@ abstract class AnimatedIModelListView
                                                 controller:
                                                     controller.scrollController,
                                                 physics:
-                                                    BouncingScrollPhysics(),
+                                                    AlwaysScrollableScrollPhysics(
+                                                        parent:
+                                                            BouncingScrollPhysics()),
                                                 itemCount: items.length,
                                                 itemBuilder: (context, index) {
                                                   return Obx(() {

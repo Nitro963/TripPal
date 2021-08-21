@@ -1,4 +1,3 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -8,6 +7,7 @@ import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class ReviewCard extends StatelessWidget {
   final Review review;
@@ -68,7 +68,7 @@ class ReviewCard extends StatelessWidget {
                     Container(
                       margin: const EdgeInsets.only(right: 10.0),
                       child: ClipOval(
-                        child: FancyShimmerImage(
+                        child: BlendShimmerImage(
                           imageUrl: review.user!.profilePicture!,
                           width: MySize.getScaledSizeHeight(80),
                           height: MySize.getScaledSizeHeight(80),

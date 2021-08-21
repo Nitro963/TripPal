@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/filter.dart';
 import 'model_list_view_controller.dart';
 
 abstract class AnimatedListViewController extends IModelViewController {

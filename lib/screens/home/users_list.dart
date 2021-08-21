@@ -11,6 +11,7 @@ import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_view.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class UsersList extends IModelView {
   @override
@@ -39,7 +40,7 @@ class UsersList extends IModelView {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.all(Radius.circular(MySize.size12)),
-            child: FancyShimmerImage(
+            child: BlendShimmerImage(
               imageUrl: image,
               width: MySize.size72,
               height: MySize.size72,

@@ -1,7 +1,8 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+
+import 'blend_shimmer_image.dart';
 
 class TitledImage extends StatelessWidget {
   final String imageUrl;
@@ -28,7 +29,7 @@ class TitledImage extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: Shape.circular(20),
-            child: FancyShimmerImage(
+            child: BlendShimmerImage(
               imageUrl: imageUrl,
               boxFit: BoxFit.cover,
               boxDecoration: BoxDecoration(

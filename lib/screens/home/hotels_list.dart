@@ -8,6 +8,7 @@ import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_view.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class HotelsView extends IModelView {
   @override
@@ -42,7 +43,7 @@ class HotelsView extends IModelView {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(MySize.size16),
                   topRight: Radius.circular(MySize.size16)),
-              child: FancyShimmerImage(
+              child: BlendShimmerImage(
                 imageUrl: hotel.image!,
                 height: MySize.getScaledSizeHeight(200),
                 width: double.infinity,

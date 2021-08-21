@@ -11,87 +11,69 @@ import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'details_controller.dart';
 
 class BloggerPageController extends DetailsController {
-  List<User>? _bloggerOfWeek;
-  List<Blog>? _freshBlog;
-  List<Tag>? _hotTags;
+  List<User> _bloggerOfWeek = List<User>.empty(growable: true).obs;
+  List<Blog> _freshBlog = List<Blog>.empty(growable: true).obs;
+  List<Tag> _hotTags = List<Tag>.empty(growable: true).obs;
 
   UnmodifiableListView<User> get bloggerOfWeek =>
-      UnmodifiableListView(_bloggerOfWeek ?? []);
-  UnmodifiableListView<Blog> get freshBlog =>
-      UnmodifiableListView(_freshBlog ?? []);
-  UnmodifiableListView<Tag> get hotTags => UnmodifiableListView(_hotTags ?? []);
+      UnmodifiableListView(_bloggerOfWeek);
+  UnmodifiableListView<Blog> get freshBlog => UnmodifiableListView(_freshBlog);
+  UnmodifiableListView<Tag> get hotTags => UnmodifiableListView(_hotTags);
 
-  void _fetchBloggerOfWeek() {
-    Get.find<BackendService>()
+  Future<void> _fetchBloggerOfWeek() async {
+    var value = await Get.find<BackendService>()
         .getApiView<User>(name: 'blogger-of-week')
-        .getAllElements(queryParameters: {'limit': '10'}).then((value) {
-      _bloggerOfWeek = value.results;
-      hasData =
-          _bloggerOfWeek != null && _freshBlog != null && _hotTags != null;
-    }).onError((error, stacktrace) {
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
-      hasError = true;
-    });
+        .getAllElements(queryParameters: {'limit': '10'});
+    _bloggerOfWeek
+      ..clear()
+      ..addAll(value.results);
   }
 
   final dateFormatter = intl.DateFormat('yyyy-MM-dd');
 
-  void _fetchFreshBlog() {
-    Get.find<BackendService>()
+  Future<void> _fetchFreshBlog() async {
+    var value = await Get.find<BackendService>()
         .getApiView<Blog>(name: 'blog')
         .getAllElements(queryParameters: {
       'date_after':
           dateFormatter.format(DateTime.now().subtract(Duration(days: 3))),
       'ordering': '-likes_count',
       'limit': '10',
-    }).then((value) {
-      _freshBlog = value.results;
-      hasData =
-          _bloggerOfWeek != null && _freshBlog != null && _hotTags != null;
-    }).onError((error, stacktrace) {
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
-      hasError = true;
     });
+    _freshBlog
+      ..clear()
+      ..addAll(value.results);
   }
 
-  void _fetchTags() {
-    Get.find<BackendService>()
+  Future<void> _fetchTags() async {
+    var value = await Get.find<BackendService>()
         .getApiView<Tag>(name: 'tags')
         .getAllElements(queryParameters: {
       'limit': '8',
-    }).then((value) {
-      _hotTags = value.results;
-      hasData =
-          _bloggerOfWeek != null && _freshBlog != null && _hotTags != null;
-    }).onError((error, stacktrace) {
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
-      hasError = true;
     });
-  }
-
-  Future<void> fetch() async {
-    _fetchBloggerOfWeek();
-    _fetchFreshBlog();
-    _fetchTags();
+    _hotTags
+      ..clear()
+      ..addAll(value.results);
   }
 
   Future<void> onRefresh() async {
-    _fetchBloggerOfWeek();
-    _fetchFreshBlog();
-    _fetchTags();
+    try {
+      await Future.wait<void>(
+          [_fetchBloggerOfWeek(), _fetchFreshBlog(), _fetchTags()]);
+      hasData = true;
+    } catch (error) {
+      errorModel = ErrorHandlerModel.fromError(error, onReady);
+      hasError = true;
+      hasData = false;
+    }
   }
 
   void onReady() {
-    _bloggerOfWeek = null;
-    _freshBlog = null;
-    _hotTags = null;
+    hasError = false;
     hasData = false;
-    fetch();
+    onRefresh();
   }
 
   bool get empty =>
-      hasData &&
-      _bloggerOfWeek!.isEmpty &&
-      _freshBlog!.isEmpty &&
-      _hotTags!.isEmpty;
+      _hotTags.isEmpty && _freshBlog.isEmpty && _bloggerOfWeek.isEmpty;
 }

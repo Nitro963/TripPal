@@ -216,7 +216,7 @@ abstract class IModelView extends GetView<IModelViewController> {
             },
             child: Icon(
               MdiIcons.swapVertical,
-              color: themeData.colorScheme.primary,
+              color: themeData.appBarTheme.iconTheme!.color,
               size: 22,
             ),
           ),
@@ -243,13 +243,13 @@ abstract class IModelView extends GetView<IModelViewController> {
                 Future.delayed(Duration(milliseconds: 150), () async {
                   var res = await Get.dialog(EventFilterDialog(
                       controllers: controller.filtersControllers));
-                  if (res != null)
+                  if (res != null && !controller.hasError)
                     controller.refreshIndicatorKey.currentState!.show();
                 });
               },
               child: Icon(
                 MdiIcons.tune,
-                color: themeData.colorScheme.primary,
+                color: themeData.appBarTheme.iconTheme!.color,
                 size: 22,
               ),
             ),
@@ -267,7 +267,12 @@ abstract class IModelView extends GetView<IModelViewController> {
     return Scaffold(
         appBar: buildAppBar(),
         body: buildScaffoldBody(),
+        floatingActionButton: buildFloatingActionButton(),
         backgroundColor: customAppTheme.bgLayer2);
+  }
+
+  Widget? buildFloatingActionButton() {
+    return null;
   }
 }
 

@@ -44,7 +44,6 @@ List<GetPage> pages = [
   GetPage(
     name: '/boarding',
     page: () => BoardingScreen(),
-    middlewares: [GlobalMiddleWare()],
     binding: BindingsBuilder.put(() => BoardingController()),
   ),
   // home page navigation

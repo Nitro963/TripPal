@@ -72,8 +72,8 @@ class RangeFilterWidgetController extends FilterWidgetController {
   Map<String, String> buildQueryParameters() {
     return activated
         ? {
-            'min_${filter.attribute}': min.toString(),
-            'max_${filter.attribute}': max.toString()
+            '${filter.attribute}_min': min.toString(),
+            '${filter.attribute}_max': max.toString()
           }
         : {};
   }

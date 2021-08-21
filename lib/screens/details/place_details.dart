@@ -16,6 +16,7 @@ import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/widgets/simple/avatar_overflow.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class PlaceDetailsController extends DetailsController {
   late final int type;
@@ -100,7 +101,7 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
                       background: Stack(
                         fit: StackFit.expand,
                         children: [
-                          FancyShimmerImage(
+                          BlendShimmerImage(
                               imageUrl: place.image!, boxFit: BoxFit.cover),
                           const DecoratedBox(
                             decoration: BoxDecoration(

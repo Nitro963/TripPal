@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:trip_pal_null_safe/dialogs/filter_dialog.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
 import 'package:trip_pal_null_safe/screens/review/review_card.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
 import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
+import 'package:trip_pal_null_safe/widgets/simple/custom_back_button.dart';
+import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
 
 class ReviewList extends AnimatedIModelListView {
   ReviewsListController get controller => Get.find<ReviewsListController>();
@@ -15,7 +19,7 @@ class ReviewList extends AnimatedIModelListView {
   @override
   Widget buildHeader() {
     return Container(
-      padding: const EdgeInsets.only(top: 20.0, left: 20.0, right: 20.0),
+      padding: const EdgeInsets.only(top: 20.0, left: 32, right: 20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -31,7 +35,7 @@ class ReviewList extends AnimatedIModelListView {
   }
 
   @override
-  double get headerHeight => MySize.getScaledSizeHeight(80);
+  double get headerHeight => MySize.getScaledSizeHeight(65);
 
   @override
   Widget buildItem(IModel item, int index, double scale, BuildContext context) {
@@ -39,7 +43,7 @@ class ReviewList extends AnimatedIModelListView {
       heightFactor: 0.7,
       alignment: Alignment.topCenter,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
+        padding: Spacing.horizontal(15),
         child: Hero(
           tag: '$index card',
           createRectTween: (begin, end) {
@@ -87,25 +91,135 @@ class ReviewList extends AnimatedIModelListView {
     return scale;
   }
 
-  @override
   PreferredSizeWidget? buildAppBar() {
+    final themeData = Get.theme;
     return AppBar(
       title: Text('Reviews'),
+      centerTitle: true,
+      automaticallyImplyLeading: false,
       actions: [
-        IconButton(
-          icon: Icon(FontAwesomeIcons.edit),
-          onPressed: () {
-            Get.toNamed('home/places/review-writing',
-                arguments: controller.place!.id);
-          },
+        CustomBackButton(defaultRoute: '/home'),
+        Expanded(
+          child: Container(
+            margin: EdgeInsets.all(MySize.size8),
+            child: TextFormField(
+              focusNode: controller.searchFocusNode,
+              style: themeData.textTheme.subtitle2!
+                  .copyWith(letterSpacing: 0, fontWeight: FontWeight.w600),
+              decoration: InputDecoration(
+                hintText: "Search".tr,
+                hintStyle: themeData.textTheme.subtitle2!
+                    .copyWith(letterSpacing: 0, fontWeight: FontWeight.w600),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(MySize.size16),
+                    ),
+                    borderSide: BorderSide.none),
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(MySize.size16),
+                    ),
+                    borderSide: BorderSide.none),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(MySize.size16),
+                    ),
+                    borderSide: BorderSide.none),
+                filled: true,
+                fillColor: themeData.colorScheme.background,
+                prefixIcon: Icon(
+                  MdiIcons.magnify,
+                  size: MySize.size22,
+                  color: themeData.appBarTheme.iconTheme!.color!.withAlpha(150),
+                ),
+                isDense: true,
+                contentPadding: EdgeInsets.only(right: MySize.size16),
+              ),
+              textCapitalization: TextCapitalization.sentences,
+              onFieldSubmitted: (value) {
+                controller.searchQuery = value;
+              },
+            ),
+          ),
         ),
-        IconButton(
-            icon: Icon(Icons.tune_outlined),
-            onPressed: () {
-              // TODO show filtering dialog
-            }),
+        Container(
+          margin: EdgeInsets.all(MySize.size8),
+          decoration: BoxDecoration(
+            color: themeData.backgroundColor,
+            borderRadius: BorderRadius.all(Radius.circular(MySize.size16)),
+            boxShadow: [
+              BoxShadow(
+                color: themeData.cardTheme.shadowColor!.withAlpha(48),
+                blurRadius: 3,
+                offset: Offset(0, 1),
+              )
+            ],
+          ),
+          padding: EdgeInsets.all(MySize.size12),
+          child: InkWell(
+            onTap: () async {
+              controller.searchFocusNode.unfocus();
+              Future.delayed(Duration(milliseconds: 150), () async {
+                final res = await Get.bottomSheet(SortBottomSheet(
+                    policies: controller.sortPolices,
+                    initialValue: controller.sortPolicy));
+                controller.sortPolicy = res;
+              });
+            },
+            child: Icon(
+              MdiIcons.swapVertical,
+              color: themeData.appBarTheme.iconTheme!.color,
+              size: 22,
+            ),
+          ),
+        ),
+        Visibility(
+          visible: controller.filteringPolices.isNotEmpty,
+          child: Container(
+            margin: EdgeInsets.all(MySize.size8),
+            decoration: BoxDecoration(
+              color: themeData.backgroundColor,
+              borderRadius: BorderRadius.all(Radius.circular(MySize.size16)),
+              boxShadow: [
+                BoxShadow(
+                  color: themeData.cardTheme.shadowColor!.withAlpha(48),
+                  blurRadius: 3,
+                  offset: Offset(0, 1),
+                )
+              ],
+            ),
+            padding: EdgeInsets.all(MySize.size12),
+            child: InkWell(
+              onTap: () async {
+                controller.searchFocusNode.unfocus();
+                Future.delayed(Duration(milliseconds: 150), () async {
+                  var res = await Get.dialog(EventFilterDialog(
+                      controllers: controller.filtersControllers));
+                  if (res != null && !controller.hasError)
+                    controller.refreshIndicatorKey.currentState!.show();
+                });
+              },
+              child: Icon(
+                Icons.tune_outlined,
+                color: themeData.appBarTheme.iconTheme!.color,
+                size: 22,
+              ),
+            ),
+          ),
+        ),
       ],
     );
+  }
+
+  Widget? buildFloatingActionButton() {
+    return Get.find<AuthControl>().isGuest
+        ? null
+        : FloatingActionButton(
+            onPressed: () {
+              Get.toNamed('home/places/review-writing',
+                  arguments: controller.place!.id);
+            },
+            child: Icon(Icons.edit));
   }
 
   @override

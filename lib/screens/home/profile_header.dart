@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class ProfileHeader extends StatelessWidget {
   const ProfileHeader({
@@ -23,7 +24,7 @@ class ProfileHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               ClipOval(
-                child: FancyShimmerImage(
+                child: BlendShimmerImage(
                     imageUrl:
                         'https://loremflickr.com/320/320/person?random=86',
                     width: MySize.getScaledSizeHeight(50),
