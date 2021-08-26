@@ -16,11 +16,10 @@ class TagsListView extends IModelView {
   @override
   Widget buildViewTile(int index, IModel model, BuildContext context) {
     final themeData = Get.theme;
-    final category = model as Tag;
+    final tag = model as Tag;
     return GestureDetector(
       onTap: () {
-        // TODO navigate to filtered blog view
-        // Get.toNamed('/home/screens.apps/products?category_id=${category.id}');
+        Get.toNamed('/home/blog_page/list?tags=${tag.id}');
       },
       child: ClipRRect(
           clipBehavior: Clip.antiAlias,
@@ -28,7 +27,7 @@ class TagsListView extends IModelView {
           child: Stack(
             children: <Widget>[
               BlendShimmerImage(
-                imageUrl: category.image!,
+                imageUrl: tag.image!,
                 height: MySize.getScaledSizeHeight(160),
                 boxFit: BoxFit.cover,
                 width: MySize.screenWidth,
@@ -60,7 +59,7 @@ class TagsListView extends IModelView {
                       Row(
                         children: [
                           Text(
-                            '${category.blogCount}',
+                            '${tag.blogCount}',
                             style: themeData.textTheme.bodyText1!.copyWith(
                                 color: Colors.white,
                                 fontWeight: FontWeight.w600,

@@ -91,7 +91,8 @@ class WeatherBuddyState extends State<WeatherBuddy> {
           },
           itemBuilder: (context, index) => WeatherPage(index: index)),
       Positioned(
-          top: MySize.getScaledSizeHeight(140),
+          top: MySize.getScaledSizeHeight(140) +
+              2 * MediaQuery.of(context).padding.top,
           left: MySize.getScaledSizeWidth(20),
           child: SmoothPageIndicator(
             controller: controller.pageController,

@@ -146,7 +146,8 @@ List<GetPage> pages = [
     page: () => WeatherBuddy(),
     middlewares: [GlobalMiddleWare()],
     // TODO store places locally.
-    binding: BindingsBuilder.put(() => WeatherBuddyController(6)),
+    binding:
+        BindingsBuilder.put(() => WeatherBuddyController(6), permanent: true),
   ),
   GetPage(
     name: '/weather-buddy/list',

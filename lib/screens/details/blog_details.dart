@@ -17,7 +17,7 @@ class BlogView extends DetailsScaffold {
 
   Widget buildHeaderStack(ThemeData themeData) {
     return Container(
-      height: 2.4 * MySize.screenHeight / 5 +
+      height: 2.6 * MySize.screenHeight / 5 +
           2 * MediaQuery.of(Get.context!).padding.top,
       child: Stack(
         children: [

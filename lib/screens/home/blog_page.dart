@@ -352,19 +352,25 @@ class BlogPage extends GetView<BloggerPageController> {
                         return Card(
                           shape: Shape.circular(12,
                               shapeTypeFor: ShapeTypeFor.button),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: themeData.colorScheme.onBackground,
-                              border: Border.all(
-                                  width: MySize.size4, color: Colors.white54),
-                            ),
-                            child: Center(
-                              child: Text(item.name!,
-                                  style: themeData.textTheme.headline6!
-                                      .copyWith(
-                                          color:
-                                              themeData.colorScheme.surface)),
+                          child: InkWell(
+                            onTap: () {
+                              Get.toNamed(
+                                  '/home/blog_page/list?tags=${item.id}');
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                color: themeData.colorScheme.onBackground,
+                                border: Border.all(
+                                    width: MySize.size4, color: Colors.white54),
+                              ),
+                              child: Center(
+                                child: Text(item.name!,
+                                    style: themeData.textTheme.headline6!
+                                        .copyWith(
+                                            color:
+                                                themeData.colorScheme.surface)),
+                              ),
                             ),
                           ),
                         );
