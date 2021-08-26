@@ -21,11 +21,14 @@ class ProfileController extends GetxController {
     // if (userSavedPlaces.isEmpty)
     for (var trip in dummyTrips) {
       usertrips.add(new Trip(
-          city: trip.city,
+          // city: trip.city,
           days: trip.days,
-          details: trip.details,
-          country: trip.country,
-          type: trip.type));
+          // details: trip.details,
+          // country: trip.country,
+          // type: trip.type
+          user:trip.user,
+          startDate: trip.startDate
+          ));
     }
     for (var place in dummyJson) {
       userSavedPlaces.add(Place2.fromJson(place));

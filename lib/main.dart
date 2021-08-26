@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
 import 'package:trip_pal_null_safe/pages.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
@@ -12,6 +13,7 @@ import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/services/weather_service.dart';
 
 import 'controllers/app_theme_controller.dart';
+import 'controllers/trips_list_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,6 +43,7 @@ class InitialBindings extends Bindings {
     Get.lazyPut(() => GeoCodingService());
     Get.lazyPut(() => BackendService());
     Get.lazyPut(() => AuthControl());
+    Get.lazyPut(() => TripsListController());
   }
 }
 

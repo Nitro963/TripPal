@@ -4,6 +4,8 @@ import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/models/day.dart';
 
+import 'models/user.dart';
+
 List<Place> demoPlaces = [
   Place(
       name: "Damascus",
@@ -56,14 +58,31 @@ List<String> rooms = [
   "1 Room - 2 adult . 0 Childrens",
   "1 Room - 2 adult . 1 or 2 Childrens"
 ];
-
+User user= User(
+  id: 1,
+  firstName:"user",
+  lastName: 'user',
+  email: "test@gmail.com",
+  password: "",
+  profilePicture: "/assets/imagees/1.jpg",
+  gender: "M"
+);
+List<Trip> dummyTrips = [
+  Trip(
+    user:user,
+    days:[10],
+    startDate: DateTime.now(),
+  )
+];
+/*
 List<Trip> dummyTrips = [
   Trip(
       city: 'Dubai',
       country: 'UAE',
       details: 'Foods, malls & shops included',
       type: 'Extended Trip',
-      days: days),
+      days: days
+      ),
   Trip(
       city: 'Milan',
       country: 'Italy',
@@ -178,7 +197,7 @@ List<Trip> dummyTrips = [
       details: 'Malls included',
       type: 'Focused Trip',
       days: days),
-];
+];*/
 
 List<String> dummyCities = [
   'Bangkok',
@@ -202,7 +221,18 @@ List<String> dummyCities = [
   'Bali',
   'Hong Kong',
 ];
-
+Activity activity =Activity(
+  trip: 10,
+  day:20,
+  place:30
+);
+List<Day> days =[
+  Day(dayIndex: 1,
+  tripIndex: 10,
+  activities: [activity]
+  ),
+];
+/*
 List<Day> days = [
   Day(dayIndex: 1, date: DateTime.now(), activates: [
     Activity(
@@ -244,7 +274,7 @@ List<Day> days = [
         details: "use your dick"),
   ]),
 ];
-
+*/
 final londonTrip = {
   "days": [
     {

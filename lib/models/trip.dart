@@ -1,39 +1,31 @@
+import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:intl/intl.dart' as intl;
 import 'abstract_model.dart';
 import 'day.dart';
+import 'dart:convert' as conv;
 
 class Trip extends IModel {
-  String type;
-  String city;
-  String country;
-  String details;
-  List<Day> days;
+  User user;
+  DateTime startDate;
+  List<int> days;
 
-  Trip(
-      {required this.type,
-      required this.details,
-      required this.city,
-      required this.country,
-      required this.days})
+  Trip({required this.user, required this.startDate, required this.days})
       : super(0);
 
   @override
   Map<String, dynamic> toJson() {
     return {
-      'type': type,
-      'city': city,
-      'country': country,
-      'days': days,
-      'details': details
+      'user': this.user.toJson(),
+      'days': this.days,
+      'start_date': intl.DateFormat("yyyy-mmmm-dd").format(this.startDate),
     };
   }
 
   static Trip fromJson(dynamic json) {
     return Trip(
-      type: json['type'],
-      city: json['city'],
-      country: json['country'],
-      details: json['details'],
-      days: json['days'],
+      user: User.fromJson(json['user']),
+      startDate: intl.DateFormat('yyyy-mm-dd').parse(json['start_date']),
+      days: json['days'] as List<int>,
     );
   }
 }

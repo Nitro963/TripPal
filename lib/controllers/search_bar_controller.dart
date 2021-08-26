@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
 import 'package:trip_pal_null_safe/models/place_type.dart';
+import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
@@ -83,6 +84,7 @@ class SearchBarController extends GetxController {
   late GoogleMapController mapController;
   Location currentLocation = Location();
   RxString markerInfoWindowTitle = 'Burj Khalifa'.obs;
+
 
   void updateLatLan(double lat, double lon) {
     latitude.value = lat;

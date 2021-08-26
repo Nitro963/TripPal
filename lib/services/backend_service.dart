@@ -4,6 +4,7 @@ import 'package:trip_pal_null_safe/models/blog.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
 import 'package:trip_pal_null_safe/models/tag.dart';
+import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
@@ -37,7 +38,8 @@ class BackendService extends GetxService {
         LOCAL_SERVER_END_POINT, BASE_URL + '/places-review/', Review.fromJson);
     // TODO update decoder to trip.fromJson
     _netViews['trips'] =
-        NetworkApiView(LOCAL_SERVER_END_POINT, BASE_URL, Review.fromJson);
+        NetworkApiView<Trip>(LOCAL_SERVER_END_POINT, BASE_URL + '/trips/', Trip.fromJson);
+       
 
     _netViews.forEach((key, value) {
       value.addRequestModifier((request) {

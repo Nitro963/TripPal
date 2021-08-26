@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/models/filter.dart';
+import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'model_list_view_controller.dart';
 
-abstract class AnimatedListViewController extends IModelViewController {
+abstract class AnimatedListViewController<T extends IModel> extends IModelViewController<T> {
   final _closeHeader = false.obs;
   final _topContainer = 0.0.obs;
 
