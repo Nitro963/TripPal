@@ -26,7 +26,7 @@ class TripCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
         image: DecorationImage(
-          image: AssetImage(imgPath),
+          image: NetworkImage(imgPath),
           fit: BoxFit.cover,
         ),
       ),

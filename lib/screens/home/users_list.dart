@@ -8,6 +8,7 @@ import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
 import 'package:trip_pal_null_safe/controllers/model_list_view_controller.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:trip_pal_null_safe/screens/home/user_profile.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_view.dart';
@@ -93,7 +94,7 @@ class UsersList extends IModelView {
     return InkWell(
       onTap: () {
         // TODO navigate to profile with no edit button
-        // Get.to(() => UserProfile(user: user));
+        Get.to(UserProfile());
       },
       child: appointmentWidget(
         image: user.profilePicture!,

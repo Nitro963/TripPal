@@ -36,7 +36,7 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const LOCAL_SERVER_END_POINT = 'c1df-46-213-110-20.ngrok.io';
+const LOCAL_SERVER_END_POINT = 'trippal-server.herokuapp.com';
 const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.https;
 const BASE_URL = '/api';
 const JSON_HEADERS = {

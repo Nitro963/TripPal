@@ -30,7 +30,7 @@ class SavedPlaces extends GetView<ProfileController> {
                     points: [
                       Item(
                           type: controller.userSavedPlaces[index].kinds!,
-                          id: controller.userSavedPlaces[index].ids,
+                          id: controller.userSavedPlaces[index].id,
                           coordinate: LatLng(
                               controller.userSavedPlaces[index].coordinate!.lat,
                               controller

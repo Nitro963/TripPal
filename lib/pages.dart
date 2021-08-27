@@ -6,11 +6,15 @@ import 'package:trip_pal_null_safe/controllers/places_search_view_controller.dar
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
+import 'package:trip_pal_null_safe/controllers/trips_list_controller.dart';
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/screens/apps/tags_app.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
 import 'package:trip_pal_null_safe/screens/boarding/loading.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
+import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
+import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
+import 'package:trip_pal_null_safe/screens/filtering/locations_page.dart';
 import 'package:trip_pal_null_safe/screens/home/blog_list.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
@@ -21,6 +25,7 @@ import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
 import 'package:trip_pal_null_safe/screens/credentials/register.dart';
 import 'package:trip_pal_null_safe/screens/home/users_list.dart';
 import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
 import 'package:trip_pal_null_safe/screens/review/review_writing.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/buddy.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/places_list.dart';
@@ -31,6 +36,7 @@ import 'package:trip_pal_null_safe/widgets/simple/fetch_widget.dart';
 
 import 'controllers/apps_controllers.dart';
 import 'controllers/blog_view_controller.dart';
+import 'controllers/trips_controller.dart';
 import 'screens/details/blog_details.dart';
 
 List<GetPage> pages = [
@@ -59,7 +65,18 @@ List<GetPage> pages = [
       BindingsBuilder.put(() => BloggerPageController()),
     ],
   ),
-
+  GetPage(
+    name: '/home/trips/list',
+    page: () => SharedTripsPage(),
+    middlewares: [GlobalMiddleWare()],
+    binding: BindingsBuilder.put(() => TripsListController()),
+  ),
+  GetPage(
+    name: '/home/trips/auto',
+    page: () => LocationsPage(),
+    middlewares: [GlobalMiddleWare()],
+    binding: BindingsBuilder.put(() => TripsController()),
+  ),
   // maps app
   GetPage(
     name: '/map',
@@ -126,13 +143,24 @@ List<GetPage> pages = [
     middlewares: [GlobalMiddleWare()],
     page: () => ReviewWriting(),
   ),
-
+  GetPage(
+    name: '/home/places/saved',
+    page: () => SavedPlaces(),
+    middlewares: [GlobalMiddleWare()],
+    binding: BindingsBuilder.put(() => ProfileController()),
+  ),
   // profiles app
   GetPage(
     name: '/profile_page',
     page: () => ProfilePage(),
     middlewares: [GlobalMiddleWare()],
     binding: BindingsBuilder.put(() => ProfileController()),
+  ),
+
+  GetPage(
+    name: '/profile_page/edit',
+    page: () => EditProfileScreen(),
+    middlewares: [GlobalMiddleWare()],
   ),
 
   // auth app

@@ -12,10 +12,12 @@ class ProfileHeader extends StatelessWidget {
     required this.userName,
     required this.userDisc,
     required this.image,
+    required this.activateButtons,
   }) : super(key: key);
   final String userName;
   final String userDisc;
   final image;
+  final bool activateButtons;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -48,26 +50,26 @@ class ProfileHeader extends StatelessWidget {
             ],
           ),
         ),
-        Row(
-          children: [
-            if (!Get.find<AuthControl>().isGuest)
-              IconButton(
-                icon: Icon(Icons.settings,
-                    size: MySize.size24,
-                    color: Get.theme.appBarTheme.iconTheme!.color),
-                // TODO use named routes
-                onPressed: () => Get.to(() => EditProfileScreen()),
-              ),
-            IconButton(
-              icon: Icon(Icons.menu,
-                  color: Get.theme.appBarTheme.iconTheme!.color,
-                  size: MySize.size24),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-            ),
-          ],
-        ),
+        activateButtons
+            ? Row(
+                children: [
+                  if (!Get.find<AuthControl>().isGuest)
+                    IconButton(
+                        icon: Icon(Icons.settings,
+                            size: MySize.size24, color: Colors.white),
+                        // TODO use named routes
+                        onPressed: () => Get.toNamed('/profile_page/edit')),
+                  IconButton(
+                    icon: Icon(Icons.menu,
+                        color: Get.theme.appBarTheme.iconTheme!.color,
+                        size: MySize.size24),
+                    onPressed: () {
+                      Scaffold.of(context).openDrawer();
+                    },
+                  ),
+                ],
+              )
+            : SizedBox(),
       ],
     );
   }

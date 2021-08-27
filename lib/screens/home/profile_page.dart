@@ -22,6 +22,7 @@ class ProfilePage extends GetView<ProfileController> {
             child: ProfileHeader(
                 image: AssetImage(controller.imgPath),
                 userName: controller.userName,
+                activateButtons: true,
                 userDisc: controller.userSubName),
           ),
           Expanded(

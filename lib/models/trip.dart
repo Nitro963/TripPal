@@ -7,7 +7,7 @@ import 'dart:convert' as conv;
 class Trip extends IModel {
   User user;
   DateTime startDate;
-  List<int> days;
+  List<Day> days;
 
   Trip({required this.user, required this.startDate, required this.days})
       : super(0);
@@ -22,10 +22,18 @@ class Trip extends IModel {
   }
 
   static Trip fromJson(dynamic json) {
+    var days = (json['days'] as List).map((element) {
+      try {
+        var id = element as int;
+        return Day.fromJson({'id': id});
+      } catch (e) {
+        return Day.fromJson(element as Map<String, dynamic>);
+      }
+    }).toList();
     return Trip(
       user: User.fromJson(json['user']),
       startDate: intl.DateFormat('yyyy-mm-dd').parse(json['start_date']),
-      days: json['days'] as List<int>,
+      days: days,
     );
   }
 }

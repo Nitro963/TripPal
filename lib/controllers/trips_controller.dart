@@ -10,8 +10,7 @@ class TripsController extends GetxController {
       placesContentCheck[type] = false.obs;
       contentValues[type] = 5.0.obs;
     }
-    for (String city in this.cities) 
-      this.locsContentCheck[city] = false.obs;
+    for (String city in this.cities) this.locsContentCheck[city] = false.obs;
 
     super.onInit();
   }
@@ -46,10 +45,9 @@ class TripsController extends GetxController {
 
   final List<RxString> tripModes = ["Extended Trip".obs, "Focused Trip".obs];
 
-
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
-      
+
   RxString tripMode = 'Extended Trip'.obs;
   void onClickRadioButton(value) {
     tripMode.value = value;
@@ -74,27 +72,23 @@ class TripsController extends GetxController {
     });
   }
 
-
-
   List<SortPolicy> get sortPolices => [
-  SortPolicy('Most Resent', '', 1, 'most_resent'),
-  SortPolicy('Most Popular', '', 2, 'most_popular'),  
-  SortPolicy('Trip Duration', '', 3, 'trip_duration'),  
-  SortPolicy('Count of Places', '', 4, 'count_of_places'),   
-];
+        SortPolicy('Most Resent', '', 1, 'most_resent'),
+        SortPolicy('Most Popular', '', 2, 'most_popular'),
+        SortPolicy('Trip Duration', '', 3, 'trip_duration'),
+        SortPolicy('Count of Places', '', 4, 'count_of_places'),
+      ];
 
-int get sortPolicy => _sortPolicy.value;
+  int get sortPolicy => _sortPolicy.value;
 
-set sortPolicy(int? value) {
-  if (value != null) {
-    _sortPolicy.value = value;
-    refreshIndicatorKey.currentState!.show();
+  set sortPolicy(int? value) {
+    if (value != null) {
+      _sortPolicy.value = value;
+      refreshIndicatorKey.currentState!.show();
+    }
   }
-}
 
-var _sortPolicy = 0.obs;
-
-
+  var _sortPolicy = 0.obs;
 
   //Trip Filters Page
   RxString sortType = 'Most Resent'.obs;
@@ -114,10 +108,22 @@ var _sortPolicy = 0.obs;
 
   void changeTripsSortType(value) => sortType.value = value;
 
-
   //shared trips page
 
-  ScrollController _scrollcontroller = ScrollController();
   RxBool closeHeader = false.obs;
+
   RxDouble topContainer = 0.0.obs;
+
+  Map<String, dynamic> serializePreferences() {
+    return {
+      'locations': locsContentCheck.values.toList(),
+      'trip_mode': tripMode.value,
+      'food_importance': foods.value,
+      'shops_importance': shops.value,
+      'days_count': daysCount.value,
+      'places_per_day': placesPerDay,
+      'shop_dis': false,
+      'places_preferences': {'HIS': 5, 'CUL': 10}
+    };
+  }
 }

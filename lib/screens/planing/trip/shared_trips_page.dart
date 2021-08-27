@@ -4,6 +4,7 @@ import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trips_list_controller.dart';
 import 'package:trip_pal_null_safe/dummy_data.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
+import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
 import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
@@ -12,20 +13,23 @@ import 'trip_card.dart';
 
 class SharedTripsPage extends AnimatedIModelListView {
   TripsListController get controller => Get.find<TripsListController>();
-  TripsController get tripController => Get.find<TripsController>();
 
   @override
   Widget buildItem(IModel item, int index, double scale, BuildContext context) {
+    var trip = item as Trip;
     return Align(
       heightFactor: 1.08,
       alignment: Alignment.topCenter,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TripCard(
-          days: dummyTrips[0].days.length,
-          imgPath: "/assets/images/5.jpg",//'assets/images/${dummyTrips[0].city}.jpg'.toLowerCase(),
-          tripType: "dummyTrips[0].type",
-          location:"Damas",// '${dummyTrips[0].city}, ${dummyTrips[0].country}',
+          days: trip.days.length,
+          // TODO convert to Fancy shimmer image
+          imgPath:
+              "/assets/images/5.jpg", //'assets/images/${dummyTrips[0].city}.jpg'.toLowerCase(),
+          tripType: "Extended",
+          location:
+              "Damas", // '${dummyTrips[0].city}, ${dummyTrips[0].country}',
           details: "dummyTrips[0].details",
           // onTap: () => Get.to(TripPlan()),
         ),
@@ -77,9 +81,9 @@ class SharedTripsPage extends AnimatedIModelListView {
           onPressed: () async {
             Future.delayed(Duration(milliseconds: 150), () async {
               final res = await Get.bottomSheet(SortBottomSheet(
-                  policies: tripController.sortPolices,
-                  initialValue: tripController.sortPolicy));
-              tripController.sortPolicy = res;
+                  policies: controller.sortPolices,
+                  initialValue: controller.sortPolicy));
+              controller.sortPolicy = res;
             });
           },
         ),

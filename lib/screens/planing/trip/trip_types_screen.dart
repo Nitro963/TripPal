@@ -83,7 +83,7 @@ class TripsPage extends StatelessWidget {
                       tripType: 'Plan a trip automatically',
                       tripWriter:
                           'Enter your preferences and let the app plan the trip for you',
-                      onTap: () => Get.to(LocationsPage()),
+                      onTap: () => Get.toNamed('/home/trips/auto'),
                       img: 'assets/images/1.jpg'),
                   TripTypeCard(
                     tripType: 'Plan a trip yourself',
@@ -99,7 +99,9 @@ class TripsPage extends StatelessWidget {
                     tripType: 'Trips planned by users',
                     tripWriter:
                         'Check and search among the trips other users have built for their travels',
-                    onTap: () => Get.to(SharedTripsPage()),
+                    onTap: () {
+                      Get.toNamed('/home/trips/list');
+                    },
                     img: 'assets/images/3.jpg',
                   ),
                 ],

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 
@@ -10,6 +11,8 @@ class HotelSearchController extends GetxController {
   DateTime? checkOutDate;
   final _formattedDateTime = 'Check-in Date - Check-out Date'.obs;
   final _formatter = intl.DateFormat(intl.DateFormat.MONTH_DAY);
+
+  final key = GlobalKey<FormState>();
 
   String get cityName => _cityName.value;
   set cityName(String value) {

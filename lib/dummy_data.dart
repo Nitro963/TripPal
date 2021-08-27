@@ -58,22 +58,21 @@ List<String> rooms = [
   "1 Room - 2 adult . 0 Childrens",
   "1 Room - 2 adult . 1 or 2 Childrens"
 ];
-User user= User(
-  id: 1,
-  firstName:"user",
-  lastName: 'user',
-  email: "test@gmail.com",
-  password: "",
-  profilePicture: "/assets/imagees/1.jpg",
-  gender: "M"
-);
-List<Trip> dummyTrips = [
-  Trip(
-    user:user,
-    days:[10],
-    startDate: DateTime.now(),
-  )
-];
+User user = User(
+    id: 1,
+    firstName: "user",
+    lastName: 'user',
+    email: "test@gmail.com",
+    password: "",
+    profilePicture: "/assets/imagees/1.jpg",
+    gender: "M");
+// List<Trip> dummyTrips = [
+//   // Trip(
+//   //   user: user,
+//   //   days: [Day(id: 10)],
+//   //   startDate: DateTime.now(),
+//   // )
+// ];
 /*
 List<Trip> dummyTrips = [
   Trip(
@@ -221,16 +220,9 @@ List<String> dummyCities = [
   'Bali',
   'Hong Kong',
 ];
-Activity activity =Activity(
-  trip: 10,
-  day:20,
-  place:30
-);
-List<Day> days =[
-  Day(dayIndex: 1,
-  tripIndex: 10,
-  activities: [activity]
-  ),
+Activity activity = Activity(trip: 10, day: 20, place: 30);
+List<Day> days = [
+  Day(dayIndex: 1, tripIndex: 10, activities: [activity]),
 ];
 /*
 List<Day> days = [

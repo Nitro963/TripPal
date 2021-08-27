@@ -6,7 +6,6 @@ import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 
 class HotelSearchPage extends GetView<HotelSearchController> {
-  final _key = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final themeData = Get.theme;
@@ -51,7 +50,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                     padding:
                         EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
                     child: Form(
-                      key: _key,
+                      key: controller.key,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +103,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                   RoundedButton(
                       title: 'Search',
                       onPressed: () {
-                        if (_key.currentState!.validate()) {
+                        if (controller.key.currentState!.validate()) {
                           // TODO send argument
                           Get.toNamed(
                               '/home/hotels?city_name__contains=${controller.cityName}');
@@ -123,9 +122,11 @@ class HotelSearchPage extends GetView<HotelSearchController> {
     );
   }
 
+  final cityFormKey = UniqueKey();
   TextFormField buildCityFormField() {
     final themeData = Get.theme;
     return TextFormField(
+        key: cityFormKey,
         validator: (val) => val?.isEmpty == null || val?.isEmpty == true
             ? 'Please Enter a City'
             : null,

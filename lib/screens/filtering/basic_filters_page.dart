@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/screens/filtering/advanced_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
@@ -29,7 +30,7 @@ class FiltersPage extends GetView<TripsController> {
         title: Stack(
           children: <Widget>[
             FiltersHeader(
-              backButton: true,
+                backButton: true,
                 title: 'Tell us your preferences',
                 subTitle:
                     'And we will help to build best trips special for you'),
@@ -55,7 +56,6 @@ class FiltersPage extends GetView<TripsController> {
           children: <Widget>[
             FilterSubTitle(filterName: 'Place Types'),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 2.0),
                 height: 50.0,
                 child: ListView.builder(
                     physics: BouncingScrollPhysics(),
@@ -63,11 +63,17 @@ class FiltersPage extends GetView<TripsController> {
                     itemCount: controller.placeType.length,
                     itemBuilder: (ctx, i) {
                       var type = controller.placeType[i];
-                      return Obx(() => RoundedGestWidget(
-                          title: type,
-                          selected: controller.placesContentCheck[type]!.value,
-                          onTap: () =>
-                              controller.placesContentCheck[type]!.toggle()));
+                      return Obx(() => Padding(
+                            padding:
+                                i == 0 ? Spacing.left(20) : EdgeInsets.zero,
+                            child: RoundedGestWidget(
+                                title: type,
+                                selected:
+                                    controller.placesContentCheck[type]!.value,
+                                onTap: () => controller
+                                    .placesContentCheck[type]!
+                                    .toggle()),
+                          ));
                     })),
             FilterSubTitle(filterName: 'Tourist Facilities'),
             FilterCheckBox(
