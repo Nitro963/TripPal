@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trips_list_controller.dart';
-import 'package:trip_pal_null_safe/dummy_data.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
 import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
-
+import 'package:intl/intl.dart' as intl;
 import 'trip_card.dart';
 
 class SharedTripsPage extends AnimatedIModelListView {
@@ -26,12 +27,13 @@ class SharedTripsPage extends AnimatedIModelListView {
           days: trip.days.length,
           // TODO convert to Fancy shimmer image
           imgPath:
-              "/assets/images/5.jpg", //'assets/images/${dummyTrips[0].city}.jpg'.toLowerCase(),
-          tripType: "Extended",
-          location:
-              "Damas", // '${dummyTrips[0].city}, ${dummyTrips[0].country}',
-          details: "dummyTrips[0].details",
-          // onTap: () => Get.to(TripPlan()),
+              trip.imageUrl!,
+          tripType: TripTypeExtended.stringify(trip.tripeType!),
+          location: trip.cities.isNotEmpty ? trip.cities[0] : 'Trip',
+          details: intl.DateFormat('yyyy-mm-dd').format(trip.startDate),
+           onTap: () {
+             Get.toNamed('/home/trips/details?id=${trip.id}&len=${trip.days.length}');
+             }
         ),
       ),
     );

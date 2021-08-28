@@ -3,8 +3,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
+import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/screens/filtering/advanced_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
+import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
@@ -113,10 +115,13 @@ class FiltersPage extends GetView<TripsController> {
               icon: Icon(FontAwesomeIcons.solidSave,
                   color: Colors.white, size: 18.0),
               onPressed: () {
-                // TODO use named routes
-                // also never do it like this if it is a must
-                // rather do it like () => TripPage
-                Get.to(TripPlan());
+                Get.find<BackendService>()
+                    .getApiView<Trip>(name: 'trips')
+                    .postItem<List<Trip>>(
+                        {},
+                        (data) =>
+                            data['trips'].map(Trip.fromJson).toList()).then(
+                        (value) => Get.to(() => TripPlan(), arguments: value));
               },
             ),
           ],

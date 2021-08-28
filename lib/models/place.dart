@@ -1,4 +1,6 @@
-class Place {
+import 'abstract_model.dart';
+
+class Place extends IModel {
   final String name;
   final String? state;
   final String country;
@@ -6,8 +8,9 @@ class Place {
   double? rating;
   double? lat;
   double? lon;
-
+  int? type;
   Place({
+    id,
     required this.name,
     required this.country,
     this.state,
@@ -15,7 +18,8 @@ class Place {
     this.rating,
     this.lat,
     this.lon,
-  }) : assert(country.isNotEmpty & name.isNotEmpty);
+    this.type
+  }):super(id); //assert(country.isNotEmpty & name.isNotEmpty);
 
   bool get hasState => state?.isNotEmpty == true;
 
@@ -28,7 +32,14 @@ class Place {
     return Place(
       name: props['name'] ?? '',
       state: props['state'] ?? '',
-      country: props['country'] ?? '',
+      // country: props['country'] ?? '',
+      image:json['image'],
+      type:json['type'],
+      lat:json['latitude'],
+      lon:json['longitude'],
+      rating: json['guest_rating'],
+      country:json['city_name']
+
     );
   }
 
@@ -63,4 +74,10 @@ class Place {
 
   @override
   int get hashCode => name.hashCode ^ state.hashCode ^ country.hashCode;
+
+  @override
+  Map<String, dynamic> toJson() {
+    // TODO: implement toJson
+    throw UnimplementedError();
+  }
 }

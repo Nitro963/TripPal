@@ -8,7 +8,6 @@ import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
-import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 import 'abstract_filters_controllers.dart';
 import 'base_controller.dart';
@@ -92,7 +91,11 @@ abstract class IModelViewController<T extends IModel> extends Controller {
           queryParameters: {
         'offset': _items.length.toString(),
         'limit': '10',
-      }..addAll(Get.parameters));
+      }
+            ..addIf(_searchQuery.isNotEmpty, 'q', _searchQuery)
+            ..addAll(_navigationFilters)
+            ..addAll(_sortingParameters)
+            ..addAll(_userFilters));
       _isLoading.value = false;
       _items.addAll(res.results);
     } catch (e) {

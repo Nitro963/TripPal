@@ -6,19 +6,22 @@ import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
 import 'package:trip_pal_null_safe/models/day_item.dart';
+import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/screens/maps/map_page.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/utilities/transformers.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
+import 'package:trip_pal_null_safe/widgets/extendable/model_details_view.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
-import '../../../dummy_data.dart';
 import 'trip_planning_widgets.dart';
 
-class TripPlan extends GetView<TripPlanningController> {
+class TripPlan extends DetailsScaffold {
+  TripPlanningController get controller => Get.find<TripPlanningController>();
   PreferredSizeWidget buildAppBar() {
     return PreferredSize(
       preferredSize: Size(MySize.screenWidth, MySize.getScaledSizeHeight(140)),
-      child: Column(
+      child: Obx(()=>Column(
         children: [
           AppBar(
             title: Text("Trip Plan Details"),
@@ -33,88 +36,83 @@ class TripPlan extends GetView<TripPlanningController> {
                   })
             ],
           ),
-          Container(
-            height: MySize.getScaledSizeHeight(60),
-            child: PagesIndicators(
-              index: controller.selectedIndex,
-              daysCount: londonTrip['days']!.length,
-            ),
-          ),
+          if(controller.hasData)
+            Container(
+              height: MySize.getScaledSizeHeight(60),
+              child: PagesIndicators(
+                  index: controller.selectedIndex,
+                  daysCount:controller.trip.days.length
+              ),
+            )
         ],
-      ),
+      )),
     );
   }
-
+  Widget buildBody(){
+    final customTheme =
+    Themes.getCustomAppTheme(Get.find<AppThemeController>().themeMode);
+    return Column(
+      children: [
+        Expanded(
+          child: TransformerPageView(
+              pageController: controller.pageController,
+              physics: BouncingScrollPhysics(),
+              itemCount: controller.trip.days.length,
+              duration: Duration(seconds: 1),
+              onPageChanged: (index) {
+                controller.selectedIndex = index;
+              },
+              transformer: ZoomInPageTransformer(),
+              itemBuilder: (context, pageIndex) {
+                var subtypes = controller.generateSubType(
+                    controller.trip.days[pageIndex]);
+                return ListView.builder(
+                    itemCount: controller.trip.days[pageIndex].activities.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: index == 0
+                            ? Spacing.only(top: 8)
+                            : Spacing.only(top: 2.5),
+                        child: CustomStepper(
+                          subType: 'unknown',
+                          place: controller.trip.days[pageIndex].activities[index].place!,
+                          time: DateTime.now(),
+                          lineColor: customTheme.colorInfo,
+                        ),
+                      );
+                    });
+              }),
+        ),
+      ],
+    );
+  }
   @override
   Widget build(BuildContext context) {
-    final customTheme =
-        Themes.getCustomAppTheme(Get.find<AppThemeController>().themeMode);
     return Scaffold(
       appBar: buildAppBar(),
-      body: Column(
-        children: [
-          Expanded(
-            child: TransformerPageView(
-                pageController: controller.pageController,
-                physics: BouncingScrollPhysics(),
-                itemCount: londonTrip['days']!.length,
-                duration: Duration(seconds: 1),
-                onPageChanged: (index) {
-                  controller.selectedIndex = index;
-                },
-                transformer: ZoomInPageTransformer(),
-                itemBuilder: (context, pageIndex) {
-                  return ListView.builder(
-                      itemCount:
-                          (londonTrip['days']![pageIndex]['items'] as List)
-                                  .length -
-                              1,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: index == 0
-                              ? Spacing.only(top: 8)
-                              : Spacing.only(top: 2.5),
-                          child: CustomStepper(
-                            subType: controller.generateSubType(
-                                (londonTrip['days']![pageIndex]['items']
-                                    as List))[index],
-                            plan: (londonTrip['days']![pageIndex]['items']
-                                as List)[index],
-                            time: controller.generateTime(
-                                (londonTrip['days']![pageIndex]['items']
-                                    as List))[index],
-                            lineColor: controller
-                                    .generateTime(
-                                        (londonTrip['days']![pageIndex]['items']
-                                            as List))[index]
-                                    .isBefore(DateTime.now())
-                                ? customTheme.colorInfo
-                                : customTheme.disabledColor,
-                          ),
-                        );
-                      });
-                }),
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          List<Item> mapPoint = List<Item>.empty(growable: true);
-          londonTrip['days']!.forEach((element) {
-            (element['items'] as List).forEach((element) {
-              mapPoint.add(Item(
-                  type: element['item_type'].toString(),
-                  id: ['item_id'].toString(),
-                  coordinate: LatLng(element['coordinate']['lat'], element['coordinate']['lon']),
-                  name: element['name'].toString(),
-                  rate: element['rate'].toString()));
-            });
-          });
-          print(mapPoint.length);
-          Get.to(MapPage(points: mapPoint));
+          // List<Item> mapPoint = List<Item>.empty(growable: true);
+          // controller.trip.days[controller.selectedIndex].activities.forEach((element) {
+          //   var place = element.place!;
+          //   mapPoint.add(Item(
+          //       type: 'place',
+          //       id: place.id.toString(),
+          //       coordinate: LatLng(place.latitude!, place.longitude!),
+          //       name: place.name!,
+          //       rate: (place.guestRating ?? 0).toString()));
+          //   });
+          // Get.to(()=>MapPage(points: mapPoint));
         },
         child: Icon(FontAwesomeIcons.mapMarkedAlt, size: 20),
       ),
+      body: Obx(() {
+        if (controller.hasData) return buildBody();
+        return Center(
+            child: !controller.hasError
+                ? CircularProgressIndicator()
+                : buildErrorContent(controller.errorModel!));
+      }),
     );
   }
 }

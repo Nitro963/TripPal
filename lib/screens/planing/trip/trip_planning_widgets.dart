@@ -4,6 +4,7 @@ import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
 import 'package:trip_pal_null_safe/models/day.dart';
+import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 
@@ -104,7 +105,7 @@ class PageIndicatorItem extends StatelessWidget {
 
 
 class CustomStepper extends StatelessWidget {
-  final plan;
+  final Place place;
   final String subType;
   final Color lineColor;
   final DateTime time;
@@ -112,7 +113,7 @@ class CustomStepper extends StatelessWidget {
   CustomStepper(
       {required this.subType,
       required this.time,
-      required this.plan,
+      required this.place,
       this.lineColor = Colors.grey});
   @override
   Widget build(BuildContext context) {
@@ -146,13 +147,13 @@ class CustomStepper extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    plan['name'],
+                    place.name!,
                     overflow: TextOverflow.clip,
                     style: themeData.textTheme.headline6!
                         .copyWith(fontWeight: FontWeight.w600, fontSize: 16.0),
                   ),
                   Text(
-                    plan['item_type'],
+                    'shit on you',
                     style: themeData.textTheme.subtitle1,
                   ),
                 ],

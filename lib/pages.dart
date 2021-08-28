@@ -26,6 +26,7 @@ import 'package:trip_pal_null_safe/screens/credentials/register.dart';
 import 'package:trip_pal_null_safe/screens/home/users_list.dart';
 import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
+import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/screens/review/review_writing.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/buddy.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/places_list.dart';
@@ -36,6 +37,7 @@ import 'package:trip_pal_null_safe/widgets/simple/fetch_widget.dart';
 
 import 'controllers/apps_controllers.dart';
 import 'controllers/blog_view_controller.dart';
+import 'controllers/trip_planning_controller.dart';
 import 'controllers/trips_controller.dart';
 import 'screens/details/blog_details.dart';
 
@@ -77,6 +79,10 @@ List<GetPage> pages = [
     middlewares: [GlobalMiddleWare()],
     binding: BindingsBuilder.put(() => TripsController()),
   ),
+  GetPage(
+      name: '/home/trips/details',
+      page: () => TripPlan(),
+      binding: BindingsBuilder.put(() => TripPlanningController())),
   // maps app
   GetPage(
     name: '/map',

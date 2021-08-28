@@ -1,17 +1,26 @@
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/models/day_item.dart';
+import 'package:trip_pal_null_safe/controllers/details_controller.dart';
+import 'package:trip_pal_null_safe/models/activities.dart';
+import 'package:trip_pal_null_safe/models/day.dart';
+import 'package:trip_pal_null_safe/models/property.dart';
+import 'package:trip_pal_null_safe/models/trip.dart';
+import 'package:trip_pal_null_safe/services/backend_service.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
 
-class TripPlanningController extends GetxController {
+class TripPlanningController extends DetailsController {
+  late final int tripID;
+  late final Trip trip;
   final RxInt _selectedIndex = 0.obs;
-  final itemCount;
   late final TransformerPageController pageController;
+  late final int itemCount;
 
-  TripPlanningController(this.itemCount);
+  TripPlanningController();
 
   void onInit() {
-    // TODO read item count from backend
+    itemCount = int.parse(Get.parameters['len']!);
     pageController = TransformerPageController(itemCount: itemCount);
+    tripID = int.parse(Get.parameters['id']!);
     super.onInit();
   }
 
@@ -20,49 +29,65 @@ class TripPlanningController extends GetxController {
     _selectedIndex.value = value;
   }
 
-  List<DateTime> generateTime(items) {
+  DateTime generateTime(Activity activity) {
     List<DateTime> result = List<DateTime>.empty(growable: true);
-    DateTime startingTime = DateTime.parse("2021-08-12 09:00:00.000");
+    DateTime startingTime = trip.startDate;
     result.add(startingTime);
-    items.forEach((element) {
-      if (element['item_type'].contains('food'))
+    for(Property element in activity.place!.properties){
+      if (element.name == ('food'))
         startingTime = startingTime.add(Duration(hours: 1, minutes: 45));
-      else if (element['item_type'].contains('shop'))
+      else if (element.name == ('shop'))
         startingTime = startingTime.add(Duration(hours: 2, minutes: 45));
       else
         startingTime = startingTime.add(Duration(hours: 1, minutes: 30));
-
-      result.add(startingTime);
-    });
-    return result;
+      break;
+    }
+    return startingTime;
   }
 
-  List<String> generateSubType(items) {
+  List<String> generateSubType(Day day) {
     List<String> result = List<String>.empty(growable: true);
     int foodsCount = 0;
-    items.forEach((element) {
-      if (element['item_type'].contains('food')) foodsCount++;
-    });
-    items.forEach((element) {
-      if (element['item_type'].contains('food') && foodsCount > 0) {
-        if (foodsCount == 3) {
-          result.add('Breakfast');
-          foodsCount--;
-        } else if (foodsCount == 1) {
-          result.add('Dinner');
-          foodsCount--;
-        } else {
-          result.add('Lunch');
-          foodsCount--;
-        }
-      } else if (element['item_type'].contains('hotel'))
-        result.add('Waking up');
-      else if (element['item_type'].contains('shop'))
-        result.add('Shopping');
-      else
-        result.add('Touring');
+    day.activities.forEach((activity){
+ activity.place!.properties.forEach((element) {
+   if (element.name == 'food')
+     foodsCount += 1;
+ });         activity.place!.properties.forEach((element) {
+   if (element.name == ('food') && foodsCount > 0) {
+     if (foodsCount == 3) {
+       result.add('Breakfast');
+       foodsCount--;
+     } else if (foodsCount == 1) {
+       result.add('Dinner');
+       foodsCount--;
+     } else {
+       result.add('Lunch');
+       foodsCount--;
+     }
+   } else if (element.name == ('hotel'))
+     result.add('Waking up');
+   else if (element.name == ('shop'))
+     result.add('Shopping');
+   else
+     result.add('Touring');
+ });
     });
     return result;
   }
-  
+
+  void onReady(){
+    hasError = false;
+    hasData = false;
+    Get.find<BackendService>()
+        .getApiView<Trip>(name: 'trips')
+        .getItem(tripID).then(
+        (val){
+          trip = val;
+          hasData = true;
+        }
+    ).onError((error, stackTrace) {
+      errorModel = ErrorHandlerModel.fromError(error, onReady);
+      hasError = true;
+    });
+  }
 }

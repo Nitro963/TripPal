@@ -1,8 +1,8 @@
 import 'abstract_model.dart';
 import 'package:intl/intl.dart' as intl;
 
-class User implements IModel {
-  int? id;
+class User extends IModel {
+  // int id;
   String? firstName;
   String? lastName;
   String? email;
@@ -12,14 +12,14 @@ class User implements IModel {
   String? gender;
 
   User(
-      {this.id,
+      {id,
       this.firstName,
       this.lastName,
       this.email,
       this.password,
       this.profilePicture,
       this.birthDate,
-      this.gender});
+      this.gender}):super(id);
   static final formatter = intl.DateFormat('yyyy-MM-dd');
   static User fromJson(dynamic json) {
     return User(
@@ -54,4 +54,6 @@ class User implements IModel {
       identical(this, other) ||
       other is User && runtimeType == other.runtimeType && email == other.email;
   String get name => '$firstName $lastName';
+
+ 
 }

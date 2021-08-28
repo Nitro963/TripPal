@@ -1,12 +1,16 @@
 import 'dart:collection';
 
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/dummy_data.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
+import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:trip_pal_null_safe/services/backend_service.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
+import 'details_controller.dart';
 
-class ProfileController extends GetxController {
+class ProfileController extends DetailsController {
+  late final User user;
   String userName = 'Rita Ora';
   String userSubName = 'Great Planner';
   // TODO read from server
@@ -43,6 +47,21 @@ class ProfileController extends GetxController {
       c++;
     }
     super.onInit();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+    Get.find<BackendService>()
+        .getApiView<User>(name: 'users')
+        .getItem(int.parse(Get.parameters['user_id']!))
+        .then((value) {
+      user = value;
+      hasData = true;
+    }).onError((error, stackTrace) {
+      errorModel = ErrorHandlerModel.fromError(error, onReady);
+      hasError = true;
+    });
   }
 
   UnmodifiableListView<Place2> get suggestions =>

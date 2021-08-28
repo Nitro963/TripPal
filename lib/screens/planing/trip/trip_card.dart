@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class TripCard extends StatelessWidget {
   const TripCard(
@@ -20,88 +22,92 @@ class TripCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       height: 160.0,
-      width: MediaQuery.of(context).size.width,
+      width: MySize.screenWidth,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.0),
-        image: DecorationImage(
-          image: NetworkImage(imgPath),
-          fit: BoxFit.cover,
-        ),
+        color: Colors.black38,
       ),
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: EdgeInsets.all(25.0),
-          height: 150.0,
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
-            color: Colors.black38,
+      child: Stack(
+        children: [
+          ClipRRect(
+            borderRadius:BorderRadius.circular(12.0),
+            child: BlendShimmerImage(
+              color: Colors.black38,
+              blendMode: BlendMode.darken,
+              imageUrl: imgPath,
+              boxFit: BoxFit.cover,
+              width: MySize.screenWidth,
+            ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Text(
-                tripType,
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.locationArrow,
-                      color: Colors.white,
-                      size: 16.0,
-                    ),
-                    SizedBox(
-                      width: 12.0,
-                    ),
-                    Text(
-                      location,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 26.0),
-                    ),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Padding(
+            padding: const EdgeInsets.all(25.0),
+            child: GestureDetector(
+              onTap: onTap,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Text(
-                    details,
+                    tripType,
                     style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15),
+                        color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
+                    child: Row(
+                      children: <Widget>[
+                        Icon(
+                          FontAwesomeIcons.locationArrow,
+                          color: Colors.white,
+                          size: 16.0,
+                        ),
+                        SizedBox(
+                          width: 12.0,
+                        ),
+                        Text(
+                          location,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26.0),
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Icon(
-                        FontAwesomeIcons.solidCalendarAlt,
-                        size: 14.0,
-                        color: Colors.white,
-                      ),
-                      SizedBox(
-                        width: 3.0,
-                      ),
                       Text(
-                        days.toString(),
-                        style: TextStyle(color: Colors.white, fontSize: 15),
+                        details,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15),
                       ),
+                      Row(
+                        children: <Widget>[
+                          Icon(
+                            FontAwesomeIcons.solidCalendarAlt,
+                            size: 14.0,
+                            color: Colors.white,
+                          ),
+                          SizedBox(
+                            width: 3.0,
+                          ),
+                          Text(
+                            days.toString(),
+                            style: TextStyle(color: Colors.white, fontSize: 15),
+                          ),
+                        ],
+                      )
                     ],
-                  )
+                  ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

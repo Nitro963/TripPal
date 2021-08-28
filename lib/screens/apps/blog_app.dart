@@ -23,7 +23,7 @@ class BlogGridView extends IModelGridView {
     return GestureDetector(
       onTap: () {
         // TODO navigate to blog view
-        // Get.toNamed('/home/apps/blog?blog_id=${blog.id}');
+        Get.toNamed('/home/apps/blog?blog_id=${blog.id}');
       },
       child: TitledImage(imageUrl: blog.image!, title: blog.title!),
     );

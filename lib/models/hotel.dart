@@ -45,8 +45,8 @@ class Place extends IModel {
         image: json['image'],
         cityName: json['city_name'],
         guestRating: json['guest_rating'],
-        properties:
-            (json['properties'] as List).map(Property.fromJson).toList(),
+        properties: json['properties'] != null ?
+            (json['properties'] as List).map(Property.fromJson).toList() : [],
         ratingStat: json['rating_stat'] != null ? json['rating_stat'] : {},
         price: json['price'],
         type: json['type']);

@@ -5,7 +5,6 @@ import 'package:trip_pal_null_safe/models/blog.dart';
 import 'package:trip_pal_null_safe/models/filter.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/models/tag.dart';
-import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
