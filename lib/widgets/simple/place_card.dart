@@ -65,11 +65,11 @@ class PlaceCard extends StatelessWidget {
                 ),
                 GrowingIcon(
                   startingIcon:
-                  activated ? Icons.favorite : Icons.favorite_border,
+                      activated ? Icons.favorite : Icons.favorite_border,
                   endingIcon:
-                  activated ? Icons.favorite_border : Icons.favorite,
+                      activated ? Icons.favorite_border : Icons.favorite,
                   startingColor:
-                  activated ? Colors.red[600]! : Colors.grey[200]!,
+                      activated ? Colors.red[600]! : Colors.grey[200]!,
                   endingColor: activated ? Colors.grey[200]! : Colors.red[600]!,
                   tapCallBack: (value) async {},
                 ),
