@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/animated/growing_icon.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/widgets/simple/tag.dart';
 
-class PlaceCard extends StatelessWidget {
-  const PlaceCard(
+class DBPlaceCard extends StatelessWidget {
+  const DBPlaceCard(
       {Key? key, this.onTap, required this.place, required this.activated})
       : super(key: key);
-  final Place2 place;
+  final Place place;
   final void Function()? onTap;
   final bool activated;
   @override
@@ -40,7 +40,7 @@ class PlaceCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        place.name,
+                        place.name!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 19.0,
@@ -51,25 +51,23 @@ class PlaceCard extends StatelessWidget {
                       SizedBox(
                         height: 8.0,
                       ),
-                      Row(
-                        children: <Widget>[
-                          if (place.kinds != null)
-                            for (String kind in place.kinds!.split(' ').take(2))
-                              Tag(
-                                kind: kind,
-                              ),
-                        ],
-                      ),
+                      if (place.properties.isNotEmpty)
+                        Row(
+                          children: place.properties
+                              .take(2)
+                              .map((element) => Tag(kind: element.name!))
+                              .toList(),
+                        ),
                     ],
                   ),
                 ),
                 GrowingIcon(
                   startingIcon:
-                  activated ? Icons.favorite : Icons.favorite_border,
+                      activated ? Icons.favorite : Icons.favorite_border,
                   endingIcon:
-                  activated ? Icons.favorite_border : Icons.favorite,
+                      activated ? Icons.favorite_border : Icons.favorite,
                   startingColor:
-                  activated ? Colors.red[600]! : Colors.grey[200]!,
+                      activated ? Colors.red[600]! : Colors.grey[200]!,
                   endingColor: activated ? Colors.grey[200]! : Colors.red[600]!,
                   tapCallBack: (value) async {},
                 ),
@@ -91,7 +89,7 @@ class PlaceCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${place.distance.round()}m from city center',
+                      '${place.distance!.round()}m from city center',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 14.0),
                     ),
@@ -124,7 +122,7 @@ class BasicInfo extends StatelessWidget {
     required this.place,
   }) : super(key: key);
 
-  final Place2 place;
+  final Place place;
 
   @override
   Widget build(BuildContext context) {
@@ -146,24 +144,26 @@ class BasicInfo extends StatelessWidget {
               ),
             ),
             SizedBox(width: 4.0),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  place.kinds!.split(' ')[0].capitalizeFirst! + ' Place',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
-                ),
-              ],
-            )
+            if (place.properties.isNotEmpty)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    place.properties[0].name!.capitalizeFirst! + ' Place',
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                  ),
+                ],
+              )
           ],
         ),
         Row(
           children: <Widget>[
             StarRating(
               starCount: 5,
-              rating: place.guestRating.toDouble() > 5
+              rating: (place.guestRating ?? 0).toDouble() > 5
                   ? 5
-                  : place.guestRating.toDouble(),
+                  : (place.guestRating ?? 0),
               isStatic: true,
               size: 15,
               color: starsActivationColor,

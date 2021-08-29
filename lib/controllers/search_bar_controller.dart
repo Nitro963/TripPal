@@ -41,7 +41,6 @@ class SearchBarController extends GetxController {
         ..clear()
         ..addAll(history);
     } else {
-      print('jjjj');
       final res = await _photon.getQuery(query, 6);
       _suggestions
         ..clear()
@@ -84,7 +83,6 @@ class SearchBarController extends GetxController {
   late GoogleMapController mapController;
   Location currentLocation = Location();
   RxString markerInfoWindowTitle = 'Burj Khalifa'.obs;
-
 
   void updateLatLan(double lat, double lon) {
     latitude.value = lat;

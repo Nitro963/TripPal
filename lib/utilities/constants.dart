@@ -36,7 +36,7 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const LOCAL_SERVER_END_POINT = '192.168.1.33:8000';
+const LOCAL_SERVER_END_POINT = 'f592-178-253-95-112.ngrok.io';
 const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.https;
 const BASE_URL = '/api';
 const JSON_HEADERS = {

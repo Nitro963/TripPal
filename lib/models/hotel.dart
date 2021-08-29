@@ -16,6 +16,7 @@ class Place extends IModel {
   final Map<String, dynamic> ratingStat;
   final int? price;
   final int? type;
+  final List<Place> similarPlaces;
   Place(
       {id,
       this.name,
@@ -30,7 +31,8 @@ class Place extends IModel {
       this.properties = const [],
       this.ratingStat = const {},
       this.price,
-      this.type})
+      this.type,
+      this.similarPlaces = const []})
       : super(id);
 
   static Place fromJson(dynamic json) {
@@ -45,11 +47,15 @@ class Place extends IModel {
         image: json['image'],
         cityName: json['city_name'],
         guestRating: json['guest_rating'],
-        properties: json['properties'] != null ?
-            (json['properties'] as List).map(Property.fromJson).toList() : [],
+        properties: json['properties'] != null
+            ? (json['properties'] as List).map(Property.fromJson).toList()
+            : [],
         ratingStat: json['rating_stat'] != null ? json['rating_stat'] : {},
         price: json['price'],
-        type: json['type']);
+        type: json['type'],
+        similarPlaces: json['similar_places'] != null
+            ? (json['similar_places'] as List).map(fromJson).toList()
+            : []);
   }
 
   Map<String, dynamic> toJson() {

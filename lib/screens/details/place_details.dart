@@ -1,4 +1,3 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +16,7 @@ import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/widgets/simple/avatar_overflow.dart';
 import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
+import 'package:trip_pal_null_safe/widgets/simple/place_image_card.dart';
 
 class PlaceDetailsController extends DetailsController {
   late final int type;
@@ -254,8 +254,15 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
                                     ),
                                   ),
                                 ),
-                              Space.height(20),
-                              buildPropertiesSection(themeData),
+                              if (controller.place.properties.isNotEmpty) ...[
+                                Space.height(20),
+                                buildPropertiesSection(themeData),
+                              ],
+                              if (controller
+                                  .place.similarPlaces.isNotEmpty) ...[
+                                Space.height(20),
+                                buildSimilarPlacesSection(themeData),
+                              ],
                               Space.height(20),
                             ],
                           ),
@@ -269,6 +276,41 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
                 child: controller.hasError
                     ? buildErrorContent(controller.errorModel!)
                     : CircularProgressIndicator())));
+  }
+
+  Column buildSimilarPlacesSection(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Places like ${controller.place.name}',
+            style: theme.textTheme.headline6!
+                .copyWith(fontSize: 24, fontWeight: FontWeight.bold)),
+        Padding(
+          padding: Spacing.vertical(20),
+          child: Container(
+            height: MySize.getScaledSizeHeight(200),
+            child: ListView.separated(
+                physics: BouncingScrollPhysics(),
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  // TODO navigate to place details
+                  var place = controller.place.similarPlaces[index];
+                  return PlaceImageCard(
+                    place.similarPlaces[index].image!,
+                    place.name!,
+                    MySize.getScaledSizeHeight(200),
+                    MySize.getScaledSizeWidth(180),
+                    onTap: () {},
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return SizedBox(width: 15);
+                },
+                itemCount: controller.place.similarPlaces.length),
+          ),
+        ),
+      ],
+    );
   }
 
   Column buildPropertiesSection(ThemeData theme) {
