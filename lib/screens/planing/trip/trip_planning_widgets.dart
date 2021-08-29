@@ -11,7 +11,9 @@ import 'package:trip_pal_null_safe/utilities/themes.dart';
 class PagesIndicators extends GetView<TripPlanningController> {
   final int index;
   final int daysCount;
-  PagesIndicators({required this.index, required this.daysCount});
+  final DateTime startDate;
+  PagesIndicators(this.startDate,
+      {required this.index, required this.daysCount});
   @override
   Widget build(BuildContext context) {
     final customTheme =
@@ -22,7 +24,6 @@ class PagesIndicators extends GetView<TripPlanningController> {
         fit: StackFit.passthrough,
         children: [
           Container(
-            
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: daysCount,
@@ -32,8 +33,8 @@ class PagesIndicators extends GetView<TripPlanningController> {
                     child: Obx(
                       () => PageIndicatorItem(
                           index: index,
-                          title: "Day ${index+1}",
-                          date: DateTime.now(),
+                          title: "Day ${index + 1}",
+                          date: startDate.add(Duration(days: index)),
                           isSelected: controller.selectedIndex == index,
                           onTapCallBack: (int index) {
                             controller.selectedIndex = index;
@@ -103,7 +104,6 @@ class PageIndicatorItem extends StatelessWidget {
   }
 }
 
-
 class CustomStepper extends StatelessWidget {
   final Place place;
   final String subType;
@@ -143,20 +143,32 @@ class CustomStepper extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: Spacing.symmetric(horizontal: 18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    place.name!,
-                    overflow: TextOverflow.clip,
-                    style: themeData.textTheme.headline6!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 16.0),
-                  ),
-                  Text(
-                    'shit on you',
-                    style: themeData.textTheme.subtitle1,
-                  ),
-                ],
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(
+                      '/home/place-details?type=${place.type}&place_id=${place.id}');
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      place.name!,
+                      overflow: TextOverflow.clip,
+                      style: themeData.textTheme.headline6!.copyWith(
+                          fontWeight: FontWeight.w600, fontSize: 16.0),
+                    ),
+                    if (place.type == 2)
+                      Text(
+                        'Hotel',
+                        style: themeData.textTheme.subtitle1,
+                      ),
+                    if (place.properties.isNotEmpty)
+                      Text(
+                        '${place.properties[0].name!.capitalizeFirst!} Place',
+                        style: themeData.textTheme.subtitle1,
+                      ),
+                  ],
+                ),
               ),
             ),
           )
@@ -202,4 +214,3 @@ class LinePainter extends CustomPainter {
     return oldDelegate.progress != progress;
   }
 }
-

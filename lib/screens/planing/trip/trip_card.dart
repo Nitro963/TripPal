@@ -31,7 +31,7 @@ class TripCard extends StatelessWidget {
       child: Stack(
         children: [
           ClipRRect(
-            borderRadius:BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(12.0),
             child: BlendShimmerImage(
               color: Colors.black38,
               blendMode: BlendMode.darken,
@@ -65,12 +65,16 @@ class TripCard extends StatelessWidget {
                         SizedBox(
                           width: 12.0,
                         ),
-                        Text(
-                          location,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 26.0),
+                        Expanded(
+                          child: Text(
+                            location,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26.0),
+                          ),
                         ),
                       ],
                     ),

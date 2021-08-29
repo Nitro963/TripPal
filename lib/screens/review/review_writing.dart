@@ -16,7 +16,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
   late final int place;
   @override
   void initState() {
-    place = int.parse(Get.parameters['place']!);
+    place = Get.arguments;
     super.initState();
   }
 

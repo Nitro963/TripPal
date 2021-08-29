@@ -21,36 +21,36 @@ class TripPlan extends DetailsScaffold {
   PreferredSizeWidget buildAppBar() {
     return PreferredSize(
       preferredSize: Size(MySize.screenWidth, MySize.getScaledSizeHeight(140)),
-      child: Obx(()=>Column(
-        children: [
-          AppBar(
-            title: Text("Trip Plan Details"),
-            centerTitle: true,
-            backgroundColor: Get.theme.backgroundColor,
-            elevation: 0,
-            actions: [
-              IconButton(
-                  icon: Icon(Icons.edit_location_outlined),
-                  onPressed: () {
-                    // TODO edit mode
-                  })
-            ],
-          ),
-          if(controller.hasData)
-            Container(
-              height: MySize.getScaledSizeHeight(60),
-              child: PagesIndicators(
-                  index: controller.selectedIndex,
-                  daysCount:controller.trip.days.length
+      child: Obx(() => Column(
+            children: [
+              AppBar(
+                title: Text("Trip Plan Details"),
+                centerTitle: true,
+                backgroundColor: Get.theme.backgroundColor,
+                elevation: 0,
+                actions: [
+                  IconButton(
+                      icon: Icon(Icons.edit_location_outlined),
+                      onPressed: () {
+                        // TODO edit mode
+                      })
+                ],
               ),
-            )
-        ],
-      )),
+              if (controller.hasData)
+                Container(
+                  height: MySize.getScaledSizeHeight(60),
+                  child: PagesIndicators(controller.trip.startDate,
+                      index: controller.selectedIndex,
+                      daysCount: controller.trip.days.length),
+                )
+            ],
+          )),
     );
   }
-  Widget buildBody(){
+
+  Widget buildBody() {
     final customTheme =
-    Themes.getCustomAppTheme(Get.find<AppThemeController>().themeMode);
+        Themes.getCustomAppTheme(Get.find<AppThemeController>().themeMode);
     return Column(
       children: [
         Expanded(
@@ -64,18 +64,20 @@ class TripPlan extends DetailsScaffold {
               },
               transformer: ZoomInPageTransformer(),
               itemBuilder: (context, pageIndex) {
-                var subtypes = controller.generateSubType(
-                    controller.trip.days[pageIndex]);
+                final subTypes =
+                    controller.generateSubType(controller.trip.days[pageIndex]);
                 return ListView.builder(
-                    itemCount: controller.trip.days[pageIndex].activities.length,
+                    itemCount:
+                        controller.trip.days[pageIndex].activities.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: index == 0
                             ? Spacing.only(top: 8)
                             : Spacing.only(top: 2.5),
                         child: CustomStepper(
-                          subType: 'unknown',
-                          place: controller.trip.days[pageIndex].activities[index].place!,
+                          subType: subTypes[index],
+                          place: controller
+                              .trip.days[pageIndex].activities[index].place!,
                           time: DateTime.now(),
                           lineColor: customTheme.colorInfo,
                         ),
@@ -86,6 +88,7 @@ class TripPlan extends DetailsScaffold {
       ],
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

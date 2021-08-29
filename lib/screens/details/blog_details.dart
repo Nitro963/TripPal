@@ -8,8 +8,10 @@ import 'package:trip_pal_null_safe/controllers/blog_view_controller.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/generator.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_details_view.dart';
 import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
+import 'package:trip_pal_null_safe/widgets/simple/custom_back_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/image_dominant_color_cover.dart';
 
 class BlogView extends DetailsScaffold {
@@ -191,7 +193,10 @@ class BlogView extends DetailsScaffold {
 
   @override
   PreferredSizeWidget? buildAppBar() {
-    return null;
+    return AppBar(
+      elevation: 0,
+      leading: CustomBackButton(defaultRoute: '/home'),
+    );
   }
 
   @override
@@ -243,5 +248,19 @@ class BlogView extends DetailsScaffold {
         ),
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => Scaffold(
+          appBar: controller.hasError ? buildAppBar() : null,
+          body: Obx(() {
+            if (controller.hasData) return buildBody();
+            return Center(
+                child: !controller.hasError
+                    ? CircularProgressIndicator()
+                    : buildErrorContent(controller.errorModel!));
+          }),
+        ));
   }
 }

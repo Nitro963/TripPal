@@ -8,6 +8,7 @@ import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 import 'abstract_filters_controllers.dart';
 import 'base_controller.dart';
@@ -105,29 +106,29 @@ abstract class IModelViewController<T extends IModel> extends Controller {
 
   Future<void> onRefresh() async {
     hasError = false;
-    // try {
-    if (scrollController.hasClients) scrollController.jumpTo(0);
-    var res = await api.getAllElements(
-        queryParameters: {'offset': '0', 'limit': '10'}
-          ..addIf(_searchQuery.isNotEmpty, 'q', _searchQuery)
-          ..addAll(_navigationFilters)
-          ..addAll(_sortingParameters)
-          ..addAll(_userFilters));
+    try {
+      if (scrollController.hasClients) scrollController.jumpTo(0);
+      var res = await api.getAllElements(
+          queryParameters: {'offset': '0', 'limit': '10'}
+            ..addIf(_searchQuery.isNotEmpty, 'q', _searchQuery)
+            ..addAll(_navigationFilters)
+            ..addAll(_sortingParameters)
+            ..addAll(_userFilters));
 
-    developer.log('cleared list', name: 'MODEL_CONTROLLER');
-    _currentCount = res.count;
-    _items
-      ..clear()
-      ..addAll(res.results);
-    if (_items.isEmpty)
-      _empty.value = true;
-    else
-      _empty.value = false;
-    // } catch (e) {
-    //   _items.clear();
-    //   errorModel = ErrorHandlerModel.fromError(e, onRefresh);
-    //   hasError = true;
-    // }
+      developer.log('cleared list', name: 'MODEL_CONTROLLER');
+      _currentCount = res.count;
+      _items
+        ..clear()
+        ..addAll(res.results);
+      if (_items.isEmpty)
+        _empty.value = true;
+      else
+        _empty.value = false;
+    } catch (e) {
+      _items.clear();
+      errorModel = ErrorHandlerModel.fromError(e, onRefresh);
+      hasError = true;
+    }
   }
 
   List<SortPolicy> get sortPolices => [

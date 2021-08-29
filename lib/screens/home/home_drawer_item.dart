@@ -29,31 +29,32 @@ class HomeDrawerItem extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Icon(
-                  icon,
-                  size: 16.0,
-                ),
-                SizedBox(width: 16.0),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      title,
-                      style: Get.theme.textTheme.subtitle1
+            Expanded(
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    icon,
+                    size: 16.0,
+                  ),
+                  SizedBox(width: 16.0),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(title, style: Get.theme.textTheme.subtitle1),
+                        SizedBox(
+                          height: 4.0,
+                        ),
+                        FittedBox(
+                          child: Text(subTitle,
+                              style: Get.theme.textTheme.subtitle2),
+                        ),
+                      ],
                     ),
-                    SizedBox(
-                      height: 4.0,
-                    ),
-                    Text(
-                      subTitle,
-                      style:Get.theme.textTheme.subtitle2
-                    ),
-                  ],
-                )
-              ],
+                  )
+                ],
+              ),
             ),
             Icon(
               FontAwesomeIcons.angleRight,

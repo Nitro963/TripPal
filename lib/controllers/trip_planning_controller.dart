@@ -33,7 +33,7 @@ class TripPlanningController extends DetailsController {
     List<DateTime> result = List<DateTime>.empty(growable: true);
     DateTime startingTime = trip.startDate;
     result.add(startingTime);
-    for(Property element in activity.place!.properties){
+    for (Property element in activity.place!.properties) {
       if (element.name == ('food'))
         startingTime = startingTime.add(Duration(hours: 1, minutes: 45));
       else if (element.name == ('shop'))
@@ -47,45 +47,32 @@ class TripPlanningController extends DetailsController {
 
   List<String> generateSubType(Day day) {
     List<String> result = List<String>.empty(growable: true);
-    int foodsCount = 0;
-    day.activities.forEach((activity){
- activity.place!.properties.forEach((element) {
-   if (element.name == 'food')
-     foodsCount += 1;
- });         activity.place!.properties.forEach((element) {
-   if (element.name == ('food') && foodsCount > 0) {
-     if (foodsCount == 3) {
-       result.add('Breakfast');
-       foodsCount--;
-     } else if (foodsCount == 1) {
-       result.add('Dinner');
-       foodsCount--;
-     } else {
-       result.add('Lunch');
-       foodsCount--;
-     }
-   } else if (element.name == ('hotel'))
-     result.add('Waking up');
-   else if (element.name == ('shop'))
-     result.add('Shopping');
-   else
-     result.add('Touring');
- });
+    day.activities.forEach((element) {
+      if (element.place!.type == 2) {
+        result.add('Waking up');
+      } else {
+        if (element.place!.properties[0].name == 'food') {
+          result.add('Eating');
+        } else if (element.place!.properties[0].name == 'shop') {
+          result.add('Shopping');
+        } else {
+          result.add('Touring');
+        }
+      }
     });
     return result;
   }
 
-  void onReady(){
+  void onReady() {
     hasError = false;
     hasData = false;
     Get.find<BackendService>()
         .getApiView<Trip>(name: 'trips')
-        .getItem(tripID).then(
-        (val){
-          trip = val;
-          hasData = true;
-        }
-    ).onError((error, stackTrace) {
+        .getItem(tripID)
+        .then((val) {
+      trip = val;
+      hasData = true;
+    }).onError((error, stackTrace) {
       errorModel = ErrorHandlerModel.fromError(error, onReady);
       hasError = true;
     });

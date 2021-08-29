@@ -32,10 +32,10 @@ class HomeDrawer extends StatelessWidget {
               icon: FontAwesomeIcons.solidUserCircle,
               onTap: () => Get.toNamed('/profile_page/edit')),
           HomeDrawerItem(
-              title: 'Saved Places',
-              subTitle: 'Check out your saved places',
-              icon: FontAwesomeIcons.solidHeart,
-              onTap: () => Get.toNamed('/home/places/saved')),
+              title: 'Discover Places',
+              subTitle: 'Check Out our Massive Database',
+              icon: FontAwesomeIcons.map,
+              onTap: () => Get.toNamed('/home/places/list')),
           HomeDrawerItem(
             title: 'Address',
             subTitle: 'Add or remove an address',

@@ -19,6 +19,7 @@ import 'package:trip_pal_null_safe/screens/home/blog_list.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/main_page.dart';
+import 'package:trip_pal_null_safe/screens/home/places_list.dart';
 import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/credentials/login.dart';
 import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
@@ -129,12 +130,11 @@ List<GetPage> pages = [
       middlewares: [GlobalMiddleWare()],
       binding: BindingsBuilder.put(() => HotelsViewController())),
 
-  // TODO add details controller
   GetPage(
     name: '/home/place-details',
     page: () => PlaceDetails(),
     middlewares: [GlobalMiddleWare()],
-    binding: BindingsBuilder.put(() => PlaceDetailsController()),
+    binding: PlaceDetailsBindings(),
   ),
   // reviews app
   GetPage(
@@ -149,11 +149,17 @@ List<GetPage> pages = [
     middlewares: [GlobalMiddleWare()],
     page: () => ReviewWriting(),
   ),
+  // GetPage(
+  //   name: '/home/places/saved',
+  //   page: () => SavedPlaces(),
+  //   middlewares: [GlobalMiddleWare()],
+  //   binding: BindingsBuilder.put(() => ProfileController()),
+  // ),
   GetPage(
-    name: '/home/places/saved',
-    page: () => SavedPlaces(),
+    name: '/home/places/list',
+    page: () => PlacesDBList(),
     middlewares: [GlobalMiddleWare()],
-    binding: BindingsBuilder.put(() => ProfileController()),
+    binding: BindingsBuilder.put(() => PlacesDBListController()),
   ),
   // profiles app
   GetPage(

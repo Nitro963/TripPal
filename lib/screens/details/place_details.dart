@@ -24,12 +24,13 @@ class PlaceDetailsController extends DetailsController {
   List<Review> reviews = [];
   int count = 0;
   final _reviewsHasData = false.obs;
-
+  late final String placeID;
   @override
   bool get hasData => super.hasData & _reviewsHasData.value;
 
   void onInit() {
     type = int.parse(Get.parameters['type']!);
+    placeID = Get.parameters['place_id']!;
     super.onInit();
   }
 
@@ -39,7 +40,7 @@ class PlaceDetailsController extends DetailsController {
         .getApiView<Review>(name: 'reviews')
         .getAllElements(queryParameters: {
       'limit': '10',
-      'place': Get.parameters['place_id']
+      'place': placeID,
     }).then((value) {
       count = value.count!;
       reviews = value.results;
@@ -55,7 +56,7 @@ class PlaceDetailsController extends DetailsController {
     hasData = false;
     Get.find<BackendService>()
         .getApiView<Place>(name: type == 1 ? 'places' : 'hotels')
-        .getItem(int.parse(Get.parameters['place_id']!))
+        .getItem(int.parse(placeID))
         .then((value) {
       place = value;
       hasData = true;
@@ -72,8 +73,20 @@ class PlaceDetailsController extends DetailsController {
   }
 }
 
+class PlaceDetailsBindings extends Bindings {
+  @override
+  void dependencies() {
+    Get.put(PlaceDetailsController(), tag: Get.parameters['place_id']!);
+  }
+}
+
 class PlaceDetails extends GetView<PlaceDetailsController> {
   Place get place => controller.place;
+  final tag = Get.parameters['place_id'];
+  @override
+  PlaceDetailsController get controller {
+    return Get.find<PlaceDetailsController>(tag: tag);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -293,14 +306,16 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
-                  // TODO navigate to place details
                   var place = controller.place.similarPlaces[index];
                   return PlaceImageCard(
-                    place.similarPlaces[index].image!,
+                    place.image!,
                     place.name!,
                     MySize.getScaledSizeHeight(200),
                     MySize.getScaledSizeWidth(180),
-                    onTap: () {},
+                    onTap: () {
+                      Get.offNamed(
+                          '/home/place-details?type=1&place_id=${place.id}');
+                    },
                   );
                 },
                 separatorBuilder: (context, index) {
@@ -330,7 +345,7 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
                       children: [
                         Icon(Icons.assistant_photo_rounded),
                         Space.width(8),
-                        Text(value.name!),
+                        Text(value.name!.capitalizeFirst!),
                       ],
                     ))
                 .toList(),

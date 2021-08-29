@@ -34,7 +34,8 @@ class ProfilePage extends GetView<ProfileController> {
                   children: <Widget>[
                     ProfileBlockTitle(title: 'Ongoing Trip'),
                     TripCard(
-                        imgPath: 'assets/images/dubai.jpg',
+                        imgPath:
+                            'https://loremflickr.com/320/320/hotels?random=1',
                         tripType: 'Extended Trip',
                         location: 'Dubai, UAE',
                         details: 'foods and Malls Included',

@@ -52,9 +52,10 @@ class ProfileController extends DetailsController {
   @override
   void onReady() {
     super.onReady();
+    // TODO
     Get.find<BackendService>()
         .getApiView<User>(name: 'users')
-        .getItem(int.parse(Get.parameters['user_id']!))
+        .getItem(int.parse(Get.parameters['user_id'] ?? '1'))
         .then((value) {
       user = value;
       hasData = true;

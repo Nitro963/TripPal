@@ -59,7 +59,6 @@ class ErrorHandlerModel {
 
   factory ErrorHandlerModel.fromError(error, callback, {closeCallBack: false}) {
     developer.log('Something happened!', name: 'HANDLER_MODEL', error: error);
-    // developer.log(error.response.toString(), name: 'HANDLER_MODEL');
     if (error is dio.DioError) {
       if (error.type == dio.DioErrorType.connectTimeout) {
         return ErrorHandlerModel(
@@ -71,6 +70,7 @@ class ErrorHandlerModel {
       if (error.type == dio.DioErrorType.response &&
           400 <= error.response!.statusCode! &&
           error.response!.statusCode! < 500) {
+        developer.log(error.response.toString(), name: 'HANDLER_MODEL');
         if (error.response!.statusCode != 404)
           return ErrorHandlerModel(
             header: 'Error',
