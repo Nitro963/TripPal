@@ -94,7 +94,7 @@ class UsersList extends IModelView {
     return InkWell(
       onTap: () {
         // TODO navigate to profile with no edit button
-        Get.to(UserProfile());
+        Get.toNamed('/user_profile_page?user_id=${user.id}');
       },
       child: appointmentWidget(
         image: user.profilePicture!,

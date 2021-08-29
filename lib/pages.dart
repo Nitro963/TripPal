@@ -24,6 +24,7 @@ import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/credentials/login.dart';
 import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
 import 'package:trip_pal_null_safe/screens/credentials/register.dart';
+import 'package:trip_pal_null_safe/screens/home/user_profile.dart';
 import 'package:trip_pal_null_safe/screens/home/users_list.dart';
 import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
@@ -166,6 +167,12 @@ List<GetPage> pages = [
     name: '/profile_page',
     page: () => ProfilePage(),
     middlewares: [GlobalMiddleWare()],
+    binding: BindingsBuilder.put(() => ProfileController()),
+  ),
+  //user profile page
+GetPage(
+    name: '/user_profile_page',
+    page: () => UserProfile(),
     binding: BindingsBuilder.put(() => ProfileController()),
   ),
 

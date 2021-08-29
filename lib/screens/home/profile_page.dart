@@ -20,10 +20,10 @@ class ProfilePage extends GetView<ProfileController> {
           Padding(
             padding: Spacing.only(left: 10, top: 10),
             child: ProfileHeader(
-                image: AssetImage(controller.imgPath),
-                userName: controller.userName,
+                image: AssetImage(controller.imgPath.value),
+                userName: controller.userName.value,
                 activateButtons: true,
-                userDisc: controller.userSubName),
+                userDisc: controller.userSubName.value),
           ),
           Expanded(
             child: Padding(

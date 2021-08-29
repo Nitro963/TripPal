@@ -28,21 +28,26 @@ class RoundedRadioButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(value,
-                    style: Get.theme.textTheme.subtitle2!
-                        .copyWith(fontSize: 19.0)),
-                        SizedBox(height: 2.0),
-                description != null
-                    ? Text(description!,
-                        overflow: TextOverflow.ellipsis,
-                        style: Get.theme.textTheme.bodyText2!.copyWith(
-                            color: Get.theme.colorScheme.onBackground))
-                    : SizedBox(),
-              ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(value,
+                      style: Get.theme.textTheme.subtitle2!
+                          .copyWith(fontSize: 19.0)),
+                          SizedBox(height: 2.0),
+                  description != null
+                      ? FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text(description!,
+                            overflow: TextOverflow.ellipsis,
+                            style: Get.theme.textTheme.bodyText2!.copyWith(
+                                color: Get.theme.colorScheme.onBackground)),
+                      )
+                      : SizedBox(),
+                ],
+              ),
             ),
             Transform.scale(
               scale: 1.4,

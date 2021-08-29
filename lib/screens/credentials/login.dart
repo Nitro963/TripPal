@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
+import 'package:trip_pal_null_safe/screens/home/users_list.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -200,7 +202,9 @@ class _LoginState extends State<Login> {
               style: TextStyle(color: Colors.white, fontSize: 17.0)),
           Row(children: [
             MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.put<UsersListController>(UsersListController());
+                  Get.to(()=>UsersList());},
                 color: const Color(0xff3b5998),
                 textColor: Colors.white,
                 child: Icon(

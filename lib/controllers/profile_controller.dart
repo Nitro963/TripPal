@@ -1,5 +1,5 @@
 import 'dart:collection';
-
+import 'dart:developer' as dev;
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/place2.dart';
@@ -11,10 +11,14 @@ import 'details_controller.dart';
 
 class ProfileController extends DetailsController {
   late final User user;
-  String userName = 'Rita Ora';
-  String userSubName = 'Great Planner';
+  Rx<String> userName = ''.obs;
+  Rx<String> userSubName = 'Great Planner'.obs;
+  Rx<String> imgPath = ''.obs;
+  
+  // String userName = 'Rita Ora';
+  // String userSubName = 'Great Planner';
   // TODO read from server
-  String imgPath = 'https://loremflickr.com/320/320/person?random=86';
+  // String imgPath = 'https://loremflickr.com/320/320/person?random=86';
 
   List<Place2> userSavedPlaces = List<Place2>.empty(growable: true);
   // List<Hotel> availableHotels = List<Hotel>.empty(growable: true);
@@ -50,19 +54,27 @@ class ProfileController extends DetailsController {
   }
 
   @override
-  void onReady() {
+  void onReady() async{
     super.onReady();
-    // TODO
-    Get.find<BackendService>()
-        .getApiView<User>(name: 'users')
-        .getItem(int.parse(Get.parameters['user_id'] ?? '1'))
-        .then((value) {
-      user = value;
-      hasData = true;
-    }).onError((error, stackTrace) {
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
-      hasError = true;
-    });
+    if(Get.parameters['user_id'] != null)
+    {
+      Get.find<BackendService>()
+          .getApiView<User>(name: 'users')
+          .getItem(int.parse(Get.parameters['user_id']!))
+          .then((value) {
+        user = value;
+        userName(user.name);
+        imgPath(user.profilePicture);
+        hasData = true;
+      }).onError((error, stackTrace) {
+        errorModel = ErrorHandlerModel.fromError(error, onReady);
+        hasError = true;
+      });
+    }
+    else{
+        userName("Guest");
+        imgPath('/assets/images/2.jpg');
+    }
   }
 
   UnmodifiableListView<Place2> get suggestions =>

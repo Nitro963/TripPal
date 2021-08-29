@@ -169,14 +169,14 @@ class ProfileMiniInfo extends GetView<ProfileController> {
           Flexible(
             flex: 2,
             child:
-                Text(controller.userName, style: Get.theme.textTheme.headline6),
+                Text(controller.userName.value, style: Get.theme.textTheme.headline6),
           ),
           SizedBox(
             height: 6.0,
           ),
           Flexible(
             flex: 1,
-            child: Text(controller.userSubName,
+            child: Text(controller.userSubName.value,
                 style: Get.theme.textTheme.subtitle2),
           ),
           SizedBox(height: 8.0),
