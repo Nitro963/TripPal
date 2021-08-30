@@ -6,4 +6,9 @@ class MainPageController extends GetxController {
     tabIndex.value = index;
   }
 
+  final _inAsyncCall = false.obs;
+  bool get inAsyncCall => _inAsyncCall.value;
+  set inAsyncCall(bool value) {
+    _inAsyncCall.value = value;
+  }
 }

@@ -4,9 +4,13 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/controllers/main_page_controller.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/dialogs/change_theme_dialog.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
+import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 import 'home_drawer_item.dart';
 
@@ -26,11 +30,12 @@ class HomeDrawer extends StatelessWidget {
                 style: Get.theme.textTheme.bodyText2!
                     .copyWith(fontWeight: FontWeight.bold)),
           ),
-          HomeDrawerItem(
-              title: 'Manage account',
-              subTitle: 'Go to your profile',
-              icon: FontAwesomeIcons.solidUserCircle,
-              onTap: () => Get.toNamed('/profile_page/edit')),
+          if (!Get.find<AuthControl>().isGuest)
+            HomeDrawerItem(
+                title: 'Manage account',
+                subTitle: 'Go to your profile',
+                icon: FontAwesomeIcons.solidUserCircle,
+                onTap: () => Get.toNamed('/profile_page/edit')),
           HomeDrawerItem(
               title: 'Discover Places',
               subTitle: 'Check Out our Massive Database',
@@ -79,11 +84,14 @@ class HomeDrawer extends StatelessWidget {
             onTap: () {},
           ),
           HomeDrawerItem(
-            title: 'Log out',
-            subTitle: 'Return to guest mode',
-            icon: Icons.logout,
-            // onTap: () => Get.to(() => Login()),
-          ),
+              title: 'Log out',
+              subTitle: 'Return to guest mode',
+              icon: Icons.logout,
+              onTap: () {
+                logout();
+              }
+              // onTap: () => Get.to(() => Login()),
+              ),
           Container(
             padding: Spacing.only(top: 36.0, bottom: 24),
             child: Center(
@@ -107,6 +115,16 @@ class HomeDrawer extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> logout() async {
+    Get.find<MainPageController>().inAsyncCall = true;
+    try {
+      await Get.find<AuthControl>().logout();
+    } catch (e) {
+      Get.find<MainPageController>().inAsyncCall = false;
+      handelError(e, logout);
+    }
+  }
 }
 
 class CustomDrawerHeader extends GetView<ProfileController> {
@@ -123,26 +141,12 @@ class CustomDrawerHeader extends GetView<ProfileController> {
       child: Row(
         children: <Widget>[
           Flexible(
-            child: Hero(
-              tag: 1,
-              // TODO convert to fancy shimmer image
-              child: Container(
-                height: 120.0,
-                width: 120.0,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0),
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/profile.jpg'),
-                      fit: BoxFit.cover),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: Offset(2, -4),
-                    ),
-                  ],
-                ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: BlendShimmerImage(
+                imageUrl: Get.find<AuthControl>().currentUser!.profilePicture!,
+                height: 120,
+                width: 120,
               ),
             ),
           ),
@@ -153,14 +157,13 @@ class CustomDrawerHeader extends GetView<ProfileController> {
   }
 }
 
-class ProfileMiniInfo extends GetView<ProfileController> {
+class ProfileMiniInfo extends StatelessWidget {
   const ProfileMiniInfo({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    controller;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
       child: Column(
@@ -168,15 +171,15 @@ class ProfileMiniInfo extends GetView<ProfileController> {
         children: <Widget>[
           Flexible(
             flex: 2,
-            child:
-                Text(controller.userName.value, style: Get.theme.textTheme.headline6),
+            child: Text(Get.find<AuthControl>().currentUser!.name,
+                style: Get.theme.textTheme.headline6),
           ),
           SizedBox(
             height: 6.0,
           ),
           Flexible(
             flex: 1,
-            child: Text(controller.userSubName.value,
+            child: Text(Get.find<AuthControl>().currentUser!.email!,
                 style: Get.theme.textTheme.subtitle2),
           ),
           SizedBox(height: 8.0),

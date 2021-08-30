@@ -28,16 +28,16 @@ class SavedPlaces extends GetView<ProfileController> {
               place: controller.userSavedPlaces[index],
               onTap: () => Get.to(() => MapPage(
                     points: [
-                      Item(
-                          type: controller.userSavedPlaces[index].kinds!,
-                          id: controller.userSavedPlaces[index].id,
-                          coordinate: LatLng(
-                              controller.userSavedPlaces[index].coordinate!.lat,
-                              controller
-                                  .userSavedPlaces[index].coordinate!.lon),
-                          name: controller.userSavedPlaces[index].name,
-                          rate: controller.userSavedPlaces[index].guestRating
-                              .toString())
+                      // Item(
+                      //     type: controller.userSavedPlaces[index].kinds!,
+                      //     id: controller.userSavedPlaces[index].id,
+                      //     coordinate: LatLng(
+                      //         controller.userSavedPlaces[index].coordinate!.lat,
+                      //         controller
+                      //             .userSavedPlaces[index].coordinate!.lon),
+                      //     name: controller.userSavedPlaces[index].name,
+                      //     rate: controller.userSavedPlaces[index].guestRating
+                      //         .toString())
                     ],
                   )),
             );

@@ -17,7 +17,7 @@ class TripTypeCard extends StatelessWidget {
   final String img;
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
       child: FittedBox(
         fit: BoxFit.contain,
@@ -61,7 +61,9 @@ class TripTypeCard extends StatelessWidget {
                               overflow: TextOverflow.fade,
                               style: TextStyle(
                                   fontSize: 20.0,
-                                  color: Colors.white,
+                                  color: onTap != null
+                                      ? Colors.white
+                                      : Get.theme.disabledColor,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -75,7 +77,9 @@ class TripTypeCard extends StatelessWidget {
                               overflow: TextOverflow.fade,
                               style: TextStyle(
                                 fontSize: 16.0,
-                                color: Colors.white,
+                                color: onTap != null
+                                    ? Colors.white
+                                    : Get.theme.disabledColor,
                               ),
                             ),
                           ),

@@ -85,6 +85,10 @@ List<GetPage> pages = [
       name: '/home/trips/details',
       page: () => TripPlan(),
       binding: BindingsBuilder.put(() => TripPlanningController())),
+  GetPage(
+      name: '/home/trips/auto/details',
+      page: () => TripPlanAuto(),
+      binding: BindingsBuilder.put(() => TripPlanningControllerAuto())),
   // maps app
   GetPage(
     name: '/map',
@@ -170,10 +174,10 @@ List<GetPage> pages = [
     binding: BindingsBuilder.put(() => ProfileController()),
   ),
   //user profile page
-GetPage(
+  GetPage(
     name: '/user_profile_page',
     page: () => UserProfile(),
-    binding: BindingsBuilder.put(() => ProfileController()),
+    binding: BindingsBuilder.put(() => UserProfileController()),
   ),
 
   GetPage(

@@ -19,7 +19,7 @@ class LocationsPage extends GetView<TripsController> {
         child: ListView(
           children: <Widget>[
             FiltersHeader(
-              backButton: true,
+                backButton: true,
                 title: 'Choose preferred countries',
                 subTitle:
                     'We\'ll use these countries as base for searching places for you'),
@@ -53,9 +53,8 @@ class LocationsPage extends GetView<TripsController> {
                     color: Colors.white, size: 14.0),
                 onPressed: () {
                   controller.selectLocs();
-                  // TODO use named routes
                   if (controller.selectedCities.length > 0)
-                    Get.to(FiltersPage());
+                    Get.to(() => FiltersPage());
                 }),
             Space.height(40),
           ],

@@ -144,7 +144,7 @@ class NetworkApiView<T extends IModel> implements ApiView<T> {
   Future<E> postItem<E>(Map<String, dynamic> json, Decoder<E> decoder,
       {String pathSuffix = ''}) async {
     final response =
-        await _client.patch(_path + pathSuffix, json, decoder: decoder);
+        await _client.post(_path + pathSuffix, json, decoder: decoder);
     return response.decodedBody;
   }
 }

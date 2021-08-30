@@ -1,8 +1,5 @@
-import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
-import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
@@ -28,8 +25,7 @@ class ProfileHeader extends StatelessWidget {
             children: <Widget>[
               ClipOval(
                 child: BlendShimmerImage(
-                    imageUrl:
-                        'https://loremflickr.com/320/320/person?random=86',
+                    imageUrl: image,
                     width: MySize.getScaledSizeHeight(50),
                     height: MySize.getScaledSizeHeight(50),
                     boxFit: BoxFit.fill),
@@ -53,12 +49,10 @@ class ProfileHeader extends StatelessWidget {
         activateButtons
             ? Row(
                 children: [
-                  if (!Get.find<AuthControl>().isGuest)
-                    IconButton(
-                        icon: Icon(Icons.settings,
-                            size: MySize.size24, color: Colors.white),
-                        // TODO use named routes
-                        onPressed: () => Get.toNamed('/profile_page/edit')),
+                  IconButton(
+                      icon: Icon(Icons.settings,
+                          size: MySize.size24, color: Colors.white),
+                      onPressed: () => Get.toNamed('/profile_page/edit')),
                   IconButton(
                     icon: Icon(Icons.menu,
                         color: Get.theme.appBarTheme.iconTheme!.color,

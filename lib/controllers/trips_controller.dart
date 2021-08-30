@@ -4,6 +4,12 @@ import 'package:trip_pal_null_safe/dummy_data.dart';
 import 'package:trip_pal_null_safe/models/sort_policy.dart';
 
 class TripsController extends GetxController {
+  final _inAsyncCall = false.obs;
+  bool get inAsyncCall => _inAsyncCall.value;
+  set inAsyncCall(bool value) {
+    _inAsyncCall.value = value;
+  }
+
   @override
   void onInit() {
     for (var type in _types) {
@@ -115,15 +121,19 @@ class TripsController extends GetxController {
   RxDouble topContainer = 0.0.obs;
 
   Map<String, dynamic> serializePreferences() {
+    var locations = List<String>.empty(growable: true);
+    locsContentCheck.entries.forEach((element) {
+      locations.addIf(element.value.value, element.key);
+    });
     return {
-      'locations': locsContentCheck.values.toList(),
-      'trip_mode': tripMode.value,
-      'food_importance': foods.value,
-      'shops_importance': shops.value,
+      'locations': locations,
+      'trip_mode': tripMode.value == 'Extended Trip' ? 1 : 2,
+      'food_importance': foodsChecked.value ? foods.value : 0,
+      'shop_importance': shopsChecked.value ? shops.value : 0,
       'days_count': daysCount.value,
-      'places_per_day': placesPerDay,
+      'places_per_day': tripMode.value == 'Extended Trip' ? 6 : 2,
       'shop_dis': false,
-      'places_preferences': {'HIS': 5, 'CUL': 10}
+      'places_preferences': {"HIS": 5, "CUL": 10, "SPO": 2, "ARC": 10}
     };
   }
 }

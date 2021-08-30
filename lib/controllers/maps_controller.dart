@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:trip_pal_null_safe/models/activities.dart';
 import 'package:trip_pal_null_safe/models/day_item.dart';
 
 class MapController extends GetxController {
-
   late final GoogleMapController mapController;
 
   double _getHueColor(String placeType) {
@@ -15,19 +15,20 @@ class MapController extends GetxController {
     return BitmapDescriptor.hueBlue;
   }
 
-  void addMarkers(List<Item> coords) {
+  void addMarkers(List<Activity> coords) {
     coords.forEach((element) {
       markers.add(
         new Marker(
-            position: element.coordinate,
-            markerId: MarkerId(element.name),
+            position:
+                LatLng(element.place!.latitude!, element.place!.longitude!),
+            markerId: MarkerId(element.place!.name!),
             infoWindow: InfoWindow(
-                title: element.name, snippet: 'Place type: ' + element.type),
-            icon: BitmapDescriptor.defaultMarkerWithHue(
-                _getHueColor(element.type))),
+                title: element.place!.name!,
+                snippet: 'Place type: ${element.place!.type!}'),
+            icon:
+                BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed)),
       );
     });
-
   }
 
   List<Marker> markers = List<Marker>.empty(growable: true);

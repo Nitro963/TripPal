@@ -4,6 +4,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
+import 'package:trip_pal_null_safe/services/geocoding_service.dart';
 
 class PlacesSearchViewController extends GetxController {
   final TextEditingController editingController = TextEditingController();
@@ -63,35 +64,16 @@ class PlacesSearchViewController extends GetxController {
     if (value.length >= 3) {
       _debounce = Timer(Duration(milliseconds: 350), () async {
         _isLoading.value = true;
-        await Future.delayed(Duration(milliseconds: 800), () {});
-        _suggestions
-          ..clear()
-          ..addAll([
-            Place(
-              name: 'San Francisco',
-              country: 'United States of America',
-              state: 'California',
-            ),
-            Place(
-              name: 'Singapore',
-              country: 'Singapore',
-            ),
-            Place(
-              name: 'Munich',
-              state: 'Bavaria',
-              country: 'Germany',
-            ),
-            Place(
-              name: 'London',
-              country: 'United Kingdom',
-            ),
-          ]);
-        // _dataSubscription =
-        //     PhotonAPI.getQuery(query).asStream().listen((List<Place> res) {
-        //   _suggestions
-        //     ..clear()
-        //     ..addAll(res.take(10));
-        _isLoading.value = false;
+        _dataSubscription = Get.find<GeoCodingService>()
+            .photon
+            .getQuery(query, 10)
+            .asStream()
+            .listen((List<Place> res) {
+          _suggestions
+            ..clear()
+            ..addAll(res);
+          _isLoading.value = false;
+        });
       });
     } else
       _isLoading.value = false;

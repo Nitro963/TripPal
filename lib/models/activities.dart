@@ -13,7 +13,7 @@ class Activity extends IModel {
       'id': this.id,
       'day': this.day,
       'trip': this.trip,
-      'place': this.place,
+      'place': this.place?.toJson(),
     };
   }
 

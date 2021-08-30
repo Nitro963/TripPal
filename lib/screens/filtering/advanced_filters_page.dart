@@ -55,18 +55,18 @@ class AdvancedFiltersPage extends GetView<TripsController> {
           )));
     }
 
-    result.add(FilterSubTitle(
-        filterName: 'How many places would you visit in a single day?'));
+    // result.add(FilterSubTitle(
+    //     filterName: 'How many places would you visit in a single day?'));
 
-    result.add(Obx(() => FiltersSlider(
-          count: controller.placesPerDay.value,
-          onChanged: (newValue) => controller.placesPerDay.value = newValue,
-          divisions: 9,
-          maxLabel: '10',
-          minLabel: '1',
-          maxRange: 10,
-          label: '',
-        )));
+    // result.add(Obx(() => FiltersSlider(
+    //       count: controller.placesPerDay.value,
+    //       onChanged: (newValue) => controller.placesPerDay.value = newValue,
+    //       divisions: 9,
+    //       maxLabel: '10',
+    //       minLabel: '1',
+    //       maxRange: 10,
+    //       label: '',
+    //     )));
     return result;
   }
 

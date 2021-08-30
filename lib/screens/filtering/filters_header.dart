@@ -25,12 +25,12 @@ class FilterSubTitle extends StatelessWidget {
 }
 
 class FiltersHeader extends StatelessWidget {
-  const FiltersHeader({
-    Key? key,
-    required this.title,
-    required this.subTitle,
-    required this.backButton
-  }) : super(key: key);
+  const FiltersHeader(
+      {Key? key,
+      required this.title,
+      required this.subTitle,
+      required this.backButton})
+      : super(key: key);
   final String title;
   final String subTitle;
   final bool backButton;
@@ -58,20 +58,25 @@ class FiltersHeader extends StatelessWidget {
                 ],
               ),
               Space.height(10),
-              Text(
-                subTitle,
-                style: Get.theme.textTheme.subtitle2,
-                textAlign: TextAlign.center,
+              FittedBox(
+                child: Text(
+                  subTitle,
+                  style: Get.theme.textTheme.subtitle2,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
         ),
-         backButton ? Padding(
-          padding: Spacing.vertical(8),
-          child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Get.theme.iconTheme.color),
-              onPressed: () => Get.back()),
-        ) : SizedBox()
+        backButton
+            ? Padding(
+                padding: Spacing.vertical(8),
+                child: IconButton(
+                    icon: Icon(Icons.arrow_back,
+                        color: Get.theme.iconTheme.color),
+                    onPressed: () => Get.back()),
+              )
+            : SizedBox()
       ],
     );
   }

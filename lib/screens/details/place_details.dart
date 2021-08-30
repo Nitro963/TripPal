@@ -76,17 +76,14 @@ class PlaceDetailsController extends DetailsController {
 class PlaceDetailsBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(PlaceDetailsController(), tag: Get.parameters['place_id']!);
+    Get.put(PlaceDetailsController());
   }
 }
 
 class PlaceDetails extends GetView<PlaceDetailsController> {
   Place get place => controller.place;
-  final tag = Get.parameters['place_id'];
   @override
-  PlaceDetailsController get controller {
-    return Get.find<PlaceDetailsController>(tag: tag);
-  }
+  PlaceDetailsController get controller => Get.find<PlaceDetailsController>();
 
   @override
   Widget build(BuildContext context) {

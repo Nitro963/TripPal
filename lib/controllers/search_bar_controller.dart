@@ -16,7 +16,6 @@ class SearchBarController extends GetxController {
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
   RxString _query = ''.obs;
-  List<Place2> _testingPlaces = List<Place2>.empty(growable: true);
 
   bool get isLoading => _isLoading.value;
 
@@ -31,11 +30,8 @@ class SearchBarController extends GetxController {
 
   Future<void> onQueryChanged(String query) async {
     if (query == _query.value) return;
-    print('tjjjj');
-
     _query.value = query;
     _isLoading.value = true;
-
     if (query.isEmpty) {
       _suggestions
         ..clear()
@@ -69,11 +65,6 @@ class SearchBarController extends GetxController {
     );
     _photon = Get.find<GeoCodingService>().photon;
     mapHeight.value = MySize.screenHeight / 3;
-
-    for (var place in dummyJson) {
-      _testingPlaces.add(Place2.fromJson(place));
-    }
-
     super.onInit();
   }
 
@@ -150,7 +141,6 @@ class SearchBarController extends GetxController {
   void updateSelectedType(String newType) => _selectedType.value = newType;
   void updateSelectedSubtype(String newSubType) =>
       _selectedSubtype.value = newSubType;
-  List<Place2> get somePlaces => _testingPlaces;
 }
 
 List<Place> history = [

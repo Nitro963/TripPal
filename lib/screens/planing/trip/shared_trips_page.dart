@@ -24,17 +24,16 @@ class SharedTripsPage extends AnimatedIModelListView {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TripCard(
-          days: trip.days.length,
-          // TODO convert to Fancy shimmer image
-          imgPath:
-              trip.imageUrl!,
-          tripType: TripTypeExtended.stringify(trip.tripeType!),
-          location: trip.cities.isNotEmpty ? trip.cities[0] : 'Trip',
-          details: intl.DateFormat('yyyy-mm-dd').format(trip.startDate),
-           onTap: () {
-             Get.toNamed('/home/trips/details?id=${trip.id}&len=${trip.days.length}');
-             }
-        ),
+            days: trip.days.length,
+            // TODO convert to Fancy shimmer image
+            imgPath: trip.imageUrl!,
+            tripType: TripTypeExtended.stringify(trip.tripeType!),
+            location: trip.cities.isNotEmpty ? trip.cities[0] : 'Trip',
+            details: intl.DateFormat('yyyy-MM-dd').format(trip.startDate!),
+            onTap: () {
+              Get.toNamed(
+                  '/home/trips/details?id=${trip.id}&len=${trip.days.length}');
+            }),
       ),
     );
   }

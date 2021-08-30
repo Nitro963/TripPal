@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/maps_controller.dart';
-import 'package:trip_pal_null_safe/models/day_item.dart';
+import 'package:trip_pal_null_safe/models/activities.dart';
 
-// TODO convert to stateful widget as Maps don't work well with GetX
 class MapPage extends GetView<MapController> {
   MapPage({required this.points, Key? key}) : super(key: key);
-  final List<Item> points;
+  final List<Activity> points;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +34,8 @@ class MapPage extends GetView<MapController> {
           myLocationEnabled: true,
           zoomControlsEnabled: false,
           initialCameraPosition: CameraPosition(
-              target: LatLng(points[0].coordinate.latitude,
-                  points[0].coordinate.longitude),
+              target: LatLng(
+                  points[0].place!.latitude!, points[0].place!.longitude!),
               zoom: 11.5),
           onMapCreated: (mapController) {
             controller.mapController = mapController;

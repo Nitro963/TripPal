@@ -110,10 +110,12 @@ class DioConnect {
       {Map<String, String?> queryParameters = const {},
       Map<String, String> headers = const {},
       Decoder<T>? decoder,
-      Encoder? encoder}) async {
+      Encoder? encoder,
+      int timeout = 8000}) async {
     var request = dio.RequestOptions(
         method: 'post',
         baseUrl: '$httpScheme://$baseUrl',
+        connectTimeout: timeout,
         path: path,
         headers: headers,
         queryParameters: queryParameters,

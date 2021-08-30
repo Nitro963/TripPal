@@ -80,18 +80,18 @@ class PlacesSearchPage extends GetView<SearchBarController> {
             Obx(() => controller.selectedSubtype.length > 0
                 ? Divider(color: Colors.blueGrey[200])
                 : SizedBox()),
-            Obx(() => controller.selectedSubtype.length > 0
-                ? Expanded(
-                    child: ListView(
-                      children: <Widget>[
-                        ...controller.somePlaces.map((e) => PlaceCard(
-                            place: e,
-                            activated: false,
-                            onTap: () => controller.updateMapView(e)))
-                      ],
-                    ),
-                  )
-                : SizedBox()),
+            // Obx(() => controller.selectedSubtype.length > 0
+            //     ? Expanded(
+            //         child: ListView(
+            //           children: <Widget>[
+            //             ...controller.suggestions.map((e) => PlaceCard(
+            //                 place: e,
+            //                 activated: false,
+            //                 onTap: () => controller.updateMapView(e)))
+            //           ],
+            //         ),
+            //       )
+            //     : SizedBox()),
           ],
         ),
       ),

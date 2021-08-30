@@ -16,9 +16,7 @@ class AuthControl extends GetxService {
 
   final _registerPath = BASE_URL + '/register/';
 
-  final _logoutPath = BASE_URL + '/logout/';
-
-  final _logoutAllPath = BASE_URL + '/logout-all/';
+  final _logoutPath = BASE_URL + '/users/logout/';
 
   final String _devicesPath = BASE_URL + '/devices/';
 
@@ -85,27 +83,28 @@ class AuthControl extends GetxService {
     return res.decodedBody;
   }
 
-  Future<void> logoutAll(User user) async {
-    // var request =
-    // http.Request('post', Uri.https(LOCAL_SERVER_END_POINT, _logoutAllPath));
-    // request.headers.addAll(JSON_HEADERS);
-    // request.headers
-    //     .putIfAbsent('Authorization', () => 'Bearer ${user.authToken}');
-    // // var responseBody = await sendRequest(request);
-  }
-
-  Future<void> logout(User user) async {
-    // var request =
-    // http.Request('post', Uri.https(LOCAL_SERVER_END_POINT, _logoutPath));
-    // request.headers.addAll(JSON_HEADERS);
-    // request.headers
-    //     .putIfAbsent('Authorization', () => 'Bearer ${user.authToken}');
-    // // var responseBody = await sendRequest(request);
+  Future<void> logout() async {
+    if (!isGuest) {
+      await _client
+          .get(_logoutPath, headers: {'Authorization': 'Token $_token'});
+      currentUser = null;
+      box.remove('token');
+      _token = null;
+      Get.offAllNamed('/login');
+    } else {
+      Get.offAllNamed('/login');
+      currentUser = null;
+    }
   }
 
   bool get isGuest => _token == null;
 
   void activateGuestMode() {
     _token = null;
+    Get.find<AuthControl>().currentUser = User(
+        firstName: 'TripPal',
+        lastName: 'Guest',
+        email: 'guest@trippal.com',
+        profilePicture: 'https://loremflickr.com/320/320/person?random=-1');
   }
 }

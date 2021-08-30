@@ -14,7 +14,7 @@ class ProfileController extends DetailsController {
   Rx<String> userName = ''.obs;
   Rx<String> userSubName = 'Great Planner'.obs;
   Rx<String> imgPath = ''.obs;
-  
+
   // String userName = 'Rita Ora';
   // String userSubName = 'Great Planner';
   // TODO read from server
@@ -54,10 +54,8 @@ class ProfileController extends DetailsController {
   }
 
   @override
-  void onReady() async{
-    super.onReady();
-    if(Get.parameters['user_id'] != null)
-    {
+  void onReady() async {
+    if (Get.parameters['user_id'] != null) {
       Get.find<BackendService>()
           .getApiView<User>(name: 'users')
           .getItem(int.parse(Get.parameters['user_id']!))
@@ -70,10 +68,9 @@ class ProfileController extends DetailsController {
         errorModel = ErrorHandlerModel.fromError(error, onReady);
         hasError = true;
       });
-    }
-    else{
-        userName("Guest");
-        imgPath('/assets/images/2.jpg');
+    } else {
+      userName("Guest");
+      imgPath('/assets/images/2.jpg');
     }
   }
 

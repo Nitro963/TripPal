@@ -12,6 +12,7 @@ class Day extends IModel {
   @override
   Map<String, dynamic> toJson() {
     return {
+      'id': this.id,
       'day_index': this.dayIndex!,
       'trip': this.tripIndex!,
       'activities':
@@ -20,12 +21,14 @@ class Day extends IModel {
   }
 
   static Day fromJson(Map<String, dynamic> json) {
-    List<Activity> activities = json['activities']!=null ? (json['activities'] as List).map(Activity.fromJson).toList():[];
-    activities.sort((a, b) => ((a.trip?? -1) - (b.trip?? -1))) ;
+    List<Activity> activities = json['activities'] != null
+        ? (json['activities'] as List).map(Activity.fromJson).toList()
+        : [];
+    activities.sort((a, b) => ((a.trip ?? -1) - (b.trip ?? -1)));
     return Day(
       dayIndex: json['day_index'],
       tripIndex: json['trip'],
-      activities:activities,
+      activities: activities,
     );
   }
 }

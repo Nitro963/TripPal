@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
-import 'package:trip_pal_null_safe/models/day.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
@@ -38,11 +37,69 @@ class PagesIndicators extends GetView<TripPlanningController> {
                           isSelected: controller.selectedIndex == index,
                           onTapCallBack: (int index) {
                             controller.selectedIndex = index;
-                            controller.pageController.animateToPage(index,
-                                duration: Duration(seconds: 1),
-                                curve: Curves.ease);
+                            controller.pageController.jumpToPage(index);
                           }),
                     ),
+                  );
+                }),
+          ),
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: customTheme.disabledColor)),
+        ]);
+  }
+}
+
+class PagesIndicatorsAuto extends GetView<TripPlanningControllerAuto> {
+  final int index;
+  final int daysCount;
+  final DateTime startDate;
+  PagesIndicatorsAuto(this.startDate,
+      {required this.index, required this.daysCount});
+  @override
+  Widget build(BuildContext context) {
+    final customTheme =
+        Themes.getCustomAppTheme(Get.find<AppThemeController>().themeMode);
+    return Stack(
+        clipBehavior: Clip.antiAlias,
+        alignment: AlignmentDirectional.bottomCenter,
+        fit: StackFit.passthrough,
+        children: [
+          Container(
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: daysCount,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: Spacing.symmetric(horizontal: 12.0),
+                    child: Obx(() {
+                      return IndexedStack(
+                        index: controller.selectedTrip.value - 1,
+                        children: [
+                          PageIndicatorItem(
+                              index: index,
+                              title: "Day ${index + 1}",
+                              date: startDate.add(Duration(days: index)),
+                              isSelected: controller.selectedIndex == index,
+                              onTapCallBack: (int index) {
+                                controller.selectedIndex = index;
+                                controller.pageController1.jumpToPage(index);
+                              }),
+                          PageIndicatorItem(
+                              index: index,
+                              title: "Day ${index + 1}",
+                              date: startDate.add(Duration(days: index)),
+                              isSelected: controller.selectedIndex == index,
+                              onTapCallBack: (int index) {
+                                controller.selectedIndex = index;
+                                controller.pageController2.jumpToPage(index);
+                              }),
+                        ],
+                      );
+                    }),
                   );
                 }),
           ),
@@ -62,7 +119,7 @@ class PageIndicatorItem extends StatelessWidget {
   final DateTime date;
   final int index;
   final void Function(int) onTapCallBack;
-  final timeFormatter = intl.DateFormat("MMMM d,y");
+  final timeFormatter = intl.DateFormat('MMMM d,y');
   PageIndicatorItem(
       {required this.title,
       required this.date,

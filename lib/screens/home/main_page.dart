@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
 import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
@@ -73,43 +74,47 @@ class MainPage extends StatelessWidget {
           ),
         ),
       ];
-      return Scaffold(
-        resizeToAvoidBottomInset: false,
-        extendBodyBehindAppBar: true,
-        extendBody: true,
-        drawer: HomeDrawer(),
-        bottomNavigationBar: RoundedNavBar(
-          color: Themes.getNavigationThemeFromMode(_controller.themeMode)
-              .backgroundColor!,
-          size: Size(MySize.screenWidth, MySize.screenHeight),
-          actions: actions,
-          centerFloatingButton: FloatingActionButton(
-            onPressed: () {
-              Get.toNamed('/map');
-            },
-            child: Icon(
-              FontAwesomeIcons.streetView,
-              color: Themes.getNavigationThemeFromMode(_controller.themeMode)
-                  .backgroundColor!,
+      return Obx(() => ModalProgressHUD(
+            inAsyncCall: controller.inAsyncCall,
+            child: Scaffold(
+              resizeToAvoidBottomInset: false,
+              extendBodyBehindAppBar: true,
+              extendBody: true,
+              drawer: HomeDrawer(),
+              bottomNavigationBar: RoundedNavBar(
+                color: Themes.getNavigationThemeFromMode(_controller.themeMode)
+                    .backgroundColor!,
+                size: Size(MySize.screenWidth, MySize.screenHeight),
+                actions: actions,
+                centerFloatingButton: FloatingActionButton(
+                  onPressed: () {
+                    Get.toNamed('/map');
+                  },
+                  child: Icon(
+                    FontAwesomeIcons.streetView,
+                    color:
+                        Themes.getNavigationThemeFromMode(_controller.themeMode)
+                            .backgroundColor!,
+                  ),
+                  elevation: 0.1,
+                  backgroundColor: selected,
+                ),
+              ),
+              body: SizedBox.expand(
+                child: Obx(
+                  () => IndexedStack(
+                    index: controller.tabIndex.value,
+                    children: [
+                      TripsPage(),
+                      HotelSearchPage(),
+                      BlogPage(),
+                      ProfilePage(),
+                    ],
+                  ),
+                ),
+              ),
             ),
-            elevation: 0.1,
-            backgroundColor: selected,
-          ),
-        ),
-        body: SizedBox.expand(
-          child: Obx(
-            () => IndexedStack(
-              index: controller.tabIndex.value,
-              children: [
-                TripsPage(),
-                HotelSearchPage(),
-                BlogPage(),
-                ProfilePage(),
-              ],
-            ),
-          ),
-        ),
-      );
+          ));
     });
   }
 }

@@ -136,9 +136,11 @@ Widget buildErrorContent(ErrorHandlerModel handlerModel) {
                 Text(entry.key.capitalizeFirst!.tr + ":",
                     style: themeData.textTheme.subtitle2!
                         .copyWith(fontWeight: FontWeight.w600)),
-                Text(entry.value.toString().tr,
-                    style: themeData.textTheme.caption!
-                        .copyWith(fontWeight: FontWeight.w500)),
+                Expanded(
+                  child: Text(entry.value.toString().tr,
+                      style: themeData.textTheme.caption!
+                          .copyWith(fontWeight: FontWeight.w500)),
+                ),
               ]);
         }).toList(),
       ),

@@ -187,8 +187,6 @@ class _LoginState extends State<Login> {
           ),
           CupertinoButton(
             onPressed: () async {
-              Get.find<AuthControl>().currentUser =
-                  User(firstName: 'Guest', email: 'guest@trippal.com');
               Get.find<AuthControl>().activateGuestMode();
               Get.offAllNamed('/home');
             },
@@ -204,7 +202,8 @@ class _LoginState extends State<Login> {
             MaterialButton(
                 onPressed: () {
                   Get.put<UsersListController>(UsersListController());
-                  Get.to(()=>UsersList());},
+                  Get.to(() => UsersList());
+                },
                 color: const Color(0xff3b5998),
                 textColor: Colors.white,
                 child: Icon(
