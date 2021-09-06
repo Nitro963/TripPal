@@ -34,8 +34,8 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const LOCAL_SERVER_END_POINT = '192.168.43.151:8000';
-const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.http;
+const LOCAL_SERVER_END_POINT = 'trippal-server.herokuapp.com';
+const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.https;
 const BASE_URL = '/api';
 const JSON_HEADERS = {
   'Accept': 'application/json',
