@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 import 'networking_utils.dart';
@@ -36,8 +34,8 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const LOCAL_SERVER_END_POINT = 'fde8-178-253-95-112.ngrok.io';
-const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.https;
+const LOCAL_SERVER_END_POINT = '192.168.43.151:8000';
+const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.http;
 const BASE_URL = '/api';
 const JSON_HEADERS = {
   'Accept': 'application/json',

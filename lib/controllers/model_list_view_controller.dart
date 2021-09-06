@@ -126,7 +126,7 @@ abstract class IModelViewController<T extends IModel> extends Controller {
         _empty.value = false;
     } catch (e) {
       _items.clear();
-      errorModel = ErrorHandlerModel.fromError(e, onRefresh);
+      errorModel = ErrorHandlerModel.fromError(e, onRefresh, handel: true);
       hasError = true;
     }
   }

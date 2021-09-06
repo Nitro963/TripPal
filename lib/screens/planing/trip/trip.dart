@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/maps_controller.dart';
 import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
@@ -250,17 +249,12 @@ class TripPlanAuto extends GetView<TripPlanningControllerAuto> {
             FloatingActionButton(
               heroTag: null,
               onPressed: () {
-                // List<Item> mapPoint = List<Item>.empty(growable: true);
-                // controller.trip.days[controller.selectedIndex].activities.forEach((element) {
-                //   var place = element.place!;
-                //   mapPoint.add(Item(
-                //       type: 'place',
-                //       id: place.id.toString(),
-                //       coordinate: LatLng(place.latitude!, place.longitude!),
-                //       name: place.name!,
-                //       rate: (place.guestRating ?? 0).toString()));
-                //   });
-                // Get.to(()=>MapPage(points: mapPoint));
+                var trip = controller.selectedTrip.value == 1
+                    ? controller.trip1
+                    : controller.trip2;
+                Get.lazyPut(() => MapController());
+                Get.to(() => MapPage(
+                    points: trip.days[controller.selectedIndex].activities));
               },
               child: Icon(FontAwesomeIcons.mapMarkedAlt, size: 20),
             ),
@@ -269,6 +263,8 @@ class TripPlanAuto extends GetView<TripPlanningControllerAuto> {
               heroTag: null,
               onPressed: () {
                 controller.switchTrip();
+                // Get.put(MapViewController());
+                // Get.to(() => MapView());
               },
               child: Icon(Icons.swap_horiz, size: 20),
             ),

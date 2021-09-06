@@ -111,7 +111,7 @@ class FiltersPage extends GetView<TripsController> {
                       value: controller.tripModes[1].value,
                       onChanged: (value) =>
                           controller.onClickRadioButton(value))),
-                  FilterSubTitle(filterName: 'Trip Duration'),
+                  FilterSubTitle(filterName: 'Days Per City'),
                   Obx(() => FiltersSlider(
                       count: controller.daysCount.value,
                       label: ' days',

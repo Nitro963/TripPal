@@ -103,11 +103,14 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                   RoundedButton(
                       title: 'Search',
                       onPressed: () {
-                        if (controller.key.currentState!.validate()) {
-                          // TODO send argument
-                          Get.toNamed(
-                              '/home/hotels?city_name__contains=${controller.cityName}');
-                        }
+                        // if (controller.key.currentState!.validate()) {
+                        //   Get.toNamed(
+                        //       '/home/hotels?city_name__contains=${controller.cityName}');
+                        // }
+                        // if (controller.key.currentState!.validate()) {
+                        // TODO send argument
+                        Get.toNamed('/home/hotels');
+                        // }
                       },
                       icon: Icon(
                         Icons.search,

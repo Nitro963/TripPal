@@ -33,7 +33,7 @@ class BlogViewController extends DetailsController {
       blog = value;
       hasData = true;
     }).onError((e, stacktrace) {
-      errorModel = ErrorHandlerModel.fromError(e, onReady);
+      errorModel = ErrorHandlerModel.fromError(e, onReady, handel: true);
       hasError = true;
     });
   }

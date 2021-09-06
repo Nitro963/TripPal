@@ -47,7 +47,7 @@ class PlaceDetailsController extends DetailsController {
       _reviewsHasData.value = true;
     }).onError((error, stackTrace) {
       print(stackTrace);
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
+      errorModel = ErrorHandlerModel.fromError(error, onReady, handel: true);
       hasError = true;
     });
   }
@@ -61,7 +61,7 @@ class PlaceDetailsController extends DetailsController {
       place = value;
       hasData = true;
     }).onError((error, stackTrace) {
-      errorModel = ErrorHandlerModel.fromError(error, onReady);
+      errorModel = ErrorHandlerModel.fromError(error, onReady, handel: true);
       hasError = true;
     });
   }
@@ -76,14 +76,20 @@ class PlaceDetailsController extends DetailsController {
 class PlaceDetailsBindings extends Bindings {
   @override
   void dependencies() {
-    Get.put(PlaceDetailsController());
+    final tag = Get.parameters['place_id'];
+    Get.put(PlaceDetailsController(), tag: tag);
   }
 }
 
 class PlaceDetails extends GetView<PlaceDetailsController> {
   Place get place => controller.place;
+  late final tag;
+  PlaceDetails() {
+    tag = Get.parameters['place_id'];
+  }
   @override
-  PlaceDetailsController get controller => Get.find<PlaceDetailsController>();
+  PlaceDetailsController get controller =>
+      Get.find<PlaceDetailsController>(tag: tag);
 
   @override
   Widget build(BuildContext context) {
@@ -337,7 +343,6 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: place.properties
-                .take(10)
                 .map((value) => Row(
                       children: [
                         Icon(Icons.assistant_photo_rounded),

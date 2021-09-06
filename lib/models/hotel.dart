@@ -36,6 +36,10 @@ class Place extends IModel {
       : super(id);
 
   static Place fromJson(dynamic json) {
+    if (json['properties'] != null) {
+      List x = (json['properties'] as List).map(Property.fromJson).toList();
+      print(x.length);
+    }
     return Place(
         id: json['id'],
         name: json['name'],

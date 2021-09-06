@@ -16,11 +16,15 @@ class SplashWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            child: FlutterLogo(size: MySize.size120),
-            margin: Spacing.bottom(12),
+            child: Image.asset(
+              'assets/images/logo.png',
+              width: MySize.getScaledSizeWidth(120),
+              height: MySize.getScaledSizeHeight(120),
+            ),
+            margin: Spacing.only(bottom: 18, left: 32),
           ),
           Container(
-            margin: Spacing.left(45),
+            margin: Spacing.left(28),
             child: SpinKitThreeBounce(
                 color: Get.theme.colorScheme.onBackground, size: MySize.size34),
           ),

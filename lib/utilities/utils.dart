@@ -5,6 +5,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 bool canPop() {
@@ -57,7 +58,8 @@ class ErrorHandlerModel {
       this.buttonTitle = 'TRY AGAIN',
       this.problems = const {}});
 
-  factory ErrorHandlerModel.fromError(error, callback, {closeCallBack: false}) {
+  factory ErrorHandlerModel.fromError(error, callback,
+      {closeCallBack: false, handel = false}) {
     developer.log('Something happened!', name: 'HANDLER_MODEL', error: error);
     if (error is dio.DioError) {
       if (error.type == dio.DioErrorType.connectTimeout) {
@@ -84,6 +86,9 @@ class ErrorHandlerModel {
                 : null,
             buttonTitle: closeCallBack ? 'CLOSE' : 'TRY AGAIN',
           );
+        if (error.response!.statusCode == 401 && handel) {
+          Get.find<AuthControl>().onUnauthorizedError();
+        }
       }
     }
     return ErrorHandlerModel(

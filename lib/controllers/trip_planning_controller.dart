@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/details_controller.dart';
 import 'package:trip_pal_null_safe/models/activities.dart';

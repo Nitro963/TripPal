@@ -125,6 +125,15 @@ class TripsController extends GetxController {
     locsContentCheck.entries.forEach((element) {
       locations.addIf(element.value.value, element.key);
     });
+    var types = List<String>.empty(growable: true);
+    placesContentCheck.entries.forEach((element) {
+      types.addIf(element.value.value, element.key);
+    });
+    Map<String, int> typesMap = Map<String, int>();
+    types.forEach((element) {
+      typesMap[element.toUpperCase().substring(0, 3)] =
+          contentValues[element]!.value.toInt();
+    });
     return {
       'locations': locations,
       'trip_mode': tripMode.value == 'Extended Trip' ? 1 : 2,
@@ -133,7 +142,7 @@ class TripsController extends GetxController {
       'days_count': daysCount.value,
       'places_per_day': tripMode.value == 'Extended Trip' ? 6 : 2,
       'shop_dis': false,
-      'places_preferences': {"HIS": 5, "CUL": 10, "SPO": 2, "ARC": 10}
+      'places_preferences': typesMap
     };
   }
 }

@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
-import 'package:trip_pal_null_safe/screens/filtering/locations_page.dart';
-import 'package:trip_pal_null_safe/screens/home/home_drawer.dart';
-import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
-import 'package:trip_pal_null_safe/utilities/constants.dart';
-import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-import '../places_search_page.dart';
 import 'trip_type_card.dart';
 
 class TripsPage extends StatelessWidget {
@@ -88,18 +81,18 @@ class TripsPage extends StatelessWidget {
                           ? () => Get.toNamed('/home/trips/auto')
                           : null,
                       img: 'assets/images/1.jpg'),
-                  TripTypeCard(
-                    tripType: 'Plan a trip yourself',
-                    tripWriter:
-                        'Find the places you want to visit and let us organize the trip accordingly',
-                    onTap: !Get.find<AuthControl>().isGuest
-                        ? () {
-                            Get.put(SearchBarController());
-                            Get.to(() => PlacesSearchPage());
-                          }
-                        : null,
-                    img: 'assets/images/Small Widget Images/self_planning.png',
-                  ),
+                  // TripTypeCard(
+                  //   tripType: 'Plan a trip yourself',
+                  //   tripWriter:
+                  //       'Find the places you want to visit and let us organize the trip accordingly',
+                  //   onTap: !Get.find<AuthControl>().isGuest
+                  //       ? () {
+                  //           Get.put(SearchBarController());
+                  //           Get.to(() => PlacesSearchPage());
+                  //         }
+                  //       : null,
+                  //   img: 'assets/images/Small Widget Images/self_planning.png',
+                  // ),
                   TripTypeCard(
                     tripType: 'Trips planned by users',
                     tripWriter:
