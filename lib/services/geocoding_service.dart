@@ -8,7 +8,6 @@ class PhotonApi {
 
   PhotonApi() {
     _client.requestModifiers.add((options) {
-      // TODO internationalization
       options.queryParameters
           .update('lang', (value) => 'en', ifAbsent: () => 'en');
       return options;

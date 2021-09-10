@@ -7,7 +7,7 @@ import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/details_controller.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
-import 'package:trip_pal_null_safe/screens/review/reviews_bar_chart.dart';
+// import 'package:trip_pal_null_safe/screens/review/reviews_bar_chart.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -235,37 +235,37 @@ class PlaceDetails extends GetView<PlaceDetailsController> {
                                                         0xff8c8c98)),
                                           ),
                                         ]),
-                                        SizedBox(width: 35),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            SizedBox(
-                                                height:
-                                                    MySize.getScaledSizeHeight(
-                                                        165),
-                                                width:
-                                                    MySize.getScaledSizeWidth(
-                                                        280),
-                                                child: ReviewsBarChart.fromJson(
-                                                    place.ratingStat)),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                  'Total Rating ${place.totalRatings}',
-                                                  style: Get
-                                                      .textTheme.subtitle2!
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: Get
-                                                              .theme
-                                                              .colorScheme
-                                                              .onSurface)),
-                                            ),
-                                          ],
-                                        ),
+                                        // SizedBox(width: 35),
+                                        // Column(
+                                        //   crossAxisAlignment:
+                                        //       CrossAxisAlignment.end,
+                                        //   children: [
+                                        //     SizedBox(
+                                        //         height:
+                                        //             MySize.getScaledSizeHeight(
+                                        //                 165),
+                                        //         width:
+                                        //             MySize.getScaledSizeWidth(
+                                        //                 280),
+                                        //         child: ReviewsBarChart.fromJson(
+                                        //             place.ratingStat)),
+                                        //     Padding(
+                                        //       padding:
+                                        //           const EdgeInsets.all(8.0),
+                                        //       child: Text(
+                                        //           'Total Rating ${place.totalRatings}',
+                                        //           style: Get
+                                        //               .textTheme.subtitle2!
+                                        //               .copyWith(
+                                        //                   fontWeight:
+                                        //                       FontWeight.bold,
+                                        //                   color: Get
+                                        //                       .theme
+                                        //                       .colorScheme
+                                        //                       .onSurface)),
+                                        //     ),
+                                        //   ],
+                                        // ),
                                       ],
                                     ),
                                   ),

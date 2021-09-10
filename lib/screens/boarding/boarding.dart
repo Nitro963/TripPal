@@ -60,9 +60,12 @@ class BoardingController extends GetxController {
   }
 
   void onPageChanged(int page) {
-    pageController.animateToPage(page,
-        duration: Duration(milliseconds: 900), curve: Curves.ease);
-    _currentPage.value = double.parse(page.toString());
+    pageController
+        .animateToPage(page,
+            duration: Duration(milliseconds: 900), curve: Curves.ease)
+        .then((_) {
+      _currentPage.value = double.parse(page.toString());
+    });
   }
 
   void onButtonPressed() {

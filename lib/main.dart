@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/pages.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
+import 'package:trip_pal_null_safe/services/firebase_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
 import 'package:trip_pal_null_safe/services/notification_service.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
@@ -25,9 +26,7 @@ void main() async {
 }
 
 Future<void> initMemory() async {
-  // await PushNotificationService.init();
   await GetStorage.init();
-
   final box = GetStorage();
   box.writeIfNull('themeMode', 1);
   box.writeIfNull('language', 'en');
@@ -49,7 +48,7 @@ class InitialBindings extends Bindings {
 
 Future<GetMaterialApp> buildApp() async {
   await NotificationService.initialize();
-  // FCMService.initialize();
+  await FCMService.initialize();
   final box = GetStorage();
   final controller = Get.put(AppThemeController(box.read('themeMode')));
   final themeMode = controller.themeMode;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/dummy_data.dart';
 import 'package:trip_pal_null_safe/models/sort_policy.dart';
 
 class TripsController extends GetxController {
@@ -60,7 +59,28 @@ class TripsController extends GetxController {
   }
 
   // Countries page
-  final List<String> cities = dummyCities;
+  final List<String> cities = [
+    'Bangkok',
+    'Paris',
+    'London',
+    'Dubai',
+    'Milan',
+    'Singapore',
+    'Kuala Lumpur',
+    'New York',
+    'Istanbul',
+    'Tokyo',
+    'Antalya',
+    'Seoul',
+    'Osaka',
+    'Makkah',
+    'Phuket',
+    'Pataya',
+    'Barcelona',
+    'Palma De Mallorca',
+    'Bali',
+    'Hong Kong',
+  ];
   List<String> selectedCities = List<String>.empty(growable: true).obs;
   void selectLocs() {
     selectedCities.clear();

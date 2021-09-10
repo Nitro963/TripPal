@@ -38,9 +38,8 @@ class DeviceInfo extends IModel {
     var appName = packageInfo.appName;
     var appVersion = packageInfo.version;
     var buildNumber = packageInfo.buildNumber;
-    // await Firebase.initializeApp();
-    // var t = await FirebaseMessaging.instance.getToken();
-    String fcmToken = '12345678f';
+    await Firebase.initializeApp();
+    var fcmToken = await FirebaseMessaging.instance.getToken() ?? '123456789';
 
     late final String uuid;
     late final String model;

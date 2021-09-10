@@ -1,21 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rxdart/subjects.dart';
+import 'package:recase/recase.dart';
+import 'package:trip_pal_null_safe/models/notification.dart';
 
 // Singleton class for the ease of accessibility in FCM background handler
 class NotificationService {
   final FlutterLocalNotificationsPlugin _flip =
       FlutterLocalNotificationsPlugin();
 
-  // late final BehaviorSubject<Notification> didReceiveLocalNotificationSubject;
-  late final BehaviorSubject<String?> selectNotificationSubject;
   late final NotificationAppLaunchDetails? _notificationAppLaunchDetails;
   NotificationService._internal();
 
   Future<bool?> _initialize() async {
-    // didReceiveLocalNotificationSubject = BehaviorSubject<Notification>();
-    selectNotificationSubject = BehaviorSubject<String?>();
     const AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -54,11 +52,9 @@ class NotificationService {
       // iOS: initializationSettingsIOS,
       // macOS: initializationSettingsMacOS,
     );
-    // selectNotificationSubject.stream.listen(handleSelectItemsNotification);
+
     var ret = await _flip.initialize(initializationSettings,
-        onSelectNotification: (String? payload) async {
-      selectNotificationSubject.add(payload);
-    });
+        onSelectNotification: handlePayload);
     _notificationAppLaunchDetails =
         await _flip.getNotificationAppLaunchDetails();
     return ret;
@@ -89,75 +85,25 @@ class NotificationService {
   Future<void> showPlainNotification(int id, String title, String body,
       {String? payload}) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-            'AutoFactory', 'AutoFactory', 'AutoFactory app channel',
+        AndroidNotificationDetails('TripPal', 'TripPal', 'TripPal app channel',
             importance: Importance.max, priority: Priority.high);
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
-    await _flip.show(id, title, body, platformChannelSpecifics,
+    await _flip.show(id, title.titleCase, body, platformChannelSpecifics,
         payload: payload);
   }
 
-  void onClose() {
-    selectNotificationSubject.close();
-    // didReceiveLocalNotificationSubject.close();
+  Future<void> handlePayload(String? payload) async {
+    print(payload);
+    if (payload != null) {
+      var notification = Notification.fromJson(json.decode(payload));
+      switch (notification.resource) {
+        default:
+          _handleSelectNotification(notification);
+          break;
+      }
+    }
   }
 
-  // void handleSelectItemsNotification(String? payload) async {
-  //   if (payload != null) {
-  //     var notification = Notification.fromJson(json.decode(payload));
-  //     if (notification.resource == 'items') {
-  //       developer.log('Handling payload', name: 'NOTIFICATION_SERVICE');
-  //       Future<Item> buildFetcher() => Get.find<BackendService>()
-  //           .getApiView<Item>(name: 'items')
-  //           .getItem(notification.elementId!);
-  //       if (!(didNotificationLaunchApp)) {
-  //         Get.put(
-  //           FetchController<Item>(buildFetcher, onSuccess: (item) {
-  //             Get.offAllNamed('/home/apps/items');
-  //             Get.dialog(
-  //               IModelDialogGridWidget(
-  //                 id: item.id!,
-  //                 image: item.image!,
-  //                 title: item.name!,
-  //                 total: item.totalCount!,
-  //                 tileIcon: getTileIconFromResource('items'),
-  //                 description: item.description!,
-  //               ),
-  //             );
-  //           }),
-  //         );
-  //         Get.offAll(() {
-  //           return FetchScreen<Item>();
-  //         });
-  //       } else {
-  //         // Notification launched app
-  //         var controller = Get.find<FetchController<void>>();
-  //         void f() {
-  //           controller.hasError = false;
-  //           buildFetcher().then((item) {
-  //             Get.offAllNamed('/home/apps/items');
-  //             Get.dialog(IModelDialogGridWidget(
-  //               id: item.id!,
-  //               image: item.image!,
-  //               title: item.name!,
-  //               total: item.totalCount!,
-  //               tileIcon: getTileIconFromResource('items'),
-  //               description: item.description!,
-  //             ));
-  //             _handledLaunch = true;
-  //           }).onError((error, stacktrace) {
-  //             // TODO handle error codes
-  //             controller.errorModel = describeError(error, () {
-  //               f();
-  //             });
-  //             controller.hasError = true;
-  //           });
-  //         }
-  //
-  //         f();
-  //       }
-  //     }
-  //   }
-  // }
+  Future<void> _handleSelectNotification(Notification notification) async {}
 }

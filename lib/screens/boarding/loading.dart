@@ -20,8 +20,8 @@ class SplashBindings extends Bindings {
           NotificationService.instance.notificationAppLaunchDetails;
       if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
         if (notificationAppLaunchDetails!.payload != null)
-          NotificationService.instance.selectNotificationSubject
-              .add(notificationAppLaunchDetails.payload);
+          NotificationService.instance
+              .handlePayload(notificationAppLaunchDetails.payload);
         else {
           Get.offAllNamed('/home');
         }

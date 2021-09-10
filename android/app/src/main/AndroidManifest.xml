@@ -2,6 +2,7 @@
     package="com.example.trip_pal_null_safe">
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:label="TripPal"
         android:icon="@mipmap/ic_launcher">
@@ -40,6 +41,6 @@
             android:name="flutterEmbedding"
             android:value="2" />
        <meta-data android:name="com.google.android.geo.API_KEY"
-           android:value="AIzaSyAofcX7-hLt7rELPuLQqHPbHaQftDmifb4"/>
+           android:value="AIzaSyC89fHHFZy6TNuHKO_cud75F5N2wcR_HZQ"/>
    </application>
 </manifest>
