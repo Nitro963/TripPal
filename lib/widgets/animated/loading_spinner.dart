@@ -14,7 +14,7 @@ class LoadingSpinner extends StatelessWidget {
           borderRadius: BorderRadius.circular(45),
         ),
         child: SpinKitCircle(
-          color: Get.theme.accentColor,
+          color: Get.theme.colorScheme.secondary,
           size: 60.0,
         ),
       ),

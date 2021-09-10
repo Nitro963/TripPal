@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
-import 'package:trip_pal_null_safe/screens/weather_buddy/places_list.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/smooth_page_indicator/components/effects/expanding_dots_effect.dart';
 import 'package:trip_pal_null_safe/widgets/smooth_page_indicator/smooth_page_indicator.dart';

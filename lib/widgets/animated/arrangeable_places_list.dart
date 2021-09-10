@@ -108,7 +108,7 @@ abstract class ArrangeablePlacesListView
               child: Text(
                 '${index + 1}',
                 style: textTheme.bodyText1!.copyWith(
-                  color: theme.accentColor,
+                  color: theme.colorScheme.primary,
                   fontSize: 16,
                 ),
               ),

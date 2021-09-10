@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 
 class Themes {
   static int get lightMode => 1;
@@ -106,6 +108,11 @@ class Themes {
         color: Color(0xff3d63ff),
       ),
       appBarTheme: AppBarTheme(
+        titleTextStyle: TextStyle(
+            fontFamily: 'Montserrat',
+            fontWeight: FontWeight.w500,
+            color: Color(0xff495057),
+            fontSize: 20),
         actionsIconTheme: IconThemeData(
           color: Color(0xff495057),
         ),
@@ -139,7 +146,7 @@ class Themes {
       dividerColor: Color(0xffd1d1d1),
       errorColor: Color(0xfff0323c),
       cardColor: Colors.white,
-      accentColor: Color(0xff3d63ff),
+      // accentColor: Color(0xff3d63ff),
       popupMenuTheme: PopupMenuThemeData(
         color: Color(0xffffffff),
         textStyle: lightTextTheme.bodyText2!
@@ -182,6 +189,11 @@ class Themes {
         scaffoldBackgroundColor: Color(0xff464c52),
         backgroundColor: Color(0xff464c52),
         appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+              fontSize: 20),
           actionsIconTheme: IconThemeData(
             color: Color(0xffffffff),
           ),
@@ -240,7 +252,7 @@ class Themes {
             focusColor: Color(0xff3d63ff),
             hoverColor: Color(0xff3d63ff),
             foregroundColor: Colors.white),
-        accentColor: Color(0xff3d63ff),
+        // accentColor: Color(0xff3d63ff),
         bottomAppBarTheme:
             BottomAppBarTheme(color: Color(0xff464c52), elevation: 2),
         tabBarTheme: TabBarTheme(

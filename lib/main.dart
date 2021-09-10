@@ -48,7 +48,7 @@ class InitialBindings extends Bindings {
 
 Future<GetMaterialApp> buildApp() async {
   await NotificationService.initialize();
-  await FCMService.initialize();
+  FCMService.initialize();
   final box = GetStorage();
   final controller = Get.put(AppThemeController(box.read('themeMode')));
   final themeMode = controller.themeMode;

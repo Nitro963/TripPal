@@ -18,6 +18,7 @@ class PlacesSearch extends GetView<PlacesSearchViewController> {
     var history = controller.history;
     return Scaffold(
       extendBodyBehindAppBar: false,
+      resizeToAvoidBottomInset: false,
       appBar: _buildAppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,

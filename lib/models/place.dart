@@ -8,18 +8,18 @@ class Place extends IModel {
   double? rating;
   double? lat;
   double? lon;
-  int? type;
-  Place({
-    id,
-    required this.name,
-    required this.country,
-    this.state,
-    this.image,
-    this.rating,
-    this.lat,
-    this.lon,
-    this.type
-  }):super(id); //assert(country.isNotEmpty & name.isNotEmpty);
+  String? type;
+  Place(
+      {id,
+      required this.name,
+      required this.country,
+      this.state,
+      this.image,
+      this.rating,
+      this.lat,
+      this.lon,
+      this.type})
+      : super(id); //assert(country.isNotEmpty & name.isNotEmpty);
 
   bool get hasState => state?.isNotEmpty == true;
 
@@ -28,19 +28,13 @@ class Place extends IModel {
 
   static Place fromJson(dynamic json) {
     final props = json['properties'];
-
     return Place(
-      name: props['name'] ?? '',
-      state: props['state'] ?? '',
-      // country: props['country'] ?? '',
-      image:json['image'],
-      type:json['type'],
-      lat:json['latitude'],
-      lon:json['longitude'],
-      rating: json['guest_rating'],
-      country:json['city_name']
-
-    );
+        name: props['name'] ?? '',
+        state: props['state'] ?? '',
+        country: props['country'] ?? '',
+        type: props['type'],
+        lat: double.parse(json['geometry']['coordinates'][1].toString()),
+        lon: double.parse(json['geometry']['coordinates'][0].toString()));
   }
 
   String get address {
