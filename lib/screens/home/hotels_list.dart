@@ -64,7 +64,7 @@ class HotelsView extends IModelView {
                             style: themeData.textTheme.subtitle1!
                                 .copyWith(fontWeight: FontWeight.w600)),
                       ),
-                      Text("\$${hotel.price}",
+                      Text("${hotel.price}",
                           style: themeData.textTheme.subtitle1!
                               .copyWith(fontWeight: FontWeight.w600))
                     ],

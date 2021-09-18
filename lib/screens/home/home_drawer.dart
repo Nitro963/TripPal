@@ -4,6 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/main_page_controller.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/dialogs/change_theme_dialog.dart';
@@ -30,40 +31,58 @@ class HomeDrawer extends StatelessWidget {
                 style: Get.theme.textTheme.bodyText2!
                     .copyWith(fontWeight: FontWeight.bold)),
           ),
-          if (!Get.find<AuthControl>().isGuest)
             HomeDrawerItem(
                 title: 'Manage account',
                 subTitle: 'Go to your profile',
+                availability: false,
+                needLogin: Get.find<AuthControl>().isGuest,
                 icon: FontAwesomeIcons.solidUserCircle,
                 onTap: () => Get.toNamed('/profile_page/edit')),
           HomeDrawerItem(
-              title: 'Discover Places',
-              subTitle: 'Check Out our Massive Database',
-              icon: FontAwesomeIcons.map,
+              title: 'Saved Places',
+              subTitle: 'Check Out your loved places',
+              availability: false,
+              needLogin: Get.find<AuthControl>().isGuest,
+              icon: FontAwesomeIcons.heart,
               onTap: () => Get.toNamed('/home/places/list')),
           HomeDrawerItem(
             title: 'Address',
             subTitle: 'Add or remove an address',
+            availability: true,
+            needLogin: Get.find<AuthControl>().isGuest,
             icon: Icons.location_on,
             onTap: () {},
           ),
+
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
-            child: Text('Useful Features',
+            child: Text('Useful Services',
                 style: Get.theme.textTheme.bodyText2!
                     .copyWith(fontWeight: FontWeight.bold)),
+          ),
+          HomeDrawerItem(
+            title: 'Dining',
+            subTitle: 'Discover fine dining restaurants',
+            availability: true,
+            needLogin: false,
+            icon: MdiIcons.pizza,
+            onTap: () {},
           ),
           HomeDrawerItem(
             title: 'AI-Assistant',
             subTitle: 'Ask questions to our bot',
             icon: Icons.message,
+            availability: true,
+            needLogin: false,
             // onTap: () => Get.to(Chat()),
           ),
           HomeDrawerItem(
               title: 'Weather Service ',
               subTitle: 'Check the weather condition',
               icon: FontAwesomeIcons.cloudRain,
+              availability: false,
+              needLogin: false,
               onTap: () {
                 Get.toNamed('/weather-buddy');
               }),
@@ -71,22 +90,45 @@ class HomeDrawer extends StatelessWidget {
               title: 'TODO List',
               subTitle: 'Save your notes',
               icon: FontAwesomeIcons.solidCheckCircle,
+              availability: true,
+              needLogin: false,
               onTap: () {}),
-          HomeDrawerItem(
+         Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
+            child: Text('Settings and  legal',
+                style: Get.theme.textTheme.bodyText2!
+                    .copyWith(fontWeight: FontWeight.bold)),
+          ),
+                    HomeDrawerItem(
+            title: 'Language',
+            subTitle: 'Add or remove a language',
+            availability: true,
+            needLogin: false,
+            icon: Icons.language,
+            onTap: () {},
+          ),
+           HomeDrawerItem(
               title: 'Appearance',
               subTitle: 'Try our creative modes',
               icon: FontAwesomeIcons.glasses,
+              availability: false,
+              needLogin: false,
               onTap: () => Get.dialog(SelectThemeDialog())),
           HomeDrawerItem(
             title: 'Privacy policy',
             subTitle: 'See our privacy policies',
             icon: FontAwesomeIcons.lock,
+            availability: true,
+            needLogin: false,
             onTap: () {},
           ),
           HomeDrawerItem(
               title: 'Log out',
               subTitle: 'Return to guest mode',
               icon: Icons.logout,
+              availability: false,
+              needLogin: false,
               onTap: () {
                 logout();
               }
@@ -145,6 +187,7 @@ class CustomDrawerHeader extends GetView<ProfileController> {
               borderRadius: BorderRadius.circular(12.0),
               child: BlendShimmerImage(
                 imageUrl: Get.find<AuthControl>().currentUser!.profilePicture!,
+                boxFit: BoxFit.cover,
                 height: 120,
                 width: 120,
               ),

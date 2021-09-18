@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/animated/growing_icon.dart';
@@ -12,7 +12,7 @@ class PlaceCard extends StatelessWidget {
   const PlaceCard(
       {Key? key, this.onTap, required this.place, required this.activated})
       : super(key: key);
-  final Place2 place;
+  final MapPlace place;
   final void Function()? onTap;
   final bool activated;
   @override
@@ -40,7 +40,7 @@ class PlaceCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        place.name,
+                        place.properties!.name!,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                           fontSize: 19.0,
@@ -53,11 +53,11 @@ class PlaceCard extends StatelessWidget {
                       ),
                       Row(
                         children: <Widget>[
-                          if (place.kinds != null)
-                            for (String kind in place.kinds!.split(' ').take(2))
-                              Tag(
-                                kind: kind,
-                              ),
+                          for (String kind
+                              in place.properties!.kinds!.split(','))
+                            Tag(
+                              kind: kind,
+                            ),
                         ],
                       ),
                     ],
@@ -91,7 +91,7 @@ class PlaceCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${place.distance.round()}m from city center',
+                      '${place.properties!.dist!.round()}m from city center',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 14.0),
                     ),
@@ -124,7 +124,7 @@ class BasicInfo extends StatelessWidget {
     required this.place,
   }) : super(key: key);
 
-  final Place2 place;
+  final MapPlace place;
 
   @override
   Widget build(BuildContext context) {
@@ -150,7 +150,8 @@ class BasicInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  place.kinds!.split(' ')[0].capitalizeFirst! + ' Place',
+                  place.properties!.kinds!.split(',')[0].capitalizeFirst! +
+                      ' Place',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               ],
@@ -161,9 +162,9 @@ class BasicInfo extends StatelessWidget {
           children: <Widget>[
             StarRating(
               starCount: 5,
-              rating: place.guestRating.toDouble() > 5
+              rating: place.properties!.rate!.toDouble() > 5
                   ? 5
-                  : place.guestRating.toDouble(),
+                  : place.properties!.rate!.toDouble(),
               isStatic: true,
               size: 15,
               color: starsActivationColor,

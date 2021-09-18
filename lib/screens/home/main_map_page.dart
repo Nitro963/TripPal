@@ -6,32 +6,21 @@ import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
+import 'package:trip_pal_null_safe/models/location.dart';
+import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
-import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/services/open_trip_map_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
-// TODO update to show nearby places
-class MainMapScreen extends StatefulWidget {
-  @override
-  _MainMapScreenState createState() => _MainMapScreenState();
-}
-
-class _MainMapScreenState extends State<MainMapScreen> {
+class MainMapScreen extends GetView<SearchBarController> {
   final searchBarController = FloatingSearchBarController();
-  SearchBarController get searchController => Get.find<SearchBarController>();
 
   Widget buildSearchBar() {
     final actions = [
       FloatingSearchBarAction.icon(
         showIfOpened: false,
-        icon: Icons.swap_horiz,
-        onTap: () =>
-            searchController.updateMapView(Place2.fromJson(dummyJson[1])),
-      ),
-      FloatingSearchBarAction.icon(
-        showIfOpened: false,
         icon: Icons.my_location,
-        onTap: () => searchController.getMyLocation(),
+        onTap: () => controller.getMyLocation(),
       ),
       FloatingSearchBarAction.searchToClear(
         showIfClosed: false,
@@ -50,9 +39,9 @@ class _MainMapScreenState extends State<MainMapScreen> {
               axisAlignment: 0,
               openAxisAlignment: 0.0,
               actions: actions,
-              progress: searchController.isLoading,
+              progress: controller.isLoading,
               debounceDelay: const Duration(milliseconds: 500),
-              onQueryChanged: searchController.onQueryChanged,
+              onQueryChanged: controller.onQueryChanged,
               transition: CircularFloatingSearchBarTransition(),
               accentColor: Colors.blueAccent,
               builder: (context, _) => buildExpandableBody(),
@@ -71,7 +60,7 @@ class _MainMapScreenState extends State<MainMapScreen> {
         shrinkWrap: true,
         padding: EdgeInsets.zero,
         physics: const NeverScrollableScrollPhysics(),
-        items: searchController.suggestions,
+        items: controller.suggestions,
         areItemsTheSame: (a, b) => a == b,
         itemBuilder: (_, animation, place, i) {
           return SizeFadeTransition(
@@ -96,10 +85,19 @@ class _MainMapScreenState extends State<MainMapScreen> {
       children: [
         InkWell(
           onTap: () {
+            OpenTripMapApi().getLocationId(
+                cityName: place.name,
+                onSuccess: (data) {
+                  controller.updateLatLan(Location.fromJson(data).lat!,
+                      Location.fromJson(data).lon!);
+                },
+                onError: (error) {
+                  print(error);
+                });
             searchBarController.close();
             Future.delayed(
               const Duration(milliseconds: 500),
-              () => searchController.clear(),
+              () => controller.clear(),
             );
           },
           child: Padding(
@@ -110,7 +108,7 @@ class _MainMapScreenState extends State<MainMapScreen> {
                   width: 36,
                   child: AnimatedSwitcher(
                     duration: const Duration(milliseconds: 500),
-                    child: searchController.isHistory
+                    child: controller.isHistory
                         ? Icon(Icons.history,
                             key: Key('history'),
                             color: Get.theme.colorScheme.onSurface)
@@ -142,8 +140,8 @@ class _MainMapScreenState extends State<MainMapScreen> {
             ),
           ),
         ),
-        if (searchController.suggestions.isNotEmpty &&
-            place != searchController.suggestions.last)
+        if (controller.suggestions.isNotEmpty &&
+            place != controller.suggestions.last)
           const Divider(height: 0),
       ],
     );
@@ -156,27 +154,28 @@ class _MainMapScreenState extends State<MainMapScreen> {
         child: Container(
           width: MySize.screenWidth,
           height: MySize.screenHeight,
-          child: GoogleMap(
-            myLocationButtonEnabled: false,
-            trafficEnabled: false,
-            mapToolbarEnabled: false,
-            myLocationEnabled: true,
-            zoomControlsEnabled: false,
-            initialCameraPosition: searchController.cameraPosition,
-            onMapCreated: (controller) {
-              searchController.mapController = controller;
-            },
-            markers: {
-              Marker(
-                  markerId: const MarkerId('marker1'),
-                  infoWindow: InfoWindow(
-                      title: searchController.markerInfoWindowTitle.value),
-                  icon: BitmapDescriptor.defaultMarkerWithHue(
-                      BitmapDescriptor.hueAzure),
-                  position: LatLng(searchController.latitude.value,
-                      searchController.longitude.value))
-            },
-          ),
+          child: Obx(() => GoogleMap(
+                myLocationButtonEnabled: false,
+                trafficEnabled: false,
+                mapToolbarEnabled: false,
+                myLocationEnabled: true,
+                zoomControlsEnabled: false,
+                initialCameraPosition: controller.cameraPosition,
+                onMapCreated: (controllerI) {
+                  controller.mapController = controllerI;
+                },
+                markers: {
+                  for (MapPlace place in controller.mapPlacesList)
+                    Marker(
+                        markerId: const MarkerId('mapPlaceMarker'),
+                        infoWindow: InfoWindow(
+                            title: controller.markerInfoWindowTitle.value),
+                        icon: BitmapDescriptor.defaultMarkerWithHue(
+                            BitmapDescriptor.hueRed),
+                        position: LatLng(place.geometry!.coordinates![1],
+                            place.geometry!.coordinates![0]))
+                },
+              )),
         ),
       ),
     );

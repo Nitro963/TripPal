@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class RoundedNavBar extends StatelessWidget {
   const RoundedNavBar(
@@ -18,11 +19,11 @@ class RoundedNavBar extends StatelessWidget {
     return Stack(
       children: [
         CustomPaint(
-            size: Size(size.width, 80), painter: BNBCustomPainter(this.color)),
+            size: Size(MySize.screenWidth,  MySize.getScaledSizeHeight(80),), painter: BNBCustomPainter(this.color)),
        
         Container(
           width: size.width,
-          height: 80,
+          height: MySize.getScaledSizeHeight(80),
           color: Colors.transparent,
           child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -84,7 +85,7 @@ class RoundedNavBarItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(iconData, size: 20.0, color: itemColor),
+            Icon(iconData, size: 18.0, color: itemColor),
             SizedBox(height: 4.0),
             Text(label, style: textStyle)
           ],

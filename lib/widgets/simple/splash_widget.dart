@@ -12,19 +12,20 @@ class SplashWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Stack(
+        // mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            child: Image.asset(
-              'assets/images/logo.png',
-              width: MySize.getScaledSizeWidth(120),
-              height: MySize.getScaledSizeHeight(120),
+          Center(
+            child: Container(
+              child: Image.asset(
+                'assets/images/trip_pal_logo.png',
+                width: MySize.getScaledSizeWidth(250),
+                height: MySize.getScaledSizeHeight(250),
+              ),
             ),
-            margin: Spacing.only(bottom: 18, left: 32),
           ),
           Container(
-            margin: Spacing.left(28),
+            margin: Spacing.only(top: 400),
             child: SpinKitThreeBounce(
                 color: Get.theme.colorScheme.onBackground, size: MySize.size34),
           ),

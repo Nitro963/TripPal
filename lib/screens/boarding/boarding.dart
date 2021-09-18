@@ -35,20 +35,20 @@ class BoardingController extends GetxController {
           subTitle: 'Plan your',
           description:
               "Search and try the best trip plan's, you can plan your own trip too; with the help of the best artificial intelligence technologies. Our search engine help you to find all places around the world as well as create a dynamic map for your own trip.",
-          imagePath: 'assets/images/trip_.jpg'),
+          imagePath: 'assets/images/Small Widget Images/trip_ob3.jpg'),
       BoardingModel(
         subTitle: 'Book your',
         title: 'HOTEL',
         description:
             "Search and find the best hotels around the world by using our search engine, with a high degree of filtering and customization. Share your experiences with the hotels you visited and let other users benefit from it",
-        imagePath: 'assets/images/2.jpg',
+        imagePath: 'assets/images/Small Widget Images/trip_ob.jpg',
       ),
       BoardingModel(
         subTitle: 'Share your',
         title: 'experience',
         description:
             "Share the best moments of your travels with other users, give your opinion of the hotels and places you visited. Share your trips plans on the newsfeed page and let other users try it out and rate your planning taste.",
-        imagePath: 'assets/images/1.jpg',
+        imagePath: 'assets/images/Small Widget Images/trip_ob2.jpg',
       )
     ]);
   }
@@ -111,17 +111,16 @@ class BoardingScreen extends GetView<BoardingController> {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                   child: Container(
-                    height: 100.0,
+                    height: MySize.getScaledSizeHeight(80),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(18.0),
                       color: Colors.white.withOpacity(0.0),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 40.0, horizontal: 30.0),
+                      padding: Spacing.horizontal(34),
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           SmoothPageIndicator(
@@ -143,7 +142,7 @@ class BoardingScreen extends GetView<BoardingController> {
                                     ? 'GET STARTED'
                                     : 'NEXT',
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 18.0,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white.withOpacity(0.6),
                                 ),
@@ -156,7 +155,16 @@ class BoardingScreen extends GetView<BoardingController> {
                   ),
                 ),
               ),
-            )
+            ),
+            Positioned(
+                right: MySize.size10,
+                child: SafeArea(
+                    child: TextButton(
+                        onPressed: () => Get.offAllNamed('/login'),
+                        child: Text(
+                          'Skip',
+                          style: Get.theme.textTheme.subtitle2,
+                        ))))
           ],
         ),
       ),

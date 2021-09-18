@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
+import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
-import 'package:trip_pal_null_safe/models/place2.dart';
 import 'package:trip_pal_null_safe/models/place_type.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/services/geocoding_service.dart';
@@ -81,11 +81,11 @@ class SearchBarController extends GetxController {
     updateCameraPosition();
   }
 
-  void updateMapView(Place2 newPlace) {
-    print(newPlace.name);
-    latitude.value = newPlace.coordinate!.lat;
-    longitude.value = newPlace.coordinate!.lon;
-    markerInfoWindowTitle.value = newPlace.name;
+  void updateMapView(MapPlace newPlace) {
+    print(newPlace.properties!.name);
+    latitude.value = newPlace.geometry!.coordinates![0];
+    longitude.value = newPlace.geometry!.coordinates![1];
+    markerInfoWindowTitle.value = newPlace.properties!.name!;
     updateCameraPosition();
   }
 
@@ -141,6 +141,12 @@ class SearchBarController extends GetxController {
   void updateSelectedType(String newType) => _selectedType.value = newType;
   void updateSelectedSubtype(String newSubType) =>
       _selectedSubtype.value = newSubType;
+
+  RxList<MapPlace> mapPlacesList = List<MapPlace>.empty(growable: true).obs;
+  void updatemapPlacesList(values) {
+    mapPlacesList.clear();
+    mapPlacesList.addAll(values);
+  }
 }
 
 List<Place> history = [

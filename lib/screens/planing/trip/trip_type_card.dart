@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class TripTypeCard extends StatelessWidget {
   const TripTypeCard({
@@ -24,32 +25,30 @@ class TripTypeCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(8),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 9, sigmaY: 9),
+              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 12),
               child: Container(
-                padding: EdgeInsets.all(15.0),
-                height: 160.0,
+                padding: Spacing.all(10),
+                height: MySize.getScaledSizeHeight(160),
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
+                  borderRadius: BorderRadius.circular(6.0),
                   color: Get.theme.backgroundColor.withOpacity(0.4),
                 ),
                 child: Row(
                   children: <Widget>[
                     Container(
-                      height: 150.0,
-                      width: 130.0,
+                      height: MySize.getScaledSizeHeight(150),
+                      width: MySize.getScaledSizeWidth(140),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
+                          borderRadius: BorderRadius.circular(6.0),
                           image: DecorationImage(
                             image: AssetImage(img),
                             fit: BoxFit.cover,
                           )),
                     ),
-                    SizedBox(
-                      width: 15.0,
-                    ),
+                    SizedBox(width: MySize.size16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,9 +66,7 @@ class TripTypeCard extends StatelessWidget {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          SizedBox(
-                            height: 12.0,
-                          ),
+                          SizedBox(height: MySize.size12),
                           Flexible(
                             flex: 1,
                             child: Text(

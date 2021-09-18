@@ -27,6 +27,7 @@ class FetchScreen<T> extends GetView<FetchController<T>> {
   Widget build(BuildContext context) {
     MySize.init(context);
     return Scaffold(
+      backgroundColor: Color(0xff19062C) ,
       body: Obx(() => !controller.hasError
           ? SplashWidget()
           : Center(child: buildErrorContent(controller.errorModel!))),

@@ -53,12 +53,18 @@ dependencies:
   firebase_messaging: ^10.0.7
   flutter_local_notifications: ^8.2.0
   timeago: ^3.1.0
+  syncfusion_flutter_datepicker: ^19.2.62
+  flutter_native_splash: ^1.2.3
 #  webview_flutter: ^2.0.12
-
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#19062C"
+  image: assets/images/trip_pal_logo.png
+  android: true
 
 flutter:
   uses-material-design: true

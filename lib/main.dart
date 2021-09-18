@@ -14,6 +14,7 @@ import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/services/weather_service.dart';
 
 import 'controllers/app_theme_controller.dart';
+import 'controllers/search_bar_controller.dart';
 import 'controllers/trips_list_controller.dart';
 
 void main() async {
@@ -43,6 +44,7 @@ class InitialBindings extends Bindings {
     Get.lazyPut(() => BackendService());
     Get.lazyPut(() => AuthControl());
     Get.lazyPut(() => TripsListController());
+    Get.lazyPut(() => SearchBarController());
   }
 }
 

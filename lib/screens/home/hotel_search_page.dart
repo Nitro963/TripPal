@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -41,62 +43,70 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                         style: themeData.textTheme.headline5!
                             .copyWith(color: Colors.white)),
                   ),
-                  Container(
-                    margin: Spacing.symmetric(horizontal: 20, vertical: 30),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: themeData.cardColor.withOpacity(0.86),
-                    ),
-                    padding:
-                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-                    child: Form(
-                      key: controller.key,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          buildCityFormField(),
-                          buildDateTimeFormField(themeData, context),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              buildDropdownButtonFormField(
-                                'Adults',
-                                '2',
-                                Icons.person,
-                                (int? val) {
-                                  controller.adults = val!;
-                                },
-                                Spacing.horizontal(5),
-                              ),
-                              buildDropdownButtonFormField(
-                                  'Children', '2', MdiIcons.humanMaleChild,
-                                  (int? val) {
-                                controller.children = val!;
-                              }, Spacing.only(right: 2)),
-                            ]
-                                .map(
-                                  (e) => Container(
-                                      margin: Spacing.only(bottom: 10),
-                                      width: MySize.getScaledSizeWidth(150),
-                                      child: e),
-                                )
-                                .toList(),
-                          ),
-                          Container(
-                            margin: Spacing.only(bottom: 10),
-                            width: MySize.getScaledSizeWidth(150),
-                            child: buildDropdownButtonFormField(
-                              'Rooms',
-                              '2',
-                              MdiIcons.door,
-                              (int? val) {
-                                controller.rooms = val!;
-                              },
-                              Spacing.horizontal(5),
+                  Padding(
+                    padding: Spacing.symmetric(horizontal: 20, vertical: 30),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                        child: Container(
+                          decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(6.0),
+                        color: Get.theme.backgroundColor.withOpacity(0.64),
+                ),
+                          padding:
+                              EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+                          child: Form(
+                            key: controller.key,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                buildCityFormField(),
+                                buildDateTimeFormField(themeData, context),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    buildDropdownButtonFormField(
+                                      'Adults',
+                                      '2',
+                                      Icons.person,
+                                      (int? val) {
+                                        controller.adults = val!;
+                                      },
+                                      Spacing.horizontal(5),
+                                    ),
+                                    buildDropdownButtonFormField(
+                                        'Children', '2', MdiIcons.humanMaleChild,
+                                        (int? val) {
+                                      controller.children = val!;
+                                    }, Spacing.only(right: 2)),
+                                  ]
+                                      .map(
+                                        (e) => Container(
+                                            margin: Spacing.only(bottom: 10),
+                                            width: MySize.getScaledSizeWidth(150),
+                                            child: e),
+                                      )
+                                      .toList(),
+                                ),
+                                Container(
+                                  margin: Spacing.only(bottom: 10),
+                                  width: MySize.getScaledSizeWidth(150),
+                                  child: buildDropdownButtonFormField(
+                                    'Rooms',
+                                    '2',
+                                    MdiIcons.door,
+                                    (int? val) {
+                                      controller.rooms = val!;
+                                    },
+                                    Spacing.horizontal(5),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ),

@@ -2,7 +2,7 @@ import 'dart:collection';
 import 'dart:developer' as dev;
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
-import 'package:trip_pal_null_safe/models/place2.dart';
+import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
@@ -20,9 +20,9 @@ class ProfileController extends DetailsController {
   // TODO read from server
   // String imgPath = 'https://loremflickr.com/320/320/person?random=86';
 
-  List<Place2> userSavedPlaces = List<Place2>.empty(growable: true);
+  List<MapPlace> userSavedPlaces = List<MapPlace>.empty(growable: true);
   // List<Hotel> availableHotels = List<Hotel>.empty(growable: true);
-  List<Place2> placeSearchResult = List<Place2>.empty(growable: true);
+  List<MapPlace> placeSearchResult = List<MapPlace>.empty(growable: true);
   List<Trip> usertrips = List<Trip>.empty(growable: true);
   @override
   void onInit() {
@@ -39,7 +39,7 @@ class ProfileController extends DetailsController {
     //       ));
     // }
     for (var place in dummyJson) {
-      userSavedPlaces.add(Place2.fromJson(place));
+      userSavedPlaces.add(MapPlace.fromJson(place));
     }
     // for (var hotel in dummyHotels) {
     //   availableHotels.add(Place.fromJson(hotel));
@@ -47,7 +47,7 @@ class ProfileController extends DetailsController {
     int c = 0;
     for (var place in dummyJson) {
       if (c == 3) break;
-      placeSearchResult.add(Place2.fromJson(place));
+      placeSearchResult.add(MapPlace.fromJson(place));
       c++;
     }
     super.onInit();
@@ -74,6 +74,6 @@ class ProfileController extends DetailsController {
     }
   }
 
-  UnmodifiableListView<Place2> get suggestions =>
+  UnmodifiableListView<MapPlace> get suggestions =>
       UnmodifiableListView(placeSearchResult);
 }

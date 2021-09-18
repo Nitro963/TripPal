@@ -29,6 +29,15 @@ class TripsController extends GetxController {
     'Architecture',
   ].obs;
 
+  final List<String> _quality = [
+    'Most Visited',
+    'Top Rated',
+    'Cheapest',
+    'Most expensive',
+    'Popular'
+
+  ].obs;
+
   bool visible = false;
 
   RxBool foodsChecked = false.obs;
@@ -47,7 +56,7 @@ class TripsController extends GetxController {
   RxDouble selectedGuestRating = 5.0.obs;
 
   List<String> get placeType => this._types;
-
+  List<String> get placesQuality => this._quality;
   final List<RxString> tripModes = ["Extended Trip".obs, "Focused Trip".obs];
 
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
@@ -97,6 +106,7 @@ class TripsController extends GetxController {
       if (placesContentCheck[element]!.value) selectedTypes.add(element);
     });
   }
+
 
   List<SortPolicy> get sortPolices => [
         SortPolicy('Most Resent', '', 1, 'most_resent'),

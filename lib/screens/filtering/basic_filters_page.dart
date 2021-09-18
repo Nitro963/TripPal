@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
@@ -43,7 +45,7 @@ class FiltersPage extends GetView<TripsController> {
                       backButton: true,
                       title: 'Tell us your preferences',
                       subTitle:
-                          'And we will help to build best trips special for you'),
+                          'And we\'ll customize a trip plan especially for you.'),
                   Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
@@ -64,9 +66,9 @@ class FiltersPage extends GetView<TripsController> {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
-                  FilterSubTitle(filterName: 'Place Types'),
+                  FilterSubTitle(filterName: 'Attraction Place types'),
                   Container(
-                      height: 50.0,
+                      height: MySize.getScaledSizeHeight(52),
                       child: ListView.builder(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -86,14 +88,37 @@ class FiltersPage extends GetView<TripsController> {
                                           .toggle()),
                                 ));
                           })),
+                  FilterSubTitle(filterName: 'Places Quality'),
+                  Container(
+                      height: MySize.getScaledSizeHeight(52),
+                      child: ListView.builder(
+                          physics: BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: controller.placesQuality.length,
+                          itemBuilder: (ctx, i) {
+                            var quality = controller.placesQuality[i];
+                            return Padding(
+                              padding:
+                                  i == 0 ? Spacing.left(20) : EdgeInsets.zero,
+                              child: RoundedGestWidget(
+                                  title: quality,
+                                  selected: false,
+                                  onTap: () {}),
+                            );
+                          })),
                   FilterSubTitle(filterName: 'Tourist Facilities'),
                   FilterCheckBox(
-                      title: 'Foods & Drinks Included',
+                      title: 'Include Foods & Drinks',
                       icon: Icon(Icons.check, color: Colors.white, size: 18.0),
                       isChecked: controller.foodsChecked.value,
                       onTap: (selected) => controller.foodsChecked.toggle()),
                   FilterCheckBox(
-                      title: 'Shopping Included',
+                      title: 'Include Shopping',
+                      icon: Icon(Icons.check, color: Colors.white, size: 18.0),
+                      isChecked: controller.shopsChecked.value,
+                      onTap: (selected) => controller.shopsChecked.toggle()),
+                  FilterCheckBox(
+                      title: 'Include Amusement Parks',
                       icon: Icon(Icons.check, color: Colors.white, size: 18.0),
                       isChecked: controller.shopsChecked.value,
                       onTap: (selected) => controller.shopsChecked.toggle()),
@@ -111,16 +136,41 @@ class FiltersPage extends GetView<TripsController> {
                       value: controller.tripModes[1].value,
                       onChanged: (value) =>
                           controller.onClickRadioButton(value))),
-                  FilterSubTitle(filterName: 'Days Per City'),
+                  // todo: add the third type of trips 'work trip'.
+                  FilterSubTitle(filterName: 'Tour duration per day'),
                   Obx(() => FiltersSlider(
                       count: controller.daysCount.value,
-                      label: ' days',
-                      divisions: 13,
-                      maxLabel: '2 weeks',
-                      minLabel: '3 days',
-                      maxRange: 14,
+                      label: ' hours per day',
+                      divisions: 15,
+                      maxLabel: '16 hours',
+                      minLabel: 'An hours',
+                      maxRange: 16,
                       onChanged: (newValue) =>
                           controller.daysCount.value = newValue)),
+                  FilterSubTitle(filterName: 'Trip Duration'),
+                  Container(
+                    margin: Spacing.horizontal(20),
+                    decoration: BoxDecoration(
+                        color: Get.theme.cardColor,
+                        border: Border.all(color: Colors.grey[200]!),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: SfDateRangePicker(
+                      minDate: DateTime.now(),
+                      maxDate: DateTime.now().add(const Duration(days: 14)),
+                      startRangeSelectionColor: Get.theme.toggleableActiveColor,
+                      endRangeSelectionColor: Get.theme.toggleableActiveColor,
+                      rangeSelectionColor:
+                          Get.theme.toggleableActiveColor.withOpacity(0.3),
+                      todayHighlightColor: Get.theme.toggleableActiveColor,
+                      selectionColor: Get.theme.toggleableActiveColor,
+                      // onSelectionChanged: controller.onSelectionChanged,
+                      selectionMode: DateRangePickerSelectionMode.range,
+                      initialSelectedRange: PickerDateRange(
+                          DateTime.now().add(const Duration(days: 1)),
+                          DateTime.now().add(const Duration(days: 8))),
+                    ),
+                  ),
+
                   RoundedButton(
                       title: 'MAKE TRIP',
                       icon: Icon(FontAwesomeIcons.solidSave,

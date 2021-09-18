@@ -15,6 +15,7 @@ import 'package:trip_pal_null_safe/screens/details/place_details.dart';
 import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
 import 'package:trip_pal_null_safe/screens/filtering/locations_page.dart';
+import 'package:trip_pal_null_safe/screens/filtering/manual_filters.dart';
 import 'package:trip_pal_null_safe/screens/home/blog_list.dart';
 import 'package:trip_pal_null_safe/screens/home/hotels_list.dart';
 import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
@@ -78,6 +79,19 @@ List<GetPage> pages = [
   GetPage(
     name: '/home/trips/auto',
     page: () => LocationsPage(),
+    middlewares: [GlobalMiddleWare()],
+    binding: BindingsBuilder.put(() => TripsController()),
+  ),
+  
+  GetPage(
+    name: '/home/trips/search',
+    page: () => PlacesSearchPage(),
+    middlewares: [GlobalMiddleWare()],
+    binding: BindingsBuilder.put(() => SearchBarController()),
+  ),
+  GetPage(
+    name: '/home/trips/manual',
+    page: () => ManualFilterPage(),
     middlewares: [GlobalMiddleWare()],
     binding: BindingsBuilder.put(() => TripsController()),
   ),

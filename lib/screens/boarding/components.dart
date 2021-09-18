@@ -15,7 +15,7 @@ class BoardingPage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(data.imagePath),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         child: SafeArea(
@@ -41,7 +41,7 @@ class BoardingPage extends StatelessWidget {
                     data.title,
                     style: TextStyle(
                         fontSize: 70.0,
-                        color: Colors.white.withOpacity(0.60),
+                        color: Colors.white.withOpacity(0.70),
                         fontFamily: 'Bebas'),
                   ),
                   SizedBox(
@@ -53,7 +53,7 @@ class BoardingPage extends StatelessWidget {
                       data.description,
                       style: TextStyle(
                           fontSize: 20.0,
-                          color: Colors.white.withOpacity(0.60),
+                          color: Colors.white.withOpacity(0.78),
                           fontFamily: 'Lato'),
                     ),
                   ),
