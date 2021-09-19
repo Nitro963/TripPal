@@ -11,6 +11,9 @@ class TripsController extends GetxController {
 
   @override
   void onInit() {
+    for (var quality in _quality) {
+      qualityContentCheck[quality] = false.obs;
+    }
     for (var type in _types) {
       placesContentCheck[type] = false.obs;
       contentValues[type] = 5.0.obs;
@@ -35,8 +38,16 @@ class TripsController extends GetxController {
     'Cheapest',
     'Most expensive',
     'Popular'
-
   ].obs;
+
+  RxString selectedQuality = ''.obs;
+  void selectQuality(String value) {
+    selectedQuality.value = value;
+    qualityContentCheck.keys.forEach((element) {
+      if (element != value) qualityContentCheck[element]!.value = false;
+      else qualityContentCheck[element]!.value = true;
+    });
+  }
 
   bool visible = false;
 
@@ -47,7 +58,7 @@ class TripsController extends GetxController {
   Map<String, RxDouble> contentValues = Map<String, RxDouble>();
 
   RxDouble daysCount = 3.0.obs;
-
+  RxDouble budget = 2.0.obs;
   RxDouble placesPerDay = 3.0.obs;
   RxDouble foods = 2.0.obs;
   RxDouble shops = 2.0.obs;
@@ -57,12 +68,17 @@ class TripsController extends GetxController {
 
   List<String> get placeType => this._types;
   List<String> get placesQuality => this._quality;
-  final List<RxString> tripModes = ["Extended Trip".obs, "Focused Trip".obs];
+  final List<RxString> tripModes = [
+    "Standard Trip".obs,
+    "Extended Trip".obs,
+    "Focused Trip".obs,
+    "Work Trip".obs,
+  ];
 
   final GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
 
-  RxString tripMode = 'Extended Trip'.obs;
+  RxString tripMode = 'Standard Trip'.obs;
   void onClickRadioButton(value) {
     tripMode.value = value;
   }
@@ -90,12 +106,14 @@ class TripsController extends GetxController {
     'Bali',
     'Hong Kong',
   ];
-  List<String> selectedCities = List<String>.empty(growable: true).obs;
+  RxList<String> selectedCities = List<String>.empty(growable: true).obs;
   void selectLocs() {
     selectedCities.clear();
     for (String city in locsContentCheck.keys)
       if (locsContentCheck[city] == true.obs) selectedCities.add(city);
   }
+
+  Map<String, RxBool> qualityContentCheck = Map<String, RxBool>();
 
   //Advanced Filters Page
   Map<String, RxBool> placesContentCheck = Map<String, RxBool>();
@@ -106,7 +124,6 @@ class TripsController extends GetxController {
       if (placesContentCheck[element]!.value) selectedTypes.add(element);
     });
   }
-
 
   List<SortPolicy> get sortPolices => [
         SortPolicy('Most Resent', '', 1, 'most_resent'),
@@ -149,6 +166,14 @@ class TripsController extends GetxController {
   RxBool closeHeader = false.obs;
 
   RxDouble topContainer = 0.0.obs;
+
+  List<String> getSelectedCities() {
+    List<String> result = List<String>.empty(growable: true);
+    locsContentCheck.entries.forEach((element) {
+      result.addIf(element.value.value, element.key);
+    });
+    return result;
+  }
 
   Map<String, dynamic> serializePreferences() {
     var locations = List<String>.empty(growable: true);

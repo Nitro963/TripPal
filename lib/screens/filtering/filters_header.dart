@@ -12,7 +12,7 @@ class FilterSubTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
+      padding: Spacing.only(left: 20,top: 20,bottom: 10),
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(

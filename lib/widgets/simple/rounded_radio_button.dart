@@ -34,8 +34,7 @@ class RoundedRadioButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(value,
-                      style: Get.theme.textTheme.subtitle2!
-                          .copyWith(fontSize: 19.0)),
+                      style: Get.theme.textTheme.bodyText2!.copyWith(fontSize: 16.0)),
                           SizedBox(height: 2.0),
                   description != null
                       ? FittedBox(
@@ -43,14 +42,15 @@ class RoundedRadioButton extends StatelessWidget {
                         child: Text(description!,
                             overflow: TextOverflow.ellipsis,
                             style: Get.theme.textTheme.bodyText2!.copyWith(
-                                color: Get.theme.colorScheme.onBackground)),
+                              fontSize: 12,
+                                color: Get.theme.colorScheme.onBackground.withOpacity(0.7))),
                       )
                       : SizedBox(),
                 ],
               ),
             ),
             Transform.scale(
-              scale: 1.4,
+              scale: 1.2,
               child: Radio(
                   value: value, groupValue: groupValue, onChanged: onChanged),
             ),

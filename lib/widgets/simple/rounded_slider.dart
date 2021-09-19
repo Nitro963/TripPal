@@ -34,7 +34,7 @@ class FiltersSlider extends StatelessWidget {
                 divisions: divisions,
                 onChanged: onChanged)),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 26.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

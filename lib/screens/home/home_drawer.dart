@@ -31,13 +31,13 @@ class HomeDrawer extends StatelessWidget {
                 style: Get.theme.textTheme.bodyText2!
                     .copyWith(fontWeight: FontWeight.bold)),
           ),
-            HomeDrawerItem(
-                title: 'Manage account',
-                subTitle: 'Go to your profile',
-                availability: false,
-                needLogin: Get.find<AuthControl>().isGuest,
-                icon: FontAwesomeIcons.solidUserCircle,
-                onTap: () => Get.toNamed('/profile_page/edit')),
+          HomeDrawerItem(
+              title: 'Manage account',
+              subTitle: 'Go to your profile',
+              availability: false,
+              needLogin: Get.find<AuthControl>().isGuest,
+              icon: FontAwesomeIcons.solidUserCircle,
+              onTap: () => Get.toNamed('/profile_page/edit')),
           HomeDrawerItem(
               title: 'Saved Places',
               subTitle: 'Check Out your loved places',
@@ -53,7 +53,6 @@ class HomeDrawer extends StatelessWidget {
             icon: Icons.location_on,
             onTap: () {},
           ),
-
           Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
@@ -93,14 +92,14 @@ class HomeDrawer extends StatelessWidget {
               availability: true,
               needLogin: false,
               onTap: () {}),
-         Padding(
+          Padding(
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 14.0),
             child: Text('Settings and  legal',
                 style: Get.theme.textTheme.bodyText2!
                     .copyWith(fontWeight: FontWeight.bold)),
           ),
-                    HomeDrawerItem(
+          HomeDrawerItem(
             title: 'Language',
             subTitle: 'Add or remove a language',
             availability: true,
@@ -108,7 +107,7 @@ class HomeDrawer extends StatelessWidget {
             icon: Icons.language,
             onTap: () {},
           ),
-           HomeDrawerItem(
+          HomeDrawerItem(
               title: 'Appearance',
               subTitle: 'Try our creative modes',
               icon: FontAwesomeIcons.glasses,
@@ -178,18 +177,18 @@ class CustomDrawerHeader extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     return DrawerHeader(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(14.0)),
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(10.0)),
       ),
       child: Row(
         children: <Widget>[
           Flexible(
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(12.0),
+              borderRadius: BorderRadius.circular(10.0),
               child: BlendShimmerImage(
                 imageUrl: Get.find<AuthControl>().currentUser!.profilePicture!,
                 boxFit: BoxFit.cover,
-                height: 120,
-                width: 120,
+                height: MySize.getScaledSizeHeight(120),
+                width: MySize.getScaledSizeWidth(120),
               ),
             ),
           ),
@@ -237,21 +236,36 @@ class ProfileMiniInfo extends StatelessWidget {
                 children: <Widget>[
                   InfoItem(
                     title: 'Plans',
-                    count: 7,
+                    count: Get.find<AuthControl>()
+                            .currentUser!
+                            .name
+                            .contains('Guest')
+                        ? 0
+                        : 7,
                   ),
                   SizedBox(
                     width: 6.0,
                   ),
                   InfoItem(
                     title: 'Reviews',
-                    count: 16,
+                    count: Get.find<AuthControl>()
+                            .currentUser!
+                            .name
+                            .contains('Guest')
+                        ? 0
+                        : 11,
                   ),
                   SizedBox(
                     width: 6.0,
                   ),
                   InfoItem(
                     title: 'Blogs',
-                    count: 10,
+                    count: Get.find<AuthControl>()
+                            .currentUser!
+                            .name
+                            .contains('Guest')
+                        ? 0
+                        : 4,
                   ),
                 ],
               ),

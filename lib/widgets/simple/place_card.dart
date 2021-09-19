@@ -51,14 +51,18 @@ class PlaceCard extends StatelessWidget {
                       SizedBox(
                         height: 8.0,
                       ),
-                      Row(
-                        children: <Widget>[
-                          for (String kind
-                              in place.properties!.kinds!.split(','))
-                            Tag(
-                              kind: kind,
-                            ),
-                        ],
+                      Container(
+                        height: MySize.getScaledSizeHeight(35),
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: <Widget>[
+                            for (String kind
+                                in place.properties!.kinds!.split(','))
+                              Tag(
+                                kind: kind,
+                              ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

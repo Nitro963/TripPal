@@ -27,7 +27,7 @@ class OpenTripMapApi {
   }) {
     ApiRequest(
         url: "https://api.opentripmap.com/0.1/en/places/radius?",
-        data: {'radius': radius, 'lon' : lon, 'lat' : lat, 'kinds': 'foods', 'apikey': apiKey}).get(
+        data: {'radius': radius, 'lon' : lon, 'lat' : lat, 'kinds': kinds, 'rate':'2','apikey': apiKey}).get(
       onSuccess: (data) {
         print(data);
         onSuccess!((data['features'] as List).map((mapPlace) => MapPlace.fromJson(mapPlace))

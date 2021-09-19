@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,14 +21,15 @@ class RoundedGestWidget extends StatelessWidget {
         splashColor: Colors.transparent,
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
+          padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18.0),
+            borderRadius: BorderRadius.circular(10.0),
             border: Border.all(
                 color: !selected ? Colors.grey[100]! : Colors.grey[200]!),
             color:
                 !selected ? Get.theme.cardColor : Get.theme.colorScheme.surface,
           ),
+          // alignment: Alignment.center,
           child: Text(title,
               textAlign: TextAlign.center,
               style: Get.theme.textTheme.subtitle2!.copyWith(

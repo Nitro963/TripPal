@@ -85,7 +85,6 @@ class PlacesSearchPage extends GetView<SearchBarController> {
       children: [
         InkWell(
           onTap: () {
-
             OpenTripMapApi().getLocationId(
                 cityName: place.name,
                 onSuccess: (data) {
@@ -173,9 +172,11 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                       Marker(
                           markerId: const MarkerId('marker1'),
                           infoWindow: InfoWindow(
-                              title: controller.markerInfoWindowTitle.value),
+                              title: controller.markerInfoWindowTitle.value,
+                              snippet:
+                                  '${controller.markerInfoSnip.value.capitalizeFirst} Place'),
                           icon: BitmapDescriptor.defaultMarkerWithHue(
-                              BitmapDescriptor.hueAzure),
+                              BitmapDescriptor.hueRed),
                           position: LatLng(controller.latitude.value,
                               controller.longitude.value))
                     },
@@ -218,10 +219,8 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                                       lat: controller.latitude.value,
                                       lon: controller.longitude.value,
                                       radius: 1000000,
-                                      kinds: e,
+                                      kinds: OpenTripMapTrueLabels[e]!,
                                       onSuccess: (data) {
-                                        print(controller.latitude);
-                  print(controller.longitude);
                                         controller.updatemapPlacesList(data);
                                       },
                                       onError: (error) {
@@ -230,10 +229,10 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                                 }))
                       ],
                     ))),
-            Obx(() => controller.selectedSubtype.length > 0
+            Obx(() => controller.mapPlacesList.length > 0
                 ? Divider(color: Colors.blueGrey[200])
                 : SizedBox()),
-            Obx(() => controller.selectedSubtype.length > 0
+            Obx(() => controller.mapPlacesList.length > 0
                 ? Expanded(
                     child: ListView(
                       children: <Widget>[
@@ -246,7 +245,18 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                       ],
                     ),
                   )
-                : SizedBox()),
+                : Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.place, size: 40),
+                          Text('No ${controller.selectedSubtype} Places!')
+                        ],
+                      ),
+                    ),
+                  )),
           ],
         ),
       ),

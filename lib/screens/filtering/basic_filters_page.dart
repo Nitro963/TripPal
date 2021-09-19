@@ -100,44 +100,60 @@ class FiltersPage extends GetView<TripsController> {
                             return Padding(
                               padding:
                                   i == 0 ? Spacing.left(20) : EdgeInsets.zero,
-                              child: RoundedGestWidget(
+                              child: Obx(()=>RoundedGestWidget(
                                   title: quality,
-                                  selected: false,
-                                  onTap: () {}),
-                            );
+                                  selected: controller.qualityContentCheck[quality]!.value,
+                                  onTap: () => controller.selectQuality(quality)
+                                          ),
+                            ));
                           })),
                   FilterSubTitle(filterName: 'Tourist Facilities'),
                   FilterCheckBox(
-                      title: 'Include Foods & Drinks',
-                      icon: Icon(Icons.check, color: Colors.white, size: 18.0),
+                      title: 'Dining included.',
+                      description: 'From cafes to fine dining and dast foods.',
                       isChecked: controller.foodsChecked.value,
                       onTap: (selected) => controller.foodsChecked.toggle()),
                   FilterCheckBox(
-                      title: 'Include Shopping',
-                      icon: Icon(Icons.check, color: Colors.white, size: 18.0),
+                      title: 'Shopping included',
+                      description: 'Malls, outdoors pazars and supermarkets.',
                       isChecked: controller.shopsChecked.value,
                       onTap: (selected) => controller.shopsChecked.toggle()),
                   FilterCheckBox(
-                      title: 'Include Amusement Parks',
-                      icon: Icon(Icons.check, color: Colors.white, size: 18.0),
+                      title: 'Amusements included',
+                      description: 'Pools, amusement parks and so on.',
                       isChecked: controller.shopsChecked.value,
                       onTap: (selected) => controller.shopsChecked.toggle()),
                   FilterSubTitle(filterName: 'Trip Mode'),
                   Obx(() => RoundedRadioButton(
-                      description: 'Visit as much as possible places',
+                      description: 'Usual Tourism tour, visit about 5 places per day',
                       groupValue: controller.tripMode.value,
                       value: controller.tripModes[0].value,
+                      onChanged: (value) =>
+                          controller.onClickRadioButton(value))),
+                  Obx(() => RoundedRadioButton(
+                      description: 'Visit as much as possible places',
+                      groupValue: controller.tripMode.value,
+                      value: controller.tripModes[1].value,
                       onChanged: (value) =>
                           controller.onClickRadioButton(value))),
                   Obx(() => RoundedRadioButton(
                       description:
                           'Visit couple places and really get to explore them',
                       groupValue: controller.tripMode.value,
-                      value: controller.tripModes[1].value,
+                      value: controller.tripModes[2].value,
                       onChanged: (value) =>
                           controller.onClickRadioButton(value))),
-                  // todo: add the third type of trips 'work trip'.
-                  FilterSubTitle(filterName: 'Tour duration per day'),
+                  FilterSubTitle(filterName: 'Wanted Budget'),
+                  Obx(() => FiltersSlider(
+                      count: controller.budget.value,
+                      label: ' stars',
+                      divisions: 4,
+                      maxLabel: 'Open budget',
+                      minLabel: 'As little as possible',
+                      maxRange: 5,
+                      onChanged: (newValue) =>
+                          controller.budget.value = newValue)),
+                  FilterSubTitle(filterName: 'Touring duration per day'),
                   Obx(() => FiltersSlider(
                       count: controller.daysCount.value,
                       label: ' hours per day',
@@ -173,8 +189,8 @@ class FiltersPage extends GetView<TripsController> {
 
                   RoundedButton(
                       title: 'MAKE TRIP',
-                      icon: Icon(FontAwesomeIcons.solidSave,
-                          color: Colors.white, size: 18.0),
+                      icon: Icon(Icons.checklist_outlined,
+                          color: Colors.white, size: 25.0),
                       onPressed: makeTrip),
                 ],
               ),
