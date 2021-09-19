@@ -1,53 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 class RoundedAddButton extends StatelessWidget {
   const RoundedAddButton({
     Key? key,
     required this.title,
-    this.onTap,
+    required this.onTap,
   }) : super(key: key);
   final String title;
-  final void Function()? onTap;
+  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: GestureDetector(
-        onTap: onTap,
-        child: Container(
-          decoration: BoxDecoration(
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 12.0),
+        // width: MySize.getScaledSizeWidth(100),
+        decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10.0),
             border: Border.all(color: Colors.grey[200]!),
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 1,
-                blurRadius: 2,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Center(
-            child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(
-                      FontAwesomeIcons.plusCircle,
-                      color: Colors.grey[500],
-                      size: 18,
-                    ),
-                    SizedBox(
-                      width: 8.0,
-                    ),
-                    Text(
-                      title,
-                    )
-                  ],
-                )),
-          ),
+            color: Get.theme.cardColor),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Icon(
+              FontAwesomeIcons.plusCircle,
+              color: Colors.grey[500],
+              size: 18,
+            ),
+            SizedBox(
+              width: 8.0,
+            ),
+            Text(
+              title,
+              style: Get.theme.textTheme.subtitle2!.copyWith(
+                  color: Get.theme.colorScheme.onBackground,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500),
+            )
+          ],
         ),
       ),
     );
