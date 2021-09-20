@@ -3,8 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:trip_pal_null_safe/controllers/abstract_filters_controllers.dart';
 
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
+import 'package:trip_pal_null_safe/dialogs/availablity_dialog.dart';
+import 'package:trip_pal_null_safe/models/filter.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/screens/filtering/advanced_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
@@ -13,6 +16,7 @@ import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/widgets/extendable/filters.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
@@ -52,7 +56,6 @@ class ManualFilterPage extends GetView<TripsController> {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
-                  
                   // FilterSubTitle(filterName: 'Trip Mode (Number of places per day)'),
                   // Container(
                   //   height: MySize.getScaledSizeHeight(68),
@@ -164,7 +167,7 @@ class ManualFilterPage extends GetView<TripsController> {
                       title: 'MAKE TRIP',
                       icon: Icon(FontAwesomeIcons.solidSave,
                           color: Colors.white, size: 18.0),
-                      onPressed: (){}),
+                      onPressed: () => Get.dialog(NotAvailableDialog()),),
                 ],
               ),
             ),

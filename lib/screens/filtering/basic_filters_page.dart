@@ -67,8 +67,8 @@ class FiltersPage extends GetView<TripsController> {
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
                   FilterSubTitle(filterName: 'Attraction Place types'),
-                  Container(
-                      height: MySize.getScaledSizeHeight(52),
+                  SizedBox(
+                      height: 50,
                       child: ListView.builder(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -77,8 +77,8 @@ class FiltersPage extends GetView<TripsController> {
                             var type = controller.placeType[i];
                             return Obx(() => Padding(
                                   padding: i == 0
-                                      ? Spacing.left(20)
-                                      : EdgeInsets.zero,
+                                      ? Spacing.only(left: 20, right: 4)
+                                      : Spacing.horizontal(4),
                                   child: RoundedGestWidget(
                                       title: type,
                                       selected: controller
@@ -99,7 +99,8 @@ class FiltersPage extends GetView<TripsController> {
                             var quality = controller.placesQuality[i];
                             return Padding(
                               padding:
-                                  i == 0 ? Spacing.left(20) : EdgeInsets.zero,
+                                  i == 0 ? Spacing.only(left: 20, right: 4)
+                                      : Spacing.horizontal(4),
                               child: Obx(()=>RoundedGestWidget(
                                   title: quality,
                                   selected: controller.qualityContentCheck[quality]!.value,
@@ -109,8 +110,8 @@ class FiltersPage extends GetView<TripsController> {
                           })),
                   FilterSubTitle(filterName: 'Tourist Facilities'),
                   FilterCheckBox(
-                      title: 'Dining included.',
-                      description: 'From cafes to fine dining and dast foods.',
+                      title: 'Dining included',
+                      description: 'From cafes and fast foods to fine dining.',
                       isChecked: controller.foodsChecked.value,
                       onTap: (selected) => controller.foodsChecked.toggle()),
                   FilterCheckBox(
@@ -125,20 +126,20 @@ class FiltersPage extends GetView<TripsController> {
                       onTap: (selected) => controller.shopsChecked.toggle()),
                   FilterSubTitle(filterName: 'Trip Mode'),
                   Obx(() => RoundedRadioButton(
-                      description: 'Usual Tourism tour, visit about 5 places per day',
+                      description: 'Usual Tourism tour, visit about 5 places per day.',
                       groupValue: controller.tripMode.value,
                       value: controller.tripModes[0].value,
                       onChanged: (value) =>
                           controller.onClickRadioButton(value))),
                   Obx(() => RoundedRadioButton(
-                      description: 'Visit as much as possible places',
+                      description: 'Visit as much as possible places.',
                       groupValue: controller.tripMode.value,
                       value: controller.tripModes[1].value,
                       onChanged: (value) =>
                           controller.onClickRadioButton(value))),
                   Obx(() => RoundedRadioButton(
                       description:
-                          'Visit couple places and really get to explore them',
+                          'Visit couple places and really get to explore them.',
                       groupValue: controller.tripMode.value,
                       value: controller.tripModes[2].value,
                       onChanged: (value) =>

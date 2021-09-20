@@ -54,7 +54,7 @@ class DBPlaceCard extends StatelessWidget {
                           Row(
                             children: place.properties
                                 .take(2)
-                                .map((element) => Tag(kind: element.name!))
+                                .map((element) => Tag(tag: element.name!))
                                 .toList(),
                           ),
                       ],

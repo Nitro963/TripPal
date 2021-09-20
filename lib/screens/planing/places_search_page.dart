@@ -28,6 +28,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
     ];
 
     return Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Obx(() => FloatingSearchBar(
               backgroundColor: Get.theme.colorScheme.background,
               controller: searchBarController,
@@ -156,7 +157,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
             Container(
                 width: MySize.screenWidth,
                 height: MySize.screenHeight / 3,
-                margin: EdgeInsets.only(bottom: 20.0),
+                margin: EdgeInsets.only(bottom: 14.0),
                 child: Obx(
                   () => GoogleMap(
                     myLocationButtonEnabled: false,
@@ -215,6 +216,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                                     : false.obs,
                                 onTap: () {
                                   controller.updateSelectedSubtype(e);
+
                                   OpenTripMapApi().getPlacesList(
                                       lat: controller.latitude.value,
                                       lon: controller.longitude.value,
@@ -252,7 +254,7 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.place, size: 40),
-                          Text('No ${controller.selectedSubtype} Places!')
+                          Text('No Elemnets!')
                         ],
                       ),
                     ),

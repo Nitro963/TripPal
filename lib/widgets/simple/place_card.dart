@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/dialogs/availablity_dialog.dart';
 import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -17,6 +18,7 @@ class PlaceCard extends StatelessWidget {
   final bool activated;
   @override
   Widget build(BuildContext context) {
+    List<String> tags = place.properties!.kinds!.split(',');
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(
@@ -49,17 +51,16 @@ class PlaceCard extends StatelessWidget {
                         textAlign: TextAlign.start,
                       ),
                       SizedBox(
-                        height: 8.0,
+                        height: 4.0,
                       ),
                       Container(
                         height: MySize.getScaledSizeHeight(35),
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
+                        child: Row(
                           children: <Widget>[
-                            for (String kind
-                                in place.properties!.kinds!.split(','))
+                            for (String tag in tags.take(tags.length>3? 2 :tags.length))
+                            
                               Tag(
-                                kind: kind,
+                                tag: tag.replaceAll(RegExp(r'_'), ' '),
                               ),
                           ],
                         ),
@@ -95,7 +96,7 @@ class PlaceCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${place.properties!.dist!.round()}m from city center',
+                      '${(place.properties!.dist!.round()) / 1000} km from the city center',
                       style: TextStyle(
                           fontWeight: FontWeight.bold, fontSize: 14.0),
                     ),
@@ -105,7 +106,7 @@ class PlaceCard extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         Icon(
-                          FontAwesomeIcons.solidMap,
+                          FontAwesomeIcons.mapMarkedAlt,
                           size: 15.0,
                         ),
                         SizedBox(width: 6.0),
@@ -129,16 +130,19 @@ class BasicInfo extends StatelessWidget {
   }) : super(key: key);
 
   final MapPlace place;
-
   @override
   Widget build(BuildContext context) {
+    String headLineTag = place.properties!.kinds!
+        .split(',')[place.properties!.kinds!.split(',').length - 1]
+        .replaceAll(RegExp(r'_'), ' ')
+        .capitalizeFirst!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Row(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(6.0),
+              padding: EdgeInsets.all(4.0),
               decoration: BoxDecoration(
                 color: Colors.lightBlue[800],
                 borderRadius: BorderRadius.circular(3.0),
@@ -146,7 +150,7 @@ class BasicInfo extends StatelessWidget {
               child: Icon(
                 FontAwesomeIcons.locationArrow,
                 color: Colors.white,
-                size: 13.0,
+                size: 11.0,
               ),
             ),
             SizedBox(width: 4.0),
@@ -154,8 +158,7 @@ class BasicInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  place.properties!.kinds!.split(',')[0].capitalizeFirst! +
-                      ' Place',
+                 headLineTag,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               ],
@@ -177,14 +180,14 @@ class BasicInfo extends StatelessWidget {
           ],
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () => Get.dialog(NotAvailableDialog()),
           child: Row(
             children: <Widget>[
               Text(
                 'More Info',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 14.0,
+                  fontSize: 12.0,
                 ),
               ),
               Icon(

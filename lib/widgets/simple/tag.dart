@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 class Tag extends StatelessWidget {
   const Tag({
     Key? key,
-    required this.kind,
+    required this.tag,
   }) : super(key: key);
-  final String kind;
+  final String tag;
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,12 @@ class Tag extends StatelessWidget {
         margin: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(2.0),
-            color: Get.theme.canvasColor
-            ),
+            color: Get.theme.canvasColor),
         child: Text(
-          kind.capitalizeFirst!,
-          style: Get.theme.textTheme.subtitle2!.copyWith(color: Get.theme.colorScheme.onSecondary, fontWeight: FontWeight.bold),
+          tag.capitalizeFirst!,
+          style: Get.theme.textTheme.subtitle2!.copyWith(
+              color: Get.theme.colorScheme.onSecondary,
+              fontWeight: FontWeight.bold),
         ));
   }
 }
-

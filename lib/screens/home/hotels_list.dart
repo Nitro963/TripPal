@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
+import 'package:trip_pal_null_safe/dialogs/availablity_dialog.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -122,7 +123,7 @@ class HotelsView extends IModelView {
                           ),
                         ),
                         TextButton(
-                          onPressed: null,
+                          onPressed: () => Get.dialog(NotAvailableDialog()),
                           child: Text(
                             'Book now',
                             style: themeData.textTheme.caption!.copyWith(

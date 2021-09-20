@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
+import 'package:trip_pal_null_safe/dialogs/availablity_dialog.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_add_button.dart';
@@ -21,17 +22,11 @@ class LocationsPage extends GetView<TripsController> {
           children: <Widget>[
             FiltersHeader(
                 backButton: true,
-                title: 'Choose preferred countries',
+                title: 'Choose preferred cities',
                 subTitle:
-                    'We\'ll use these countries as base for searching places for you'),
+                    'We\'ll use these cities as base for searching places for you'),
             Space.height(6),
             FilterSubTitle(filterName: 'Most visited cities this year'),
-            // search for places using a floating search bar and photon api
-            // expandable body is a simple implicitly animated list
-            // user can add, disable and delete location
-            // delete with long press
-            // disable with tap
-            // add using floating search bar
             Padding(
               padding: Spacing.only(),
               child: Wrap(
@@ -65,24 +60,7 @@ class LocationsPage extends GetView<TripsController> {
                           ),
                         RoundedAddButton(
                           title: 'Add City',
-                          onTap: () => Get.dialog(Dialog(
-                              child: SizedBox(
-                            height: MySize.getScaledSizeHeight(50),
-                            child: Center(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(FontAwesomeIcons.rocket,
-                                size: 16,
-                                    color: Get.theme.toggleableActiveColor),
-                                Space.width(4),
-                                Text(
-                                  'Not Available Yet!',
-                                  style: Get.theme.textTheme.bodyText1,
-                                )
-                              ],
-                            )),
-                          ))),
+                          onTap: () => Get.dialog(NotAvailableDialog()),
                         )
                       ])),
             ),

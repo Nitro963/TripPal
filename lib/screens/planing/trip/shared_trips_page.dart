@@ -25,7 +25,6 @@ class SharedTripsPage extends AnimatedIModelListView {
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: TripCard(
             days: trip.days.length,
-            // TODO convert to Fancy shimmer image
             imgPath: trip.imageUrl!,
             tripType: TripTypeExtended.stringify(trip.tripeType!),
             location: trip.cities.isNotEmpty ? trip.cities[0] : 'Trip',
@@ -61,7 +60,7 @@ class SharedTripsPage extends AnimatedIModelListView {
               overflow: TextOverflow.clip,
               style: Get.textTheme.headline4!
                   .copyWith(fontWeight: FontWeight.bold)),
-          Text('See some trips planned Manualy by other users',
+          Text('See some trips planed & shared by other users',
               overflow: TextOverflow.clip, style: Get.textTheme.headline5!),
         ],
       ),

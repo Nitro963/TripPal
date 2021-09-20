@@ -59,7 +59,7 @@ class HomeDrawerItem extends StatelessWidget {
                                     padding: Spacing.symmetric(
                                         horizontal: 4, vertical: 2),
                                     decoration: BoxDecoration(
-                                      color: Colors.deepPurple[800]!
+                                      color: Get.theme.primaryColor
                                           .withOpacity(0.5),
                                       borderRadius: BorderRadius.circular(4),
                                     ),

@@ -25,10 +25,10 @@ class RoundedTypeCard extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 6.0),
             // height: 100,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18.0),
+              borderRadius: BorderRadius.circular(12.0),
               border: Border.all(
                   color:
-                      !selected.value ? Colors.grey[100]! : Colors.grey[200]!),
+                      !selected.value ? Colors.grey[350]! : Colors.grey[200]!),
               color: !selected.value
                   ? themeData.cardColor
                   : themeData.colorScheme.surface,

@@ -16,7 +16,6 @@ class SearchBarController extends GetxController {
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
   RxString _query = ''.obs;
-
   bool get isLoading => _isLoading.value;
 
   UnmodifiableListView<Place> get suggestions =>
