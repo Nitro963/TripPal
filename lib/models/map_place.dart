@@ -1,20 +1,21 @@
 class MapPlace {
-  String ?type;
-  String ?id;
-  Geometry ?geometry;
-  Properties ?properties;
+  String? type;
+  String? id;
+  Geometry? geometry;
+  Properties? properties;
 
   MapPlace({this.type, this.id, this.geometry, this.properties});
 
-  MapPlace.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    id = json['id'];
-    geometry = json['geometry'] != null
-        ? new Geometry.fromJson(json['geometry'])
-        : null;
-    properties = json['properties'] != null
-        ? new Properties.fromJson(json['properties'])
-        : null;
+  static MapPlace fromJson(dynamic json) {
+    return MapPlace(
+        type: json['type'],
+        id: json['id'],
+        geometry: json['geometry'] != null
+            ? Geometry.fromJson(json['geometry'])
+            : null,
+        properties: json['properties'] != null
+            ? Properties.fromJson(json['properties'])
+            : null);
   }
 
   Map<String, dynamic> toJson() {
@@ -32,14 +33,16 @@ class MapPlace {
 }
 
 class Geometry {
-  String ?type;
-  List<double> ?coordinates;
+  String? type;
+  List<double>? coordinates;
 
   Geometry({this.type, this.coordinates});
 
-  Geometry.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    coordinates = json['coordinates'].cast<double>();
+  static Geometry fromJson(dynamic json) {
+    return Geometry(
+      type: json['type'],
+      coordinates: json['coordinates'].cast<double>(),
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -53,11 +56,11 @@ class Geometry {
 class Properties {
   String? xid;
   String? name;
-  double ?dist;
-  int ?rate;
-  String ?osm;
-  String ?wikidata;
-  String ?kinds;
+  double? dist;
+  int? rate;
+  String? osm;
+  String? wikidata;
+  String? kinds;
 
   Properties(
       {this.xid,
@@ -68,14 +71,16 @@ class Properties {
       this.wikidata,
       this.kinds});
 
-  Properties.fromJson(Map<String, dynamic> json) {
-    xid = json['xid'];
-    name = json['name'];
-    dist = json['dist'];
-    rate = json['rate'];
-    osm = json['osm'];
-    wikidata = json['wikidata'];
-    kinds = json['kinds'];
+  static Properties fromJson(dynamic json) {
+    return Properties(
+      xid: json['xid'],
+      name: json['name'],
+      dist: json['dist'],
+      rate: json['rate'],
+      osm: json['osm'],
+      wikidata: json['wikidata'],
+      kinds: json['kinds'],
+    );
   }
 
   Map<String, dynamic> toJson() {

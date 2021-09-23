@@ -5,9 +5,9 @@ import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorder
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
-import 'package:trip_pal_null_safe/models/location.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
-import 'package:trip_pal_null_safe/services/open_trip_map_service.dart';
+import 'package:trip_pal_null_safe/services/geocoding_service.dart';
+import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/icon_rounded_widget.dart';
 import 'package:trip_pal_null_safe/widgets/simple/place_card.dart';
@@ -86,20 +86,24 @@ class PlacesSearchPage extends GetView<SearchBarController> {
       children: [
         InkWell(
           onTap: () {
-            OpenTripMapApi().getLocationId(
-                cityName: place.name,
-                onSuccess: (data) {
-                  controller.updateLatLan(Location.fromJson(data).lat!,
-                      Location.fromJson(data).lon!);
-                },
-                onError: (error) {
-                  print(error);
-                });
-            searchBarController.close();
-            Future.delayed(
-              const Duration(milliseconds: 500),
-              () => controller.clear(),
-            );
+            void fetchItem() {
+              Get.find<GeoCodingService>()
+                  .openTripMap
+                  .getLocationId(cityName: place.name)
+                  .then((value) {
+                controller.updateLatLan(value.geometry!.coordinates![1],
+                    value.geometry!.coordinates![0]);
+                searchBarController.close();
+                Future.delayed(
+                  const Duration(milliseconds: 350),
+                  () => controller.clear(),
+                );
+              }).onError((error, stackTrace) {
+                handelError(error, fetchItem);
+              });
+            }
+
+            fetchItem();
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
@@ -209,26 +213,31 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                       scrollDirection: Axis.horizontal,
                       children: <Widget>[
                         ...controller.getSubtypes(controller.selectedType).map(
-                            (e) => RoundedTypeCard(
-                                title: e,
-                                selected: controller.selectedSubtype == e
-                                    ? true.obs
-                                    : false.obs,
-                                onTap: () {
-                                  controller.updateSelectedSubtype(e);
-
-                                  OpenTripMapApi().getPlacesList(
-                                      lat: controller.latitude.value,
-                                      lon: controller.longitude.value,
-                                      radius: 1000000,
-                                      kinds: OpenTripMapTrueLabels[e]!,
-                                      onSuccess: (data) {
-                                        controller.updatemapPlacesList(data);
-                                      },
-                                      onError: (error) {
-                                        print(error);
+                              (e) => RoundedTypeCard(
+                                  title: e,
+                                  selected: controller.selectedSubtype == e
+                                      ? true.obs
+                                      : false.obs,
+                                  onTap: () {
+                                    controller.updateSelectedSubtype(e);
+                                    // TODO show to user async indicator use same logic of home blogger page
+                                    void fetchThenUpdate() {
+                                      Get.find<GeoCodingService>()
+                                          .openTripMap
+                                          .getPlacesList(
+                                              lat: controller.latitude.value,
+                                              lon: controller.longitude.value,
+                                              radius: 100000,
+                                              kinds: OpenTripMapTrueLabels[e]!)
+                                          .then(controller.updatemapPlacesList)
+                                          .onError((error, stackTrace) {
+                                        handelError(error, fetchThenUpdate);
                                       });
-                                }))
+                                    }
+
+                                    fetchThenUpdate();
+                                  }),
+                            )
                       ],
                     ))),
             Obx(() => controller.mapPlacesList.length > 0

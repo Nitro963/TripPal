@@ -4,7 +4,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
-import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/screens/home/users_list.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
@@ -12,7 +11,6 @@ import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/utilities/validators.dart';
 import 'package:dio/dio.dart' as dio;
-import 'dart:developer' as developer;
 
 class Login extends StatefulWidget {
   @override
@@ -260,7 +258,6 @@ class _LoginState extends State<Login> {
           switch (e.response!.statusCode) {
             case 400:
               {
-                developer.log(e.response.toString(), name: '[LOGIN]');
                 Get.showSnackbar(
                   buildErrorSnackBar(
                     'Wrong email or password. Try again or click Forgot Password to reset it.',

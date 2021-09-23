@@ -5,11 +5,10 @@ import 'package:implicitly_animated_reorderable_list/implicitly_animated_reorder
 import 'package:implicitly_animated_reorderable_list/transitions.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
 import 'package:trip_pal_null_safe/controllers/search_bar_controller.dart';
-import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
-import 'package:trip_pal_null_safe/models/location.dart';
 import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
-import 'package:trip_pal_null_safe/services/open_trip_map_service.dart';
+import 'package:trip_pal_null_safe/services/geocoding_service.dart';
+import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class MainMapScreen extends GetView<SearchBarController> {
@@ -85,20 +84,24 @@ class MainMapScreen extends GetView<SearchBarController> {
       children: [
         InkWell(
           onTap: () {
-            OpenTripMapApi().getLocationId(
-                cityName: place.name,
-                onSuccess: (data) {
-                  controller.updateLatLan(Location.fromJson(data).lat!,
-                      Location.fromJson(data).lon!);
-                },
-                onError: (error) {
-                  print(error);
-                });
-            searchBarController.close();
-            Future.delayed(
-              const Duration(milliseconds: 500),
-              () => controller.clear(),
-            );
+            void fetchItem() {
+              Get.find<GeoCodingService>()
+                  .openTripMap
+                  .getLocationId(cityName: place.name)
+                  .then((value) {
+                controller.updateLatLan(value.geometry!.coordinates![1],
+                    value.geometry!.coordinates![0]);
+                searchBarController.close();
+                Future.delayed(
+                  const Duration(milliseconds: 350),
+                  () => controller.clear(),
+                );
+              }).onError((error, stackTrace) {
+                handelError(error, fetchItem);
+              });
+            }
+
+            fetchItem();
           },
           child: Padding(
             padding: const EdgeInsets.all(16),
