@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/location.dart';
 import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
@@ -44,12 +45,12 @@ class OpenTripMapApi {
     });
   }
 
-  Future<MapPlace> getLocationId({
+  Future<Location> getLocationId({
     required String cityName,
   }) async {
-    var ret = await client.get<MapPlace>('/0.1/en/places/geoname',
-        queryParameters: {'name': cityName}, decoder: MapPlace.fromJson);
-    return ret.decodedBody;
+    var ret = await client.get<Map<String,dynamic>>('/0.1/en/places/geoname',
+        queryParameters: {'name': cityName});
+    return Location.fromJson(ret.decodedBody);
   }
 
   Future<List<MapPlace>> getPlacesList({
@@ -73,71 +74,6 @@ class OpenTripMapApi {
             .toList());
     return ret.decodedBody;
   }
-
-// void getHotelsList({
-//   Function(List<Hotel> hotels)? onSuccess,
-//   Function(dynamic error)? onError,
-// }) {
-//   ApiRequest(
-//           url: "https://hotels4.p.rapidapi.com/properties/list",
-//           data: {
-//             "destinationId": _searchController.hotelCityId,
-//             "pageNumber": "1",
-//             "pageSize": "25",
-//             "checkIn": _searchController.checkInDate,
-//             "checkOut": _searchController.checkOutDate,
-//             "adults1": _searchController.adultsCount,
-//             "sortOrder": _searchController.sortOrder,
-//             "locale": "en_US",
-//             "currency": "USD"
-//           },
-//           header: headers1)
-//       .get(
-//     onSuccess: (data) {
-//       onSuccess!((data['data']['body']['searchResults']['results'] as List)
-//           .map((hotelJson) => Hotel.fromJson(hotelJson))
-//           .toList());
-//     },
-//     onError: (error) => {if (onError != null) onError(error)},
-//   );
-// }
-
-// void getHotelDetails({
-//   Function(dynamic data)? onSuccess,
-//   Function(dynamic error)? onError,
-// }) {
-//   ApiRequest(
-//       header: headers1,
-//       url: "https://hotels4.p.rapidapi.com/properties/get-details",
-//       data: {
-//         "id": _searchController.selectedHotelId,
-//         "checkIn": "2020-01-08",
-//         "checkOut": "2020-01-15",
-//         "adults1": "1",
-//         "currency": "USD",
-//         "locale": "en_US"
-//       }).get(
-//     onSuccess: (data) {
-//       onSuccess!(data['data']['body']);
-//     },
-//     onError: (error) => {if (onError != null) onError(error)},
-//   );
-// }
-
-// void getHotelPhotos({
-//   Function(dynamic data)? onSuccess,
-//   Function(dynamic error)? onError,
-// }) {
-//   ApiRequest(
-//       header: headers1,
-//       url: "https://hotels4.p.rapidapi.com/properties/get-hotel-photos",
-//       data: {"id": _searchController.selectedHotelId}).get(
-//     onSuccess: (data) {
-//       onSuccess!(data);
-//     },
-//     onError: (error) => {if (onError != null) onError(error)},
-//   );
-// }
 }
 
 class GeoCodingService extends GetxService {

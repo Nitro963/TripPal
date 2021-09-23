@@ -16,7 +16,7 @@ class Location {
       this.timezone,
       this.status});
 
-  Location.fromJson(Map<String, dynamic> json) {
+  Location.fromJson(dynamic json) {
     name = json['name'];
     country = json['country'];
     lat = json['lat'];

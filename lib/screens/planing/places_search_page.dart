@@ -91,11 +91,11 @@ class PlacesSearchPage extends GetView<SearchBarController> {
                   .openTripMap
                   .getLocationId(cityName: place.name)
                   .then((value) {
-                controller.updateLatLan(value.geometry!.coordinates![1],
-                    value.geometry!.coordinates![0]);
+                controller.updateLatLan(value.lat!,
+                    value.lon!);
                 searchBarController.close();
                 Future.delayed(
-                  const Duration(milliseconds: 350),
+                  const Duration(milliseconds: 5000),
                   () => controller.clear(),
                 );
               }).onError((error, stackTrace) {
