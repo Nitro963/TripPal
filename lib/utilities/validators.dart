@@ -1,5 +1,5 @@
-import 'package:get/get_utils/src/get_utils/get_utils.dart';
 import 'package:get/get.dart';
+import 'package:get/get_utils/src/get_utils/get_utils.dart';
 
 String? validateEmail(val) {
   if (val.isEmpty) return 'Please enter your Email Address'.tr;

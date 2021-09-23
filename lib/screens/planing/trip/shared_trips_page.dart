@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/controllers/trip_planning_controller.dart';
-import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/trips_list_controller.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
-import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
 import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
-import 'package:intl/intl.dart' as intl;
+
 import 'trip_card.dart';
 
 class SharedTripsPage extends AnimatedIModelListView {

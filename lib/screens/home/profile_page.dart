@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
-import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
-import 'package:trip_pal_null_safe/screens/planing/trip/trip_card.dart';
-import 'package:trip_pal_null_safe/utilities/size_config.dart';
-
-import 'profile_card.dart';
-import 'profile_header.dart';
 
 // TODO add saved places
 // TODO read from auth controller

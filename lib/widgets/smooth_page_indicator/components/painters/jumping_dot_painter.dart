@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/jumping_dot_effect.dart';
 
+import '../effects/jumping_dot_effect.dart';
 import 'indicator_painter.dart';
 
 class JumpingDotPainter extends IndicatorPainter {

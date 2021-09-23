@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/map_place.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
-import 'package:trip_pal_null_safe/models/map_place.dart';
 
 class PhotonApi {
   final _client = DioConnect(baseUrl: 'photon.komoot.io');
@@ -32,6 +32,7 @@ class PhotonApi {
 class OpenTripMapApi {
   final String apiKey;
   final DioConnect client;
+
   OpenTripMapApi(
       {this.apiKey =
           '5ae2e3f221c38a28845f05b61f6983d09ef19a35837145ac8fbff9e7'})

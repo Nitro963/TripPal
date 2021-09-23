@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class GrowingIcon extends StatefulWidget {
   final double size;
   final Color startingColor;
@@ -17,6 +16,7 @@ class GrowingIcon extends StatefulWidget {
     required this.endingIcon,
     required this.startingIcon,
   });
+
   @override
   _GrowingIconState createState() => _GrowingIconState();
 }
@@ -53,11 +53,10 @@ class _GrowingIconState extends State<GrowingIcon>
           widget.tapCallBack(_isFav);
         });
       else if (status == AnimationStatus.dismissed)
-        setState(() { 
+        setState(() {
           _isFav = false;
           widget.tapCallBack(_isFav);
-        }
-        );
+        });
     });
     super.initState();
   }
@@ -79,9 +78,8 @@ class _GrowingIconState extends State<GrowingIcon>
               color: _colorAnimation.value,
               size: _sizeAnimation.value,
             ),
-            onPressed: ()  {
-               (_isFav ? _controller.reverse() : _controller.forward());
-             
+            onPressed: () {
+              (_isFav ? _controller.reverse() : _controller.forward());
             });
       },
     );

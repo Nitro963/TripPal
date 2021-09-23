@@ -6,6 +6,7 @@ class Day extends IModel {
   int? dayIndex;
   int? tripIndex;
   List<Activity> activities;
+
   Day({int? id, this.dayIndex, this.tripIndex, this.activities = const []})
       : super(id);
 

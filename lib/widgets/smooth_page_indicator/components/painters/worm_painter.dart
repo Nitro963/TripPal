@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/worm_effect.dart';
 
+import '../effects/worm_effect.dart';
 import 'indicator_painter.dart';
 
 class WormPainter extends IndicatorPainter {

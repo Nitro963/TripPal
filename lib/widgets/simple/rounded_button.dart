@@ -7,6 +7,7 @@ class RoundedButton extends StatelessWidget {
   final String title;
   final void Function()? onPressed;
   final Icon icon;
+
   @override
   Widget build(BuildContext context) {
     return Container(

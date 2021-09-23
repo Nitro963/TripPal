@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'star_animation.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
+
+import 'star_animation.dart';
 
 typedef void RatingChangeCallback(double rating);
 
@@ -28,6 +29,7 @@ class StarRating extends StatefulWidget {
 
 class _StarRatingState extends State<StarRating> with TickerProviderStateMixin {
   late AnimationController rotationController;
+
   @override
   void initState() {
     rotationController = AnimationController(

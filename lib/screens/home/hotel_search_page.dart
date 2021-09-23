@@ -51,11 +51,11 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                         filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
                         child: Container(
                           decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6.0),
-                        color: Get.theme.backgroundColor.withOpacity(0.64),
-                ),
-                          padding:
-                              EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
+                            borderRadius: BorderRadius.circular(6.0),
+                            color: Get.theme.backgroundColor.withOpacity(0.64),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              vertical: 20.0, horizontal: 15.0),
                           child: Form(
                             key: controller.key,
                             child: Column(
@@ -65,7 +65,8 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                                 buildCityFormField(),
                                 buildDateTimeFormField(themeData, context),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     buildDropdownButtonFormField(
                                       'Adults',
@@ -77,15 +78,17 @@ class HotelSearchPage extends GetView<HotelSearchController> {
                                       Spacing.horizontal(5),
                                     ),
                                     buildDropdownButtonFormField(
-                                        'Children', '2', MdiIcons.humanMaleChild,
-                                        (int? val) {
+                                        'Children',
+                                        '2',
+                                        MdiIcons.humanMaleChild, (int? val) {
                                       controller.children = val!;
                                     }, Spacing.only(right: 2)),
                                   ]
                                       .map(
                                         (e) => Container(
                                             margin: Spacing.only(bottom: 10),
-                                            width: MySize.getScaledSizeWidth(150),
+                                            width:
+                                                MySize.getScaledSizeWidth(150),
                                             child: e),
                                       )
                                       .toList(),
@@ -136,6 +139,7 @@ class HotelSearchPage extends GetView<HotelSearchController> {
   }
 
   final cityFormKey = UniqueKey();
+
   TextFormField buildCityFormField() {
     final themeData = Get.theme;
     return TextFormField(

@@ -3,10 +3,10 @@ import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/filter.dart';
 import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
-import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 

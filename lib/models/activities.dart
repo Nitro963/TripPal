@@ -1,10 +1,12 @@
 import 'package:trip_pal_null_safe/models/hotel.dart';
+
 import 'abstract_model.dart';
 
 class Activity extends IModel {
   int? day;
   int? trip;
   Place? place;
+
   Activity({int? id, this.day, this.trip, this.place}) : super(id);
 
   @override

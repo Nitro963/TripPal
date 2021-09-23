@@ -6,6 +6,7 @@ class RoundedWidget extends StatelessWidget {
     required this.title,
   }) : super(key: key);
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

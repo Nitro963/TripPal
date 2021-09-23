@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -14,6 +13,7 @@ class RoundedGestWidget extends StatelessWidget {
   final String title;
   final bool selected;
   final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

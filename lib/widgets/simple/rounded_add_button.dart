@@ -10,6 +10,7 @@ class RoundedAddButton extends StatelessWidget {
   }) : super(key: key);
   final String title;
   final void Function() onTap;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

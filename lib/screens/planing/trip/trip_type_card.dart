@@ -16,6 +16,7 @@ class TripTypeCard extends StatelessWidget {
   final String tripWriter;
   final onTap;
   final String img;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

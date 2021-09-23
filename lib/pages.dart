@@ -11,8 +11,10 @@ import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/screens/apps/tags_app.dart';
 import 'package:trip_pal_null_safe/screens/boarding/boarding.dart';
 import 'package:trip_pal_null_safe/screens/boarding/loading.dart';
+import 'package:trip_pal_null_safe/screens/credentials/login.dart';
+import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
+import 'package:trip_pal_null_safe/screens/credentials/register.dart';
 import 'package:trip_pal_null_safe/screens/details/place_details.dart';
-import 'package:trip_pal_null_safe/screens/details/user_saved_places.dart';
 import 'package:trip_pal_null_safe/screens/editing/edit_profile.dart';
 import 'package:trip_pal_null_safe/screens/filtering/locations_page.dart';
 import 'package:trip_pal_null_safe/screens/filtering/manual_filters.dart';
@@ -22,19 +24,16 @@ import 'package:trip_pal_null_safe/screens/home/main_map_page.dart';
 import 'package:trip_pal_null_safe/screens/home/main_page.dart';
 import 'package:trip_pal_null_safe/screens/home/places_list.dart';
 import 'package:trip_pal_null_safe/screens/home/profile_page.dart';
-import 'package:trip_pal_null_safe/screens/credentials/login.dart';
-import 'package:trip_pal_null_safe/screens/credentials/password_reset.dart';
-import 'package:trip_pal_null_safe/screens/credentials/register.dart';
 import 'package:trip_pal_null_safe/screens/home/user_profile.dart';
 import 'package:trip_pal_null_safe/screens/home/users_list.dart';
 import 'package:trip_pal_null_safe/screens/planing/places_search_page.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/shared_trips_page.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/screens/review/review_writing.dart';
+import 'package:trip_pal_null_safe/screens/review/reviews_list_1.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/buddy.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/places_list.dart';
 import 'package:trip_pal_null_safe/screens/weather_buddy/search_view.dart';
-import 'package:trip_pal_null_safe/screens/review/reviews_list_1.dart';
 import 'package:trip_pal_null_safe/utilities/routes_middleware.dart';
 import 'package:trip_pal_null_safe/widgets/simple/fetch_widget.dart';
 
@@ -82,7 +81,7 @@ List<GetPage> pages = [
     middlewares: [GlobalMiddleWare()],
     binding: BindingsBuilder.put(() => TripsController()),
   ),
-  
+
   GetPage(
     name: '/home/trips/search',
     page: () => PlacesSearchPage(),

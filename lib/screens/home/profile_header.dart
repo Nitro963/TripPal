@@ -15,6 +15,7 @@ class ProfileHeader extends StatelessWidget {
   final String userDisc;
   final image;
   final bool activateButtons;
+
   @override
   Widget build(BuildContext context) {
     return Row(

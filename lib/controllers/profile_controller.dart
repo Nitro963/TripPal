@@ -1,5 +1,5 @@
 import 'dart:collection';
-import 'dart:developer' as dev;
+
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/PlacesSEData.dart';
 import 'package:trip_pal_null_safe/models/map_place.dart';
@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
+
 import 'details_controller.dart';
 
 class ProfileController extends DetailsController {
@@ -21,9 +22,11 @@ class ProfileController extends DetailsController {
   // String imgPath = 'https://loremflickr.com/320/320/person?random=86';
 
   List<MapPlace> userSavedPlaces = List<MapPlace>.empty(growable: true);
+
   // List<Hotel> availableHotels = List<Hotel>.empty(growable: true);
   List<MapPlace> placeSearchResult = List<MapPlace>.empty(growable: true);
   List<Trip> usertrips = List<Trip>.empty(growable: true);
+
   @override
   void onInit() {
     // if (userSavedPlaces.isEmpty)

@@ -4,7 +4,9 @@ import 'package:trip_pal_null_safe/models/sort_policy.dart';
 
 class TripsController extends GetxController {
   final _inAsyncCall = false.obs;
+
   bool get inAsyncCall => _inAsyncCall.value;
+
   set inAsyncCall(bool value) {
     _inAsyncCall.value = value;
   }
@@ -41,11 +43,14 @@ class TripsController extends GetxController {
   ].obs;
 
   RxString selectedQuality = ''.obs;
+
   void selectQuality(String value) {
     selectedQuality.value = value;
     qualityContentCheck.keys.forEach((element) {
-      if (element != value) qualityContentCheck[element]!.value = false;
-      else qualityContentCheck[element]!.value = true;
+      if (element != value)
+        qualityContentCheck[element]!.value = false;
+      else
+        qualityContentCheck[element]!.value = true;
     });
   }
 
@@ -67,6 +72,7 @@ class TripsController extends GetxController {
   RxDouble selectedGuestRating = 5.0.obs;
 
   List<String> get placeType => this._types;
+
   List<String> get placesQuality => this._quality;
   final List<RxString> tripModes = [
     "Standard Trip".obs,
@@ -79,6 +85,7 @@ class TripsController extends GetxController {
       GlobalKey<RefreshIndicatorState>();
 
   RxString tripMode = 'Standard Trip'.obs;
+
   void onClickRadioButton(value) {
     tripMode.value = value;
   }
@@ -107,6 +114,7 @@ class TripsController extends GetxController {
     'Hong Kong',
   ];
   RxList<String> selectedCities = List<String>.empty(growable: true).obs;
+
   void selectLocs() {
     selectedCities.clear();
     for (String city in locsContentCheck.keys)
@@ -118,6 +126,7 @@ class TripsController extends GetxController {
   //Advanced Filters Page
   Map<String, RxBool> placesContentCheck = Map<String, RxBool>();
   List<String> selectedTypes = List<String>.empty(growable: true).obs;
+
   void selectPlaces() {
     selectedTypes.clear();
     placesContentCheck.keys.forEach((element) {

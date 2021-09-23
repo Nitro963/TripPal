@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trip_pal_null_safe/models/device_info.dart';
+import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
-import 'package:trip_pal_null_safe/models/user.dart';
 
 class AuthControl extends GetxService {
   final box = GetStorage();

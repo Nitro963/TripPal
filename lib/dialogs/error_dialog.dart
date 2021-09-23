@@ -6,6 +6,7 @@ import 'package:trip_pal_null_safe/utilities/utils.dart';
 
 class ErrorDialog extends StatelessWidget {
   final ErrorHandlerModel handlerModel;
+
   const ErrorDialog({Key? key, required this.handlerModel}) : super(key: key);
 
   @override

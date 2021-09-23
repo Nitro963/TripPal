@@ -13,6 +13,7 @@ class AvatarOverFlowView extends StatelessWidget {
   final List<Review> reviews;
   final Place place;
   final int count;
+
   AvatarOverFlowView(
       {Key? key,
       required this.reviews,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class FiltersSlider extends StatelessWidget {
   const FiltersSlider({
@@ -20,6 +19,7 @@ class FiltersSlider extends StatelessWidget {
   final String minLabel;
   final String maxLabel;
   final String label;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,6 +65,7 @@ class CustomSliderTheme extends StatelessWidget {
   final int maxRange;
   final int divisions;
   final String label;
+
   @override
   Widget build(BuildContext context) {
     return Container(

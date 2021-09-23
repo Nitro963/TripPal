@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../painters/indicator_painter.dart';
 
 abstract class IndicatorEffect {

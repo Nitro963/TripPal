@@ -1,12 +1,15 @@
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
+
 import 'model_list_view_controller.dart';
 
-abstract class AnimatedListViewController<T extends IModel> extends IModelViewController<T> {
+abstract class AnimatedListViewController<T extends IModel>
+    extends IModelViewController<T> {
   final _closeHeader = false.obs;
   final _topContainer = 0.0.obs;
 
   double get containerSize;
+
   double get closingThreshold;
 
   void onInit() {
@@ -19,5 +22,6 @@ abstract class AnimatedListViewController<T extends IModel> extends IModelViewCo
   }
 
   bool get closeHeader => _closeHeader.value;
+
   double get topContainer => _topContainer.value;
 }

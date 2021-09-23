@@ -7,6 +7,7 @@ class BoardingPage extends StatelessWidget {
     required this.data,
   }) : super(key: key);
   final BoardingModel data;
+
   @override
   Widget build(BuildContext context) {
     return Hero(

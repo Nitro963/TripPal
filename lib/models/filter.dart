@@ -9,6 +9,7 @@ abstract class Filter {
 class RangeFilter extends Filter {
   final int min;
   final int max;
+
   RangeFilter(String attribute, this.min, this.max) : super(attribute);
 }
 
@@ -29,5 +30,6 @@ class QuantityFilter extends Filter {
 
 class DateFilter extends Filter {
   final intl.DateFormat formatter;
+
   DateFilter(String attribute, this.formatter) : super(attribute);
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/apps_controllers.dart';
 import 'package:trip_pal_null_safe/controllers/model_list_view_controller.dart';
@@ -21,6 +20,7 @@ class PlacesDBList extends IModelView {
   // TODO: implement controller
   IModelViewController<IModel> get controller =>
       Get.find<PlacesDBListController>();
+
   @override
   Widget buildViewTile(int index, IModel model, BuildContext context) {
     return DBPlaceCard(

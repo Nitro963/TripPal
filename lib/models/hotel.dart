@@ -17,6 +17,7 @@ class Place extends IModel {
   final int? price;
   final int? type;
   final List<Place> similarPlaces;
+
   Place(
       {id,
       this.name,

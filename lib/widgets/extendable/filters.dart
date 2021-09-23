@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide GetStringUtils;
 import 'package:intl/intl.dart' as intl;
-import 'package:recase/recase.dart' as recase;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:recase/recase.dart' as recase;
 import 'package:trip_pal_null_safe/controllers/abstract_filters_controllers.dart';
+import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 Widget singleChip({IconData? iconData, String? text, bool? isSelected}) {
   final themeData = Get.theme;

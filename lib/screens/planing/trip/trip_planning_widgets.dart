@@ -11,8 +11,10 @@ class PagesIndicators extends GetView<TripPlanningController> {
   final int index;
   final int daysCount;
   final DateTime startDate;
+
   PagesIndicators(this.startDate,
       {required this.index, required this.daysCount});
+
   @override
   Widget build(BuildContext context) {
     final customTheme =
@@ -57,8 +59,10 @@ class PagesIndicatorsAuto extends GetView<TripPlanningControllerAuto> {
   final int index;
   final int daysCount;
   final DateTime startDate;
+
   PagesIndicatorsAuto(this.startDate,
       {required this.index, required this.daysCount});
+
   @override
   Widget build(BuildContext context) {
     final customTheme =
@@ -120,6 +124,7 @@ class PageIndicatorItem extends StatelessWidget {
   final int index;
   final void Function(int) onTapCallBack;
   final timeFormatter = intl.DateFormat('MMMM d,y');
+
   PageIndicatorItem(
       {required this.title,
       required this.date,
@@ -167,11 +172,13 @@ class CustomStepper extends StatelessWidget {
   final Color lineColor;
   final DateTime time;
   final timeFormatter = intl.DateFormat("hh:mm a");
+
   CustomStepper(
       {required this.subType,
       required this.time,
       required this.place,
       this.lineColor = Colors.grey});
+
   @override
   Widget build(BuildContext context) {
     final themeData = Get.theme;
@@ -239,6 +246,7 @@ class LinePainter extends CustomPainter {
   double progress;
   Color color;
   Paint _paint;
+
   LinePainter({this.progress = 100, this.color = Colors.grey})
       : _paint = Paint() {
     this._paint

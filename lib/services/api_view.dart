@@ -100,6 +100,7 @@ class DummyApiView<T extends IModel> implements ApiView<T> {
 class NetworkApiView<T extends IModel> implements ApiView<T> {
   final String _path;
   final DioConnect _client;
+
   NetworkApiView(String baseUrl, String path, Decoder<T> itemBuilder,
       {HttpScheme httpScheme = DEFAULT_CONNECTION_PROTOCOL,
       int connectTimeout = 8000})

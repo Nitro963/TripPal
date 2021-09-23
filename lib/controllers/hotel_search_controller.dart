@@ -15,21 +15,25 @@ class HotelSearchController extends GetxController {
   final key = GlobalKey<FormState>();
 
   String get cityName => _cityName.value;
+
   set cityName(String value) {
     _cityName.value = value;
   }
 
   int get rooms => _rooms.value;
+
   set rooms(int value) {
     _rooms.value = value;
   }
 
   int get adults => _adults.value;
+
   set adults(int value) {
     _adults.value = value;
   }
 
   int get children => _children.value;
+
   set children(int value) {
     _children.value = value;
   }

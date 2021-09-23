@@ -25,6 +25,7 @@ class TripPlanningController extends DetailsController {
   }
 
   int get selectedIndex => _selectedIndex.value;
+
   set selectedIndex(int value) {
     _selectedIndex.value = value;
   }
@@ -91,6 +92,7 @@ class TripPlanningControllerAuto extends GetxController {
   final selectedTrip = 1.obs;
   late final TransformerPageController pageController1;
   late final TransformerPageController pageController2;
+
   void onInit() {
     trip1 = Get.arguments[0];
     trip2 = Get.arguments[1];

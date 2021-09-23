@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../painters/indicator_painter.dart';
 import '../painters/swap_painter.dart';
-
 import 'indicator_effect.dart';
 
 class SwapEffect extends IndicatorEffect {

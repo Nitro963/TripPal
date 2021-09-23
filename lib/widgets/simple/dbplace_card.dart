@@ -10,6 +10,7 @@ import 'package:trip_pal_null_safe/widgets/simple/tag.dart';
 class DBPlaceCard extends StatelessWidget {
   const DBPlaceCard({Key? key, required this.place}) : super(key: key);
   final Place place;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

@@ -1,5 +1,5 @@
-import 'dart:ui';
 import 'dart:developer' as developer;
+import 'dart:ui';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
@@ -50,6 +50,7 @@ class ErrorHandlerModel {
   final IconData headerIcon;
   final String buttonTitle;
   final Function()? callback;
+
   ErrorHandlerModel(
       {required this.header,
       required this.message,

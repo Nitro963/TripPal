@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/widgets/animated/arrangeable_places_list.dart';
 

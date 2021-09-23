@@ -11,6 +11,7 @@ class HighlightText extends StatefulWidget {
   final TextOverflow overflow;
   final double textScaleFactor;
   final int? maxLines;
+
   const HighlightText({
     Key? key,
     this.activeStyle,
@@ -31,6 +32,7 @@ class HighlightText extends StatefulWidget {
 
 class _HighlightTextState extends State<HighlightText> {
   TextStyle get style => widget.style ?? Theme.of(context).textTheme.bodyText1!;
+
   TextStyle get activeStyle =>
       widget.activeStyle ?? style.copyWith(fontWeight: FontWeight.bold);
 
@@ -92,12 +94,16 @@ List<Triplet<int, int, bool>> getQueryHighlights(String? text, String? query) {
         if (idx.first == 0)
           result.add(idx);
         else {
-          result..add(Triplet(0, idx.first, false))..add(idx);
+          result
+            ..add(Triplet(0, idx.first, false))
+            ..add(idx);
         }
       } else if (last.second == idx.first) {
         result.add(idx);
       } else {
-        result..add(Triplet(last.second, idx.first, false))..add(idx);
+        result
+          ..add(Triplet(last.second, idx.first, false))
+          ..add(idx);
       }
 
       if (isLast && idx.second != t.length) {
@@ -118,6 +124,7 @@ class Triplet<A, B, C> {
   B second;
   C third;
   DateTime? time;
+
   Triplet(
     this.first,
     this.second,

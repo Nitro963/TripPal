@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/transformers.dart';
+import 'package:trip_pal_null_safe/widgets/animated/sync_button.dart';
 import 'package:trip_pal_null_safe/widgets/smooth_page_indicator/components/effects/expanding_dots_effect.dart';
 import 'package:trip_pal_null_safe/widgets/smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
-import 'package:trip_pal_null_safe/utilities/transformers.dart';
-import 'package:trip_pal_null_safe/widgets/animated/sync_button.dart';
 
 import 'weather_page.dart';
 

@@ -9,6 +9,7 @@ class Place extends IModel {
   double? lat;
   double? lon;
   String? type;
+
   Place(
       {id,
       required this.name,
@@ -24,6 +25,7 @@ class Place extends IModel {
   bool get hasState => state?.isNotEmpty == true;
 
   bool get isCountry => name == country;
+
   bool get isState => hasState && name == state;
 
   static Place fromJson(dynamic json) {

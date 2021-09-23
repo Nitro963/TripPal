@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
 import 'package:trip_pal_null_safe/screens/filtering/advanced_filters_page.dart';
@@ -15,10 +13,10 @@ import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
-import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_gesture_widget.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_radio_button.dart';
+import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 
 class FiltersPage extends GetView<TripsController> {
   FiltersPage({Key? key}) : super(key: key) {
@@ -98,15 +96,17 @@ class FiltersPage extends GetView<TripsController> {
                           itemBuilder: (ctx, i) {
                             var quality = controller.placesQuality[i];
                             return Padding(
-                              padding:
-                                  i == 0 ? Spacing.only(left: 20, right: 4)
-                                      : Spacing.horizontal(4),
-                              child: Obx(()=>RoundedGestWidget(
-                                  title: quality,
-                                  selected: controller.qualityContentCheck[quality]!.value,
-                                  onTap: () => controller.selectQuality(quality)
-                                          ),
-                            ));
+                                padding: i == 0
+                                    ? Spacing.only(left: 20, right: 4)
+                                    : Spacing.horizontal(4),
+                                child: Obx(
+                                  () => RoundedGestWidget(
+                                      title: quality,
+                                      selected: controller
+                                          .qualityContentCheck[quality]!.value,
+                                      onTap: () =>
+                                          controller.selectQuality(quality)),
+                                ));
                           })),
                   FilterSubTitle(filterName: 'Tourist Facilities'),
                   FilterCheckBox(
@@ -126,7 +126,8 @@ class FiltersPage extends GetView<TripsController> {
                       onTap: (selected) => controller.shopsChecked.toggle()),
                   FilterSubTitle(filterName: 'Trip Mode'),
                   Obx(() => RoundedRadioButton(
-                      description: 'Usual Tourism tour, visit about 5 places per day.',
+                      description:
+                          'Usual Tourism tour, visit about 5 places per day.',
                       groupValue: controller.tripMode.value,
                       value: controller.tripModes[0].value,
                       onChanged: (value) =>
@@ -187,7 +188,6 @@ class FiltersPage extends GetView<TripsController> {
                           DateTime.now().add(const Duration(days: 8))),
                     ),
                   ),
-
                   RoundedButton(
                       title: 'MAKE TRIP',
                       icon: Icon(Icons.checklist_outlined,

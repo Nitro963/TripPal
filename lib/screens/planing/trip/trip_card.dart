@@ -19,6 +19,7 @@ class TripCard extends StatelessWidget {
   final String details;
   final int days;
   final void Function()? onTap;
+
   @override
   Widget build(BuildContext context) {
     return Container(

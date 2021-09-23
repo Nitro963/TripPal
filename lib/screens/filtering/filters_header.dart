@@ -9,10 +9,11 @@ class FilterSubTitle extends StatelessWidget {
     required this.filterName,
   }) : super(key: key);
   final String filterName;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: Spacing.only(left: 20,top: 20,bottom: 10),
+      padding: Spacing.only(left: 20, top: 20, bottom: 10),
       child: Align(
         alignment: Alignment.topLeft,
         child: Text(
@@ -34,6 +35,7 @@ class FiltersHeader extends StatelessWidget {
   final String title;
   final String subTitle;
   final bool backButton;
+
   @override
   Widget build(BuildContext context) {
     return Stack(

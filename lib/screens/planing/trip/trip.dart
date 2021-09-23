@@ -11,10 +11,12 @@ import 'package:trip_pal_null_safe/utilities/transformers.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/model_details_view.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
+
 import 'trip_planning_widgets.dart';
 
 class TripPlan extends DetailsScaffold {
   TripPlanningController get controller => Get.find<TripPlanningController>();
+
   PreferredSizeWidget buildAppBar() {
     return PreferredSize(
       preferredSize: Size(MySize.screenWidth, MySize.getScaledSizeHeight(140)),

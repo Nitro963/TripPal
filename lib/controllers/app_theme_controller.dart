@@ -7,6 +7,7 @@ class AppThemeController extends GetxService {
   final box = GetStorage();
 
   int get themeMode => _themeMode.value;
+
   AppThemeController(int? themeMode)
       : _themeMode = RxInt(themeMode == null ? 1 : themeMode);
 

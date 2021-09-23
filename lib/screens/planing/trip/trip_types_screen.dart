@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+
 import 'trip_type_card.dart';
 
 class TripsPage extends StatelessWidget {

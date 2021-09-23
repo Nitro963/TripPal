@@ -18,6 +18,7 @@ class MainPage extends StatelessWidget {
   MainPage({Key? key}) : super(key: key);
 
   final AppThemeController _controller = Get.find<AppThemeController>();
+
   @override
   Widget build(BuildContext context) {
     Color selected = Themes.getNavigationThemeFromMode(_controller.themeMode)

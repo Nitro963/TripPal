@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:trip_pal_null_safe/models/activities.dart';
-import 'package:trip_pal_null_safe/models/day_item.dart';
 
 class MapController extends GetxController {
   late final GoogleMapController mapController;

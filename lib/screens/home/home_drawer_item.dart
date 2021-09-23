@@ -19,10 +19,11 @@ class HomeDrawerItem extends StatelessWidget {
   final IconData icon;
   final bool availability;
   final bool needLogin;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ! needLogin?onTap : null,
+      onTap: !needLogin ? onTap : null,
       child: Container(
         height: 70.0,
         padding: EdgeInsets.only(right: 16, left: 12),

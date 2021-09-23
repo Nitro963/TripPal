@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/color_transition_effect.dart';
 
+import '../effects/color_transition_effect.dart';
 import 'indicator_painter.dart';
 
 class TransitionPainter extends IndicatorPainter {

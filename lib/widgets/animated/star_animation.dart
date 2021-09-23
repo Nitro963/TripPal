@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
 
 class StarsAnimation extends StatefulWidget {
   final IconData startWidget;
@@ -7,12 +8,14 @@ class StarsAnimation extends StatefulWidget {
   final Color beginColor;
   final Color endColor;
   final double size;
+
   StarsAnimation(
       {required this.startWidget,
       required this.beginColor,
       required this.size,
       required this.endColor,
       required this.endWidget});
+
   @override
   _StarsAnimationState createState() => _StarsAnimationState();
 }

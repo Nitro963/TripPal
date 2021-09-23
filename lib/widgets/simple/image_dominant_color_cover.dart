@@ -6,6 +6,7 @@ class ImageDominantColorCover extends StatelessWidget {
   final BorderRadius? borderRadius;
   final Alignment begin;
   final Alignment end;
+
   const ImageDominantColorCover({
     Key? key,
     required this.provider,

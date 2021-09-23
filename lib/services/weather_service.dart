@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'package:trip_pal_null_safe/models/weather_info.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
+import 'package:trip_pal_null_safe/models/weather_info.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
 class WeatherInfoService {

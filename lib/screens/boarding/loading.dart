@@ -1,6 +1,6 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
-import 'package:dio/dio.dart' as dio;
 import 'package:trip_pal_null_safe/services/notification_service.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/simple/fetch_widget.dart';

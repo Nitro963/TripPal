@@ -37,9 +37,8 @@ class BackendService extends GetxService {
     _netViews['reviews'] = NetworkApiView<Review>(
         LOCAL_SERVER_END_POINT, BASE_URL + '/places-review/', Review.fromJson);
     // TODO update decoder to trip.fromJson
-    _netViews['trips'] =
-        NetworkApiView<Trip>(LOCAL_SERVER_END_POINT, BASE_URL + '/trips/', Trip.fromJson);
-       
+    _netViews['trips'] = NetworkApiView<Trip>(
+        LOCAL_SERVER_END_POINT, BASE_URL + '/trips/', Trip.fromJson);
 
     _netViews.forEach((key, value) {
       value.addRequestModifier((request) {

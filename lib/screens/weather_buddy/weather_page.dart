@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/controllers/weather_buddy_controller.dart';
 import 'package:trip_pal_null_safe/models/weather_info.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/widgets/animated/loading_spinner.dart';
 
 class WeatherPage extends GetView<WeatherBuddyController> {

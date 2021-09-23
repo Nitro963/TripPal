@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/controllers/details_controller.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
+
 // import 'package:trip_pal_null_safe/screens/review/reviews_bar_chart.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
@@ -25,6 +26,7 @@ class PlaceDetailsController extends DetailsController {
   int count = 0;
   final _reviewsHasData = false.obs;
   late final String placeID;
+
   @override
   bool get hasData => super.hasData & _reviewsHasData.value;
 
@@ -84,9 +86,11 @@ class PlaceDetailsBindings extends Bindings {
 class PlaceDetails extends GetView<PlaceDetailsController> {
   Place get place => controller.place;
   late final tag;
+
   PlaceDetails() {
     tag = Get.parameters['place_id'];
   }
+
   @override
   PlaceDetailsController get controller =>
       Get.find<PlaceDetailsController>(tag: tag);

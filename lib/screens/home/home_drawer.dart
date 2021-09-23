@@ -285,6 +285,7 @@ class InfoItem extends StatelessWidget {
   }) : super(key: key);
   final String title;
   final int count;
+
   @override
   Widget build(BuildContext context) {
     return Column(

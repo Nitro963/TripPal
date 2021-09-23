@@ -1,11 +1,11 @@
 class Location {
   String? name;
-  String ?country;
-  double ?lat;
-  double ?lon;
-  int ?population;
-  String ?timezone;
-  String ?status;
+  String? country;
+  double? lat;
+  double? lon;
+  int? population;
+  String? timezone;
+  String? status;
 
   Location(
       {this.name,

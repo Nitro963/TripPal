@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/scrolling_dots_effect.dart';
 
+import '../effects/scrolling_dots_effect.dart';
 import 'indicator_painter.dart';
 
 class ScrollingDotsWithFixedCenterPainter extends IndicatorPainter {

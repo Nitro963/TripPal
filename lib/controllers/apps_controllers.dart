@@ -1,14 +1,14 @@
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
-
 import 'package:trip_pal_null_safe/models/blog.dart';
 import 'package:trip_pal_null_safe/models/filter.dart';
 import 'package:trip_pal_null_safe/models/hotel.dart';
+import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/models/tag.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/api_view.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
-import 'package:trip_pal_null_safe/models/sort_policy.dart';
+
 import 'model_list_view_controller.dart';
 
 class HotelsViewController extends IModelViewController {
@@ -55,6 +55,7 @@ class BlogListViewController extends IModelViewController<Blog> {
         SortPolicy('Likes', 'High to Low', 5, '-likes_count'),
         SortPolicy('Likes', 'Low to High', 6, 'likes_count'),
       ];
+
   @override
   List<Filter> get filteringPolices =>
       [DateFilter('date', intl.DateFormat('yyyy-MM-dd'))];

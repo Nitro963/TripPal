@@ -16,6 +16,7 @@ class PlaceCard extends StatelessWidget {
   final MapPlace place;
   final void Function()? onTap;
   final bool activated;
+
   @override
   Widget build(BuildContext context) {
     List<String> tags = place.properties!.kinds!.split(',');
@@ -57,8 +58,8 @@ class PlaceCard extends StatelessWidget {
                         height: MySize.getScaledSizeHeight(35),
                         child: Row(
                           children: <Widget>[
-                            for (String tag in tags.take(tags.length>3? 2 :tags.length))
-                            
+                            for (String tag
+                                in tags.take(tags.length > 3 ? 2 : tags.length))
                               Tag(
                                 tag: tag.replaceAll(RegExp(r'_'), ' '),
                               ),
@@ -130,6 +131,7 @@ class BasicInfo extends StatelessWidget {
   }) : super(key: key);
 
   final MapPlace place;
+
   @override
   Widget build(BuildContext context) {
     String headLineTag = place.properties!.kinds!
@@ -158,7 +160,7 @@ class BasicInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                 headLineTag,
+                  headLineTag,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               ],

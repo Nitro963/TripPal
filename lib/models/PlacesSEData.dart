@@ -4802,6 +4802,7 @@ List<Map<String, dynamic>> dummyHotels = [
   //   "deals": {}
   // },
 ];
+
 IconData selectIcon(String type) {
   if (type == 'Attractions & Culture')
     return FontAwesomeIcons.guitar;

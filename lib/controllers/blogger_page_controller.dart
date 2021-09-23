@@ -17,7 +17,9 @@ class BloggerPageController extends DetailsController {
 
   UnmodifiableListView<User> get bloggerOfWeek =>
       UnmodifiableListView(_bloggerOfWeek);
+
   UnmodifiableListView<Blog> get freshBlog => UnmodifiableListView(_freshBlog);
+
   UnmodifiableListView<Tag> get hotTags => UnmodifiableListView(_hotTags);
 
   Future<void> _fetchBloggerOfWeek() async {

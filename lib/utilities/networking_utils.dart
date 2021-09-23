@@ -22,6 +22,7 @@ dio.RequestOptions addJsonHeaders(dio.RequestOptions request) {
 class Response<T> {
   final T decodedBody;
   final dio.Response response;
+
   Response(this.response, this.decodedBody);
 }
 

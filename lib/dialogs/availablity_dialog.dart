@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -16,11 +15,10 @@ class NotAvailableDialog extends StatelessWidget {
       height: MySize.getScaledSizeHeight(50),
       child: Center(
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Icon(FontAwesomeIcons.rocket,
-          size: 16,
-              color: Get.theme.toggleableActiveColor),
+              size: 16, color: Get.theme.toggleableActiveColor),
           Space.width(4),
           Text(
             'Not Available Yet!',

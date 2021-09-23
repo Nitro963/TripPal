@@ -1,10 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+
 import '../painters/indicator_painter.dart';
 import '../painters/scrolling_dots_painter.dart';
 import '../painters/scrolling_dots_painter_with_fixed_center.dart';
-
 import 'indicator_effect.dart';
 
 class ScrollingDotsEffect extends IndicatorEffect {

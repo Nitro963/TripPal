@@ -1,8 +1,8 @@
+import 'dart:math' as Math;
+
 import 'package:flutter/material.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_info.dart';
 import 'package:trip_pal_null_safe/widgets/transformer_page_view/transformer_page_view.dart';
-import 'dart:math' as Math;
-
 import 'package:vector_math/vector_math_64.dart';
 
 class AccordionTransformer extends PageTransformer {
@@ -47,6 +47,7 @@ class ThreeDTransformer extends PageTransformer {
 
 class ZoomInPageTransformer extends PageTransformer {
   static const double ZOOM_MAX = 0.5;
+
   @override
   Widget transform(Widget child, TransformInfo info) {
     double position = info.position;

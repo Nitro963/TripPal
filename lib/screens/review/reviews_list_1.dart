@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
 import 'package:trip_pal_null_safe/dialogs/filter_dialog.dart';
 import 'package:trip_pal_null_safe/models/abstract_model.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
@@ -9,7 +10,6 @@ import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/extendable/animated_list_view.dart';
-import 'package:trip_pal_null_safe/controllers/reviews_list_controller.dart';
 import 'package:trip_pal_null_safe/widgets/simple/custom_back_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
 

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 enum TaskCategory { All, Home, Work, Airport, Shopping, Others }
+
 String getCategoryName(TaskCategory cat) => cat.toString().split(".")[1];
 
 Icon categoryIcon(TaskCategory cat) {
@@ -49,10 +50,12 @@ Icon categoryIcon(TaskCategory cat) {
 
 class Task {
   bool done;
+
   //DateTime date;
   String title;
   String note;
   TaskCategory category;
+
   Task(
       {required this.title,
       this.done = false,
@@ -64,6 +67,7 @@ class CategoryData {
   TaskCategory title;
   Icon icon;
   int taskCnt;
+
   CategoryData(
       {required this.title, required this.icon, required this.taskCnt});
 }

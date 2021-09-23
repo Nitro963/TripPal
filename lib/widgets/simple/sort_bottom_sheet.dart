@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:get/get.dart';
+import 'package:trip_pal_null_safe/models/sort_policy.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class SortBottomSheet extends StatelessWidget {

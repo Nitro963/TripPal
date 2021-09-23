@@ -16,6 +16,7 @@ class SearchBarController extends GetxController {
   RxBool _isLoading = false.obs;
   RxList<Place> _suggestions = history.obs;
   RxString _query = ''.obs;
+
   bool get isLoading => _isLoading.value;
 
   UnmodifiableListView<Place> get suggestions =>
@@ -74,6 +75,7 @@ class SearchBarController extends GetxController {
   Location currentLocation = Location();
   RxString markerInfoWindowTitle = 'Burj Khalifa'.obs;
   RxString markerInfoSnip = 'Tower'.obs;
+
   void updateLatLan(double lat, double lon) {
     latitude.value = lat;
     longitude.value = lon;
@@ -137,13 +139,16 @@ class SearchBarController extends GetxController {
   RxString _selectedSubtype = ''.obs;
 
   String get selectedType => _selectedType.value;
+
   String get selectedSubtype => _selectedSubtype.value;
 
   void updateSelectedType(String newType) => _selectedType.value = newType;
+
   void updateSelectedSubtype(String newSubType) =>
       _selectedSubtype.value = newSubType;
 
   RxList<MapPlace> mapPlacesList = List<MapPlace>.empty(growable: true).obs;
+
   void updatemapPlacesList(values) {
     mapPlacesList.clear();
     mapPlacesList.addAll(values);

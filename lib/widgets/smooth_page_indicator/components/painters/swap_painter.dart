@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/swap_effect.dart';
 
+import '../effects/swap_effect.dart';
 import 'indicator_painter.dart';
 
 class SwapPainter extends IndicatorPainter {

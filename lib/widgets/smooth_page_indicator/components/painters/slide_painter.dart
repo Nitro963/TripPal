@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/slide_effect.dart';
 
+import '../effects/slide_effect.dart';
 import 'indicator_painter.dart';
 
 class SlidePainter extends IndicatorPainter {

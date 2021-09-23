@@ -1,5 +1,6 @@
-import 'abstract_model.dart';
 import 'package:intl/intl.dart' as intl;
+
+import 'abstract_model.dart';
 
 class User extends IModel {
   // int id;
@@ -19,8 +20,10 @@ class User extends IModel {
       this.password,
       this.profilePicture,
       this.birthDate,
-      this.gender}):super(id);
+      this.gender})
+      : super(id);
   static final formatter = intl.DateFormat('yyyy-MM-dd');
+
   static User fromJson(dynamic json) {
     return User(
         id: json['id'],
@@ -53,7 +56,6 @@ class User extends IModel {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is User && runtimeType == other.runtimeType && email == other.email;
-  String get name => '$firstName $lastName';
 
- 
+  String get name => '$firstName $lastName';
 }

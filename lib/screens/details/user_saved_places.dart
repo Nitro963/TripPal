@@ -7,6 +7,7 @@ import 'package:trip_pal_null_safe/widgets/simple/place_card.dart';
 
 class SavedPlaces extends GetView<ProfileController> {
   SavedPlaces({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

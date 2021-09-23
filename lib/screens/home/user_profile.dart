@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:trip_pal_null_safe/controllers/details_controller.dart';
-import 'package:trip_pal_null_safe/controllers/profile_controller.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
-import 'package:trip_pal_null_safe/screens/planing/trip/trip.dart';
 import 'package:trip_pal_null_safe/screens/planing/trip/trip_card.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
@@ -17,6 +14,7 @@ import 'profile_header.dart';
 
 class UserProfileController extends DetailsController {
   late final User user;
+
   void onInit() {
     hasData = false;
     super.onInit();

@@ -9,6 +9,7 @@ class FetchController<T> extends Controller {
   final Future<T> Function() buildFetcher;
   final Function(T value) onSuccess;
   final Function(dynamic error, dynamic stackTrace)? onError;
+
   FetchController(this.buildFetcher, {required this.onSuccess, this.onError});
 
   void onReady() {
@@ -27,7 +28,7 @@ class FetchScreen<T> extends GetView<FetchController<T>> {
   Widget build(BuildContext context) {
     MySize.init(context);
     return Scaffold(
-      backgroundColor: Color(0xff19062C) ,
+      backgroundColor: Color(0xff19062C),
       body: Obx(() => !controller.hasError
           ? SplashWidget()
           : Center(child: buildErrorContent(controller.errorModel!))),

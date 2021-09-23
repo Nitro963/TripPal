@@ -14,6 +14,7 @@ class RoundedRadioButton extends StatelessWidget {
   final String groupValue;
   final String? description;
   final void Function(String?)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -34,17 +35,19 @@ class RoundedRadioButton extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(value,
-                      style: Get.theme.textTheme.bodyText2!.copyWith(fontSize: 16.0)),
-                          SizedBox(height: 2.0),
+                      style: Get.theme.textTheme.bodyText2!
+                          .copyWith(fontSize: 16.0)),
+                  SizedBox(height: 2.0),
                   description != null
                       ? FittedBox(
-                        fit: BoxFit.fitWidth,
-                        child: Text(description!,
-                            overflow: TextOverflow.ellipsis,
-                            style: Get.theme.textTheme.bodyText2!.copyWith(
-                              fontSize: 12,
-                                color: Get.theme.colorScheme.onBackground.withOpacity(0.7))),
-                      )
+                          fit: BoxFit.fitWidth,
+                          child: Text(description!,
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.theme.textTheme.bodyText2!.copyWith(
+                                  fontSize: 12,
+                                  color: Get.theme.colorScheme.onBackground
+                                      .withOpacity(0.7))),
+                        )
                       : SizedBox(),
                 ],
               ),

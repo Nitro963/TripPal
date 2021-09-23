@@ -5,7 +5,9 @@ import 'package:trip_pal_null_safe/models/filter.dart';
 
 abstract class FilterWidgetController {
   late final Filter filter;
+
   void reset();
+
   Map<String, String> buildQueryParameters();
 }
 
@@ -51,12 +53,14 @@ class RangeFilterWidgetController extends FilterWidgetController {
   }
 
   int get min => _min.value;
+
   set min(int value) {
     assert(value >= filter.min);
     _min.value = value;
   }
 
   int get max => _max.value;
+
   set max(int value) {
     assert(value <= filter.max);
     _max.value = value;
@@ -79,6 +83,7 @@ class RangeFilterWidgetController extends FilterWidgetController {
   }
 
   final _activated = false.obs;
+
   void toggleActivation() {
     _activated.toggle();
   }
@@ -142,6 +147,7 @@ class DateFilterWidgetController extends FilterWidgetController {
   }
 
   DateTime? get startDate => _startDate;
+
   DateTime? get endDate => _endDate;
 }
 
@@ -167,6 +173,7 @@ class QuantityFilterWidgetController extends FilterWidgetController {
   }
 
   int get start => (_b * (exp(_c * _min.value) - 1)).round();
+
   int get end => (_b * (exp(_c * _max.value) - 1)).round();
 
   double get min => _min.value;
@@ -201,6 +208,7 @@ class QuantityFilterWidgetController extends FilterWidgetController {
   }
 
   final _activated = false.obs;
+
   void toggleActivation() {
     _activated.toggle();
   }

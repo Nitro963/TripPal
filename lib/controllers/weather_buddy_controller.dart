@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
-import 'dart:math';
 import 'dart:developer' as developer;
+import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';

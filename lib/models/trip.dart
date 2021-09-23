@@ -1,5 +1,6 @@
-import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:trip_pal_null_safe/models/user.dart';
+
 import 'abstract_model.dart';
 import 'day.dart';
 
@@ -67,6 +68,7 @@ class Trip extends IModel {
   }
 
   static final dateFormatter = intl.DateFormat('yyyy-MM-dd');
+
   static Trip fromJson(dynamic json) {
     var days = (json['days'] as List).map((element) {
       try {

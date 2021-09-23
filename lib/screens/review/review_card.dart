@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:trip_pal_null_safe/controllers/app_theme_controller.dart';
 import 'package:trip_pal_null_safe/models/review.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/themes.dart';
 import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
-import 'package:intl/intl.dart' as intl;
 import 'package:trip_pal_null_safe/widgets/simple/blend_shimmer_image.dart';
 
 class ReviewCard extends StatelessWidget {
@@ -22,6 +22,7 @@ class ReviewCard extends StatelessWidget {
       this.onPressed,
       required this.review})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(

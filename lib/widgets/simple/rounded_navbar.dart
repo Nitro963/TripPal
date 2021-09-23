@@ -14,13 +14,17 @@ class RoundedNavBar extends StatelessWidget {
   final List<Widget> actions;
   final Widget centerFloatingButton;
   final Color color;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         CustomPaint(
-            size: Size(MySize.screenWidth,  MySize.getScaledSizeHeight(80),), painter: BNBCustomPainter(this.color)),
-       
+            size: Size(
+              MySize.screenWidth,
+              MySize.getScaledSizeHeight(80),
+            ),
+            painter: BNBCustomPainter(this.color)),
         Container(
           width: size.width,
           height: MySize.getScaledSizeHeight(80),
@@ -29,7 +33,7 @@ class RoundedNavBar extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: actions),
         ),
-         Center(heightFactor: 0.6, child: centerFloatingButton),
+        Center(heightFactor: 0.6, child: centerFloatingButton),
       ],
     );
   }
@@ -39,6 +43,7 @@ class BNBCustomPainter extends CustomPainter {
   final Color color;
 
   BNBCustomPainter(this.color);
+
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()
@@ -78,6 +83,7 @@ class RoundedNavBarItem extends StatelessWidget {
   final TextStyle textStyle;
   final String label;
   final iconData;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(

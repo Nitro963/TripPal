@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -10,7 +11,6 @@ import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/utilities/validators.dart';
-import 'package:dio/dio.dart' as dio;
 
 class Login extends StatefulWidget {
   @override
@@ -244,6 +244,7 @@ class _LoginState extends State<Login> {
   }
 
   bool inAsyncCall = false;
+
   void onLoginPressed() async {
     setState(() {
       inAsyncCall = true;

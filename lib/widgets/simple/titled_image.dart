@@ -10,6 +10,7 @@ class TitledImage extends StatelessWidget {
 
   const TitledImage({Key? key, required this.imageUrl, required this.title})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final themeData = Get.theme;

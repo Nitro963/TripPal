@@ -14,6 +14,7 @@ class RoundedTypeCard extends StatelessWidget {
   final IconData? iconName;
   final RxBool selected;
   final onTap;
+
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);

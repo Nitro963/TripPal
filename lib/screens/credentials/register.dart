@@ -1,8 +1,12 @@
+import 'dart:developer' as developer;
+
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart' as intl;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:trip_pal_null_safe/models/user.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
@@ -10,9 +14,6 @@ import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/utilities/validators.dart';
-import 'package:intl/intl.dart' as intl;
-import 'package:dio/dio.dart' as dio;
-import 'dart:developer' as developer;
 
 class SignUp extends StatefulWidget {
   @override
@@ -31,6 +32,7 @@ class _SignUpState extends State<SignUp> {
   final _formatter = intl.DateFormat(intl.DateFormat.YEAR_ABBR_MONTH_DAY);
   final _formKey = GlobalKey<FormState>();
   bool inAsyncCall = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

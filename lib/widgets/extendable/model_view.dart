@@ -15,6 +15,7 @@ import 'package:trip_pal_null_safe/widgets/simple/sort_bottom_sheet.dart';
 
 abstract class IModelView extends GetView<IModelViewController> {
   IconData get tileIcon;
+
   String get title;
 
   Widget buildView(UnmodifiableListView<IModel> items) {

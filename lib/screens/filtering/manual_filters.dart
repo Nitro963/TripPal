@@ -3,25 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-import 'package:trip_pal_null_safe/controllers/abstract_filters_controllers.dart';
-
 import 'package:trip_pal_null_safe/controllers/trips_controller.dart';
 import 'package:trip_pal_null_safe/dialogs/availablity_dialog.dart';
-import 'package:trip_pal_null_safe/models/filter.dart';
 import 'package:trip_pal_null_safe/models/trip.dart';
-import 'package:trip_pal_null_safe/screens/filtering/advanced_filters_page.dart';
 import 'package:trip_pal_null_safe/screens/filtering/filters_header.dart';
 import 'package:trip_pal_null_safe/services/auth_service.dart';
 import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
-import 'package:trip_pal_null_safe/widgets/extendable/filters.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
-import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
-import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_gesture_widget.dart';
-import 'package:trip_pal_null_safe/widgets/simple/rounded_radio_button.dart';
 
 class ManualFilterPage extends GetView<TripsController> {
   ManualFilterPage({Key? key}) : super(key: key) {
@@ -121,7 +113,7 @@ class ManualFilterPage extends GetView<TripsController> {
                   //     ],
                   //   ),
                   // ),
-                  
+
                   FilterSubTitle(filterName: 'Trip Duration'),
                   Container(
                     margin: Spacing.horizontal(20),
@@ -146,28 +138,31 @@ class ManualFilterPage extends GetView<TripsController> {
                     ),
                   ),
                   FilterSubTitle(filterName: 'Your Saved Trip Destinations'),
-                   Padding(
-              padding: Spacing.only(left: 12, right: 12,bottom: 10),
-              child: Wrap(
-                  spacing: 10.0,
-                  alignment: WrapAlignment.center,
-                  runSpacing: 20.0,
-                  children: [
-                    for (String city in controller.cities.reversed.take(5))
-                      new Obx(() => RoundedGestWidget(
-                            title: city,
-                            selected: controller.locsContentCheck[city]!.value,
-                            onTap: () {
-                              controller.locsContentCheck[city]!.toggle();
-                            },
-                          ))
-                  ]),
-            ),
+                  Padding(
+                    padding: Spacing.only(left: 12, right: 12, bottom: 10),
+                    child: Wrap(
+                        spacing: 10.0,
+                        alignment: WrapAlignment.center,
+                        runSpacing: 20.0,
+                        children: [
+                          for (String city
+                              in controller.cities.reversed.take(5))
+                            new Obx(() => RoundedGestWidget(
+                                  title: city,
+                                  selected:
+                                      controller.locsContentCheck[city]!.value,
+                                  onTap: () {
+                                    controller.locsContentCheck[city]!.toggle();
+                                  },
+                                ))
+                        ]),
+                  ),
                   RoundedButton(
-                      title: 'MAKE TRIP',
-                      icon: Icon(FontAwesomeIcons.solidSave,
-                          color: Colors.white, size: 18.0),
-                      onPressed: () => Get.dialog(NotAvailableDialog()),),
+                    title: 'MAKE TRIP',
+                    icon: Icon(FontAwesomeIcons.solidSave,
+                        color: Colors.white, size: 18.0),
+                    onPressed: () => Get.dialog(NotAvailableDialog()),
+                  ),
                 ],
               ),
             ),

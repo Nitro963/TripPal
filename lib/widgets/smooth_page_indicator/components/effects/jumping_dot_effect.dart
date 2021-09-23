@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+
 import '../painters/indicator_painter.dart';
 import '../painters/jumping_dot_painter.dart';
-
 import 'indicator_effect.dart';
 
 class JumpingDotEffect extends IndicatorEffect {
@@ -18,7 +18,7 @@ class JumpingDotEffect extends IndicatorEffect {
     Color dotColor = Colors.grey,
     double strokeWidth = 1.0,
     PaintingStyle paintStyle = PaintingStyle.fill,
-  })  : super(
+  }) : super(
             dotWidth: dotWidth,
             dotHeight: dotHeight,
             spacing: spacing,

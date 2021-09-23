@@ -3,5 +3,6 @@ class SortPolicy {
   final String? message;
   final int index;
   final String attribute;
+
   SortPolicy(this.displayName, this.message, this.index, this.attribute);
 }

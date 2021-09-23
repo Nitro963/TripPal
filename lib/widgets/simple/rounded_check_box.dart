@@ -6,11 +6,16 @@ import 'package:trip_pal_null_safe/utilities/size_config.dart';
 
 class FilterCheckBox extends StatelessWidget {
   FilterCheckBox(
-      {required this.title, required this.onTap, required this.isChecked, this.description});
+      {required this.title,
+      required this.onTap,
+      required this.isChecked,
+      this.description});
+
   final String title;
   final dynamic Function(bool?) onTap;
   final bool isChecked;
   final String? description;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,8 +30,9 @@ class FilterCheckBox extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(title,
-              overflow: TextOverflow.ellipsis,
-              style: Get.theme.textTheme.bodyText2!.copyWith(fontSize: 16.0)),
+                  overflow: TextOverflow.ellipsis,
+                  style:
+                      Get.theme.textTheme.bodyText2!.copyWith(fontSize: 16.0)),
               description != null
                   ? FittedBox(
                       fit: BoxFit.fitWidth,
@@ -40,7 +46,6 @@ class FilterCheckBox extends StatelessWidget {
                   : SizedBox(),
             ],
           ),
-          
           RoundCheckBox(
             borderColor: Get.theme.toggleableActiveColor,
             isChecked: isChecked,

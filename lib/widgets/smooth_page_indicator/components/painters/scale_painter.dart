@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../effects/scale_effect.dart';
 
+import '../effects/scale_effect.dart';
 import 'indicator_painter.dart';
 
 class ScalePainter extends IndicatorPainter {

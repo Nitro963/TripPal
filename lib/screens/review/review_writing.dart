@@ -6,8 +6,8 @@ import 'package:trip_pal_null_safe/models/review.dart';
 import 'package:trip_pal_null_safe/services/backend_service.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
-import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 import 'package:trip_pal_null_safe/utilities/utils.dart';
+import 'package:trip_pal_null_safe/widgets/animated/stars.dart';
 
 class ReviewWriting extends StatefulWidget {
   @override
@@ -18,6 +18,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
   String reviewText = '';
   double rate = 0;
   late final int place;
+
   @override
   void initState() {
     place = Get.arguments;
@@ -25,6 +26,7 @@ class _ReviewWritingState extends State<ReviewWriting> {
   }
 
   bool inAsyncCall = false;
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(

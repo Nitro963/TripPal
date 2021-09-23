@@ -11,8 +11,10 @@ class ProfileCard extends StatelessWidget {
       : super(key: key);
   final String title;
   final String subtitle;
+
   // TODO convert to network path
   final ImageProvider image;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -64,6 +66,7 @@ class ProfileBlockTitle extends StatelessWidget {
     required this.title,
   }) : super(key: key);
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

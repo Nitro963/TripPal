@@ -11,6 +11,7 @@ class NotificationService {
       FlutterLocalNotificationsPlugin();
 
   late final NotificationAppLaunchDetails? _notificationAppLaunchDetails;
+
   NotificationService._internal();
 
   Future<bool?> _initialize() async {
