@@ -1,0 +1,46 @@
+{
+  "settings": {
+    "theme": "theme",
+    "app_title": "TripPal"
+  },
+  "validators": {
+    "wrong_email_or_password": "Wrong Email or Password",
+    "empty_email":"Please enter your Email Address",
+    "invalid_email":"Please enter a valid Email Address!",
+    "empty_password":"Please enter a password",
+    "long_name": "Name length must be under {} character",
+    "password_confirmation": "Password does not match"
+  },
+  "label": {
+    "main": "Main",
+    "email": "Email",
+    "password": "Password",
+    "new_password": "New Password",
+    "welcome_login": "Welcome back to {}",
+    "reset_password": "Reset Password",
+    "verification": "Verification",
+    "verification_code": "Verification Code",
+    "update_password": "Update Password",
+    "confirm_new_password": "Confirm Password",
+    "turn_your_trip_into_an_adventure": "Turn your trip into an adventure",
+    "login_with_social": "Login With social Account",
+    "do_not_have_an_account": "Don't have an account?"
+  },
+  "buttons": {
+    "login": "Login",
+    "forgot_password": "Forgot your password?",
+    "sign_up": "Sign Up",
+    "register": "REGISTER",
+    "reset": "RESET",
+    "verify": "VERIFY",
+    "save": "SAVE",
+    "login_as_guest": "Login as Guest"
+  },
+  "actions": {
+    "home_page_main_action": "Touch the button to increase the counter",
+    "login_page_main_action": "Please provide your credentials to login",
+    "reset_password_page_main_action": "Enter your account email to reset your password",
+    "reset_password_verification_page_main_action": "Enter the 4 digit code sent to your email",
+    "reset_password_update_password_page_main_action": "Complete the following data to recover your account"
+  }
+}

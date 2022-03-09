@@ -1,0 +1,70 @@
+image: "cirrusci/flutter:2.8.1"
+
+stages:
+  - clean
+  - build # All jobs related for building app for iOS and Android
+  - deploy
+
+flutter_clean:
+  stage: clean
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_REF_NAME =~ /release\/(([0-9]+\.)?([0-9]+\.)?([0-9]+)(-([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?(\+[0-9A-Za-z-]+)?)/'
+  script:
+    - flutter clean
+
+
+flutter_build_android: #Job name
+  stage: build # kind of job
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_REF_NAME =~ /release\/(([0-9]+\.)?([0-9]+\.)?([0-9]+)(-([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?(\+[0-9A-Za-z-]+)?)/'
+  variables:
+    FLUTTER_API_URL: '"$PRODUCTION_API_URL"'
+  before_script:
+    - flutter pub get
+  script:
+    - ./build_release.sh prod
+    - cp build/app/outputs/apk/prod/release/app-prod-release.apk app-prod-release.apk
+  artifacts:
+    paths:
+      - build/app/outputs/apk/prod/release/app-prod-release.apk
+      - build/app/outputs/apk/prod/release/output-metadata.json
+
+flutter_build_staging_android:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+    - if: '$CI_COMMIT_REF_NAME =~ /release\/(([0-9]+\.)?([0-9]+\.)?([0-9]+)(-([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?(\+[0-9A-Za-z-]+)?)/'
+  variables:
+    FLUTTER_API_URL: '"$STAGING_API_URL"'
+  before_script:
+    - flutter pub get
+  script:
+    - ./build_release.sh dev
+    - cp build/app/outputs/apk/dev/release/app-dev-release.apk app-dev-release.apk
+  artifacts:
+    paths:
+      - build/app/outputs/apk/dev/release/app-dev-release.apk
+      - build/app/outputs/apk/dev/release/output-metadata.json
+
+deploy-to-server:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
+      variables:
+        APP_NAME: '"$APP_TITLE"-latest.apk'
+    - if: '$CI_COMMIT_REF_NAME =~ /release\/(([0-9]+\.)?([0-9]+\.)?([0-9]+)(-([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?(\+[0-9A-Za-z-]+)?)/'
+      variables:
+        APP_NAME: '"$APP_TITLE"-${BASH_REMATCH[1]}.apk'
+  before_script:
+    # Script to setup the ssh key, you can copy it
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh)'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan -p 65002 $VM_IPADDRESS >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    # TODO

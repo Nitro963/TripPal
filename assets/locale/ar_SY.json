@@ -1,0 +1,48 @@
+{
+  "settings": {
+    "theme": "المظهر",
+    "app_title": "تريب بال"
+  },
+  "validators": {
+    "wrong_email_or_password": "خطأ في كلمة السر أو البريد الإلكتروني",
+    "empty_email":"من فضلك أدخل عنوان بريدك الإلكتروني",
+    "invalid_email":"عنوان البريد الإلكتروني غير صالح",
+    "empty_password":"الرجاء إدخال كلمة سر",
+    "long_name": "يجب أن يكون طول الاسم أقل من {}",
+    "password_confirmation": "كلمة السر غير متطابقة"
+
+  },
+  "label": {
+    "main": "الرئيسية",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة السر",
+    "new_password": "كلمة السر الجديدة",
+    "welcome_login": "أهلاً بك مجددًا في {}",
+    "reset_password": "إعادة تهيئة كلمة السر",
+    "verification": "التحقق",
+    "verification_code": "رمز التحقق",
+    "update_password": "تحديث كلمة السر",
+    "confirm_new_password": "تأكيد كلمة السر",
+    "turn_your_trip_into_an_adventure": "حوّل رحلتك إلى مغامرة",
+    "login_with_social": "تسجيل الدخول باستخدام حسابات التواصل الاجتماعي",
+    "do_not_have_an_account": "ليس لديك حساب؟"
+  },
+  "buttons": {
+    "login": "تسجيل الدخول",
+    "forgot_password": "هل نسيت كلمة السر؟",
+    "sign_up": "التسجيل",
+    "register": "تسجيل",
+    "reset": "إعادة التهيئة",
+    "verify": "تأكيد",
+    "save": "حفظ",
+    "login_as_guest": "تسجيل الدخول كضيف؟"
+  },
+  "actions": {
+    "home_page_main_action": "اضغط الزر لزيادة العداد",
+    "login_page_main_action": "الرجاء تعبئة الحقول لتسجيل الدخول",
+    "reset_password_page_main_action": "الرجاء إدخال البريد الإلكتروني الخاص بحسابك الشخصي",
+    "reset_password_verification_page_main_action": "أدخل الرمز المكون من 4 أرقام المرسل إلى بريدك الإلكتروني",
+    "reset_password_update_password_page_main_action": "أكمل البيانات التالية لاستعادة حسابك"
+  }
+
+}
