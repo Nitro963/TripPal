@@ -1,7 +1,7 @@
 {
   "settings": {
     "theme": "المظهر",
-    "app_title": "تريب بال"
+    "app_title": "تطبيق"
   },
   "validators": {
     "wrong_email_or_password": "خطأ في كلمة السر أو البريد الإلكتروني",
@@ -9,8 +9,10 @@
     "invalid_email":"عنوان البريد الإلكتروني غير صالح",
     "empty_password":"الرجاء إدخال كلمة سر",
     "long_name": "يجب أن يكون طول الاسم أقل من {}",
-    "password_confirmation": "كلمة السر غير متطابقة"
-
+    "password_confirmation": "كلمة السر غير متطابقة",
+    "none_empty_selection": "الرجاء الاختيار",
+    "first_name": "الرجاء تعبئة اسمك",
+    "last_name": "الرجاء تعبئة كنيتك"
   },
   "label": {
     "main": "الرئيسية",
@@ -25,7 +27,12 @@
     "confirm_new_password": "تأكيد كلمة السر",
     "turn_your_trip_into_an_adventure": "حوّل رحلتك إلى مغامرة",
     "login_with_social": "تسجيل الدخول باستخدام حسابات التواصل الاجتماعي",
-    "do_not_have_an_account": "ليس لديك حساب؟"
+    "sign_up_with_social": "التسجيل باستخدام حسابات التواصل الاجتماعي",
+    "do_not_have_an_account": "ليس لديك حساب؟",
+    "already_have_an_account": "لديك حساب؟",
+    "first_name": "الاسم",
+    "last_name": "الكنية",
+    "birthdate": "تاريخ الميلاد"
   },
   "buttons": {
     "login": "تسجيل الدخول",

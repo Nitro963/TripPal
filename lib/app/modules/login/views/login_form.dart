@@ -14,7 +14,6 @@ import '../../../core/generics.dart';
 import '../../../core/values.dart';
 import '../../../routes/app_pages.dart';
 import '../blocs/login_cubit.dart';
-import '../blocs/login_page_states.dart';
 
 class LoginFormHeader extends StatelessWidget {
   const LoginFormHeader({
@@ -28,16 +27,18 @@ class LoginFormHeader extends StatelessWidget {
       child: Text(
         LocaleKeys.label_turn_your_trip_into_an_adventure.tr(),
         textAlign: TextAlign.center,
-        style: TextStyles.h3.apply(color: Colors.black54, fontSizeDelta: -1),
+        style: TextStyles.h3.apply(
+          color: AppColors.navyBlack.withAlpha(150),
+          fontSizeDelta: -1,
+        ),
       ),
     );
   }
 }
 
 class LoginForm extends GetBlocView<LoginCubit> {
-  LoginForm({Key? key, this.onButtonPressed}) : super(key: key);
+  LoginForm({Key? key}) : super(key: key);
 
-  final void Function()? onButtonPressed;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -53,23 +54,24 @@ class LoginForm extends GetBlocView<LoginCubit> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ScreenUtil().setVerticalSpacing(24),
-                BlocBuilder<LoginCubit, LoginState>(
+                BlocBuilder<LoginCubit, BaseAuthState>(
                     bloc: bloc,
                     builder: (context, state) {
-                      return EmailField(
+                      return EmailFieldAlt(
                         errorText: state.emailErrorText,
                         controller: bloc.emailFieldController,
                         hintText: LocaleKeys.label_email.tr(),
                       );
                     }),
                 ScreenUtil().setVerticalSpacing(24),
-                BlocBuilder<LoginCubit, LoginState>(
+                BlocBuilder<LoginCubit, BaseAuthState>(
                   bloc: bloc,
                   builder: (context, state) {
-                    return PasswordField(
+                    return PasswordFieldAlt(
                       showPassword: state.showPassword,
                       errorText: state.passwordErrorText,
                       controller: bloc.passwordFieldController,
+                      onSuffixIconPressed: bloc.toggleShowPassword,
                       hintText: LocaleKeys.label_password.tr(),
                     );
                   },
@@ -126,7 +128,7 @@ class LoginFormFooter extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         CupertinoButton(
-          onPressed: () {},
+          onPressed: () => Get.toNamed(Routes.REST_PASSWORD),
           child: Text(
             LocaleKeys.buttons_forgot_password.tr(),
             style: TextStyles.h4.copyWith(
@@ -188,9 +190,7 @@ class LoginFormFooter extends StatelessWidget {
               style: TextStyles.h5.apply(color: AppColors.pureWhite),
             ),
             CupertinoButton(
-              onPressed: () {
-                // Get.toNamed('/register');
-              },
+              onPressed: () => Get.toNamed(Routes.REGISTER),
               child: Text(
                 LocaleKeys.buttons_sign_up.tr(),
                 style: TextStyles.h5.copyWith(

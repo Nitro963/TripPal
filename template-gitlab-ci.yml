@@ -1,18 +1,7 @@
 image: "cirrusci/flutter:2.8.1"
-
 stages:
-  - clean
   - build # All jobs related for building app for iOS and Android
   - deploy
-
-flutter_clean:
-  stage: clean
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH'
-    - if: '$CI_COMMIT_REF_NAME =~ /release\/(([0-9]+\.)?([0-9]+\.)?([0-9]+)(-([0-9A-Za-z-]+(\.[0-9A-Za-z-]+)*))?(\+[0-9A-Za-z-]+)?)/'
-  script:
-    - flutter clean
-
 
 flutter_build_android: #Job name
   stage: build # kind of job
@@ -22,6 +11,7 @@ flutter_build_android: #Job name
   variables:
     FLUTTER_API_URL: '"$PRODUCTION_API_URL"'
   before_script:
+    - flutter clean
     - flutter pub get
   script:
     - ./build_release.sh prod
@@ -39,6 +29,7 @@ flutter_build_staging_android:
   variables:
     FLUTTER_API_URL: '"$STAGING_API_URL"'
   before_script:
+    - flutter clean
     - flutter pub get
   script:
     - ./build_release.sh dev
@@ -67,4 +58,5 @@ deploy-to-server:
     - ssh-keyscan -p 65002 $VM_IPADDRESS >> ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
   script:
-    # TODO
+    - scp -r -P "$SSH_PORT" app-prod-release.apk $SSH_USER@$VM_IPADDRESS:/home/u268680606/public_html/public_html/builds/$APP_NAME
+    - scp -r -P "$SSH_PORT" app-dev-release.apk $SSH_USER@$VM_IPADDRESS:/home/u268680606/public_html/public_html/builds/Staging-$APP_NAME

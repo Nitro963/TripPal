@@ -4,16 +4,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:untitled/app/core/abstract/bloc/base_auth_state.dart';
+
+import 'package:untitled/app/core/services.dart';
 
 import '../../../../generated/locale_keys.g.dart';
 import '../../../core/abstract/get/get_bloc_view.dart';
 import '../../../core/common_widgets.dart';
 import '../../../core/generics.dart';
-import '../../../core/services.dart';
 import '../../../core/values.dart';
 import '../../../routes/app_pages.dart';
 import '../blocs/login_cubit.dart';
-import '../blocs/login_page_states.dart';
 
 class LoginViewAlt extends GetBlocView<LoginCubit> {
   LoginViewAlt({Key? key}) : super(key: key);
@@ -54,20 +55,20 @@ class LoginViewAlt extends GetBlocView<LoginCubit> {
                   SizedBox(
                     height: ScreenUtil().setHeight(32),
                   ),
-                  BlocBuilder<LoginCubit, LoginState>(
+                  BlocBuilder<LoginCubit, BaseAuthState>(
                     bloc: bloc,
                     builder: (context, state) => Form(
                       key: _formKey,
                       child: Column(
                         children: [
-                          EmailFieldAlt(
+                          EmailField(
                             errorText: state.emailErrorText,
                             labelText: LocaleKeys.label_email.tr,
                           ),
                           SizedBox(
                             height: ScreenUtil().setHeight(24),
                           ),
-                          PasswordFieldAlt(
+                          PasswordField(
                             showPassword: state.showPassword,
                             controller: bloc.passwordFieldController,
                             onSuffixIconPressed: bloc.toggleShowPassword,
@@ -106,7 +107,8 @@ class LoginViewAlt extends GetBlocView<LoginCubit> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () =>
+                                    Get.toNamed(Routes.REST_PASSWORD),
                                 child: Text(
                                   LocaleKeys.buttons_forgot_password.tr,
                                   style: TextStyles.h3

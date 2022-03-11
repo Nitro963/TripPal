@@ -1,40 +1,68 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import '../themes/dark_theme.dart';
-import '../themes/light_theme.dart';
-import '../values/config.dart';
 import '../values/storage_keys.dart';
 
-class ThemeControl extends GetxService {
-  final RxInt _themeMode;
-
+class ThemeService extends ValueNotifier {
   final box = GetStorage();
 
-  int get themeMode => _themeMode.value;
+  final List<ThemeData Function(String langaugeCode)> themeBuilders;
 
-  ThemeControl({int? themeMode})
-      : _themeMode = RxInt(
-            themeMode ?? GetStorage().read<int>(StorageKeys.THEME_MODE) ?? 1);
+  int get themeMode => value;
+
+  ThemeService._internal({int? themeMode, required this.themeBuilders})
+      : super(themeMode ?? GetStorage().read<int>(StorageKeys.THEME_MODE) ?? 0);
+
+  static ThemeService? _instance;
+
+  static ThemeService get instance {
+    return _instance!;
+  }
+
+  static Future<void> initialize(
+      {int? themeMode,
+      required List<ThemeData Function(String langaugeCode)>
+          themeBuilders}) async {
+    assert(themeBuilders.isNotEmpty);
+    if (_instance != null) return;
+
+    _instance = ThemeService._internal(
+        themeMode: themeMode, themeBuilders: themeBuilders);
+  }
 
   Future<void> updateTheme(int themeMode) async {
-    _themeMode.value = themeMode;
+    value = themeMode;
     return box.write(StorageKeys.THEME_MODE, themeMode);
   }
 
-  ThemeData get currentTheme {
-    switch (themeMode) {
-      case 1:
-        return LightTheme.build(
-            Get.locale?.languageCode ?? Config.DEFAULT_LANGUAGE_CODE);
-      case 2:
-        return DarkTheme.build(
-            Get.locale?.languageCode ?? Config.DEFAULT_LANGUAGE_CODE);
-      default:
-        return LightTheme.build(
-            Get.locale?.languageCode ?? Config.DEFAULT_LANGUAGE_CODE);
-    }
+  ThemeData build(BuildContext context) {
+    return themeBuilders[themeMode]
+        .call(Localizations.localeOf(context).languageCode);
+  }
+}
+
+class ThemeBuilder extends StatefulWidget {
+  const ThemeBuilder({Key? key, required this.builder}) : super(key: key);
+  final Widget Function(BuildContext) builder;
+  @override
+  _ThemeBuilderState createState() => _ThemeBuilderState();
+}
+
+class _ThemeBuilderState extends State<ThemeBuilder> {
+  @override
+  void initState() {
+    ThemeService.instance.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Theme(
+      data: ThemeService.instance.build(context),
+      child: widget.builder(context),
+    );
   }
 }

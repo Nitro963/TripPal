@@ -26,8 +26,6 @@ abstract class LightTheme {
         secondaryContainer: AppColors.redVelvet,
         tertiary: AppColors.navyBlack,
         tertiaryContainer: AppColors.pureWhite,
-        surface: AppColors.darkGrey,
-        onSurface: AppColors.halfGrey,
       ),
       textTheme: AppTextTheme.build(languageCode),
       cardTheme: const CardTheme(

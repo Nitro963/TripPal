@@ -430,15 +430,15 @@ class DateTimePicker extends FormField<String> {
 
   /// Text that suggests what sort of date input the field accepts.
   ///
-  /// Displayed on top of the date input [child] (i.e., at the same location on the
-  /// screen where text may be entered in the input [child]) when the input
+  /// Displayed on top of the date input [builder] (i.e., at the same location on the
+  /// screen where text may be entered in the input [builder]) when the input
   /// [isEmpty] and either (a) [hintText] is null or (b) the input has the focus.
   final String? dateHintText;
 
   /// Text that suggests what sort of time input the field accepts.
   ///
-  /// Displayed on top of the time input [child] (i.e., at the same location on the
-  /// screen where text may be entered in the input [child]) when the input
+  /// Displayed on top of the time input [builder] (i.e., at the same location on the
+  /// screen where text may be entered in the input [builder]) when the input
   /// [isEmpty] and either (a) [hintText] is null or (b) the input has the focus.
   final String? timeHintText;
 

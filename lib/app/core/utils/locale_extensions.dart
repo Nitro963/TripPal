@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-extension UtilsRTL on Locale {
+extension IsRTL on Locale {
   static const List<String> _rtlLanguages = <String>[
     'ar', // Arabic
     'fa', // Farsi

@@ -10,6 +10,9 @@ abstract class  LocaleKeys {
   static const validators_empty_password = 'validators.empty_password';
   static const validators_long_name = 'validators.long_name';
   static const validators_password_confirmation = 'validators.password_confirmation';
+  static const validators_none_empty_selection = 'validators.none_empty_selection';
+  static const validators_first_name = 'validators.first_name';
+  static const validators_last_name = 'validators.last_name';
   static const validators = 'validators';
   static const label_main = 'label.main';
   static const label_email = 'label.email';
@@ -23,7 +26,12 @@ abstract class  LocaleKeys {
   static const label_confirm_new_password = 'label.confirm_new_password';
   static const label_turn_your_trip_into_an_adventure = 'label.turn_your_trip_into_an_adventure';
   static const label_login_with_social = 'label.login_with_social';
+  static const label_sign_up_with_social = 'label.sign_up_with_social';
   static const label_do_not_have_an_account = 'label.do_not_have_an_account';
+  static const label_already_have_an_account = 'label.already_have_an_account';
+  static const label_first_name = 'label.first_name';
+  static const label_last_name = 'label.last_name';
+  static const label_birthdate = 'label.birthdate';
   static const label = 'label';
   static const buttons_login = 'buttons.login';
   static const buttons_forgot_password = 'buttons.forgot_password';

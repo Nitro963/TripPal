@@ -17,7 +17,7 @@ class CodegenLoader extends AssetLoader{
   static const Map<String,dynamic> ar_SY = {
   "settings": {
     "theme": "المظهر",
-    "app_title": "تريب بال"
+    "app_title": "تطبيق"
   },
   "validators": {
     "wrong_email_or_password": "خطأ في كلمة السر أو البريد الإلكتروني",
@@ -25,7 +25,10 @@ class CodegenLoader extends AssetLoader{
     "invalid_email": "عنوان البريد الإلكتروني غير صالح",
     "empty_password": "الرجاء إدخال كلمة سر",
     "long_name": "يجب أن يكون طول الاسم أقل من {}",
-    "password_confirmation": "كلمة السر غير متطابقة"
+    "password_confirmation": "كلمة السر غير متطابقة",
+    "none_empty_selection": "الرجاء الاختيار",
+    "first_name": "الرجاء تعبئة اسمك",
+    "last_name": "الرجاء تعبئة كنيتك"
   },
   "label": {
     "main": "الرئيسية",
@@ -40,7 +43,12 @@ class CodegenLoader extends AssetLoader{
     "confirm_new_password": "تأكيد كلمة السر",
     "turn_your_trip_into_an_adventure": "حوّل رحلتك إلى مغامرة",
     "login_with_social": "تسجيل الدخول باستخدام حسابات التواصل الاجتماعي",
-    "do_not_have_an_account": "ليس لديك حساب؟"
+    "sign_up_with_social": "التسجيل باستخدام حسابات التواصل الاجتماعي",
+    "do_not_have_an_account": "ليس لديك حساب؟",
+    "already_have_an_account": "لديك حساب؟",
+    "first_name": "الاسم",
+    "last_name": "الكنية",
+    "birthdate": "تاريخ الميلاد"
   },
   "buttons": {
     "login": "تسجيل الدخول",
@@ -63,7 +71,7 @@ class CodegenLoader extends AssetLoader{
 static const Map<String,dynamic> en_US = {
   "settings": {
     "theme": "theme",
-    "app_title": "TripPal"
+    "app_title": "App"
   },
   "validators": {
     "wrong_email_or_password": "Wrong Email or Password",
@@ -71,7 +79,10 @@ static const Map<String,dynamic> en_US = {
     "invalid_email": "Please enter a valid Email Address!",
     "empty_password": "Please enter a password",
     "long_name": "Name length must be under {} character",
-    "password_confirmation": "Password does not match"
+    "password_confirmation": "Password does not match",
+    "none_empty_selection": "Please select",
+    "first_name": "Please fill your first name",
+    "last_name": "Please fill your last name"
   },
   "label": {
     "main": "Main",
@@ -86,7 +97,12 @@ static const Map<String,dynamic> en_US = {
     "confirm_new_password": "Confirm Password",
     "turn_your_trip_into_an_adventure": "Turn your trip into an adventure",
     "login_with_social": "Login With social Account",
-    "do_not_have_an_account": "Don't have an account?"
+    "sign_up_with_social": "Sign up With social Account",
+    "do_not_have_an_account": "Don't have an account?",
+    "already_have_an_account": "Already have an account?",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "birthdate": "Birthdate"
   },
   "buttons": {
     "login": "Login",

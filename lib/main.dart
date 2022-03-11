@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-import 'app/core/services.dart';
-import 'app/core/values.dart';
+import 'package:untitled/app/core/services.dart';
+import 'package:untitled/app/core/values.dart';
+
+import 'app/core/themes.dart';
 import 'app/routes/app_pages.dart';
 
 Future<void> initializeDependencies() async {
@@ -17,6 +18,10 @@ Future<void> initializeDependencies() async {
   await Future.wait([
     LocalizationService.initialize(),
     NotificationService.initialize(),
+    ThemeService.initialize(themeBuilders: [
+      LightTheme.build,
+      DarkTheme.build,
+    ]),
     FCMService.initialize(),
   ]);
 }
@@ -36,30 +41,22 @@ Future<void> main() async {
             title: Environment.APP_TITLE,
             initialRoute: AppPages.INITIAL,
             getPages: AppPages.routes,
-            locale: LocalizationService.instance.currentLocale,
-            localizationsDelegates: const [
-              GlobalWidgetsLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
             initialBinding: BindingsBuilder(() {
-              Get.put(ThemeControl());
               Get.put(GetWidgetBuilder());
               FlutterNativeSplash.remove();
             }),
             builder: (context, child) {
               ScreenUtil.init(
                 BoxConstraints(
-                    maxWidth: MediaQuery.of(context).size.width,
-                    maxHeight: MediaQuery.of(context).size.height),
+                  maxWidth: MediaQuery.of(context).size.width,
+                  maxHeight: MediaQuery.of(context).size.height,
+                ),
                 context: context,
                 designSize: const Size(375.0, 812.0),
               );
-              return Obx(
-                () => Theme(
-                  data: Get.find<ThemeControl>().currentTheme,
-                  child: child!,
-                ),
+              return LocalizationsBuilder(
+                builder: (context) =>
+                    ThemeBuilder(builder: (context) => child!),
               );
             },
           ),

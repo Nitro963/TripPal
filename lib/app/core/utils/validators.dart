@@ -26,4 +26,15 @@ abstract class Validators {
           : (val! != password)
               ? LocaleKeys.validators_password_confirmation.tr()
               : null;
+
+  static String? validateNoneEmptySelection(val) {
+    if (val == null) return LocaleKeys.validators_none_empty_selection.tr();
+    return null;
+  }
+
+  static String? validateFirstName(String? val) =>
+      val == null || val.isEmpty ? LocaleKeys.validators_first_name.tr() : null;
+
+  static String? validateLastName(String? val) =>
+      val == null || val.isEmpty ? LocaleKeys.validators_last_name.tr() : null;
 }

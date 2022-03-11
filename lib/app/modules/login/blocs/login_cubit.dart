@@ -1,10 +1,9 @@
 import '../../../core/bases.dart';
 import '../../../core/control_mixins.dart';
-import 'login_page_states.dart';
 
-class LoginCubit extends BaseCubit<LoginState>
+class LoginCubit extends BaseCubit<BaseAuthState>
     with PasswordFieldControlMixin, EmailFieldControlMixin {
-  LoginCubit() : super(LoginState('', '', showPassword: false));
+  LoginCubit() : super(BaseAuthState());
 
   @override
   bool get showPassword => state.showPassword;

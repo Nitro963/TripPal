@@ -53,7 +53,7 @@ class Avatar extends StatelessWidget {
             Container(
               width: _dimensions.width,
               height: _dimensions.height,
-              clipBehavior: Clip.antiAlias,
+              clipBehavior: Clip.antiAliasWithSaveLayer,
               decoration: BoxDecoration(
                 color: bgColor,
                 shape: BoxShape.circle,

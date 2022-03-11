@@ -25,7 +25,11 @@ class BoardingView extends GetBlocView<BoardingCubit> {
             PageView.builder(
               controller: bloc.controller,
               itemCount: bloc.totalPages,
-              itemBuilder: (_, __) => const SizedBox(),
+              itemBuilder: (_, __) => Container(
+                height: double.infinity,
+                width: double.infinity,
+                color: const Color(0xff495057),
+              ),
             ),
             TransformerPageView.children(
               children: bloc.state.data
