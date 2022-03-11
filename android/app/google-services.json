@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1050977755350",
-    "project_id": "untitled-4cc4a",
-    "storage_bucket": "untitled-4cc4a.appspot.com"
+    "project_number": "537263155410",
+    "project_id": "trip-pal-flutter-7f32d",
+    "storage_bucket": "trip-pal-flutter-7f32d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1050977755350:android:8a14ec36829014db6ba977",
+        "mobilesdk_app_id": "1:537263155410:android:b6f064fb49bd50d9fba50b",
         "android_client_info": {
-          "package_name": "com.example.untitled"
+          "package_name": "com.example.trip_pal_null_safe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1050977755350-2moss94vmfde7ape6u02l0h4scp0dj9c.apps.googleusercontent.com",
+          "client_id": "537263155410-1djcvd1nj1mk9h5f1earvidapctjmdtr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBzj_2A0j6H_SUc0kjeFLohgx6G-Uz8nCc"
+          "current_key": "AIzaSyC89fHHFZy6TNuHKO_cud75F5N2wcR_HZQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1050977755350-2moss94vmfde7ape6u02l0h4scp0dj9c.apps.googleusercontent.com",
+              "client_id": "537263155410-1djcvd1nj1mk9h5f1earvidapctjmdtr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

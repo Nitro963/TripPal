@@ -34,8 +34,8 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 apply plugin: 'com.google.gms.google-services'
 
 def dartEnvironmentVariables = [
-        APP_TITLE: 'Untitled',
-        APP_ID: 'com.example.untitled'
+        APP_TITLE: 'TripPal',
+        APP_ID: 'com.example.trip_pal_null_safe'
 ]
 
 if (project.hasProperty('dart-defines')) {
@@ -68,17 +68,16 @@ android {
         resValue "string", "app_title", dartEnvironmentVariables.APP_TITLE
     }
 
-    flavorDimensions "ozone"
+    flavorDimensions "trip-pal"
 
     productFlavors {
         dev {
-            dimension "ozone"
-            applicationIdSuffix ".dev"
+            dimension "trip-pal"
             resValue "string", "app_title", "${dartEnvironmentVariables.APP_TITLE} Dev"
             versionNameSuffix ".dev"
         }
         prod {
-            dimension "ozone"
+            dimension "trip-pal"
         }
     }
 
