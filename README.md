@@ -15,6 +15,7 @@
   <img alt="GetX" src="https://img.shields.io/badge/state-GetX-8A2BE2">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Android-3DDC84?logo=android&logoColor=white">
   <img alt="Firebase" src="https://img.shields.io/badge/push-Firebase%20Cloud%20Messaging-FFCA28?logo=firebase&logoColor=black">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-green.svg"></a>
 </p>
 
 > 🖥️ **Backend:** the Django REST API this app talks to lives in its own repository –
@@ -180,3 +181,7 @@ See the backend's Swagger docs (`/api/swagger/`) for the full contract.
 
 Built as a team project by [Nitro963](https://github.com/Nitro963), [amgad123](https://github.com/amgad123) and
 [MuhammadNsearaty](https://github.com/MuhammadNsearaty).
+
+## License
+
+Released under the [MIT License](LICENSE).
