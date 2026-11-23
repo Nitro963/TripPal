@@ -35,22 +35,20 @@ class Place extends IModel {
       this.similarPlaces = const []})
       : super(id);
 
+  static double? _toDouble(dynamic value) => (value as num?)?.toDouble();
+
   static Place fromJson(dynamic json) {
-    if (json['properties'] != null) {
-      List x = (json['properties'] as List).map(Property.fromJson).toList();
-      print(x.length);
-    }
     return Place(
         id: json['id'],
         name: json['name'],
         description: json['description'],
-        latitude: json['latitude'],
-        longitude: json['longitude'],
+        latitude: _toDouble(json['latitude']),
+        longitude: _toDouble(json['longitude']),
         address: json['address'],
-        distance: json['distance'],
+        distance: _toDouble(json['distance']),
         image: json['image'],
         cityName: json['city_name'],
-        guestRating: json['guest_rating'],
+        guestRating: _toDouble(json['guest_rating']),
         properties: json['properties'] != null
             ? (json['properties'] as List).map(Property.fromJson).toList()
             : [],

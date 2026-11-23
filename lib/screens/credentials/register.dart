@@ -227,10 +227,10 @@ class _SignUpState extends State<SignUp> {
           switch (e.response!.statusCode) {
             case 400:
               {
-                developer.log(e.response.toString(), name: '[LOGIN]');
+                developer.log(e.response.toString(), name: '[REGISTER]');
                 Get.showSnackbar(
                   buildErrorSnackBar(
-                    'Wrong email or password. Try again or click Forgot Password to reset it.',
+                    _registerErrorMessage(e.response!.data),
                     position: SnackPosition.TOP,
                     margin: EdgeInsets.only(top: 20),
                     duration: Duration(seconds: 4),
@@ -244,11 +244,24 @@ class _SignUpState extends State<SignUp> {
           }
         }
         handelError(e, onSignUpPressed);
+      } catch (e) {
+        handelError(e, onSignUpPressed);
       }
     }
     setState(() {
       inAsyncCall = false;
     });
+  }
+
+  // DRF validation errors look like {"email": ["... already exists."]}
+  String _registerErrorMessage(dynamic data) {
+    if (data is Map && data.isNotEmpty) {
+      final first = data.values.first;
+      final text = first is List && first.isNotEmpty ? first.first : first;
+      if (text != null && text.toString().isNotEmpty)
+        return text.toString().capitalizeFirst!;
+    }
+    return 'Could not create your account, please check your details.';
   }
 
   Widget buildFormFooter() {

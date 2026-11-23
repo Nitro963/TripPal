@@ -53,14 +53,16 @@ class Trip extends IModel {
 
   @override
   Map<String, dynamic> toJson() {
-    var days = this.days.map((e) => e.toJson());
+    var days = this.days.map((e) => e.toJson()).toList();
     return {
+      'id': this.id,
       'user': this.user?.toJson(),
       'days': days,
       'start_date': startDate != null
           ? intl.DateFormat("yyyy-MM-dd").format(startDate!)
           : null,
-      'trip_type': TripTypeExtended.tripTypeToInt(this.tripeType!),
+      'trip_type': TripTypeExtended.tripTypeToInt(
+          this.tripeType ?? TripType.Extended),
       'cities': this.cities,
       'image': this.imageUrl
     };

@@ -153,12 +153,15 @@ class _ReviewWritingState extends State<ReviewWriting> {
             },
             (data) => Review.fromJson(data)).then((value) {
           setState(() {
-            inAsyncCall = true;
+            inAsyncCall = false;
           });
           Get.back();
           Future.delayed(Duration(milliseconds: 200),
               () => Get.dialog(ReviewDialog(review: value)));
         }).onError((error, stackTrace) {
+          setState(() {
+            inAsyncCall = false;
+          });
           handelError(error, sendReview);
         });
       }

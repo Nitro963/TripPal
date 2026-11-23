@@ -34,8 +34,16 @@ final kSecondaryFiltersTitleStyle = TextStyle(
   fontSize: 18.0,
 );
 
-const LOCAL_SERVER_END_POINT = 'trippal-server.herokuapp.com';
-const DEFAULT_CONNECTION_PROTOCOL = HttpScheme.https;
+// Backend host (and optional port), configurable at build time, e.g.
+// flutter run --dart-define=API_HOST=10.0.2.2:8000 --dart-define=API_USE_HTTPS=false
+const LOCAL_SERVER_END_POINT = String.fromEnvironment('API_HOST',
+    defaultValue: 'trippal-server.herokuapp.com');
+const DEFAULT_CONNECTION_PROTOCOL =
+    bool.fromEnvironment('API_USE_HTTPS', defaultValue: true)
+        ? HttpScheme.https
+        : HttpScheme.http;
+// OpenWeatherMap key for the Weather Buddy: --dart-define=OPENWEATHER_API_KEY=...
+const OPENWEATHER_API_KEY = String.fromEnvironment('OPENWEATHER_API_KEY');
 const BASE_URL = '/api';
 const JSON_HEADERS = {
   'Accept': 'application/json',

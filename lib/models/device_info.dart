@@ -99,7 +99,7 @@ class DeviceInfo extends IModel {
         appVersion: json['app_version'],
         buildNumber: json['build_number'],
         fcmToken: json['fcm_token'],
-        osVersion: json['version'],
+        osVersion: json['os_version'],
         brand: json['brand'],
         model: json['model'],
         os: json['os']);

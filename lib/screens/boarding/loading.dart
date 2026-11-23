@@ -32,18 +32,18 @@ class SplashBindings extends Bindings {
   }
 
   void onError(error, stackTrace) {
-    if (error is dio.DioError) {
-      var controller = Get.find<FetchController<void>>();
-      if (error.type == dio.DioErrorType.response) {
-        switch (error.response!.statusCode) {
-          case 401:
-            Get.find<AuthControl>().onUnauthorizedError();
-            return;
-        }
+    var controller = Get.find<FetchController<void>>();
+    if (error is dio.DioError && error.type == dio.DioErrorType.response) {
+      switch (error.response!.statusCode) {
+        case 401:
+          Get.find<AuthControl>().onUnauthorizedError();
+          return;
       }
-      controller.errorModel =
-          ErrorHandlerModel.fromError(error, controller.onReady);
-      controller.hasError = true;
     }
+    // any other failure (network, Firebase, ...) shows the retry screen
+    // instead of leaving the splash screen spinning forever
+    controller.errorModel =
+        ErrorHandlerModel.fromError(error, controller.onReady);
+    controller.hasError = true;
   }
 }

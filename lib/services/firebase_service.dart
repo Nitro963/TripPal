@@ -31,7 +31,9 @@ class FCMService {
         name: 'FIREBASE');
     if (message.data.isNotEmpty) {
       NotificationService.instance.showPlainNotification(
-          message.hashCode, message.data['title'], message.data['body'],
+          message.hashCode,
+          message.data['title'] ?? 'TripPal',
+          message.data['body'] ?? '',
           payload: message.data['payload']);
     }
   }

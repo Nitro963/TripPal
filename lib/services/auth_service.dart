@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:trip_pal_null_safe/models/device_info.dart';
@@ -57,8 +59,18 @@ class AuthControl extends GetxService {
   void onUnauthorizedError() {
     currentUser = null;
     _token = null;
+    // forget the revoked token, otherwise every app start retries it
+    box.remove('token');
     Get.offAllNamed('/home');
-    // box.write('token', null);
+  }
+
+  // Registering the device (FCM token) must not block signing in.
+  Future<void> _tryUpdateUserDeviceInfo() async {
+    try {
+      await _updateUserDeviceInfo();
+    } catch (e) {
+      developer.log('device registration failed', name: 'AUTH', error: e);
+    }
   }
 
   Future<User> login({required String email, required String password}) async {
@@ -67,7 +79,7 @@ class AuthControl extends GetxService {
       _token = data['token'];
       return User.fromJson(data['user']);
     });
-    await _updateUserDeviceInfo();
+    await _tryUpdateUserDeviceInfo();
     currentUser = res.decodedBody;
     box.write('token', token);
     return res.decodedBody;
@@ -78,6 +90,7 @@ class AuthControl extends GetxService {
       _token = data['token'];
       return User.fromJson(data['user']);
     });
+    await _tryUpdateUserDeviceInfo();
     currentUser = res.decodedBody;
     box.write('token', token);
     return res.decodedBody;

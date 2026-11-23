@@ -132,7 +132,7 @@ class NetworkApiView<T extends IModel> implements ApiView<T> {
 
   @override
   Future<T> putItem(int id, T item) async {
-    final response = await _client.put<T>(_path + '/$id', item);
+    final response = await _client.put<T>(_path + '$id/', item);
     return response.decodedBody;
   }
 

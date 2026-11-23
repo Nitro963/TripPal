@@ -21,11 +21,12 @@ class WeatherInfo {
   static WeatherInfo fromOpenWeatherMapJson(dynamic json) {
     return WeatherInfo(
       cityName: json['name'],
-      temperature: json['main']['temp'],
-      humidity: json['main']['humidity'],
-      cloudiness: json['clouds']['all'],
-      timeZoneShift: json['timezone'],
-      windSpeed: json['wind']['speed'],
+      // OpenWeatherMap sends whole numbers as ints (e.g. "temp": 24)
+      temperature: (json['main']['temp'] as num).toDouble(),
+      humidity: (json['main']['humidity'] as num).toInt(),
+      cloudiness: (json['clouds']['all'] as num).toInt(),
+      timeZoneShift: (json['timezone'] as num).toInt(),
+      windSpeed: (json['wind']['speed'] as num).toDouble(),
       weatherMainCondition: json['weather'][0]['main'],
       weatherIcon: json['weather'][0]['icon'],
     );
