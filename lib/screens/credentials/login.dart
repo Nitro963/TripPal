@@ -277,6 +277,8 @@ class _LoginState extends State<Login> {
           }
         }
         handelError(e, onLoginPressed);
+      } catch (e) {
+        handelError(e, onLoginPressed);
       }
     }
     setState(() {

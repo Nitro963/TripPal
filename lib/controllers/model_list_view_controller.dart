@@ -85,7 +85,8 @@ abstract class IModelViewController<T extends IModel> extends Controller {
   }
 
   Future<void> onReachedEnd() async {
-    if (_currentCount == _items.length) return;
+    // the scroll listener fires repeatedly at the edge; load one page at a time
+    if (_isLoading.value || _currentCount == _items.length) return;
     _isLoading.value = true;
     try {
       var res = await api.getAllElements(
@@ -100,6 +101,7 @@ abstract class IModelViewController<T extends IModel> extends Controller {
       _isLoading.value = false;
       _items.addAll(res.results);
     } catch (e) {
+      _isLoading.value = false;
       handelError(e, onReachedEnd);
     }
   }

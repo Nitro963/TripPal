@@ -50,6 +50,8 @@ android {
         multiDexEnabled true
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        // Google Maps key is read from android/local.properties (git-ignored): MAPS_API_KEY=...
+        manifestPlaceholders = [mapsApiKey: localProperties.getProperty('MAPS_API_KEY', '')]
     }
 
     signingConfigs {

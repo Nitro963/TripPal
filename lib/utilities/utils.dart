@@ -73,12 +73,21 @@ class ErrorHandlerModel {
           400 <= error.response!.statusCode! &&
           error.response!.statusCode! < 500) {
         developer.log(error.response.toString(), name: 'HANDLER_MODEL');
+        if (error.response!.statusCode == 401 && handel) {
+          Get.find<AuthControl>().onUnauthorizedError();
+        }
+        // the body is usually a JSON object, but can be a list or plain text
+        final data = error.response!.data;
+        final Map<String, dynamic> problems = data is Map
+            ? Map<String, dynamic>.from(data)
+            : (data is List && data.isNotEmpty ? {'error': data} : {});
+        final message = problems.remove('message');
         if (error.response!.statusCode != 404)
           return ErrorHandlerModel(
             header: 'Error',
             headerIcon: MdiIcons.alertCircleOutline,
-            message: error.response!.data['message'] ?? '',
-            problems: error.response!.data,
+            message: message?.toString() ?? '',
+            problems: problems,
             callback: closeCallBack
                 ? () {
                     Get.back();
@@ -86,9 +95,6 @@ class ErrorHandlerModel {
                 : null,
             buttonTitle: closeCallBack ? 'CLOSE' : 'TRY AGAIN',
           );
-        if (error.response!.statusCode == 401 && handel) {
-          Get.find<AuthControl>().onUnauthorizedError();
-        }
       }
     }
     return ErrorHandlerModel(

@@ -27,7 +27,9 @@ class User extends IModel {
         firstName: json['first_name'],
         lastName: json['last_name'],
         email: json['email'],
-        profilePicture: json['profile_picture'],
+        // new accounts have no picture; the UI expects an image URL
+        profilePicture: json['profile_picture'] ??
+            'https://loremflickr.com/320/320/person?random=${json['id'] ?? 0}',
         gender: json['gender'],
         birthDate: json['birthday'] != null
             ? formatter.parse(json['birthday']!)

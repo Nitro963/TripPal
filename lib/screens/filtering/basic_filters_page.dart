@@ -12,6 +12,7 @@ import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/error_handlers.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 import 'package:trip_pal_null_safe/utilities/size_config.dart';
+import 'package:trip_pal_null_safe/utilities/utils.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_button.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_slider.dart';
 import 'package:trip_pal_null_safe/widgets/simple/rounded_check_box.dart';
@@ -139,14 +140,29 @@ class FiltersPage extends GetView<TripsController> {
       connectTimeout: 1000 * 120 * 2);
 
   void makeTrip() {
+    // the planner needs at least one place type (HIS, CUL, NAT, ...)
+    if (!controller.placesContentCheck.values.any((checked) => checked.value)) {
+      Get.showSnackbar(
+          buildErrorSnackBar('Select at least one place type first.'));
+      return;
+    }
     controller.inAsyncCall = true;
     client
-        .post<List<Trip>>('/api/trips/auto/', controller.serializePreferences(),
+        .post<List<Trip>>(BASE_URL + '/trips/auto/',
+            controller.serializePreferences(),
             headers: {
               'Authorization': 'Token ${Get.find<AuthControl>().token}'
             },
-            decoder: (data) =>
-                data['trips'].map<Trip>((json) => Trip.fromJson(json)).toList())
+            decoder: (data) {
+              // a trip that could not be saved comes back as {"message": ...}
+              final trips = (data['trips'] as List)
+                  .where((json) => json is Map && json['days'] != null)
+                  .map<Trip>((json) => Trip.fromJson(json))
+                  .toList();
+              if (trips.length < 2)
+                throw Exception('The planner could not build two trips');
+              return trips;
+            })
         .then((response) {
       controller.inAsyncCall = false;
       Get.toNamed('/home/trips/auto/details', arguments: response.decodedBody);

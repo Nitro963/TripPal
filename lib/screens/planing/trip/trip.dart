@@ -199,7 +199,7 @@ class TripPlanAuto extends GetView<TripPlanningControllerAuto> {
             TransformerPageView(
                 pageController: controller.pageController2,
                 physics: BouncingScrollPhysics(),
-                itemCount: controller.trip1.days.length,
+                itemCount: controller.trip2.days.length,
                 duration: Duration(seconds: 1),
                 onPageChanged: (index) {
                   controller.selectedIndex = index;

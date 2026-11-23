@@ -3,17 +3,19 @@ import 'abstract_model.dart';
 
 class Activity extends IModel {
   int? day;
-  int? trip;
+  // position of the activity inside its day
+  int? index;
   Place? place;
-  Activity({int? id, this.day, this.trip, this.place}) : super(id);
+  Activity({int? id, this.day, this.index, this.place}) : super(id);
 
   @override
   Map<String, dynamic> toJson() {
+    // the backend expects the place primary key, not the nested object
     return {
       'id': this.id,
       'day': this.day,
-      'trip': this.trip,
-      'place': this.place?.toJson(),
+      'index': this.index,
+      'place': this.place?.id,
     };
   }
 
@@ -21,7 +23,7 @@ class Activity extends IModel {
     return Activity(
       id: json['id'],
       day: json['day'],
-      trip: json['trip'],
+      index: json['index'],
       place: json['place'] != null ? Place.fromJson(json['place']) : null,
     );
   }

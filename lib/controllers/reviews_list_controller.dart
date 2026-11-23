@@ -32,8 +32,8 @@ class ReviewsListController extends AnimatedListViewController {
 
   List<SortPolicy> get sortPolices => [
         SortPolicy('None', null, 0, 'null'),
-        SortPolicy('Rate', 'Low to High', 1, '-overall_rating'),
-        SortPolicy('Rate', 'High to Low', 2, 'overall_rating'),
+        SortPolicy('Rate', 'Low to High', 1, 'overall_rating'),
+        SortPolicy('Rate', 'High to Low', 2, '-overall_rating'),
         SortPolicy('Date', 'Most recent', 3, '-date'),
         SortPolicy('Date', 'Oldest first', 4, 'date'),
       ];

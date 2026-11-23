@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:trip_pal_null_safe/models/weather_info.dart';
 import 'package:trip_pal_null_safe/models/place.dart';
+import 'package:trip_pal_null_safe/utilities/constants.dart';
 import 'package:trip_pal_null_safe/utilities/networking_utils.dart';
 
 class WeatherInfoService {
@@ -10,7 +11,7 @@ class WeatherInfoService {
   final weatherPath = '/data/2.5/weather';
   final String apiKey;
 
-  WeatherInfoService({this.apiKey = 'd136f87331b0bd808daa2fe6de21e662'}) {
+  WeatherInfoService({this.apiKey = OPENWEATHER_API_KEY}) {
     _client.defaultDecoder = WeatherInfo.fromOpenWeatherMapJson;
     _client.requestModifiers.add((request) {
       request.queryParameters
